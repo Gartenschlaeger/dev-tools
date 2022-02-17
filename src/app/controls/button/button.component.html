@@ -1,0 +1,13 @@
+<button
+    type="{{ isSubmit ? 'submit' : 'button' }}"
+    class="px-3 py-2 rounded"
+    [ngClass]="{
+        'bg-blue-600 hover:bg-blue-700 text-white': type == 'primary',
+        'bg-gray-100 hover:bg-gray-200 text-gray-700': type == 'secondary',
+        ' hover:bg-red-100 text-gray-800 hover:text-red-800': type == 'danger'
+    }"
+    [disabled]="isDisabled"
+    (click)="click.emit()"
+>
+    <ng-content></ng-content>
+</button>

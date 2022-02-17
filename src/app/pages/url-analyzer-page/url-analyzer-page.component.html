@@ -1,1 +1,13 @@
-<p>url-analyzer-page works!</p>
+<h1 class="text-2xl">URL Analyzer</h1>
+<hr class="my-3" />
+
+<form (ngSubmit)="onSubmit(form)" #form="ngForm">
+    <form-group>
+        <form-textarea [(ngModel)]="url" name="url" placeholder="Please enter a URL" class="mb-2"></form-textarea>
+    </form-group>
+
+    <div class="text-right space-x-1">
+        <app-button type="danger" (click)="onReset()">Reset</app-button>
+        <app-button type="primary" [isSubmit]="true">Analyze</app-button>
+    </div>
+</form>

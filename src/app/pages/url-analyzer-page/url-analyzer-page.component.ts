@@ -1,14 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core'
+import { NgForm } from '@angular/forms'
 
 @Component({
-  selector: 'app-url-analyzer-page',
-  templateUrl: './url-analyzer-page.component.html',
+    selector: 'app-url-analyzer-page',
+    templateUrl: './url-analyzer-page.component.html',
 })
-export class UrlAnalyzerPageComponent implements OnInit {
+export class UrlAnalyzerPageComponent {
+    url?: string
 
-  constructor() { }
+    @ViewChild('form') form!: ElementRef<HTMLFormElement>
 
-  ngOnInit(): void {
-  }
+    onSubmit(form: NgForm) {
+        console.log('onSubmit', form)
+    }
 
+    onReset() {
+        this.url = ''
+    }
 }
