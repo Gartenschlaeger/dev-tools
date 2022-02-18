@@ -8,7 +8,9 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
 })
 export class FormTextComponent implements ControlValueAccessor {
     value?: string
-    @Input() name?: string
+
+    @Input() id?: string
+    @Input() placeholder?: string
 
     onChange = (obj: any) => {}
     onTouch = (event: FocusEvent) => {}
