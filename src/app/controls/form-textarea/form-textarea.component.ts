@@ -4,7 +4,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
 @Component({
     selector: 'form-textarea',
     templateUrl: './form-textarea.component.html',
-    providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => FormTextareaComponent), multi: true }],
+    providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => FormTextareaComponent), multi: true }]
 })
 export class FormTextareaComponent implements ControlValueAccessor {
     value = ''
@@ -13,7 +13,7 @@ export class FormTextareaComponent implements ControlValueAccessor {
     @Input() placeholder?: string
 
     onChange = (obj: any) => {}
-    onTouch = (event: FocusEvent) => {}
+    onTouch = (obj: any) => {}
 
     writeValue(obj: any): void {
         this.value = obj

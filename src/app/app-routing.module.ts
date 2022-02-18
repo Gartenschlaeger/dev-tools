@@ -6,11 +6,11 @@ import { UrlAnalyzerPageComponent } from 'src/app/pages/url-analyzer-page/url-an
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'home' },
     { path: 'home', component: HomePageComponent },
-    { path: 'url-analyzer', component: UrlAnalyzerPageComponent },
+    { path: 'url-analyzer', component: UrlAnalyzerPageComponent }
 ]
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule],
+    exports: [RouterModule]
 })
 export class AppRoutingModule {}

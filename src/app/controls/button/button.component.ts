@@ -5,7 +5,7 @@ export type ControlType = 'primary' | 'secondary' | 'danger'
 
 @Component({
     selector: 'app-button',
-    templateUrl: './button.component.html',
+    templateUrl: './button.component.html'
 })
 export class ButtonComponent implements ControlValueAccessor {
     @Input() type: ControlType = 'primary'

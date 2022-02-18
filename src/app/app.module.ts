@@ -9,6 +9,7 @@ import { AppComponent } from './app.component'
 import { ButtonComponent } from './controls/button/button.component'
 import { FormGroupComponent } from './controls/form-group/form-group.component'
 import { FormTextareaComponent } from './controls/form-textarea/form-textarea.component'
+import { FormValidationMessageComponent } from './controls/form-validation-message/form-validation-message.component'
 import { NavigationLinkComponent } from './controls/navigation-link/navigation-link.component'
 import { HomePageComponent } from './pages/home-page/home-page.component'
 import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer-page.component'
@@ -24,9 +25,10 @@ import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer
         FormTextComponent,
         FormTextareaComponent,
         FormGroupComponent,
+        FormValidationMessageComponent
     ],
     imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, FormsModule],
     providers: [],
-    bootstrap: [AppComponent],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}

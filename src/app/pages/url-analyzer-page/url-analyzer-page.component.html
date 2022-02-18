@@ -3,7 +3,15 @@
 
 <form (ngSubmit)="onSubmit(form)" #form="ngForm">
     <form-group>
-        <form-textarea [(ngModel)]="url" name="url" placeholder="Please enter a URL" class="mb-2"></form-textarea>
+        <form-textarea
+            [(ngModel)]="url"
+            name="url"
+            placeholder="Please enter a URL"
+            class="mb-2"
+            required
+            #urlControl="ngModel"
+        ></form-textarea>
+        <form-validation-message [control]="urlControl">URL has an invalid format</form-validation-message>
     </form-group>
 
     <div class="text-right space-x-1">
