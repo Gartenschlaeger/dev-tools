@@ -1,11 +1,12 @@
 <button
     type="submit"
     class="rounded px-3 py-2"
-    [disabled]="parentForm?.invalid"
+    (click)="clickHandler()"
+    [disabled]="disableIfInvalid && parentForm?.invalid"
     [ngClass]="
-        parentForm?.valid
-            ? ['bg-blue-600', 'hover:bg-blue-700', 'text-white']
-            : ['bg-blue-400', 'text-white', 'cursor-not-allowed']
+        disableIfInvalid && parentForm?.invalid
+            ? ['bg-blue-400', 'text-white', 'cursor-not-allowed']
+            : ['bg-blue-600', 'hover:bg-blue-700', 'text-white']
     "
 >
     <ng-content></ng-content>

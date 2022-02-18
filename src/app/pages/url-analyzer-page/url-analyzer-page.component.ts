@@ -18,10 +18,13 @@ export class UrlAnalyzerPageComponent implements OnInit {
         return new FormGroup({
             url: new FormControl('', {
                 validators: [Validators.required]
-            }),
-            name: new FormControl('', {
-                validators: [Validators.required, Validators.pattern('\\d+')]
             })
         })
+    }
+
+    submitHandler() {
+        if (this.urlAnalyzerFormGroup.valid) {
+            console.log('todo')
+        }
     }
 }

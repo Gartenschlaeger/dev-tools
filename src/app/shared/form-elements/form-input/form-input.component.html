@@ -17,4 +17,5 @@
         (input)="inputHandler($event)"
         (blur)="touchedHandler($event)"
     />
+    <form-field-errors *ngIf="!label" [formField]="formField"></form-field-errors>
 </div>
