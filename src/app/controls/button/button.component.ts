@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core'
-import { ControlValueAccessor } from '@angular/forms'
+import { NgForm } from '@angular/forms'
 
 export type ControlType = 'primary' | 'secondary' | 'danger'
 
@@ -7,22 +7,28 @@ export type ControlType = 'primary' | 'secondary' | 'danger'
     selector: 'app-button',
     templateUrl: './button.component.html'
 })
-export class ButtonComponent implements ControlValueAccessor {
+export class ButtonComponent {
     @Input() type: ControlType = 'primary'
-    @Input() isDisabled: boolean = false
+    @Input() isDisabled: boolean | null = false
     @Input() isSubmit: boolean = false
+    @Input() form?: NgForm
 
-    @Output() click = new EventEmitter()
+    @Output() clickEmitter = new EventEmitter()
 
-    writeValue(obj: any): void {
-        console.log('writeValue')
+    isClickable(): boolean {
+        if (this.form && this.form?.invalid) {
+            return false
+        }
+        if (this.isDisabled) {
+            return false
+        }
+
+        return true
     }
 
-    registerOnChange(fn: any): void {
-        console.log('registerOnChange')
-    }
-
-    registerOnTouched(fn: any): void {
-        console.log('registerOnTouched')
+    clickHandler() {
+        if (this.isClickable()) {
+            this.clickEmitter.emit()
+        }
     }
 }

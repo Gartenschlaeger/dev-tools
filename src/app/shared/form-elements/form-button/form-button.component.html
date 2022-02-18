@@ -1,0 +1,12 @@
+<button
+    type="submit"
+    class="rounded px-3 py-2"
+    [disabled]="parentForm?.invalid"
+    [ngClass]="
+        parentForm?.valid
+            ? ['bg-blue-600', 'hover:bg-blue-700', 'text-white']
+            : ['bg-blue-400', 'text-white', 'cursor-not-allowed']
+    "
+>
+    <ng-content></ng-content>
+</button>

@@ -1,20 +1,27 @@
-import { Component, ElementRef, ViewChild } from '@angular/core'
-import { NgForm } from '@angular/forms'
+import { Component, OnInit } from '@angular/core'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
 
 @Component({
     selector: 'app-url-analyzer-page',
     templateUrl: './url-analyzer-page.component.html'
 })
-export class UrlAnalyzerPageComponent {
+export class UrlAnalyzerPageComponent implements OnInit {
     url?: string
 
-    @ViewChild('form') form!: ElementRef<HTMLFormElement>
+    public urlAnalyzerFormGroup!: FormGroup
 
-    onSubmit(form: NgForm) {
-        console.log('onSubmit', form.form)
+    ngOnInit(): void {
+        this.urlAnalyzerFormGroup = this.generateFormGroup()
     }
 
-    onReset() {
-        this.url = ''
+    generateFormGroup(): FormGroup {
+        return new FormGroup({
+            url: new FormControl('', {
+                validators: [Validators.required]
+            }),
+            name: new FormControl('', {
+                validators: [Validators.required, Validators.pattern('\\d+')]
+            })
+        })
     }
 }
