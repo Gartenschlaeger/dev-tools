@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { StringBuilder } from 'src/app/helper/string-builder'
 import { FormService } from 'src/app/services/form-service.service'
 
 interface DockerRunEnvironmentVariable {
@@ -14,7 +15,11 @@ interface DockerRunEnvironmentVariable {
 export class DockerRunPageComponent implements OnInit {
     groupScript!: FormGroup
     groupEnv!: FormGroup
-    envVariables: DockerRunEnvironmentVariable[] = []
+    envVariables: DockerRunEnvironmentVariable[] = [
+        { name: 'TZ', value: 'europe/berlin' },
+        { name: 'data-path', value: '/var/mysql/data' },
+        { name: 'logs-path', value: '/var/log/mysql' }
+    ]
     generatedScript: string = ''
 
     constructor(public formService: FormService) {}
@@ -26,12 +31,18 @@ export class DockerRunPageComponent implements OnInit {
 
     defineFormGroupScript(): FormGroup {
         return new FormGroup({
-            imageName: new FormControl('', {
+            imageName: new FormControl('mysql', {
                 validators: [Validators.required]
             }),
-            imageLabel: new FormControl('latest', {
+            imageLabel: new FormControl('v5.6', {
                 validators: []
-            })
+            }),
+            containerName: new FormControl('db-main', {
+                validators: [Validators.pattern('^[a-zA-Z_-]+$')]
+            }),
+            dettached: new FormControl(true, {}),
+            multiline: new FormControl(false, {}),
+            shortparams: new FormControl(true, {})
         })
     }
 
@@ -51,23 +62,43 @@ export class DockerRunPageComponent implements OnInit {
     }
 
     generateScript(): string {
-        console.log('generateScript')
+        const imageName: string = this.groupScript.value.imageName
+        const imageLabel: string = this.groupScript.value.imageLabel
+        const containerName: string = this.groupScript.value.containerName
+        const multiline: boolean = this.groupScript.value.multiline
+        const shortparams: boolean = this.groupScript.value.shortparams
+        const dettached: boolean = this.groupScript.value.dettached
 
-        const imageName = this.formService.getControlValue(this.groupScript, 'imageName')
-        const imageLabel = this.formService.getControlValue(this.groupScript, 'imageLabel')
+        const multilineStr = multiline ? ' \\\n' : ' '
 
-        let result = 'docker run \\\n'
+        const builder = new StringBuilder()
+        builder.append('docker run')
+
+        if (dettached) {
+            builder.append(shortparams ? ' -d' : ' --detach')
+        }
+
+        builder.append(multilineStr)
+
+        if (containerName) {
+            builder.append(`--name="${containerName}"`, multilineStr)
+        }
 
         for (let i = 0; i < this.envVariables.length; i++) {
-            result += `  -e "${this.envVariables[i].name}=${this.envVariables[i].value}" \\\n`
+            builder.append(
+                shortparams ? '-e' : '--env',
+                '="',
+                this.envVariables[i].name,
+                '=',
+                this.envVariables[i].value,
+                '"',
+                multilineStr
+            )
         }
 
-        result += `  -d ${imageName}`
-        if (imageLabel) {
-            result += `:${imageLabel}`
-        }
+        builder.append(imageName, ':', imageLabel)
 
-        return result
+        return builder.build()
     }
 
     handleReset() {

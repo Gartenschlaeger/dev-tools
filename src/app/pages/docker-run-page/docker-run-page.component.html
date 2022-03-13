@@ -1,50 +1,74 @@
 <app-page-header title="Docker Run Generator"></app-page-header>
 
 <form [formGroup]="groupScript" class="mb-8" (submit)="handleGenerateScript()">
-    <div class="flex gap-1 mb-3">
-        <div class="flex-1">
-            <input type="text" class="form-input w-full" placeholder="Image name" formControlName="imageName" />
-            <app-form-field-errors [group]="groupScript" controlName="imageName"></app-form-field-errors>
-        </div>
-        <div class="flex-1">
-            <input type="text" class="form-input w-full" placeholder="Image label" formControlName="imageLabel" />
-            <app-form-field-errors [group]="groupScript" controlName="imageLabel"></app-form-field-errors>
+    <div class="mb-5">
+        <h3 class="font-semibold mb-2">Image</h3>
+        <div class="flex gap-1 mb-3">
+            <div class="flex-1">
+                <input type="text" class="form-input w-full" placeholder="Image name" formControlName="imageName" />
+                <app-form-field-errors [group]="groupScript" controlName="imageName"></app-form-field-errors>
+            </div>
+            <div class="flex-1">
+                <input type="text" class="form-input w-full" placeholder="Image label" formControlName="imageLabel" />
+                <app-form-field-errors [group]="groupScript" controlName="imageLabel"></app-form-field-errors>
+            </div>
         </div>
     </div>
-
-    <form [formGroup]="groupEnv" class="mb-5" (submit)="handleAddEnvironment()">
+    <div class="mb-5">
+        <h3 class="font-semibold mb-2">Container</h3>
+        <div class="mb-3">
+            <input type="text" class="form-input w-full" placeholder="Container name" formControlName="containerName" />
+            <app-form-field-errors [group]="groupScript" controlName="containerName"></app-form-field-errors>
+        </div>
+        <div class="mb-3 flex items-center gap-1">
+            <input type="checkbox" id="dettached" formControlName="dettached" />
+            <label for="dettached" class="cursor-pointer">Dettached</label>
+        </div>
+    </div>
+    <div class="mb-5">
         <h3 class="mb-2 font-semibold">Environment variables</h3>
-        <div class="mb-3 space-y-1">
-            <div class="flex gap-1" *ngFor="let i of envVariables; let idx = index">
-                <span type="text" class="flex-1">{{ i.name }}</span>
-                <span type="text" class="flex-1">{{ i.value }}</span>
-                <button type="button" class="btn btn-danger" (click)="handleRemoveEnvVariable(idx)">
-                    <svg-delete-icon size="sm"></svg-delete-icon>
-                </button>
+        <form [formGroup]="groupEnv" class="mb-5" (submit)="handleAddEnvironment()">
+            <div class="mb-3 space-y-1">
+                <div class="flex gap-1" *ngFor="let i of envVariables; let idx = index">
+                    <span type="text" class="flex-1">{{ i.name }}</span>
+                    <span type="text" class="flex-1">{{ i.value }}</span>
+                    <button type="button" class="btn btn-danger" (click)="handleRemoveEnvVariable(idx)">
+                        <svg-delete-icon size="sm"></svg-delete-icon>
+                    </button>
+                </div>
             </div>
+            <div class="flex items-stretch gap-1">
+                <div class="flex-1">
+                    <input type="text" class="form-input w-full" formControlName="name" placeholder="Key" />
+                    <app-form-field-errors [group]="groupEnv" controlName="name"></app-form-field-errors>
+                </div>
+                <div class="flex-1">
+                    <input type="text" class="form-input w-full" formControlName="value" placeholder="Value" />
+                    <app-form-field-errors [group]="groupEnv" controlName="value"></app-form-field-errors>
+                </div>
+                <div class="flex-none">
+                    <button type="submit" class="btn btn-primary">
+                        <svg-plus-icon size="sm"></svg-plus-icon>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="mb-5">
+        <h3 class="font-semibold mb-2">Script</h3>
+        <div class="mb-3 flex items-center gap-1">
+            <input type="checkbox" id="shortparams" formControlName="shortparams" />
+            <label for="shortparams" class="cursor-pointer">Short parameter names</label>
         </div>
-        <div class="flex items-stretch gap-1">
-            <div class="flex-1">
-                <input type="text" class="form-input w-full" formControlName="name" placeholder="Key" />
-                <app-form-field-errors [group]="groupEnv" controlName="name"></app-form-field-errors>
-            </div>
-            <div class="flex-1">
-                <input type="text" class="form-input w-full" formControlName="value" placeholder="Value" />
-                <app-form-field-errors [group]="groupEnv" controlName="value"></app-form-field-errors>
-            </div>
-            <div class="flex-none">
-                <button type="submit" class="btn btn-primary">
-                    <svg-plus-icon size="sm"></svg-plus-icon>
-                </button>
-            </div>
+        <div class="mb-3 flex items-center gap-1">
+            <input type="checkbox" id="multiline" formControlName="multiline" />
+            <label for="multiline" class="cursor-pointer">Multiline script</label>
         </div>
-    </form>
-
-    <div class="mb-3" *ngIf="generatedScript">
-        <h3 class="mb-2 font-semibold">Script</h3>
-        <pre class="rounded select-all bg-gray-100 border-2 border-gray-200 text-gray-500 p-3">{{
-            generatedScript
-        }}</pre>
+        <div class="mb-3" *ngIf="generatedScript">
+            <pre class="rounded bg-gray-100 border-2 border-gray-200 text-gray-500 p-3 overflow-x-auto select-all">{{
+                generatedScript
+            }}</pre>
+        </div>
     </div>
 
     <app-form-footer>
