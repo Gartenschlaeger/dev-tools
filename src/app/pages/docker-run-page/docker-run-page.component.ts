@@ -12,17 +12,16 @@ interface DockerRunEnvironmentVariable {
     templateUrl: './docker-run-page.component.html'
 })
 export class DockerRunPageComponent implements OnInit {
-    groupEnv!: FormGroup
     groupScript!: FormGroup
-    environmentVariables: DockerRunEnvironmentVariable[] = []
-    script: string = ''
-    isScriptVisible: boolean = false
+    groupEnv!: FormGroup
+    envVariables: DockerRunEnvironmentVariable[] = []
+    generatedScript: string = ''
 
     constructor(public formService: FormService) {}
 
     ngOnInit(): void {
         this.groupScript = this.defineFormGroupScript()
-        this.groupEnv = this.defineFormGroupEnvironmentVariable()
+        this.groupEnv = this.defineFormGroupEnvVariable()
     }
 
     defineFormGroupScript(): FormGroup {
@@ -36,7 +35,7 @@ export class DockerRunPageComponent implements OnInit {
         })
     }
 
-    defineFormGroupEnvironmentVariable(): FormGroup {
+    defineFormGroupEnvVariable(): FormGroup {
         return new FormGroup({
             name: new FormControl('', {
                 validators: [Validators.required]
@@ -47,10 +46,8 @@ export class DockerRunPageComponent implements OnInit {
         })
     }
 
-    addEnvironmentVariableHandler() {}
-
-    removeEnvironmentVariableHandler(index: number) {
-        this.environmentVariables.splice(index, 1)
+    handleRemoveEnvVariable(index: number) {
+        this.envVariables.splice(index, 1)
     }
 
     generateScript(): string {
@@ -59,8 +56,8 @@ export class DockerRunPageComponent implements OnInit {
 
         let result = 'docker run \\\n'
 
-        for (let i = 0; i < this.environmentVariables.length; i++) {
-            result += `  -e "${this.environmentVariables[i].name}=${this.environmentVariables[i].value}" \\\n`
+        for (let i = 0; i < this.envVariables.length; i++) {
+            result += `  -e "${this.envVariables[i].name}=${this.envVariables[i].value}" \\\n`
         }
 
         result += `  -d ${imageName}`
@@ -74,19 +71,18 @@ export class DockerRunPageComponent implements OnInit {
     handleReset() {
         this.formService.resetForm(this.groupScript)
         this.formService.resetForm(this.groupEnv)
-        this.environmentVariables = []
+        this.envVariables = []
     }
 
     handleGenerateScript() {
         if (this.formService.validateForm(this.groupScript)) {
-            this.script = this.generateScript()
-            this.isScriptVisible = true
+            this.generatedScript = this.generateScript()
         }
     }
 
     handleAddEnvironment() {
         if (this.formService.validateForm(this.groupEnv)) {
-            this.environmentVariables.push({
+            this.envVariables.push({
                 name: this.groupEnv.get('name')?.value,
                 value: this.groupEnv.get('value')?.value
             })

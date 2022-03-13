@@ -15,10 +15,10 @@
     <form [formGroup]="groupEnv" class="mb-5" (submit)="handleAddEnvironment()">
         <h3 class="mb-2 font-semibold">Environment variables</h3>
         <div class="mb-3 space-y-1">
-            <div class="flex gap-1" *ngFor="let i of environmentVariables; let idx = index">
+            <div class="flex gap-1" *ngFor="let i of envVariables; let idx = index">
                 <span type="text" class="flex-1">{{ i.name }}</span>
                 <span type="text" class="flex-1">{{ i.value }}</span>
-                <button type="button" class="btn btn-danger" (click)="removeEnvironmentVariableHandler(idx)">
+                <button type="button" class="btn btn-danger" (click)="handleRemoveEnvVariable(idx)">
                     <svg-delete-icon size="sm"></svg-delete-icon>
                 </button>
             </div>
@@ -40,9 +40,11 @@
         </div>
     </form>
 
-    <div class="mb-3" *ngIf="isScriptVisible">
+    <div class="mb-3" *ngIf="generatedScript">
         <h3 class="mb-2 font-semibold">Script</h3>
-        <pre class="rounded select-all bg-gray-100 border-2 border-gray-200 text-gray-500 p-3">{{ script }}</pre>
+        <pre class="rounded select-all bg-gray-100 border-2 border-gray-200 text-gray-500 p-3">{{
+            generatedScript
+        }}</pre>
     </div>
 
     <div class="text-right space-x-1">
