@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { FormService } from 'src/app/services/form-service.service'
 
 @Component({
     selector: 'app-url-analyzer-page',
     templateUrl: './url-analyzer-page.component.html'
 })
 export class UrlAnalyzerPageComponent implements OnInit {
-    url?: string
+    urlAnalyzerFormGroup!: FormGroup
 
-    public urlAnalyzerFormGroup!: FormGroup
+    constructor(public formService: FormService) {}
 
     ngOnInit(): void {
         this.urlAnalyzerFormGroup = this.generateFormGroup()

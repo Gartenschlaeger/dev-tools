@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .btn {
+        @apply rounded px-3 py-2 h-10;
+    }
+
+    .btn-primary {
+        @apply bg-blue-600 hover:bg-blue-700 text-gray-100;
+    }
+
+    .btn-danger {
+        @apply bg-red-600 hover:bg-red-700 text-gray-100;
+    }
+
+    .btn-secondary {
+        @apply bg-gray-600 hover:bg-gray-700 text-gray-100;
+    }
+
+    .form-input {
+        @apply px-3 py-2 border-2 h-10 border-gray-300 focus:border-gray-400 text-gray-500 outline-none rounded;
+    }
+}
