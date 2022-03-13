@@ -1,0 +1,4 @@
+<ng-container *ngIf="formControl?.dirty || formControl?.touched">
+    <span *ngIf="formControl?.hasError('required')" class="italic text-sm text-red-600">* Benötigt</span>
+    <span *ngIf="formControl?.hasError('pattern')" class="italic text-sm text-red-600">* Ungültiges Format</span>
+</ng-container>

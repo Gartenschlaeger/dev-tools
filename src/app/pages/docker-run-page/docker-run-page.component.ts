@@ -51,6 +51,8 @@ export class DockerRunPageComponent implements OnInit {
     }
 
     generateScript(): string {
+        console.log('generateScript')
+
         const imageName = this.formService.getControlValue(this.groupScript, 'imageName')
         const imageLabel = this.formService.getControlValue(this.groupScript, 'imageLabel')
 
@@ -72,6 +74,7 @@ export class DockerRunPageComponent implements OnInit {
         this.formService.resetForm(this.groupScript)
         this.formService.resetForm(this.groupEnv)
         this.envVariables = []
+        this.generatedScript = ''
     }
 
     handleGenerateScript() {

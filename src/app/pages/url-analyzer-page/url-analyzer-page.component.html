@@ -1,12 +1,12 @@
 <app-page-header title="URL Analyzer"></app-page-header>
 
-<form [formGroup]="urlAnalyzerFormGroup" class="mb-8" (submit)="submitHandler()">
+<form [formGroup]="groupUrlAnalyzer" class="mb-8" (submit)="submitHandler()">
     <div class="mb-3">
         <input type="text" class="form-input w-full" placeholder="URL" formControlName="url" />
-        <form-field-errors></form-field-errors>
+        <app-form-field-errors [group]="groupUrlAnalyzer" controlName="url"></app-form-field-errors>
     </div>
 
-    <div class="text-right">
+    <app-form-footer>
         <button class="btn btn-primary">Analyze</button>
-    </div>
+    </app-form-footer>
 </form>

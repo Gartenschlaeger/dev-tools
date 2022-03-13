@@ -7,15 +7,15 @@ import { FormService } from 'src/app/services/form-service.service'
     templateUrl: './url-analyzer-page.component.html'
 })
 export class UrlAnalyzerPageComponent implements OnInit {
-    urlAnalyzerFormGroup!: FormGroup
+    groupUrlAnalyzer!: FormGroup
 
     constructor(public formService: FormService) {}
 
     ngOnInit(): void {
-        this.urlAnalyzerFormGroup = this.generateFormGroup()
+        this.groupUrlAnalyzer = this.defineFormGroup()
     }
 
-    generateFormGroup(): FormGroup {
+    defineFormGroup(): FormGroup {
         return new FormGroup({
             url: new FormControl('', {
                 validators: [Validators.required]
@@ -24,7 +24,7 @@ export class UrlAnalyzerPageComponent implements OnInit {
     }
 
     submitHandler() {
-        if (this.urlAnalyzerFormGroup.valid) {
+        if (this.formService.validateForm(this.groupUrlAnalyzer)) {
             console.log('todo')
         }
     }

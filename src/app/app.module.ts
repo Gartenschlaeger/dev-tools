@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core'
 import { ReactiveFormsModule } from '@angular/forms'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { FormFieldErrorsComponent } from 'src/app/controls/form-field-errors/form-field-errors.component'
 import { NavigationComponent } from 'src/app/controls/navigation/navigation.component'
 import { FormService } from 'src/app/services/form-service.service'
-import { FormFieldErrorsModule } from 'src/app/shared/form-field-errors/form-field-errors.module'
 import { SvgIconModule } from 'src/app/shared/svg-icon/svg-icon.module'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
-import { ButtonComponent } from './controls/button/button.component'
+import { FormFooterComponent } from './controls/form-footer/form-footer.component'
 import { NavigationLinkComponent } from './controls/navigation-link/navigation-link.component'
 import { PageHeaderComponent } from './controls/page-header/page-header.component'
 import { DockerRunPageComponent } from './pages/docker-run-page/docker-run-page.component'
@@ -22,18 +22,12 @@ import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer
         NavigationLinkComponent,
         HomePageComponent,
         UrlAnalyzerPageComponent,
-        ButtonComponent,
         DockerRunPageComponent,
-        PageHeaderComponent
+        PageHeaderComponent,
+        FormFieldErrorsComponent,
+        FormFooterComponent
     ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        ReactiveFormsModule,
-        FormFieldErrorsModule,
-        SvgIconModule
-    ],
+    imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, ReactiveFormsModule, SvgIconModule],
     providers: [FormService],
     bootstrap: [AppComponent]
 })

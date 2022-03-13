@@ -4,11 +4,11 @@
     <div class="flex gap-1 mb-3">
         <div class="flex-1">
             <input type="text" class="form-input w-full" placeholder="Image name" formControlName="imageName" />
-            <form-field-errors [formField]="formService.GetControl(groupScript, 'imageName')"></form-field-errors>
+            <app-form-field-errors [group]="groupScript" controlName="imageName"></app-form-field-errors>
         </div>
         <div class="flex-1">
             <input type="text" class="form-input w-full" placeholder="Image label" formControlName="imageLabel" />
-            <form-field-errors [formField]="formService.GetControl(groupScript, 'imageLabel')"></form-field-errors>
+            <app-form-field-errors [group]="groupScript" controlName="imageLabel"></app-form-field-errors>
         </div>
     </div>
 
@@ -26,11 +26,11 @@
         <div class="flex items-stretch gap-1">
             <div class="flex-1">
                 <input type="text" class="form-input w-full" formControlName="name" placeholder="Key" />
-                <form-field-errors [formField]="formService.GetControl(groupEnv, 'name')"></form-field-errors>
+                <app-form-field-errors [group]="groupEnv" controlName="name"></app-form-field-errors>
             </div>
             <div class="flex-1">
                 <input type="text" class="form-input w-full" formControlName="value" placeholder="Value" />
-                <form-field-errors [formField]="formService.GetControl(groupEnv, 'value')"></form-field-errors>
+                <app-form-field-errors [group]="groupEnv" controlName="value"></app-form-field-errors>
             </div>
             <div class="flex-none">
                 <button type="submit" class="btn btn-primary">
@@ -47,8 +47,8 @@
         }}</pre>
     </div>
 
-    <div class="text-right space-x-1">
+    <app-form-footer>
         <button type="button" class="btn btn-secondary" (click)="handleReset()">Reset</button>
         <button type="submit" class="btn btn-primary">Generate</button>
-    </div>
+    </app-form-footer>
 </form>
