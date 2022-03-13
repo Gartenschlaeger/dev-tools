@@ -11,12 +11,8 @@ export class FormService {
     }
 
     resetForm(group: FormGroup): void {
-        for (let field in group.controls) {
-            let control = group.get(field)
-            control?.markAsUntouched()
-        }
-
         group.reset()
+        group.markAsUntouched()
     }
 
     GetControl(group: FormGroup, controlPath: string): FormControl {

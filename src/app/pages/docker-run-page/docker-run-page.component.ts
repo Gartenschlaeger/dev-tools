@@ -8,6 +8,24 @@ interface DockerRunEnvironmentVariable {
     value: string
 }
 
+interface DockerRunFormGroupValues {
+    imageName: string
+    imageLabel: string
+    containerName: string
+    dettached: boolean
+    multiline: boolean
+    shortparams: boolean
+}
+
+const FormDefaultValues: DockerRunFormGroupValues = {
+    imageName: '',
+    imageLabel: '',
+    containerName: '',
+    dettached: true,
+    shortparams: true,
+    multiline: false
+}
+
 @Component({
     selector: 'app-docker-run-page',
     templateUrl: './docker-run-page.component.html'
@@ -15,11 +33,7 @@ interface DockerRunEnvironmentVariable {
 export class DockerRunPageComponent implements OnInit {
     groupScript!: FormGroup
     groupEnv!: FormGroup
-    envVariables: DockerRunEnvironmentVariable[] = [
-        { name: 'TZ', value: 'europe/berlin' },
-        { name: 'data-path', value: '/var/mysql/data' },
-        { name: 'logs-path', value: '/var/log/mysql' }
-    ]
+    envVariables: DockerRunEnvironmentVariable[] = []
     generatedScript: string = ''
 
     constructor(public formService: FormService) {}
@@ -31,13 +45,13 @@ export class DockerRunPageComponent implements OnInit {
 
     defineFormGroupScript(): FormGroup {
         return new FormGroup({
-            imageName: new FormControl('mysql', {
+            imageName: new FormControl('', {
                 validators: [Validators.required]
             }),
-            imageLabel: new FormControl('v5.6', {
+            imageLabel: new FormControl('', {
                 validators: []
             }),
-            containerName: new FormControl('db-main', {
+            containerName: new FormControl('', {
                 validators: [Validators.pattern('^[a-zA-Z_-]+$')]
             }),
             dettached: new FormControl(true, {}),
@@ -96,7 +110,7 @@ export class DockerRunPageComponent implements OnInit {
             )
         }
 
-        builder.append(imageName, ':', imageLabel)
+        builder.append(imageName, ':', imageLabel ? imageLabel : 'latest')
 
         return builder.build()
     }
@@ -104,6 +118,7 @@ export class DockerRunPageComponent implements OnInit {
     handleReset() {
         this.formService.resetForm(this.groupScript)
         this.formService.resetForm(this.groupEnv)
+        this.groupScript.setValue(FormDefaultValues)
         this.envVariables = []
         this.generatedScript = ''
     }
