@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { ButtonComponent } from './controls/button/button.component'
 import { NavigationLinkComponent } from './controls/navigation-link/navigation-link.component'
+import { PageHeaderComponent } from './controls/page-header/page-header.component'
 import { DockerRunPageComponent } from './pages/docker-run-page/docker-run-page.component'
 import { HomePageComponent } from './pages/home-page/home-page.component'
 import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer-page.component'
@@ -22,7 +23,8 @@ import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer
         HomePageComponent,
         UrlAnalyzerPageComponent,
         ButtonComponent,
-        DockerRunPageComponent
+        DockerRunPageComponent,
+        PageHeaderComponent
     ],
     imports: [
         BrowserModule,
