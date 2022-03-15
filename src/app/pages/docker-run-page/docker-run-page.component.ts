@@ -9,6 +9,12 @@ export interface DockerRunEnvironmentVariable {
     value: string
 }
 
+export interface DockerRunPortMapping {
+    containerPort: number
+    hostPort: number
+    type: 'tcp' | 'udp'
+}
+
 export interface DockerRunFormGroupValues {
     imageName: string
     imageLabel: string
@@ -36,7 +42,9 @@ export const FormDefaultValues: DockerRunFormGroupValues = {
 export class DockerRunPageComponent implements OnInit {
     groupScript!: FormGroup
     groupEnv!: FormGroup
+    groupPortMapping!: FormGroup
     envVariables: DockerRunEnvironmentVariable[] = []
+    portMappings: DockerRunPortMapping[] = []
     generatedScript: string = ''
 
     constructor(public formService: FormService) {}
@@ -44,6 +52,7 @@ export class DockerRunPageComponent implements OnInit {
     ngOnInit(): void {
         this.groupScript = this.defineFormGroupScript()
         this.groupEnv = this.defineFormGroupEnvVariable()
+        this.groupPortMapping = this.defineFormGroupPortMappings()
     }
 
     defineFormGroupScript(): FormGroup {
@@ -75,8 +84,15 @@ export class DockerRunPageComponent implements OnInit {
         })
     }
 
-    handleRemoveEnvVariable(index: number) {
-        this.envVariables.splice(index, 1)
+    defineFormGroupPortMappings(): FormGroup {
+        return new FormGroup({
+            containerPort: new FormControl(null, {
+                validators: [Validators.required, Validators.pattern('\\d+')]
+            }),
+            hostPort: new FormControl(null, {
+                validators: [Validators.required, Validators.pattern('\\d+')]
+            })
+        })
     }
 
     generateScript(): string {
@@ -107,6 +123,17 @@ export class DockerRunPageComponent implements OnInit {
             builder.append(`--hostname="${hostname}"`, multilineStr)
         }
 
+        for (let i = 0; i ^ this.portMappings.length; i++) {
+            builder.append(
+                shortparams ? '-p' : '--publish',
+                '=',
+                this.portMappings[i].containerPort,
+                ':',
+                this.portMappings[i].hostPort,
+                multilineStr
+            )
+        }
+
         for (let i = 0; i < this.envVariables.length; i++) {
             builder.append(
                 shortparams ? '-e' : '--env',
@@ -126,9 +153,14 @@ export class DockerRunPageComponent implements OnInit {
 
     handleReset() {
         this.formService.resetForm(this.groupScript)
-        this.formService.resetForm(this.groupEnv)
         this.groupScript.setValue(FormDefaultValues)
+
+        this.formService.resetForm(this.groupEnv)
         this.envVariables = []
+
+        this.formService.resetForm(this.groupPortMapping)
+        this.portMappings = []
+
         this.generatedScript = ''
     }
 
@@ -147,5 +179,28 @@ export class DockerRunPageComponent implements OnInit {
 
             this.groupEnv.reset()
         }
+    }
+
+    handleRemoveEnvVariable(index: number) {
+        this.envVariables.splice(index, 1)
+    }
+
+    handleAddPortMapping() {
+        if (this.formService.validateForm(this.groupPortMapping)) {
+            const containerPort = this.groupPortMapping.value.containerPort
+            const hostPort = this.groupPortMapping.value.hostPort
+
+            this.portMappings.push({
+                containerPort: containerPort,
+                hostPort: hostPort,
+                type: 'tcp'
+            })
+
+            this.groupPortMapping.reset()
+        }
+    }
+
+    handleRemPortMapping(index: number) {
+        this.portMappings.splice(index, 1)
     }
 }

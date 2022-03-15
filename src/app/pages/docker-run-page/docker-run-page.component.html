@@ -59,6 +59,40 @@
         <div class="mb-3">
             <input type="text" class="form-input w-full" placeholder="Hostname" formControlName="hostname" />
         </div>
+        <form [formGroup]="groupPortMapping" class="mb-5" (submit)="handleAddPortMapping()">
+            <div class="mb-3 space-y-1">
+                <div class="flex gap-1" *ngFor="let i of portMappings; let idx = index">
+                    <span type="text" class="flex-1">{{ i.containerPort }}</span>
+                    <span type="text" class="flex-1">{{ i.hostPort }}</span>
+                    <button type="button" class="btn btn-danger" (click)="handleRemPortMapping(idx)">
+                        <svg-delete-icon size="sm"></svg-delete-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="flex items-stretch gap-1">
+                <div class="flex-1">
+                    <input
+                        type="text"
+                        class="form-input w-full"
+                        formControlName="containerPort"
+                        placeholder="Container port"
+                    />
+                    <app-form-field-errors
+                        [group]="groupPortMapping"
+                        controlName="containerPort"
+                    ></app-form-field-errors>
+                </div>
+                <div class="flex-1">
+                    <input type="text" class="form-input w-full" formControlName="hostPort" placeholder="Host port" />
+                    <app-form-field-errors [group]="groupPortMapping" controlName="hostPort"></app-form-field-errors>
+                </div>
+                <div class="flex-none">
+                    <button type="submit" class="btn btn-primary">
+                        <svg-plus-icon size="sm"></svg-plus-icon>
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
     <div class="mb-5">
         <h3 class="font-semibold mb-2">Script</h3>
