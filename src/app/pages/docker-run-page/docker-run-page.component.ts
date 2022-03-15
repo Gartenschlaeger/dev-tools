@@ -2,25 +2,28 @@ import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { StringBuilder } from 'src/app/helper/string-builder'
 import { FormService } from 'src/app/services/form-service.service'
+import { environment } from 'src/environments/environment'
 
-interface DockerRunEnvironmentVariable {
+export interface DockerRunEnvironmentVariable {
     name: string
     value: string
 }
 
-interface DockerRunFormGroupValues {
+export interface DockerRunFormGroupValues {
     imageName: string
     imageLabel: string
     containerName: string
+    hostname: string
     dettached: boolean
     multiline: boolean
     shortparams: boolean
 }
 
-const FormDefaultValues: DockerRunFormGroupValues = {
+export const FormDefaultValues: DockerRunFormGroupValues = {
     imageName: '',
     imageLabel: '',
     containerName: '',
+    hostname: '',
     dettached: true,
     shortparams: true,
     multiline: false
@@ -45,18 +48,19 @@ export class DockerRunPageComponent implements OnInit {
 
     defineFormGroupScript(): FormGroup {
         return new FormGroup({
-            imageName: new FormControl('', {
+            imageName: new FormControl(environment.dockerRunDefaults?.imageName, {
                 validators: [Validators.required]
             }),
-            imageLabel: new FormControl('', {
+            imageLabel: new FormControl(environment.dockerRunDefaults?.imageLabel, {
                 validators: []
             }),
-            containerName: new FormControl('', {
+            containerName: new FormControl(environment.dockerRunDefaults?.containerName, {
                 validators: [Validators.pattern('^[a-zA-Z_-]+$')]
             }),
-            dettached: new FormControl(true, {}),
-            multiline: new FormControl(false, {}),
-            shortparams: new FormControl(true, {})
+            hostname: new FormControl(environment.dockerRunDefaults?.hostname, {}),
+            dettached: new FormControl(environment.dockerRunDefaults?.dettached, {}),
+            multiline: new FormControl(environment.dockerRunDefaults?.multiline, {}),
+            shortparams: new FormControl(environment.dockerRunDefaults?.shortparams, {})
         })
     }
 
@@ -79,6 +83,7 @@ export class DockerRunPageComponent implements OnInit {
         const imageName: string = this.groupScript.value.imageName
         const imageLabel: string = this.groupScript.value.imageLabel
         const containerName: string = this.groupScript.value.containerName
+        const hostname: string = this.groupScript.value.hostname
         const multiline: boolean = this.groupScript.value.multiline
         const shortparams: boolean = this.groupScript.value.shortparams
         const dettached: boolean = this.groupScript.value.dettached
@@ -96,6 +101,10 @@ export class DockerRunPageComponent implements OnInit {
 
         if (containerName) {
             builder.append(`--name="${containerName}"`, multilineStr)
+        }
+
+        if (hostname) {
+            builder.append(`--hostname="${hostname}"`, multilineStr)
         }
 
         for (let i = 0; i < this.envVariables.length; i++) {
