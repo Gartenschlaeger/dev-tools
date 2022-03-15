@@ -1,0 +1,15 @@
+<div>
+    <ul class="flex gap-1 select-none mb-3">
+        <li
+            class="bg-gray-200 hover:bg-gray-300 rounded px-3 py-2 cursor-pointer text-sm text-gray-800"
+            [ngClass]="{ 'bg-gray-500 hover:bg-gray-500 text-gray-100': t.isActive }"
+            *ngFor="let t of tabs"
+            (click)="handleTabClick(t)"
+        >
+            {{ t.label }}
+        </li>
+    </ul>
+    <div class="w-full">
+        <ng-content></ng-content>
+    </div>
+</div>

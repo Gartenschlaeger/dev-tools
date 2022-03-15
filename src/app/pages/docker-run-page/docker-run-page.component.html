@@ -1,115 +1,163 @@
 <app-page-header title="Docker Run Generator"></app-page-header>
 
 <form [formGroup]="groupScript" class="mb-8" (submit)="handleGenerateScript()">
-    <div class="mb-5">
-        <h3 class="font-semibold mb-2">Image</h3>
-        <div class="flex gap-1 mb-3">
+    <!-- image -->
+    <app-form-section title="Image">
+        <div class="flex gap-1">
             <div class="flex-1">
-                <input type="text" class="form-input w-full" placeholder="Image name" formControlName="imageName" />
+                <label for="imageName">Name</label>
+                <input
+                    type="text"
+                    id="imageName"
+                    class="form-input w-full"
+                    placeholder="Image name"
+                    formControlName="imageName"
+                />
                 <app-form-field-errors [group]="groupScript" controlName="imageName"></app-form-field-errors>
             </div>
             <div class="flex-1">
-                <input type="text" class="form-input w-full" placeholder="Image label" formControlName="imageLabel" />
+                <label for="imageLabel">Tag</label>
+                <input
+                    type="text"
+                    id="imageLabel"
+                    class="form-input w-full"
+                    placeholder="Image label"
+                    formControlName="imageLabel"
+                />
                 <app-form-field-errors [group]="groupScript" controlName="imageLabel"></app-form-field-errors>
             </div>
         </div>
-    </div>
-    <div class="mb-5">
-        <h3 class="font-semibold mb-2">Container</h3>
-        <div class="mb-3">
-            <input type="text" class="form-input w-full" placeholder="Container name" formControlName="containerName" />
+    </app-form-section>
+
+    <!-- container -->
+    <app-form-section title="Container">
+        <div class="mb-1">
+            <label for="containerName">Name</label>
+            <input
+                type="text"
+                id="containerName"
+                class="form-input w-full"
+                placeholder="Container name"
+                formControlName="containerName"
+            />
             <app-form-field-errors [group]="groupScript" controlName="containerName"></app-form-field-errors>
         </div>
-        <div class="mb-3 flex items-center gap-1">
+        <div class="flex items-center gap-1">
             <input type="checkbox" id="dettached" formControlName="dettached" />
             <label for="dettached" class="cursor-pointer">Dettached</label>
         </div>
-    </div>
-    <div class="mb-5">
-        <h3 class="mb-2 font-semibold">Environment variables</h3>
-        <form [formGroup]="groupEnv" class="mb-5" (submit)="handleAddEnvironment()">
-            <div class="mb-3 space-y-1">
-                <div class="flex gap-1" *ngFor="let i of envVariables; let idx = index">
-                    <span type="text" class="flex-1">{{ i.name }}</span>
-                    <span type="text" class="flex-1">{{ i.value }}</span>
-                    <button type="button" class="btn btn-danger" (click)="handleRemoveEnvVariable(idx)">
-                        <svg-delete-icon size="sm"></svg-delete-icon>
-                    </button>
-                </div>
-            </div>
-            <div class="flex items-stretch gap-1">
-                <div class="flex-1">
-                    <input type="text" class="form-input w-full" formControlName="name" placeholder="Key" />
-                    <app-form-field-errors [group]="groupEnv" controlName="name"></app-form-field-errors>
-                </div>
-                <div class="flex-1">
-                    <input type="text" class="form-input w-full" formControlName="value" placeholder="Value" />
-                    <app-form-field-errors [group]="groupEnv" controlName="value"></app-form-field-errors>
-                </div>
-                <div class="flex-none">
-                    <button type="submit" class="btn btn-primary">
-                        <svg-plus-icon size="sm"></svg-plus-icon>
-                    </button>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="mb-3">
-        <h3 class="font-semibold mb-2">Network</h3>
-        <div class="mb-3">
-            <input type="text" class="form-input w-full" placeholder="Hostname" formControlName="hostname" />
-        </div>
-        <form [formGroup]="groupPortMapping" class="mb-5" (submit)="handleAddPortMapping()">
-            <div class="mb-3 space-y-1">
-                <div class="flex gap-1" *ngFor="let i of portMappings; let idx = index">
-                    <span type="text" class="flex-1">{{ i.containerPort }}</span>
-                    <span type="text" class="flex-1">{{ i.hostPort }}</span>
-                    <button type="button" class="btn btn-danger" (click)="handleRemPortMapping(idx)">
-                        <svg-delete-icon size="sm"></svg-delete-icon>
-                    </button>
-                </div>
-            </div>
-            <div class="flex items-stretch gap-1">
-                <div class="flex-1">
+    </app-form-section>
+
+    <app-form-section title="Settings">
+        <app-tab-control>
+            <app-tab label="Network">
+                <!-- network -->
+                <div class="mb-3">
+                    <label for="hostname">Hostname</label>
                     <input
                         type="text"
+                        id="hostname"
                         class="form-input w-full"
-                        formControlName="containerPort"
-                        placeholder="Container port"
+                        placeholder="Hostname"
+                        formControlName="hostname"
                     />
-                    <app-form-field-errors
-                        [group]="groupPortMapping"
-                        controlName="containerPort"
-                    ></app-form-field-errors>
                 </div>
-                <div class="flex-1">
-                    <input type="text" class="form-input w-full" formControlName="hostPort" placeholder="Host port" />
-                    <app-form-field-errors [group]="groupPortMapping" controlName="hostPort"></app-form-field-errors>
-                </div>
-                <div class="flex-none">
-                    <button type="submit" class="btn btn-primary">
-                        <svg-plus-icon size="sm"></svg-plus-icon>
-                    </button>
-                </div>
+                <form [formGroup]="groupPortMapping" (submit)="handleAddPortMapping()">
+                    <label for="">Port mappings</label>
+                    <div class="flex items-stretch gap-1">
+                        <div class="flex-1">
+                            <input
+                                type="text"
+                                class="form-input w-full"
+                                formControlName="containerPort"
+                                placeholder="Container port"
+                            />
+                            <app-form-field-errors
+                                [group]="groupPortMapping"
+                                controlName="containerPort"
+                            ></app-form-field-errors>
+                        </div>
+                        <div class="flex-1">
+                            <input
+                                type="text"
+                                class="form-input w-full"
+                                formControlName="hostPort"
+                                placeholder="Host port"
+                            />
+                            <app-form-field-errors
+                                [group]="groupPortMapping"
+                                controlName="hostPort"
+                            ></app-form-field-errors>
+                        </div>
+                        <div class="flex-none">
+                            <button type="submit" class="btn btn-primary">
+                                <svg-plus-icon size="sm"></svg-plus-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="space-y-1" *ngIf="portMappings.length">
+                        <div class="flex items-center gap-1" *ngFor="let i of portMappings; let idx = index">
+                            <span type="text" class="flex-1">{{ i.containerPort }}</span>
+                            <span type="text" class="flex-1">{{ i.hostPort }}</span>
+                            <button type="button" class="btn btn-danger" (click)="handleRemPortMapping(idx)">
+                                <svg-delete-icon size="sm"></svg-delete-icon>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </app-tab>
+            <app-tab label="Environment">
+                <!-- environment -->
+                <form [formGroup]="groupEnv" (submit)="handleAddEnvironment()">
+                    <label for="">Environment variables</label>
+                    <div class="flex items-stretch gap-1">
+                        <div class="flex-1">
+                            <input type="text" class="form-input w-full" formControlName="name" placeholder="Key" />
+                            <app-form-field-errors [group]="groupEnv" controlName="name"></app-form-field-errors>
+                        </div>
+                        <div class="flex-1">
+                            <input type="text" class="form-input w-full" formControlName="value" placeholder="Value" />
+                            <app-form-field-errors [group]="groupEnv" controlName="value"></app-form-field-errors>
+                        </div>
+                        <div class="flex-none">
+                            <button type="submit" class="btn btn-primary">
+                                <svg-plus-icon size="sm"></svg-plus-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="space-y-1" *ngIf="envVariables.length">
+                        <div class="flex gap-1" *ngFor="let i of envVariables; let idx = index">
+                            <span type="text" class="flex-1">{{ i.name }}</span>
+                            <span type="text" class="flex-1">{{ i.value }}</span>
+                            <button type="button" class="btn btn-danger" (click)="handleRemoveEnvVariable(idx)">
+                                <svg-delete-icon size="sm"></svg-delete-icon>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </app-tab>
+        </app-tab-control>
+    </app-form-section>
+
+    <!-- script -->
+    <app-form-section title="Script">
+        <div [ngClass]="{ 'mb-3': generatedScript }">
+            <div class="mb-1 flex items-center gap-1">
+                <input type="checkbox" id="shortparams" formControlName="shortparams" />
+                <label for="shortparams" class="cursor-pointer">Short parameter names</label>
             </div>
-        </form>
-    </div>
-    <div class="mb-5">
-        <h3 class="font-semibold mb-2">Script</h3>
-        <div class="mb-3 flex items-center gap-1">
-            <input type="checkbox" id="shortparams" formControlName="shortparams" />
-            <label for="shortparams" class="cursor-pointer">Short parameter names</label>
+            <div class="mb-1 flex items-center gap-1">
+                <input type="checkbox" id="multiline" formControlName="multiline" />
+                <label for="multiline" class="cursor-pointer">Multiline script</label>
+            </div>
         </div>
-        <div class="mb-3 flex items-center gap-1">
-            <input type="checkbox" id="multiline" formControlName="multiline" />
-            <label for="multiline" class="cursor-pointer">Multiline script</label>
-        </div>
-        <div class="mb-3" *ngIf="generatedScript">
-            <pre class="rounded bg-gray-100 border-2 border-gray-200 text-gray-500 p-3 overflow-x-auto select-all">{{
+
+        <div *ngIf="generatedScript">
+            <pre class="rounded bg-white border-2 border-gray-200 text-gray-700 px-3 py-2 overflow-x-auto select-all">{{
                 generatedScript
             }}</pre>
         </div>
-    </div>
+    </app-form-section>
 
     <app-form-footer>
         <button type="button" class="btn btn-secondary" (click)="handleReset()">Reset</button>
