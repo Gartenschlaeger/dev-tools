@@ -1,6 +1,3 @@
-<a
-    [routerLink]="routerUrl"
-    class="bg-gray-100 hover:bg-gray-300 text-gray-800 rounded px-3 py-2"
-    routerLinkActive="bg-gray-300"
-    >{{ name }}</a
->
+<li class="bg-gray-100 hover:bg-gray-200 rounded text-gray-600 mb-1 cursor-pointer">
+    <a [routerLink]="routerUrl" routerLinkActive="bg-gray-300" class="block px-3 py-2 truncate">{{ name }}</a>
+</li>
