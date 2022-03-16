@@ -180,7 +180,7 @@ export class DockerRunPageComponent implements OnInit {
     handleShare() {
         const json = JSON.stringify(this.groupScript.value)
         const base64 = btoa(json)
-        this.shareLink = `http://localhost:4200/docker-run/?s=${base64}`
+        this.shareLink = `${window.location.origin}/docker-run/?s=${base64}`
     }
 
     handleAddEnvironment() {
