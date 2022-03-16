@@ -1,11 +1,5 @@
 <div class="bg-white mb-1 sticky top-0">
-    <input
-        type="text"
-        #searchInput
-        (keyup)="handleSearch($event)"
-        class="border-2 border-gray-300 focus:border-gray-500 mb-2 rounded px-2 py-1 w-full outline-none"
-        placeholder="Search.."
-    />
+    <input type="text" #searchInput (keyup)="handleSearch($event)" class="form-input w-full" placeholder="Search.." />
 </div>
 
 <ul *ngFor="let i of items">
