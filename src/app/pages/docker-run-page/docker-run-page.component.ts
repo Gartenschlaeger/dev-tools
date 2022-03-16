@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router'
 import { StringBuilder } from 'src/app/helper/string-builder'
 import { DockerRunEnvironmentVariable, DockerRunModel, DockerRunPortMapping } from 'src/app/models/docker-run.model'
 import { FormService } from 'src/app/services/form-service.service'
+import { requiredIfValidator } from 'src/app/validators/required-if.validator'
 
 export const FormDefaultValues = new DockerRunModel()
 
@@ -71,23 +72,30 @@ export class DockerRunPageComponent implements OnInit {
     }
 
     defineFormGroupScript(): FormGroup {
-        return this.fb.group({
-            imageName: new FormControl(FormDefaultValues.imageName, {
-                validators: [Validators.required]
-            }),
-            imageTag: new FormControl(FormDefaultValues.imageTag, {
-                validators: []
-            }),
-            containerName: new FormControl(FormDefaultValues.containerName, {
-                validators: [Validators.pattern('^[a-zA-Z_-]+$')]
-            }),
-            hostname: new FormControl(FormDefaultValues.hostname, {}),
-            runDettached: new FormControl(FormDefaultValues.runDettached, {}),
-            multilineScript: new FormControl(FormDefaultValues.multilineScript, {}),
-            useShortParams: new FormControl(FormDefaultValues.useShortParams, {}),
-            environmentVariables: this.fb.array([]),
-            portMappings: this.fb.array([])
-        })
+        return this.fb.group(
+            {
+                imageName: new FormControl(FormDefaultValues.imageName, {
+                    validators: [Validators.required]
+                }),
+                imageTag: new FormControl(FormDefaultValues.imageTag, {
+                    validators: []
+                }),
+                containerName: new FormControl(FormDefaultValues.containerName, {
+                    validators: [Validators.pattern('^[a-zA-Z_-]+$')]
+                }),
+                hostname: new FormControl(FormDefaultValues.hostname, {}),
+                networkMode: new FormControl(FormDefaultValues.networkMode, {}),
+                networkName: new FormControl(FormDefaultValues.networkName, {
+                    validators: []
+                }),
+                runDettached: new FormControl(FormDefaultValues.runDettached, {}),
+                multilineScript: new FormControl(FormDefaultValues.multilineScript, {}),
+                useShortParams: new FormControl(FormDefaultValues.useShortParams, {}),
+                environmentVariables: this.fb.array([]),
+                portMappings: this.fb.array([])
+            },
+            { validators: [requiredIfValidator('networkMode', 'custom', 'networkName')] }
+        )
     }
 
     defineFormGroupEnvVariable(): FormGroup {
@@ -131,6 +139,14 @@ export class DockerRunPageComponent implements OnInit {
 
         if (model.hostname) {
             builder.append(`--hostname="${model.hostname}"`, multilineStr)
+        }
+
+        if (model.networkMode != 'bridge') {
+            if (model.networkMode != 'custom') {
+                builder.append(`--network=${model.networkMode}`, multilineStr)
+            } else {
+                builder.append(`--network="${model.networkName}"`, multilineStr)
+            }
         }
 
         model.portMappings.forEach((pm) => {

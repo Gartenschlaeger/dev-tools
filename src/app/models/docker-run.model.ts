@@ -4,6 +4,8 @@ export class DockerRunModel {
     containerName: string = ''
     runDettached: boolean = true
     hostname: string = ''
+    networkMode: DockerRunNetworkMode = 'bridge'
+    networkName: string = ''
     portMappings: DockerRunPortMapping[] = []
     environmentVariables: DockerRunEnvironmentVariable[] = []
     useShortParams: boolean = true
@@ -19,3 +21,5 @@ export interface DockerRunEnvironmentVariable {
     key: string
     value: string
 }
+
+export type DockerRunNetworkMode = 'none' | 'bridge' | 'host' | 'custom'

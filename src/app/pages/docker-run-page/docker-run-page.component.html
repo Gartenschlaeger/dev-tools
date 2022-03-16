@@ -53,6 +53,33 @@
             <app-tab label="Network">
                 <!-- network -->
                 <div class="mb-3">
+                    <label for="networkMode">Mode</label>
+                    <select name="networkMode" id="networkMode" class="form-input w-full" formControlName="networkMode">
+                        <option>none</option>
+                        <option>bridge</option>
+                        <option>host</option>
+                        <option>custom</option>
+                    </select>
+                </div>
+
+                <div class="mb-3" *ngIf="groupScript.get('networkMode')?.value === 'custom'">
+                    <input
+                        type="text"
+                        class="form-input w-full"
+                        placeholder="Custom network name"
+                        formControlName="networkName"
+                    />
+
+                    <ng-container
+                        *ngIf="groupScript.get('networkName')?.dirty || groupScript.get('networkName')?.touched"
+                    >
+                        <span *ngIf="groupScript.hasError('requiredIf')" class="italic text-sm text-red-600"
+                            >* Required</span
+                        >
+                    </ng-container>
+                </div>
+
+                <div class="mb-3">
                     <label for="hostname">Hostname</label>
                     <input
                         type="text"
@@ -153,6 +180,7 @@
                     </div>
                 </div>
             </app-tab>
+            <app-tab label="Volumes"> todo </app-tab>
         </app-tab-control>
     </app-form-section>
 
