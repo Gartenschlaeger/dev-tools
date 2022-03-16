@@ -170,6 +170,10 @@ export class DockerRunPageComponent implements OnInit {
         }
     }
 
+    handleShare() {
+        alert('todo')
+    }
+
     handleAddEnvironment() {
         if (this.formService.validateForm(this.groupEnv)) {
             this.envVariables.push({

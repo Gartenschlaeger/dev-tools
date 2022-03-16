@@ -7,6 +7,10 @@
         @apply rounded px-3 py-2 h-10;
     }
 
+    .btn:disabled {
+        @apply cursor-not-allowed bg-opacity-50 hover:bg-opacity-50;
+    }
+
     .btn-primary {
         @apply bg-blue-600 hover:bg-blue-700 text-gray-100;
     }
