@@ -1,38 +1,11 @@
 import { Component, OnInit } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
+import { ActivatedRoute } from '@angular/router'
 import { StringBuilder } from 'src/app/helper/string-builder'
+import { DockerRunEnvironmentVariable, DockerRunModel, DockerRunPortMapping } from 'src/app/models/docker-run.model'
 import { FormService } from 'src/app/services/form-service.service'
 
-export interface DockerRunEnvironmentVariable {
-    name: string
-    value: string
-}
-
-export interface DockerRunPortMapping {
-    containerPort: number
-    hostPort: number
-    type: 'tcp' | 'udp'
-}
-
-export interface DockerRunFormGroupValues {
-    imageName: string
-    imageLabel: string
-    containerName: string
-    hostname: string
-    dettached: boolean
-    multiline: boolean
-    shortparams: boolean
-}
-
-export const FormDefaultValues: DockerRunFormGroupValues = {
-    imageName: '',
-    imageLabel: '',
-    containerName: '',
-    hostname: '',
-    dettached: true,
-    shortparams: true,
-    multiline: false
-}
+export const FormDefaultValues = new DockerRunModel()
 
 @Component({
     selector: 'app-docker-run-page',
@@ -40,41 +13,86 @@ export const FormDefaultValues: DockerRunFormGroupValues = {
 })
 export class DockerRunPageComponent implements OnInit {
     groupScript!: FormGroup
+    portMappings!: FormArray
+    environmentVariables!: FormArray
     groupEnv!: FormGroup
     groupPortMapping!: FormGroup
-    envVariables: DockerRunEnvironmentVariable[] = []
-    portMappings: DockerRunPortMapping[] = []
     generatedScript: string = ''
+    shareLink?: string
 
-    constructor(public formService: FormService) {}
+    constructor(private fb: FormBuilder, private route: ActivatedRoute, public formService: FormService) {}
 
     ngOnInit(): void {
         this.groupScript = this.defineFormGroupScript()
+        this.portMappings = this.groupScript.get('portMappings') as FormArray
+        this.environmentVariables = this.groupScript.get('environmentVariables') as FormArray
+
         this.groupEnv = this.defineFormGroupEnvVariable()
         this.groupPortMapping = this.defineFormGroupPortMappings()
+
+        this.route.queryParams.subscribe((params: any) => {
+            if (params.s) {
+                this.handleShareQuery(params.s)
+            }
+        })
+    }
+
+    handleShareQuery(query: string) {
+        try {
+            const model: DockerRunModel = JSON.parse(atob(query))
+
+            model.environmentVariables.forEach((i) => this.addEnvironmentVariable(i))
+            model.portMappings.forEach((i) => this.addPortMapping(i))
+
+            this.groupScript.setValue(model)
+
+            this.handleGenerateScript()
+        } catch (err) {
+            console.error('failed to restore shared state', err)
+        }
+    }
+
+    addPortMapping(value: DockerRunPortMapping) {
+        this.portMappings.push(
+            new FormGroup({
+                containerPort: new FormControl(value.containerPort, { validators: [Validators.required] }),
+                hostPort: new FormControl(value.hostPort, { validators: [Validators.required] })
+            })
+        )
+    }
+
+    addEnvironmentVariable(value: DockerRunEnvironmentVariable) {
+        this.environmentVariables.push(
+            new FormGroup({
+                key: new FormControl(value.key, { validators: [Validators.required] }),
+                value: new FormControl(value.value, { validators: [Validators.required] })
+            })
+        )
     }
 
     defineFormGroupScript(): FormGroup {
-        return new FormGroup({
+        return this.fb.group({
             imageName: new FormControl(FormDefaultValues.imageName, {
                 validators: [Validators.required]
             }),
-            imageLabel: new FormControl(FormDefaultValues.imageLabel, {
+            imageTag: new FormControl(FormDefaultValues.imageTag, {
                 validators: []
             }),
             containerName: new FormControl(FormDefaultValues.containerName, {
                 validators: [Validators.pattern('^[a-zA-Z_-]+$')]
             }),
             hostname: new FormControl(FormDefaultValues.hostname, {}),
-            dettached: new FormControl(FormDefaultValues.dettached, {}),
-            multiline: new FormControl(FormDefaultValues.multiline, {}),
-            shortparams: new FormControl(FormDefaultValues.shortparams, {})
+            runDettached: new FormControl(FormDefaultValues.runDettached, {}),
+            multilineScript: new FormControl(FormDefaultValues.multilineScript, {}),
+            useShortParams: new FormControl(FormDefaultValues.useShortParams, {}),
+            environmentVariables: this.fb.array([]),
+            portMappings: this.fb.array([])
         })
     }
 
     defineFormGroupEnvVariable(): FormGroup {
         return new FormGroup({
-            name: new FormControl('', {
+            key: new FormControl('', {
                 validators: [Validators.required]
             }),
             value: new FormControl('', {
@@ -95,72 +113,62 @@ export class DockerRunPageComponent implements OnInit {
     }
 
     generateScript(): string {
-        const imageName: string = this.groupScript.value.imageName
-        const imageLabel: string = this.groupScript.value.imageLabel
-        const containerName: string = this.groupScript.value.containerName
-        const hostname: string = this.groupScript.value.hostname
-        const multiline: boolean = this.groupScript.value.multiline
-        const shortparams: boolean = this.groupScript.value.shortparams
-        const dettached: boolean = this.groupScript.value.dettached
-
-        const multilineStr = multiline ? ' \\\n' : ' '
+        const model: DockerRunModel = this.groupScript.value
+        const multilineStr = model.multilineScript ? ' \\\n' : ' '
 
         const builder = new StringBuilder()
         builder.append('docker run')
 
-        if (dettached) {
-            builder.append(shortparams ? ' -d' : ' --detach')
+        if (model.runDettached) {
+            builder.append(model.useShortParams ? ' -d' : ' --detach')
         }
 
         builder.append(multilineStr)
 
-        if (containerName) {
-            builder.append(`--name="${containerName}"`, multilineStr)
+        if (model.containerName) {
+            builder.append(`--name="${model.containerName}"`, multilineStr)
         }
 
-        if (hostname) {
-            builder.append(`--hostname="${hostname}"`, multilineStr)
+        if (model.hostname) {
+            builder.append(`--hostname="${model.hostname}"`, multilineStr)
         }
 
-        for (let i = 0; i ^ this.portMappings.length; i++) {
+        model.portMappings.forEach((pm) => {
             builder.append(
-                shortparams ? '-p' : '--publish',
+                model.useShortParams ? '-p' : '--publish',
                 '=',
-                this.portMappings[i].containerPort,
+                pm.containerPort,
                 ':',
-                this.portMappings[i].hostPort,
+                pm.hostPort,
                 multilineStr
             )
-        }
+        })
 
-        for (let i = 0; i < this.envVariables.length; i++) {
-            builder.append(
-                shortparams ? '-e' : '--env',
-                '="',
-                this.envVariables[i].name,
-                '=',
-                this.envVariables[i].value,
-                '"',
-                multilineStr
-            )
-        }
+        model.environmentVariables.forEach((v) => {
+            builder.append(model.useShortParams ? '-e' : '--env', '="', v.key, '=', v.value, '"', multilineStr)
+        })
 
-        builder.append(imageName, ':', imageLabel ? imageLabel : 'latest')
+        builder.append(model.imageName, ':', model.imageTag ? model.imageTag : 'latest')
 
         return builder.build()
     }
 
     handleReset() {
-        this.formService.resetForm(this.groupScript)
+        this.portMappings.clear()
+        this.environmentVariables.clear()
+
+        this.groupScript.reset()
+        this.groupScript.markAsUntouched()
         this.groupScript.setValue(FormDefaultValues)
 
-        this.formService.resetForm(this.groupEnv)
-        this.envVariables = []
+        this.groupPortMapping.reset()
+        this.groupPortMapping.markAsUntouched()
 
-        this.formService.resetForm(this.groupPortMapping)
-        this.portMappings = []
+        this.groupEnv.reset()
+        this.groupEnv.markAsUntouched()
 
         this.generatedScript = ''
+        this.shareLink = ''
     }
 
     handleGenerateScript() {
@@ -170,22 +178,29 @@ export class DockerRunPageComponent implements OnInit {
     }
 
     handleShare() {
-        alert('todo')
+        const json = JSON.stringify(this.groupScript.value)
+        const base64 = btoa(json)
+        this.shareLink = `http://localhost:4200/docker-run/?s=${base64}`
     }
 
     handleAddEnvironment() {
         if (this.formService.validateForm(this.groupEnv)) {
-            this.envVariables.push({
-                name: this.groupEnv.get('name')?.value,
-                value: this.groupEnv.get('value')?.value
-            })
+            const key: string = this.groupEnv.value.key
+            const val: string = this.groupEnv.value.value
+
+            this.environmentVariables.push(
+                new FormGroup({
+                    key: new FormControl(key, { validators: [Validators.required] }),
+                    value: new FormControl(val, { validators: [Validators.required] })
+                })
+            )
 
             this.groupEnv.reset()
         }
     }
 
     handleRemoveEnvVariable(index: number) {
-        this.envVariables.splice(index, 1)
+        this.environmentVariables.removeAt(index)
     }
 
     handleAddPortMapping() {
@@ -193,17 +208,18 @@ export class DockerRunPageComponent implements OnInit {
             const containerPort = this.groupPortMapping.value.containerPort
             const hostPort = this.groupPortMapping.value.hostPort
 
-            this.portMappings.push({
-                containerPort: containerPort,
-                hostPort: hostPort,
-                type: 'tcp'
-            })
+            this.portMappings.push(
+                new FormGroup({
+                    containerPort: new FormControl(containerPort, { validators: [Validators.required] }),
+                    hostPort: new FormControl(hostPort, { validators: [Validators.required] })
+                })
+            )
 
             this.groupPortMapping.reset()
         }
     }
 
     handleRemPortMapping(index: number) {
-        this.portMappings.splice(index, 1)
+        this.portMappings.removeAt(index)
     }
 }

@@ -16,15 +16,15 @@
                 <app-form-field-errors [group]="groupScript" controlName="imageName"></app-form-field-errors>
             </div>
             <div class="flex-1">
-                <label for="imageLabel">Tag</label>
+                <label for="imageTag">Tag</label>
                 <input
                     type="text"
-                    id="imageLabel"
+                    id="imageTag"
                     class="form-input w-full"
                     placeholder="Image label"
-                    formControlName="imageLabel"
+                    formControlName="imageTag"
                 />
-                <app-form-field-errors [group]="groupScript" controlName="imageLabel"></app-form-field-errors>
+                <app-form-field-errors [group]="groupScript" controlName="imageTag"></app-form-field-errors>
             </div>
         </div>
     </app-form-section>
@@ -43,8 +43,8 @@
             <app-form-field-errors [group]="groupScript" controlName="containerName"></app-form-field-errors>
         </div>
         <div class="flex items-center gap-1">
-            <input type="checkbox" id="dettached" formControlName="dettached" />
-            <label for="dettached" class="cursor-pointer">Dettached</label>
+            <input type="checkbox" id="runDettached" formControlName="runDettached" />
+            <label for="runDettached" class="cursor-pointer">Dettached</label>
         </div>
     </app-form-section>
 
@@ -62,6 +62,7 @@
                         formControlName="hostname"
                     />
                 </div>
+
                 <form [formGroup]="groupPortMapping" (submit)="handleAddPortMapping()">
                     <label for="">Port mappings</label>
                     <div class="flex items-stretch gap-1">
@@ -95,16 +96,29 @@
                             </button>
                         </div>
                     </div>
-                    <div class="space-y-1" *ngIf="portMappings.length">
-                        <div class="flex items-center gap-1" *ngFor="let i of portMappings; let idx = index">
-                            <span type="text" class="flex-1">{{ i.containerPort }}</span>
-                            <span type="text" class="flex-1">{{ i.hostPort }}</span>
-                            <button type="button" class="btn btn-danger" (click)="handleRemPortMapping(idx)">
+                </form>
+
+                <div formArrayName="portMappings" class="mt-1 space-y-1" *ngIf="portMappings.length">
+                    <div class="flex items-center gap-1" *ngFor="let c of portMappings.controls; index as i">
+                        <ng-container [formGroupName]="i">
+                            <input
+                                type="text"
+                                class="form-input flex-1"
+                                formControlName="containerPort"
+                                placeholder="Container port"
+                            />
+                            <input
+                                type="text"
+                                class="form-input flex-1"
+                                formControlName="hostPort"
+                                placeholder="Host port"
+                            />
+                            <button type="button" class="btn btn-danger" (click)="handleRemPortMapping(i)">
                                 <svg-delete-icon size="sm"></svg-delete-icon>
                             </button>
-                        </div>
+                        </ng-container>
                     </div>
-                </form>
+                </div>
             </app-tab>
             <app-tab label="Environment">
                 <!-- environment -->
@@ -112,8 +126,8 @@
                     <label for="">Environment variables</label>
                     <div class="flex items-stretch gap-1">
                         <div class="flex-1">
-                            <input type="text" class="form-input w-full" formControlName="name" placeholder="Key" />
-                            <app-form-field-errors [group]="groupEnv" controlName="name"></app-form-field-errors>
+                            <input type="text" class="form-input w-full" formControlName="key" placeholder="Key" />
+                            <app-form-field-errors [group]="groupEnv" controlName="key"></app-form-field-errors>
                         </div>
                         <div class="flex-1">
                             <input type="text" class="form-input w-full" formControlName="value" placeholder="Value" />
@@ -125,30 +139,35 @@
                             </button>
                         </div>
                     </div>
-                    <div class="space-y-1" *ngIf="envVariables.length">
-                        <div class="flex gap-1" *ngFor="let i of envVariables; let idx = index">
-                            <span type="text" class="flex-1">{{ i.name }}</span>
-                            <span type="text" class="flex-1">{{ i.value }}</span>
-                            <button type="button" class="btn btn-danger" (click)="handleRemoveEnvVariable(idx)">
+                </form>
+
+                <div formArrayName="environmentVariables" class="mt-1 space-y-1" *ngIf="environmentVariables.length">
+                    <div class="flex items-center gap-1" *ngFor="let c of environmentVariables.controls; index as i">
+                        <ng-container [formGroupName]="i">
+                            <input type="text" class="form-input flex-1" formControlName="key" placeholder="Key" />
+                            <input type="text" class="form-input flex-1" formControlName="value" placeholder="Value" />
+                            <button type="button" class="btn btn-danger" (click)="handleRemPortMapping(i)">
                                 <svg-delete-icon size="sm"></svg-delete-icon>
                             </button>
-                        </div>
+                        </ng-container>
                     </div>
-                </form>
+                </div>
             </app-tab>
         </app-tab-control>
     </app-form-section>
+
+    <!-- <pre>{{ groupScript.value | json }}</pre> -->
 
     <!-- script -->
     <app-form-section title="Script">
         <div [ngClass]="{ 'mb-3': generatedScript }">
             <div class="mb-1 flex items-center gap-1">
-                <input type="checkbox" id="shortparams" formControlName="shortparams" />
-                <label for="shortparams" class="cursor-pointer">Short parameter names</label>
+                <input type="checkbox" id="useShortParams" formControlName="useShortParams" />
+                <label for="useShortParams" class="cursor-pointer">Short parameter names</label>
             </div>
             <div class="mb-1 flex items-center gap-1">
-                <input type="checkbox" id="multiline" formControlName="multiline" />
-                <label for="multiline" class="cursor-pointer">Multiline script</label>
+                <input type="checkbox" id="multilineScript" formControlName="multilineScript" />
+                <label for="multilineScript" class="cursor-pointer">Multiline script</label>
             </div>
         </div>
 
@@ -159,9 +178,18 @@
         </div>
     </app-form-section>
 
+    <app-form-section title="Share" *ngIf="shareLink">
+        <div class="bg-blue-100 text-blue-800 rounded p-3 w-full overflow-x-auto select-all">{{ shareLink }}</div>
+    </app-form-section>
+
     <app-form-footer>
         <button type="button" class="btn btn-secondary" (click)="handleReset()">Reset</button>
-        <button type="button" class="btn btn-primary" [attr.disabled]="generatedScript ? null : 'disabled'" (click)="handleShare()">
+        <button
+            type="button"
+            class="btn btn-primary"
+            [attr.disabled]="generatedScript ? null : 'disabled'"
+            (click)="handleShare()"
+        >
             Share
         </button>
         <button type="submit" class="btn btn-primary">Generate</button>
