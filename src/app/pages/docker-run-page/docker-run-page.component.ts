@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { StringBuilder } from 'src/app/helper/string-builder'
 import { FormService } from 'src/app/services/form-service.service'
-import { environment } from 'src/environments/environment'
 
 export interface DockerRunEnvironmentVariable {
     name: string
@@ -57,19 +56,19 @@ export class DockerRunPageComponent implements OnInit {
 
     defineFormGroupScript(): FormGroup {
         return new FormGroup({
-            imageName: new FormControl(environment.dockerRunDefaults?.imageName, {
+            imageName: new FormControl(FormDefaultValues.imageName, {
                 validators: [Validators.required]
             }),
-            imageLabel: new FormControl(environment.dockerRunDefaults?.imageLabel, {
+            imageLabel: new FormControl(FormDefaultValues.imageLabel, {
                 validators: []
             }),
-            containerName: new FormControl(environment.dockerRunDefaults?.containerName, {
+            containerName: new FormControl(FormDefaultValues.containerName, {
                 validators: [Validators.pattern('^[a-zA-Z_-]+$')]
             }),
-            hostname: new FormControl(environment.dockerRunDefaults?.hostname, {}),
-            dettached: new FormControl(environment.dockerRunDefaults?.dettached, {}),
-            multiline: new FormControl(environment.dockerRunDefaults?.multiline, {}),
-            shortparams: new FormControl(environment.dockerRunDefaults?.shortparams, {})
+            hostname: new FormControl(FormDefaultValues.hostname, {}),
+            dettached: new FormControl(FormDefaultValues.dettached, {}),
+            multiline: new FormControl(FormDefaultValues.multiline, {}),
+            shortparams: new FormControl(FormDefaultValues.shortparams, {})
         })
     }
 
