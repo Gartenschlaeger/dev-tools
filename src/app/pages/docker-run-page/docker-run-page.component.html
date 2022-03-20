@@ -26,9 +26,17 @@
             />
             <app-form-field-errors [control]="groupScript.get('containerName')"></app-form-field-errors>
         </div>
-        <div class="flex items-center gap-1">
+        <div class="flex items-center gap-1 mb-3">
             <input type="checkbox" id="runDettached" formControlName="runDettached" />
             <label for="runDettached" class="cursor-pointer">Dettached</label>
+        </div>
+        <div>
+            <label for="restartMode" class="mb-1 inline-block">Restart</label>
+            <select name="restartMode" id="restartMode" class="form-input w-full" formControlName="restartMode">
+                <option>no</option>
+                <option>always</option>
+                <option>unless-stopped</option>
+            </select>
         </div>
     </app-form-section>
 

@@ -89,6 +89,7 @@ export class DockerRunPageComponent implements OnInit {
                     validators: []
                 }),
                 runDettached: new FormControl(FormDefaultValues.runDettached, {}),
+                restartMode: new FormControl(FormDefaultValues.restartMode, {}),
                 multilineScript: new FormControl(FormDefaultValues.multilineScript, {}),
                 useShortParams: new FormControl(FormDefaultValues.useShortParams, {}),
                 environmentVariables: this.fb.array([]),
@@ -141,6 +142,10 @@ export class DockerRunPageComponent implements OnInit {
             builder.append(`--hostname="${model.hostname}"`, multilineStr)
         }
 
+        if (model.restartMode !== 'no') {
+            builder.append(`--restart=${model.restartMode}`, multilineStr)
+        }
+
         if (model.networkMode != 'bridge') {
             if (model.networkMode != 'custom') {
                 builder.append(`--network=${model.networkMode}`, multilineStr)
@@ -188,7 +193,6 @@ export class DockerRunPageComponent implements OnInit {
     }
 
     handleGenerateScript() {
-        console.debug(this.groupScript.valid, this.groupScript.value)
         if (this.formService.validateForm(this.groupScript)) {
             this.generatedScript = this.generateScript()
         }

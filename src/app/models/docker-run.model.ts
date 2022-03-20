@@ -3,6 +3,7 @@ export class DockerRunModel {
     imageTag: string = ''
     containerName: string = ''
     runDettached: boolean = true
+    restartMode: 'no' | 'always' | 'unless-stopped' = 'no'
     hostname: string = ''
     networkMode: DockerRunNetworkMode = 'bridge'
     networkName: string = ''
