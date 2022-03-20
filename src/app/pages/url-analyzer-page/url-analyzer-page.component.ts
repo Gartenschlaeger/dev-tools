@@ -8,6 +8,8 @@ import { FormService } from 'src/app/services/form-service.service'
 })
 export class UrlAnalyzerPageComponent implements OnInit {
     groupUrlAnalyzer!: FormGroup
+    url?: URL
+    error?: string
 
     constructor(public formService: FormService) {}
 
@@ -25,7 +27,13 @@ export class UrlAnalyzerPageComponent implements OnInit {
 
     submitHandler() {
         if (this.formService.validateForm(this.groupUrlAnalyzer)) {
-            console.log('todo')
+            try {
+                this.url = new URL(this.groupUrlAnalyzer.get('url')?.value)
+                this.error = undefined
+            } catch (err) {
+                this.error = 'Failed to parse url. Invalid format?'
+                console.error(err)
+            }
         }
     }
 }

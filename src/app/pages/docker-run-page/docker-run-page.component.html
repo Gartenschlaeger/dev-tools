@@ -5,26 +5,10 @@
     <app-form-section title="Image">
         <div class="flex gap-1">
             <div class="flex-1">
-                <label for="imageName">Name</label>
-                <input
-                    type="text"
-                    id="imageName"
-                    class="form-input w-full"
-                    placeholder="Image name"
-                    formControlName="imageName"
-                />
-                <app-form-field-errors [group]="groupScript" controlName="imageName"></app-form-field-errors>
+                <app-form-textfield label="Image name" formControlName="imageName"></app-form-textfield>
             </div>
             <div class="flex-1">
-                <label for="imageTag">Tag</label>
-                <input
-                    type="text"
-                    id="imageTag"
-                    class="form-input w-full"
-                    placeholder="Image label"
-                    formControlName="imageTag"
-                />
-                <app-form-field-errors [group]="groupScript" controlName="imageTag"></app-form-field-errors>
+                <app-form-textfield label="Image tag" formControlName="imageTag"></app-form-textfield>
             </div>
         </div>
     </app-form-section>
@@ -40,7 +24,7 @@
                 placeholder="Container name"
                 formControlName="containerName"
             />
-            <app-form-field-errors [group]="groupScript" controlName="containerName"></app-form-field-errors>
+            <app-form-field-errors [control]="groupScript.get('containerName')"></app-form-field-errors>
         </div>
         <div class="flex items-center gap-1">
             <input type="checkbox" id="runDettached" formControlName="runDettached" />
@@ -101,8 +85,7 @@
                                 placeholder="Container port"
                             />
                             <app-form-field-errors
-                                [group]="groupPortMapping"
-                                controlName="containerPort"
+                                [control]="groupPortMapping.get('containerPort')"
                             ></app-form-field-errors>
                         </div>
                         <div class="flex-1">
@@ -112,10 +95,7 @@
                                 formControlName="hostPort"
                                 placeholder="Host port"
                             />
-                            <app-form-field-errors
-                                [group]="groupPortMapping"
-                                controlName="hostPort"
-                            ></app-form-field-errors>
+                            <app-form-field-errors [control]="groupPortMapping.get('hostPort')"></app-form-field-errors>
                         </div>
                         <div class="flex-none">
                             <button type="submit" class="btn btn-primary">
@@ -154,11 +134,11 @@
                     <div class="flex items-stretch gap-1">
                         <div class="flex-1">
                             <input type="text" class="form-input w-full" formControlName="key" placeholder="Key" />
-                            <app-form-field-errors [group]="groupEnv" controlName="key"></app-form-field-errors>
+                            <app-form-field-errors [control]="groupEnv.get('key')"></app-form-field-errors>
                         </div>
                         <div class="flex-1">
                             <input type="text" class="form-input w-full" formControlName="value" placeholder="Value" />
-                            <app-form-field-errors [group]="groupEnv" controlName="value"></app-form-field-errors>
+                            <app-form-field-errors [control]="groupEnv.get('value')"></app-form-field-errors>
                         </div>
                         <div class="flex-none">
                             <button type="submit" class="btn btn-primary">

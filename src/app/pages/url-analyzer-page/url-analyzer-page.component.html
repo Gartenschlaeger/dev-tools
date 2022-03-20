@@ -1,10 +1,38 @@
 <app-page-header title="URL Analyzer"></app-page-header>
 
 <form [formGroup]="groupUrlAnalyzer" class="mb-8" (submit)="submitHandler()">
-    <div class="mb-3">
-        <input type="text" class="form-input w-full" placeholder="URL" formControlName="url" />
-        <app-form-field-errors [group]="groupUrlAnalyzer" controlName="url"></app-form-field-errors>
-    </div>
+    <app-form-section title="Settings">
+        <app-form-textfield label="URL" formControlName="url"></app-form-textfield>
+    </app-form-section>
+
+    <app-form-section title="Details" *ngIf="url">
+        <div class="mb-3">
+            <span class="font-semibold inline-block mb-1 w-full">Host</span>
+            <pre>{{ url.host }}</pre>
+        </div>
+
+        <div class="mb-3" *ngIf="url.pathname">
+            <span class="font-semibold inline-block mb-1 w-full">Path</span>
+            <pre>{{ url.pathname }}</pre>
+        </div>
+
+        <div class="mb-3" *ngIf="url.port">
+            <span class="font-semibold inline-block mb-1 w-full">Port</span>
+            <pre>{{ url.port }}</pre>
+        </div>
+
+        <div class="mb-3" *ngIf="url.search">
+            <span class="font-semibold inline-block mb-1 w-full">Search</span>
+            <pre>{{ url.search }}</pre>
+        </div>
+
+        <div class="mb-3" *ngIf="url.hash">
+            <span class="font-semibold inline-block mb-1 w-full">Hash</span>
+            <pre>{{ url.hash }}</pre>
+        </div>
+    </app-form-section>
+
+    <div class="rounded bg-red-100 text-red-700 px-4 py-3" *ngIf="error">{{ error }}</div>
 
     <app-form-footer>
         <button class="btn btn-primary">Analyze</button>

@@ -174,8 +174,8 @@ export class DockerRunPageComponent implements OnInit {
         this.environmentVariables.clear()
 
         this.groupScript.reset()
-        this.groupScript.markAsUntouched()
         this.groupScript.setValue(FormDefaultValues)
+        this.groupScript.markAsUntouched()
 
         this.groupPortMapping.reset()
         this.groupPortMapping.markAsUntouched()
@@ -188,6 +188,7 @@ export class DockerRunPageComponent implements OnInit {
     }
 
     handleGenerateScript() {
+        console.debug(this.groupScript.valid, this.groupScript.value)
         if (this.formService.validateForm(this.groupScript)) {
             this.generatedScript = this.generateScript()
         }

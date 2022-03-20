@@ -2,9 +2,10 @@ import { NgModule } from '@angular/core'
 import { ReactiveFormsModule } from '@angular/forms'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { FormFieldErrorsComponent } from 'src/app/controls/form-field-errors/form-field-errors.component'
 import { NavigationComponent } from 'src/app/controls/navigation/navigation.component'
 import { FormService } from 'src/app/services/form-service.service'
+import { FormFieldErrorsComponent } from 'src/app/shared/form-field-errors/form-field-errors.component'
+import { FormTextfieldComponent } from 'src/app/shared/form-textfield/form-textfield.component'
 import { SvgIconModule } from 'src/app/shared/svg-icon/svg-icon.module'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
@@ -31,7 +32,8 @@ import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer
         FormFooterComponent,
         TabComponent,
         TabControlComponent,
-        FormSectionComponent
+        FormSectionComponent,
+        FormTextfieldComponent
     ],
     imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, ReactiveFormsModule, SvgIconModule],
     providers: [FormService],
