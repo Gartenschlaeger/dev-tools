@@ -1,6 +1,6 @@
 <app-page-header title="Docker Run Generator"></app-page-header>
 
-<form [formGroup]="groupScript" class="mb-8" (submit)="handleGenerateScript()">
+<form [formGroup]="form" class="mb-8" (submit)="handleGenerateScript()">
     <!-- image -->
     <app-form-section title="Image">
         <div class="flex gap-1">
@@ -24,7 +24,7 @@
                 placeholder="Container name"
                 formControlName="containerName"
             />
-            <app-form-field-errors [control]="groupScript.get('containerName')"></app-form-field-errors>
+            <app-form-field-errors [control]="form.get('containerName')"></app-form-field-errors>
         </div>
         <div class="flex items-center gap-1 mb-3">
             <input type="checkbox" id="runDettached" formControlName="runDettached" />
@@ -54,7 +54,7 @@
                     </select>
                 </div>
 
-                <div class="mb-3" *ngIf="groupScript.get('networkMode')?.value === 'custom'">
+                <div class="mb-3" *ngIf="form.get('networkMode')?.value === 'custom'">
                     <input
                         type="text"
                         class="form-input w-full"
@@ -62,12 +62,8 @@
                         formControlName="networkName"
                     />
 
-                    <ng-container
-                        *ngIf="groupScript.get('networkName')?.dirty || groupScript.get('networkName')?.touched"
-                    >
-                        <span *ngIf="groupScript.hasError('requiredIf')" class="italic text-sm text-red-600"
-                            >* Required</span
-                        >
+                    <ng-container *ngIf="form.get('networkName')?.dirty || form.get('networkName')?.touched">
+                        <span *ngIf="form.hasError('requiredIf')" class="italic text-sm text-red-600">* Required</span>
                     </ng-container>
                 </div>
 
@@ -82,7 +78,7 @@
                     />
                 </div>
 
-                <form [formGroup]="groupPortMapping" (submit)="handleAddPortMapping()">
+                <form [formGroup]="formAddPortMapping" (submit)="handleAddPortMapping()">
                     <label for="">Port mappings</label>
                     <div class="flex items-stretch gap-1">
                         <div class="flex-1">
@@ -92,7 +88,9 @@
                                 formControlName="hostPort"
                                 placeholder="Host port"
                             />
-                            <app-form-field-errors [control]="groupPortMapping.get('hostPort')"></app-form-field-errors>
+                            <app-form-field-errors
+                                [control]="formAddPortMapping.get('hostPort')"
+                            ></app-form-field-errors>
                         </div>
                         <div class="flex-1">
                             <input
@@ -102,7 +100,7 @@
                                 placeholder="Container port"
                             />
                             <app-form-field-errors
-                                [control]="groupPortMapping.get('containerPort')"
+                                [control]="formAddPortMapping.get('containerPort')"
                             ></app-form-field-errors>
                         </div>
                         <div class="flex-none">
@@ -137,16 +135,16 @@
             </app-tab>
             <app-tab label="Environment">
                 <!-- environment -->
-                <form [formGroup]="groupEnv" (submit)="handleAddEnvironment()">
+                <form [formGroup]="formAddEnvVariable" (submit)="handleAddEnvironment()">
                     <label for="">Environment variables</label>
                     <div class="flex items-stretch gap-1">
                         <div class="flex-1">
                             <input type="text" class="form-input w-full" formControlName="key" placeholder="Key" />
-                            <app-form-field-errors [control]="groupEnv.get('key')"></app-form-field-errors>
+                            <app-form-field-errors [control]="formAddEnvVariable.get('key')"></app-form-field-errors>
                         </div>
                         <div class="flex-1">
                             <input type="text" class="form-input w-full" formControlName="value" placeholder="Value" />
-                            <app-form-field-errors [control]="groupEnv.get('value')"></app-form-field-errors>
+                            <app-form-field-errors [control]="formAddEnvVariable.get('value')"></app-form-field-errors>
                         </div>
                         <div class="flex-none">
                             <button type="submit" class="btn btn-primary">
@@ -168,7 +166,63 @@
                     </div>
                 </div>
             </app-tab>
-            <app-tab label="Volumes"> todo </app-tab>
+            <app-tab label="Volumes">
+                <!-- volume mappings -->
+                <form [formGroup]="formAddVolumeMapping" (submit)="handleAddVolumeMapping()">
+                    <label for="">Volume mappings</label>
+                    <div class="flex items-stretch gap-1">
+                        <div class="flex-1">
+                            <input
+                                type="text"
+                                class="form-input w-full"
+                                formControlName="hostPath"
+                                placeholder="Host path"
+                            />
+                            <app-form-field-errors
+                                [control]="formAddVolumeMapping.get('hostPath')"
+                            ></app-form-field-errors>
+                        </div>
+                        <div class="flex-1">
+                            <input
+                                type="text"
+                                class="form-input w-full"
+                                formControlName="containerPath"
+                                placeholder="Container path"
+                            />
+                            <app-form-field-errors
+                                [control]="formAddVolumeMapping.get('containerPath')"
+                            ></app-form-field-errors>
+                        </div>
+                        <div class="flex-none">
+                            <button type="submit" class="btn btn-primary">
+                                <svg-plus-icon size="sm"></svg-plus-icon>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <div formArrayName="volumeMappings" class="mt-1 space-y-1" *ngIf="volumeMappings.length">
+                    <div class="flex items-center gap-1" *ngFor="let c of volumeMappings.controls; index as i">
+                        <ng-container [formGroupName]="i">
+                            <input
+                                type="text"
+                                class="form-input flex-1"
+                                formControlName="hostPath"
+                                placeholder="Host path"
+                            />
+                            <input
+                                type="text"
+                                class="form-input flex-1"
+                                formControlName="containerPath"
+                                placeholder="Container path"
+                            />
+                            <button type="button" class="btn btn-danger" (click)="handleRemoveVolumeMapping(i)">
+                                <svg-delete-icon size="sm"></svg-delete-icon>
+                            </button>
+                        </ng-container>
+                    </div>
+                </div>
+            </app-tab>
         </app-tab-control>
     </app-form-section>
 

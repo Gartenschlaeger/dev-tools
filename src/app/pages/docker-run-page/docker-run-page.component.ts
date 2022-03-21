@@ -13,23 +13,27 @@ export const FormDefaultValues = new DockerRunModel()
     templateUrl: './docker-run-page.component.html'
 })
 export class DockerRunPageComponent implements OnInit {
-    groupScript!: FormGroup
-    portMappings!: FormArray
+    form!: FormGroup
+    formAddEnvVariable!: FormGroup
     environmentVariables!: FormArray
-    groupEnv!: FormGroup
-    groupPortMapping!: FormGroup
+    formAddPortMapping!: FormGroup
+    portMappings!: FormArray
+    formAddVolumeMapping!: FormGroup
+    volumeMappings!: FormArray
     generatedScript: string = ''
     shareLink?: string
 
     constructor(private fb: FormBuilder, private route: ActivatedRoute, public formService: FormService) {}
 
     ngOnInit(): void {
-        this.groupScript = this.defineFormGroupScript()
-        this.portMappings = this.groupScript.get('portMappings') as FormArray
-        this.environmentVariables = this.groupScript.get('environmentVariables') as FormArray
+        this.form = this.defineFormGroupScript()
+        this.portMappings = this.form.get('portMappings') as FormArray
+        this.environmentVariables = this.form.get('environmentVariables') as FormArray
+        this.volumeMappings = this.form.get('volumeMappings') as FormArray
 
-        this.groupEnv = this.defineFormGroupEnvVariable()
-        this.groupPortMapping = this.defineFormGroupPortMappings()
+        this.formAddEnvVariable = this.defineFormGroupEnvVariable()
+        this.formAddPortMapping = this.defineFormGroupPortMappings()
+        this.formAddVolumeMapping = this.defineFormAddVolumeMapping()
 
         this.route.queryParams.subscribe((params: any) => {
             if (params.s) {
@@ -45,7 +49,7 @@ export class DockerRunPageComponent implements OnInit {
             model.environmentVariables.forEach((i) => this.addEnvironmentVariable(i))
             model.portMappings.forEach((i) => this.addPortMapping(i))
 
-            this.groupScript.setValue(model)
+            this.form.setValue(model)
 
             this.handleGenerateScript()
         } catch (err) {
@@ -83,6 +87,7 @@ export class DockerRunPageComponent implements OnInit {
                 containerName: new FormControl(FormDefaultValues.containerName, {
                     validators: [Validators.pattern('^[a-zA-Z_-]+$')]
                 }),
+                volumeMappings: this.fb.array([]),
                 hostname: new FormControl(FormDefaultValues.hostname, {}),
                 networkMode: new FormControl(FormDefaultValues.networkMode, {}),
                 networkName: new FormControl(FormDefaultValues.networkName, {
@@ -121,8 +126,15 @@ export class DockerRunPageComponent implements OnInit {
         })
     }
 
+    defineFormAddVolumeMapping(): FormGroup {
+        return new FormGroup({
+            hostPath: new FormControl(null, {}),
+            containerPath: new FormControl(null, {})
+        })
+    }
+
     generateScript(): string {
-        const model: DockerRunModel = this.groupScript.value
+        const model: DockerRunModel = this.form.value
         const multilineStr = model.multilineScript ? ' \\\n' : ' '
 
         const builder = new StringBuilder()
@@ -165,6 +177,17 @@ export class DockerRunPageComponent implements OnInit {
             )
         })
 
+        model.volumeMappings.forEach((vm) => {
+            builder.append(
+                model.useShortParams ? '-v' : '--volume',
+                ' ',
+                vm.hostPath,
+                ':',
+                vm.containerPath,
+                multilineStr
+            )
+        })
+
         model.environmentVariables.forEach((v) => {
             builder.append(model.useShortParams ? '-e' : '--env', ' "', v.key, '=', v.value, '"', multilineStr)
         })
@@ -178,36 +201,36 @@ export class DockerRunPageComponent implements OnInit {
         this.portMappings.clear()
         this.environmentVariables.clear()
 
-        this.groupScript.reset()
-        this.groupScript.setValue(FormDefaultValues)
-        this.groupScript.markAsUntouched()
+        this.form.reset()
+        this.form.setValue(FormDefaultValues)
+        this.form.markAsUntouched()
 
-        this.groupPortMapping.reset()
-        this.groupPortMapping.markAsUntouched()
+        this.formAddPortMapping.reset()
+        this.formAddPortMapping.markAsUntouched()
 
-        this.groupEnv.reset()
-        this.groupEnv.markAsUntouched()
+        this.formAddEnvVariable.reset()
+        this.formAddEnvVariable.markAsUntouched()
 
         this.generatedScript = ''
         this.shareLink = ''
     }
 
     handleGenerateScript() {
-        if (this.formService.validateForm(this.groupScript)) {
+        if (this.formService.validateForm(this.form)) {
             this.generatedScript = this.generateScript()
         }
     }
 
     handleShare() {
-        const json = JSON.stringify(this.groupScript.value)
+        const json = JSON.stringify(this.form.value)
         const base64 = btoa(json)
         this.shareLink = `${window.location.origin}/docker-run/?s=${base64}`
     }
 
     handleAddEnvironment() {
-        if (this.formService.validateForm(this.groupEnv)) {
-            const key: string = this.groupEnv.value.key
-            const val: string = this.groupEnv.value.value
+        if (this.formService.validateForm(this.formAddEnvVariable)) {
+            const key: string = this.formAddEnvVariable.value.key
+            const val: string = this.formAddEnvVariable.value.value
 
             this.environmentVariables.push(
                 new FormGroup({
@@ -216,7 +239,7 @@ export class DockerRunPageComponent implements OnInit {
                 })
             )
 
-            this.groupEnv.reset()
+            this.formAddEnvVariable.reset()
         }
     }
 
@@ -225,22 +248,42 @@ export class DockerRunPageComponent implements OnInit {
     }
 
     handleAddPortMapping() {
-        if (this.formService.validateForm(this.groupPortMapping)) {
-            const containerPort = this.groupPortMapping.value.containerPort
-            const hostPort = this.groupPortMapping.value.hostPort
+        if (this.formService.validateForm(this.formAddPortMapping)) {
+            const containerPort = this.formAddPortMapping.value.containerPort
+            const hostPort = this.formAddPortMapping.value.hostPort
 
             this.portMappings.push(
                 new FormGroup({
-                    containerPort: new FormControl(containerPort, { validators: [Validators.required] }),
-                    hostPort: new FormControl(hostPort, { validators: [Validators.required] })
+                    hostPort: new FormControl(hostPort, { validators: [Validators.required] }),
+                    containerPort: new FormControl(containerPort, { validators: [Validators.required] })
                 })
             )
 
-            this.groupPortMapping.reset()
+            this.formAddPortMapping.reset()
         }
     }
 
     handleRemPortMapping(index: number) {
         this.portMappings.removeAt(index)
+    }
+
+    handleAddVolumeMapping() {
+        if (this.formService.validateForm(this.formAddVolumeMapping)) {
+            const hostPath: string = this.formAddVolumeMapping.value.hostPath
+            const containerPath: string = this.formAddVolumeMapping.value.containerPath
+
+            this.volumeMappings.push(
+                new FormGroup({
+                    hostPath: new FormControl(hostPath, {}),
+                    containerPath: new FormControl(containerPath, {})
+                })
+            )
+
+            this.formAddVolumeMapping.reset()
+        }
+    }
+
+    handleRemoveVolumeMapping(index: number) {
+        this.volumeMappings.removeAt(index)
     }
 }

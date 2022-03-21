@@ -3,6 +3,7 @@ export class DockerRunModel {
     imageTag: string = ''
     containerName: string = ''
     runDettached: boolean = true
+    volumeMappings: DockerRunVolumeMapping[] = []
     restartMode: 'no' | 'always' | 'unless-stopped' = 'no'
     hostname: string = ''
     networkMode: DockerRunNetworkMode = 'bridge'
@@ -14,8 +15,13 @@ export class DockerRunModel {
 }
 
 export interface DockerRunPortMapping {
-    containerPort: number
     hostPort: number
+    containerPort: number
+}
+
+export interface DockerRunVolumeMapping {
+    hostPath: string
+    containerPath: string
 }
 
 export interface DockerRunEnvironmentVariable {
