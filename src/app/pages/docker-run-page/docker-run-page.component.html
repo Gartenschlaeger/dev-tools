@@ -89,21 +89,21 @@
                             <input
                                 type="text"
                                 class="form-input w-full"
+                                formControlName="hostPort"
+                                placeholder="Host port"
+                            />
+                            <app-form-field-errors [control]="groupPortMapping.get('hostPort')"></app-form-field-errors>
+                        </div>
+                        <div class="flex-1">
+                            <input
+                                type="text"
+                                class="form-input w-full"
                                 formControlName="containerPort"
                                 placeholder="Container port"
                             />
                             <app-form-field-errors
                                 [control]="groupPortMapping.get('containerPort')"
                             ></app-form-field-errors>
-                        </div>
-                        <div class="flex-1">
-                            <input
-                                type="text"
-                                class="form-input w-full"
-                                formControlName="hostPort"
-                                placeholder="Host port"
-                            />
-                            <app-form-field-errors [control]="groupPortMapping.get('hostPort')"></app-form-field-errors>
                         </div>
                         <div class="flex-none">
                             <button type="submit" class="btn btn-primary">

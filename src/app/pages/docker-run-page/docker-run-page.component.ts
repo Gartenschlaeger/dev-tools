@@ -135,38 +135,38 @@ export class DockerRunPageComponent implements OnInit {
         builder.append(multilineStr)
 
         if (model.containerName) {
-            builder.append(`--name="${model.containerName}"`, multilineStr)
+            builder.append(`--name "${model.containerName}"`, multilineStr)
         }
 
         if (model.hostname) {
-            builder.append(`--hostname="${model.hostname}"`, multilineStr)
+            builder.append(`--hostname "${model.hostname}"`, multilineStr)
         }
 
         if (model.restartMode !== 'no') {
-            builder.append(`--restart=${model.restartMode}`, multilineStr)
+            builder.append(`--restart ${model.restartMode}`, multilineStr)
         }
 
         if (model.networkMode != 'bridge') {
             if (model.networkMode != 'custom') {
-                builder.append(`--network=${model.networkMode}`, multilineStr)
+                builder.append(`--network ${model.networkMode}`, multilineStr)
             } else {
-                builder.append(`--network="${model.networkName}"`, multilineStr)
+                builder.append(`--network "${model.networkName}"`, multilineStr)
             }
         }
 
         model.portMappings.forEach((pm) => {
             builder.append(
                 model.useShortParams ? '-p' : '--publish',
-                '=',
-                pm.containerPort,
-                ':',
+                ' ',
                 pm.hostPort,
+                ':',
+                pm.containerPort,
                 multilineStr
             )
         })
 
         model.environmentVariables.forEach((v) => {
-            builder.append(model.useShortParams ? '-e' : '--env', '="', v.key, '=', v.value, '"', multilineStr)
+            builder.append(model.useShortParams ? '-e' : '--env', ' "', v.key, '=', v.value, '"', multilineStr)
         })
 
         builder.append(model.imageName, ':', model.imageTag ? model.imageTag : 'latest')
