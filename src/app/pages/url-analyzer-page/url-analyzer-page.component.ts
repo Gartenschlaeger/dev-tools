@@ -2,14 +2,23 @@ import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { FormService } from 'src/app/services/form-service.service'
 
+export class UrlAnalyzerResult {
+	hostname?: string
+	port?: string
+	path?: string
+	queryString?: string
+	queryStringValues: { [name: string]: string } = {}
+	fragment?: string
+}
+
 @Component({
 	selector: 'app-url-analyzer-page',
 	templateUrl: './url-analyzer-page.component.html'
 })
 export class UrlAnalyzerPageComponent implements OnInit {
 	groupUrlAnalyzer!: FormGroup
-	url?: URL
-	error?: string
+	result: UrlAnalyzerResult | null = null
+	hasError = false
 
 	constructor(public formService: FormService) {}
 
@@ -19,7 +28,7 @@ export class UrlAnalyzerPageComponent implements OnInit {
 
 	defineFormGroup(): FormGroup {
 		return new FormGroup({
-			url: new FormControl('', {
+			url: new FormControl('https://www.google.de?q=das+ist+ein+test&p=1&s=25', {
 				validators: [Validators.required]
 			})
 		})
@@ -28,12 +37,24 @@ export class UrlAnalyzerPageComponent implements OnInit {
 	submitHandler() {
 		if (this.formService.validateForm(this.groupUrlAnalyzer)) {
 			try {
-				this.url = new URL(this.groupUrlAnalyzer.get('url')?.value)
-				this.error = undefined
+				const url = new URL(this.groupUrlAnalyzer.get('url')?.value)
+
+				this.result = new UrlAnalyzerResult()
+				this.result.hostname = url.hostname
+				this.result.port = url.port
+				this.result.path = url.pathname
+				this.result.queryString = url.search
+				if (this.result.queryStringValues) {
+					url.searchParams.forEach((val, key) => {
+						this.result!.queryStringValues[key] = val
+					})
+				}
 			} catch (err) {
-				this.error = 'Failed to parse url. Invalid format?'
-				console.error(err)
+				this.result = null
+				this.hasError = true
 			}
 		}
 	}
+
+	handleToogleSearchDetails() {}
 }
