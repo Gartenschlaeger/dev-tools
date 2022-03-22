@@ -1,8 +1,8 @@
 <main class="flex h-screen gap-3 p-3">
-	<div class="flex-none w-80">
+	<div class="flex-none w-80 overflow-y-auto">
 		<app-navigation></app-navigation>
 	</div>
-	<div class="flex-auto overflow-y-auto">
+	<div class="flex-1 flex-shrink-0 overflow-x-hidden overflow-y-auto pr-3">
 		<router-outlet></router-outlet>
 	</div>
 </main>

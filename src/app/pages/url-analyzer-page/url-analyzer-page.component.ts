@@ -7,7 +7,7 @@ export class UrlAnalyzerResult {
 	port?: string
 	path?: string
 	queryString?: string
-	queryStringValues: { [name: string]: string } = {}
+	queryStringValues: { name: string; value: string }[] = []
 	fragment?: string
 }
 
@@ -19,6 +19,7 @@ export class UrlAnalyzerPageComponent implements OnInit {
 	groupUrlAnalyzer!: FormGroup
 	result: UrlAnalyzerResult | null = null
 	hasError = false
+	showQueryDetails = false
 
 	constructor(public formService: FormService) {}
 
@@ -28,9 +29,12 @@ export class UrlAnalyzerPageComponent implements OnInit {
 
 	defineFormGroup(): FormGroup {
 		return new FormGroup({
-			url: new FormControl('https://www.google.de?q=das+ist+ein+test&p=1&s=25', {
-				validators: [Validators.required]
-			})
+			url: new FormControl(
+				'https://c2id.com/login?response_type=code&scope=openid%20email&client_id=123&state=af0ifjsldkj&redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb#some-hash',
+				{
+					validators: [Validators.required]
+				}
+			)
 		})
 	}
 
@@ -43,10 +47,18 @@ export class UrlAnalyzerPageComponent implements OnInit {
 				this.result.hostname = url.hostname
 				this.result.port = url.port
 				this.result.path = url.pathname
-				this.result.queryString = url.search
+				this.result.fragment = url.hash
+
+				if (url.search) {
+					this.result.queryString = url.search.substring(1)
+				}
+
 				if (this.result.queryStringValues) {
 					url.searchParams.forEach((val, key) => {
-						this.result!.queryStringValues[key] = val
+						this.result?.queryStringValues.push({
+							name: key,
+							value: val
+						})
 					})
 				}
 			} catch (err) {
@@ -56,5 +68,7 @@ export class UrlAnalyzerPageComponent implements OnInit {
 		}
 	}
 
-	handleToogleSearchDetails() {}
+	handleToogleSearchDetails() {
+		this.showQueryDetails = !this.showQueryDetails
+	}
 }

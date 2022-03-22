@@ -3,35 +3,43 @@
 @tailwind utilities;
 
 @layer components {
-    .btn {
-        @apply rounded px-3 py-2 h-10;
-    }
+	.btn {
+		@apply rounded px-3 py-2 h-10;
+	}
 
-    .btn:disabled {
-        @apply cursor-not-allowed bg-opacity-50 hover:bg-opacity-50 transition-all;
-    }
+	.btn:disabled {
+		@apply cursor-not-allowed bg-opacity-50 hover:bg-opacity-50 transition-all;
+	}
 
-    .btn-primary {
-        @apply bg-blue-600 hover:bg-blue-700 text-gray-100;
-    }
+	.btn-primary {
+		@apply bg-blue-600 hover:bg-blue-700 text-gray-100;
+	}
 
-    .btn-danger {
-        @apply bg-red-600 hover:bg-red-700 text-gray-100;
-    }
+	.btn-danger {
+		@apply bg-red-600 hover:bg-red-700 text-gray-100;
+	}
 
-    .btn-secondary {
-        @apply bg-gray-600 hover:bg-gray-700 text-gray-100;
-    }
+	.btn-secondary {
+		@apply bg-gray-600 hover:bg-gray-700 text-gray-100;
+	}
 
-    select.form-input {
-        @apply bg-white;
-    }
+	select.form-input {
+		@apply bg-white;
+	}
 
-    .form-input {
-        @apply px-3 py-2 border-2 h-10 border-gray-300 focus:border-gray-400 text-gray-500 outline-none rounded transition-all;
-    }
+	.form-input {
+		@apply px-3 py-2 border-2 h-10 border-gray-300 focus:border-gray-400 text-gray-500 outline-none rounded transition-all;
+	}
 
-    pre {
-        @apply rounded bg-white border-2 border-gray-200 text-gray-700 px-3 py-2 overflow-x-auto select-all;
-    }
+	pre {
+		@apply bg-white border-2 border-gray-200 text-gray-700 px-3 py-2 overflow-x-auto select-all rounded;
+	}
+
+	.pre-container {
+		@apply bg-white border-2 border-gray-200 text-gray-700 px-3 py-2 overflow-x-auto select-all rounded;
+	}
+
+	.pre-container pre {
+		@apply border-none p-0 pb-2;
+	}
 }
