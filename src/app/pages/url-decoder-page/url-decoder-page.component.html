@@ -1,3 +1,18 @@
 <app-page-header title="URL decoder"></app-page-header>
 
-<app-alert>todo</app-alert>
+<form [formGroup]="form" (submit)="handleSubmit()">
+	<app-form-section title="URL">
+		<app-form-textfield formControlName="url" placeholder="URL"></app-form-textfield>
+	</app-form-section>
+
+	<app-form-section title="Result" *ngIf="result && !hasErrors">
+		<app-code [autoselect]="false" [scrollable]="false">{{ result.decodedUrl }}</app-code>
+	</app-form-section>
+
+	<app-alert type="error" *ngIf="hasErrors">Failed to decode</app-alert>
+
+	<app-form-footer>
+		<button type="button" class="btn btn-secondary" (click)="handleReset()">Reset</button>
+		<button type="submit" class="btn btn-primary">Decode</button>
+	</app-form-footer>
+</form>
