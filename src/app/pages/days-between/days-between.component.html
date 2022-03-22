@@ -1,53 +1,53 @@
 <app-page-header title="Days between"></app-page-header>
 
 <form [formGroup]="form" (submit)="handleSubmit()">
-    <app-form-section title="Dates">
-        <div class="mb-3">
-            <label>From date</label>
-            <div class="flex gap-1">
-                <div class="flex-1">
-                    <app-form-textfield placeholder="Year" formControlName="fromYear"></app-form-textfield>
-                </div>
-                <div class="flex-1">
-                    <app-form-textfield placeholder="Month" formControlName="fromMonth"></app-form-textfield>
-                </div>
-                <div class="flex-1">
-                    <app-form-textfield placeholder="Day" formControlName="fromDay"></app-form-textfield>
-                </div>
-            </div>
-        </div>
-        <div class="mb-3">
-            <label>To date</label>
-            <div class="flex gap-1">
-                <div class="flex-1">
-                    <app-form-textfield placeholder="Year" formControlName="toYear"></app-form-textfield>
-                </div>
-                <div class="flex-1">
-                    <app-form-textfield placeholder="Month" formControlName="toMonth"></app-form-textfield>
-                </div>
-                <div class="flex-1">
-                    <app-form-textfield placeholder="Day" formControlName="toDay"></app-form-textfield>
-                </div>
-            </div>
-        </div>
-    </app-form-section>
+	<app-form-section title="Dates">
+		<div class="mb-3">
+			<label>From date</label>
+			<div class="flex gap-1">
+				<div class="flex-1">
+					<app-form-textfield placeholder="Year" formControlName="fromYear"></app-form-textfield>
+				</div>
+				<div class="flex-1">
+					<app-form-textfield placeholder="Month" formControlName="fromMonth"></app-form-textfield>
+				</div>
+				<div class="flex-1">
+					<app-form-textfield placeholder="Day" formControlName="fromDay"></app-form-textfield>
+				</div>
+			</div>
+		</div>
+		<div class="mb-3">
+			<label>To date</label>
+			<div class="flex gap-1">
+				<div class="flex-1">
+					<app-form-textfield placeholder="Year" formControlName="toYear"></app-form-textfield>
+				</div>
+				<div class="flex-1">
+					<app-form-textfield placeholder="Month" formControlName="toMonth"></app-form-textfield>
+				</div>
+				<div class="flex-1">
+					<app-form-textfield placeholder="Day" formControlName="toDay"></app-form-textfield>
+				</div>
+			</div>
+		</div>
+	</app-form-section>
 
-    <app-form-section title="Result" *ngIf="result">
-        <div class="mb-3">
-            <span class="font-semibold inline-block mb-1 w-full">Days</span>
-            <pre>{{ result.Days }}</pre>
-        </div>
-        <div class="mb-3">
-            <span class="font-semibold inline-block mb-1 w-full">Months</span>
-            <pre>{{ result.Months }}</pre>
-        </div>
-        <div class="mb-3">
-            <span class="font-semibold inline-block mb-1 w-full">Years</span>
-            <pre>{{ result.Years }}</pre>
-        </div>
-    </app-form-section>
+	<app-form-section title="Result" *ngIf="result">
+		<div class="mb-3">
+			<span class="font-semibold inline-block mb-1 w-full">Days</span>
+			<pre>{{ result.Days }}</pre>
+		</div>
+		<div class="mb-3">
+			<span class="font-semibold inline-block mb-1 w-full">Months</span>
+			<pre>{{ result.Months }}</pre>
+		</div>
+		<div class="mb-3">
+			<span class="font-semibold inline-block mb-1 w-full">Years</span>
+			<pre>{{ result.Years }}</pre>
+		</div>
+	</app-form-section>
 
-    <app-form-footer>
-        <button type="submit" class="btn btn-primary">Calculate</button>
-    </app-form-footer>
+	<app-form-footer>
+		<button type="submit" class="btn btn-primary">Calculate</button>
+	</app-form-footer>
 </form>

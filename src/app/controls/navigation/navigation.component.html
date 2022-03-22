@@ -1,7 +1,7 @@
 <div class="bg-white mb-1 sticky top-0">
-    <input type="text" #searchInput (keyup)="handleSearch($event)" class="form-input w-full" placeholder="Search.." />
+	<input type="text" #searchInput (keyup)="handleSearch($event)" class="form-input w-full" placeholder="Search.." />
 </div>
 
 <ul *ngFor="let i of items">
-    <app-navigation-link *ngIf="i.isVisible" [routerLink]="i.routerLink" [name]="i.title"></app-navigation-link>
+	<app-navigation-link *ngIf="i.isVisible" [routerLink]="i.routerLink" [name]="i.title"></app-navigation-link>
 </ul>

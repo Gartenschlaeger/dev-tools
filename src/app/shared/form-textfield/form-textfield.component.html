@@ -1,15 +1,15 @@
 <label *ngIf="label" [attr.for]="control.name" class="text-gray-700 mb-1 inline-block cursor-pointer"
-    >{{ label }} <app-form-field-errors [control]="control.control"></app-form-field-errors
+	>{{ label }} <app-form-field-errors [control]="control.control"></app-form-field-errors
 ></label>
 <input
-    #input
-    [type]="type"
-    [attr.id]="control.name"
-    [attr.placeholder]="placeholder || label"
-    [value]="value"
-    (keydown)="handleChange($event)"
-    (change)="handleChange($event)"
-    (blur)="handleBlur($event)"
-    class="px-3 py-2 border-2 h-10 border-gray-300 focus:border-gray-400 text-gray-500 outline-none rounded w-full transition-all"
-    autocomplete="off"
+	#input
+	[type]="type"
+	[attr.id]="control.name"
+	[attr.placeholder]="placeholder || label"
+	[value]="value"
+	(keydown)="handleChange($event)"
+	(change)="handleChange($event)"
+	(blur)="handleBlur($event)"
+	class="px-3 py-2 border-2 h-10 border-gray-300 focus:border-gray-400 text-gray-500 outline-none rounded w-full transition-all"
+	autocomplete="off"
 />

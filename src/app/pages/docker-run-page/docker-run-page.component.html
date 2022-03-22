@@ -1,263 +1,263 @@
 <app-page-header title="Docker Run Generator"></app-page-header>
 
 <form [formGroup]="form" class="mb-8" (submit)="handleGenerateScript()">
-    <!-- image -->
-    <app-form-section title="Image">
-        <div class="flex gap-1">
-            <div class="flex-1">
-                <app-form-textfield label="Image name" formControlName="imageName"></app-form-textfield>
-            </div>
-            <div class="flex-1">
-                <app-form-textfield label="Image tag" formControlName="imageTag"></app-form-textfield>
-            </div>
-        </div>
-    </app-form-section>
+	<!-- image -->
+	<app-form-section title="Image">
+		<div class="flex gap-1">
+			<div class="flex-1">
+				<app-form-textfield label="Image name" formControlName="imageName"></app-form-textfield>
+			</div>
+			<div class="flex-1">
+				<app-form-textfield label="Image tag" formControlName="imageTag"></app-form-textfield>
+			</div>
+		</div>
+	</app-form-section>
 
-    <!-- container -->
-    <app-form-section title="Container">
-        <div class="mb-1">
-            <label for="containerName">Name</label>
-            <input
-                type="text"
-                id="containerName"
-                class="form-input w-full"
-                placeholder="Container name"
-                formControlName="containerName"
-            />
-            <app-form-field-errors [control]="form.get('containerName')"></app-form-field-errors>
-        </div>
-        <div class="flex items-center gap-1 mb-3">
-            <input type="checkbox" id="runDettached" formControlName="runDettached" />
-            <label for="runDettached" class="cursor-pointer">Dettached</label>
-        </div>
-        <div>
-            <label for="restartMode" class="mb-1 inline-block">Restart</label>
-            <select name="restartMode" id="restartMode" class="form-input w-full" formControlName="restartMode">
-                <option>no</option>
-                <option>always</option>
-                <option>unless-stopped</option>
-            </select>
-        </div>
-    </app-form-section>
+	<!-- container -->
+	<app-form-section title="Container">
+		<div class="mb-1">
+			<label for="containerName">Name</label>
+			<input
+				type="text"
+				id="containerName"
+				class="form-input w-full"
+				placeholder="Container name"
+				formControlName="containerName"
+			/>
+			<app-form-field-errors [control]="form.get('containerName')"></app-form-field-errors>
+		</div>
+		<div class="flex items-center gap-1 mb-3">
+			<input type="checkbox" id="runDettached" formControlName="runDettached" />
+			<label for="runDettached" class="cursor-pointer">Dettached</label>
+		</div>
+		<div>
+			<label for="restartMode" class="mb-1 inline-block">Restart</label>
+			<select name="restartMode" id="restartMode" class="form-input w-full" formControlName="restartMode">
+				<option>no</option>
+				<option>always</option>
+				<option>unless-stopped</option>
+			</select>
+		</div>
+	</app-form-section>
 
-    <app-form-section title="Settings">
-        <app-tab-control>
-            <app-tab label="Network">
-                <!-- network -->
-                <div class="mb-3">
-                    <label for="networkMode">Mode</label>
-                    <select name="networkMode" id="networkMode" class="form-input w-full" formControlName="networkMode">
-                        <option>none</option>
-                        <option>bridge</option>
-                        <option>host</option>
-                        <option>custom</option>
-                    </select>
-                </div>
+	<app-form-section title="Settings">
+		<app-tab-control>
+			<app-tab label="Network">
+				<!-- network -->
+				<div class="mb-3">
+					<label for="networkMode">Mode</label>
+					<select name="networkMode" id="networkMode" class="form-input w-full" formControlName="networkMode">
+						<option>none</option>
+						<option>bridge</option>
+						<option>host</option>
+						<option>custom</option>
+					</select>
+				</div>
 
-                <div class="mb-3" *ngIf="form.get('networkMode')?.value === 'custom'">
-                    <input
-                        type="text"
-                        class="form-input w-full"
-                        placeholder="Custom network name"
-                        formControlName="networkName"
-                    />
+				<div class="mb-3" *ngIf="form.get('networkMode')?.value === 'custom'">
+					<input
+						type="text"
+						class="form-input w-full"
+						placeholder="Custom network name"
+						formControlName="networkName"
+					/>
 
-                    <ng-container *ngIf="form.get('networkName')?.dirty || form.get('networkName')?.touched">
-                        <span *ngIf="form.hasError('requiredIf')" class="italic text-sm text-red-600">* Required</span>
-                    </ng-container>
-                </div>
+					<ng-container *ngIf="form.get('networkName')?.dirty || form.get('networkName')?.touched">
+						<span *ngIf="form.hasError('requiredIf')" class="italic text-sm text-red-600">* Required</span>
+					</ng-container>
+				</div>
 
-                <div class="mb-3">
-                    <label for="hostname">Hostname</label>
-                    <input
-                        type="text"
-                        id="hostname"
-                        class="form-input w-full"
-                        placeholder="Hostname"
-                        formControlName="hostname"
-                    />
-                </div>
+				<div class="mb-3">
+					<label for="hostname">Hostname</label>
+					<input
+						type="text"
+						id="hostname"
+						class="form-input w-full"
+						placeholder="Hostname"
+						formControlName="hostname"
+					/>
+				</div>
 
-                <form [formGroup]="formAddPortMapping" (submit)="handleAddPortMapping()">
-                    <label for="">Port mappings</label>
-                    <div class="flex items-stretch gap-1">
-                        <div class="flex-1">
-                            <input
-                                type="text"
-                                class="form-input w-full"
-                                formControlName="hostPort"
-                                placeholder="Host port"
-                            />
-                            <app-form-field-errors
-                                [control]="formAddPortMapping.get('hostPort')"
-                            ></app-form-field-errors>
-                        </div>
-                        <div class="flex-1">
-                            <input
-                                type="text"
-                                class="form-input w-full"
-                                formControlName="containerPort"
-                                placeholder="Container port"
-                            />
-                            <app-form-field-errors
-                                [control]="formAddPortMapping.get('containerPort')"
-                            ></app-form-field-errors>
-                        </div>
-                        <div class="flex-none">
-                            <button type="submit" class="btn btn-primary">
-                                <svg-plus-icon size="sm"></svg-plus-icon>
-                            </button>
-                        </div>
-                    </div>
-                </form>
+				<form [formGroup]="formAddPortMapping" (submit)="handleAddPortMapping()">
+					<label for="">Port mappings</label>
+					<div class="flex items-stretch gap-1">
+						<div class="flex-1">
+							<input
+								type="text"
+								class="form-input w-full"
+								formControlName="hostPort"
+								placeholder="Host port"
+							/>
+							<app-form-field-errors
+								[control]="formAddPortMapping.get('hostPort')"
+							></app-form-field-errors>
+						</div>
+						<div class="flex-1">
+							<input
+								type="text"
+								class="form-input w-full"
+								formControlName="containerPort"
+								placeholder="Container port"
+							/>
+							<app-form-field-errors
+								[control]="formAddPortMapping.get('containerPort')"
+							></app-form-field-errors>
+						</div>
+						<div class="flex-none">
+							<button type="submit" class="btn btn-primary">
+								<svg-plus-icon size="sm"></svg-plus-icon>
+							</button>
+						</div>
+					</div>
+				</form>
 
-                <div formArrayName="portMappings" class="mt-1 space-y-1" *ngIf="portMappings.length">
-                    <div class="flex items-center gap-1" *ngFor="let c of portMappings.controls; index as i">
-                        <ng-container [formGroupName]="i">
-                            <input
-                                type="text"
-                                class="form-input flex-1"
-                                formControlName="containerPort"
-                                placeholder="Container port"
-                            />
-                            <input
-                                type="text"
-                                class="form-input flex-1"
-                                formControlName="hostPort"
-                                placeholder="Host port"
-                            />
-                            <button type="button" class="btn btn-danger" (click)="handleRemPortMapping(i)">
-                                <svg-delete-icon size="sm"></svg-delete-icon>
-                            </button>
-                        </ng-container>
-                    </div>
-                </div>
-            </app-tab>
-            <app-tab label="Environment">
-                <!-- environment -->
-                <form [formGroup]="formAddEnvVariable" (submit)="handleAddEnvironment()">
-                    <label for="">Environment variables</label>
-                    <div class="flex items-stretch gap-1">
-                        <div class="flex-1">
-                            <input type="text" class="form-input w-full" formControlName="key" placeholder="Key" />
-                            <app-form-field-errors [control]="formAddEnvVariable.get('key')"></app-form-field-errors>
-                        </div>
-                        <div class="flex-1">
-                            <input type="text" class="form-input w-full" formControlName="value" placeholder="Value" />
-                            <app-form-field-errors [control]="formAddEnvVariable.get('value')"></app-form-field-errors>
-                        </div>
-                        <div class="flex-none">
-                            <button type="submit" class="btn btn-primary">
-                                <svg-plus-icon size="sm"></svg-plus-icon>
-                            </button>
-                        </div>
-                    </div>
-                </form>
+				<div formArrayName="portMappings" class="mt-1 space-y-1" *ngIf="portMappings.length">
+					<div class="flex items-center gap-1" *ngFor="let c of portMappings.controls; index as i">
+						<ng-container [formGroupName]="i">
+							<input
+								type="text"
+								class="form-input flex-1"
+								formControlName="containerPort"
+								placeholder="Container port"
+							/>
+							<input
+								type="text"
+								class="form-input flex-1"
+								formControlName="hostPort"
+								placeholder="Host port"
+							/>
+							<button type="button" class="btn btn-danger" (click)="handleRemPortMapping(i)">
+								<svg-delete-icon size="sm"></svg-delete-icon>
+							</button>
+						</ng-container>
+					</div>
+				</div>
+			</app-tab>
+			<app-tab label="Environment">
+				<!-- environment -->
+				<form [formGroup]="formAddEnvVariable" (submit)="handleAddEnvironment()">
+					<label for="">Environment variables</label>
+					<div class="flex items-stretch gap-1">
+						<div class="flex-1">
+							<input type="text" class="form-input w-full" formControlName="key" placeholder="Key" />
+							<app-form-field-errors [control]="formAddEnvVariable.get('key')"></app-form-field-errors>
+						</div>
+						<div class="flex-1">
+							<input type="text" class="form-input w-full" formControlName="value" placeholder="Value" />
+							<app-form-field-errors [control]="formAddEnvVariable.get('value')"></app-form-field-errors>
+						</div>
+						<div class="flex-none">
+							<button type="submit" class="btn btn-primary">
+								<svg-plus-icon size="sm"></svg-plus-icon>
+							</button>
+						</div>
+					</div>
+				</form>
 
-                <div formArrayName="environmentVariables" class="mt-1 space-y-1" *ngIf="environmentVariables.length">
-                    <div class="flex items-center gap-1" *ngFor="let c of environmentVariables.controls; index as i">
-                        <ng-container [formGroupName]="i">
-                            <input type="text" class="form-input flex-1" formControlName="key" placeholder="Key" />
-                            <input type="text" class="form-input flex-1" formControlName="value" placeholder="Value" />
-                            <button type="button" class="btn btn-danger" (click)="handleRemPortMapping(i)">
-                                <svg-delete-icon size="sm"></svg-delete-icon>
-                            </button>
-                        </ng-container>
-                    </div>
-                </div>
-            </app-tab>
-            <app-tab label="Volumes">
-                <!-- volume mappings -->
-                <form [formGroup]="formAddVolumeMapping" (submit)="handleAddVolumeMapping()">
-                    <label for="">Volume mappings</label>
-                    <div class="flex items-stretch gap-1">
-                        <div class="flex-1">
-                            <input
-                                type="text"
-                                class="form-input w-full"
-                                formControlName="hostPath"
-                                placeholder="Host path"
-                            />
-                            <app-form-field-errors
-                                [control]="formAddVolumeMapping.get('hostPath')"
-                            ></app-form-field-errors>
-                        </div>
-                        <div class="flex-1">
-                            <input
-                                type="text"
-                                class="form-input w-full"
-                                formControlName="containerPath"
-                                placeholder="Container path"
-                            />
-                            <app-form-field-errors
-                                [control]="formAddVolumeMapping.get('containerPath')"
-                            ></app-form-field-errors>
-                        </div>
-                        <div class="flex-none">
-                            <button type="submit" class="btn btn-primary">
-                                <svg-plus-icon size="sm"></svg-plus-icon>
-                            </button>
-                        </div>
-                    </div>
-                </form>
+				<div formArrayName="environmentVariables" class="mt-1 space-y-1" *ngIf="environmentVariables.length">
+					<div class="flex items-center gap-1" *ngFor="let c of environmentVariables.controls; index as i">
+						<ng-container [formGroupName]="i">
+							<input type="text" class="form-input flex-1" formControlName="key" placeholder="Key" />
+							<input type="text" class="form-input flex-1" formControlName="value" placeholder="Value" />
+							<button type="button" class="btn btn-danger" (click)="handleRemPortMapping(i)">
+								<svg-delete-icon size="sm"></svg-delete-icon>
+							</button>
+						</ng-container>
+					</div>
+				</div>
+			</app-tab>
+			<app-tab label="Volumes">
+				<!-- volume mappings -->
+				<form [formGroup]="formAddVolumeMapping" (submit)="handleAddVolumeMapping()">
+					<label for="">Volume mappings</label>
+					<div class="flex items-stretch gap-1">
+						<div class="flex-1">
+							<input
+								type="text"
+								class="form-input w-full"
+								formControlName="hostPath"
+								placeholder="Host path"
+							/>
+							<app-form-field-errors
+								[control]="formAddVolumeMapping.get('hostPath')"
+							></app-form-field-errors>
+						</div>
+						<div class="flex-1">
+							<input
+								type="text"
+								class="form-input w-full"
+								formControlName="containerPath"
+								placeholder="Container path"
+							/>
+							<app-form-field-errors
+								[control]="formAddVolumeMapping.get('containerPath')"
+							></app-form-field-errors>
+						</div>
+						<div class="flex-none">
+							<button type="submit" class="btn btn-primary">
+								<svg-plus-icon size="sm"></svg-plus-icon>
+							</button>
+						</div>
+					</div>
+				</form>
 
-                <div formArrayName="volumeMappings" class="mt-1 space-y-1" *ngIf="volumeMappings.length">
-                    <div class="flex items-center gap-1" *ngFor="let c of volumeMappings.controls; index as i">
-                        <ng-container [formGroupName]="i">
-                            <input
-                                type="text"
-                                class="form-input flex-1"
-                                formControlName="hostPath"
-                                placeholder="Host path"
-                            />
-                            <input
-                                type="text"
-                                class="form-input flex-1"
-                                formControlName="containerPath"
-                                placeholder="Container path"
-                            />
-                            <button type="button" class="btn btn-danger" (click)="handleRemoveVolumeMapping(i)">
-                                <svg-delete-icon size="sm"></svg-delete-icon>
-                            </button>
-                        </ng-container>
-                    </div>
-                </div>
-            </app-tab>
-        </app-tab-control>
-    </app-form-section>
+				<div formArrayName="volumeMappings" class="mt-1 space-y-1" *ngIf="volumeMappings.length">
+					<div class="flex items-center gap-1" *ngFor="let c of volumeMappings.controls; index as i">
+						<ng-container [formGroupName]="i">
+							<input
+								type="text"
+								class="form-input flex-1"
+								formControlName="hostPath"
+								placeholder="Host path"
+							/>
+							<input
+								type="text"
+								class="form-input flex-1"
+								formControlName="containerPath"
+								placeholder="Container path"
+							/>
+							<button type="button" class="btn btn-danger" (click)="handleRemoveVolumeMapping(i)">
+								<svg-delete-icon size="sm"></svg-delete-icon>
+							</button>
+						</ng-container>
+					</div>
+				</div>
+			</app-tab>
+		</app-tab-control>
+	</app-form-section>
 
-    <!-- script -->
-    <app-form-section title="Script">
-        <div [ngClass]="{ 'mb-3': generatedScript }">
-            <div class="mb-1 flex items-center gap-1">
-                <input type="checkbox" id="useShortParams" formControlName="useShortParams" />
-                <label for="useShortParams" class="cursor-pointer">Short parameter names</label>
-            </div>
-            <div class="mb-1 flex items-center gap-1">
-                <input type="checkbox" id="multilineScript" formControlName="multilineScript" />
-                <label for="multilineScript" class="cursor-pointer">Multiline script</label>
-            </div>
-        </div>
+	<!-- script -->
+	<app-form-section title="Script">
+		<div [ngClass]="{ 'mb-3': generatedScript }">
+			<div class="mb-1 flex items-center gap-1">
+				<input type="checkbox" id="useShortParams" formControlName="useShortParams" />
+				<label for="useShortParams" class="cursor-pointer">Short parameter names</label>
+			</div>
+			<div class="mb-1 flex items-center gap-1">
+				<input type="checkbox" id="multilineScript" formControlName="multilineScript" />
+				<label for="multilineScript" class="cursor-pointer">Multiline script</label>
+			</div>
+		</div>
 
-        <div *ngIf="generatedScript">
-            <pre>{{ generatedScript }}</pre>
-        </div>
-    </app-form-section>
+		<div *ngIf="generatedScript">
+			<pre>{{ generatedScript }}</pre>
+		</div>
+	</app-form-section>
 
-    <app-form-section title="Share" *ngIf="shareLink">
-        <pre>{{ shareLink }}</pre>
-    </app-form-section>
+	<app-form-section title="Share" *ngIf="shareLink">
+		<pre>{{ shareLink }}</pre>
+	</app-form-section>
 
-    <app-form-footer>
-        <button type="button" class="btn btn-secondary" (click)="handleReset()">Reset</button>
-        <button
-            type="button"
-            class="btn btn-primary"
-            [attr.disabled]="generatedScript ? null : 'disabled'"
-            (click)="handleShare()"
-        >
-            Share
-        </button>
-        <button type="submit" class="btn btn-primary">Generate</button>
-    </app-form-footer>
+	<app-form-footer>
+		<button type="button" class="btn btn-secondary" (click)="handleReset()">Reset</button>
+		<button
+			type="button"
+			class="btn btn-primary"
+			[attr.disabled]="generatedScript ? null : 'disabled'"
+			(click)="handleShare()"
+		>
+			Share
+		</button>
+		<button type="submit" class="btn btn-primary">Generate</button>
+	</app-form-footer>
 </form>

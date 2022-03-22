@@ -22,24 +22,24 @@ import { HomePageComponent } from './pages/home-page/home-page.component'
 import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer-page.component'
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        NavigationComponent,
-        NavigationLinkComponent,
-        HomePageComponent,
-        UrlAnalyzerPageComponent,
-        DockerRunPageComponent,
-        PageHeaderComponent,
-        FormFieldErrorsComponent,
-        FormFooterComponent,
-        TabComponent,
-        TabControlComponent,
-        FormSectionComponent,
-        FormTextfieldComponent,
-        DaysBetweenComponent
-    ],
-    imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, ReactiveFormsModule, SvgIconModule],
-    providers: [FormService, DateService],
-    bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		NavigationComponent,
+		NavigationLinkComponent,
+		HomePageComponent,
+		UrlAnalyzerPageComponent,
+		DockerRunPageComponent,
+		PageHeaderComponent,
+		FormFieldErrorsComponent,
+		FormFooterComponent,
+		TabComponent,
+		TabControlComponent,
+		FormSectionComponent,
+		FormTextfieldComponent,
+		DaysBetweenComponent
+	],
+	imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, ReactiveFormsModule, SvgIconModule],
+	providers: [FormService, DateService],
+	bootstrap: [AppComponent]
 })
 export class AppModule {}
