@@ -240,12 +240,12 @@
 		</div>
 
 		<div *ngIf="generatedScript">
-			<pre>{{ generatedScript }}</pre>
+			<app-code>{{ generatedScript }}</app-code>
 		</div>
 	</app-form-section>
 
 	<app-form-section title="Share" *ngIf="shareLink">
-		<pre>{{ shareLink }}</pre>
+		<app-code>{{ shareLink }}</app-code>
 	</app-form-section>
 
 	<app-form-footer>

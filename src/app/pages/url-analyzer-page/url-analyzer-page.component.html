@@ -8,23 +8,23 @@
 	<app-form-section title="Details" *ngIf="result">
 		<div class="mb-3">
 			<span class="font-semibold inline-block mb-1 w-full">Host</span>
-			<pre>{{ result?.hostname }}</pre>
+			<app-code>{{ result?.hostname }}</app-code>
 		</div>
 		<div class="mb-3" *ngIf="result.port">
 			<span class="font-semibold inline-block mb-1 w-full">Port</span>
-			<pre>{{ result.port }}</pre>
+			<app-code>{{ result.port }}</app-code>
 		</div>
 
 		<div class="mb-3" *ngIf="result.path">
 			<span class="font-semibold inline-block mb-1 w-full">Path</span>
-			<pre>{{ result.path }}</pre>
+			<app-code>{{ result.path }}</app-code>
 		</div>
 
 		<div class="mb-3" *ngIf="result.queryString">
 			<span class="font-semibold inline-block mb-1 w-full">Query strings</span>
 			<div class="flex gap-1 items-center">
-				<div class="pre-container">
-					<pre>{{ result.queryString }}</pre>
+				<div class="flex-1 overflow-hidden">
+					<app-code>{{ result.queryString }}</app-code>
 				</div>
 				<div class="flex-none">
 					<button
@@ -65,15 +65,13 @@
 		<div class="mb-3 ml-5 space-y-2" *ngIf="showQueryDetails">
 			<div *ngFor="let q of result.queryStringValues">
 				<span class="font-semibold inline-block mb-1 w-full">{{ q.name }}</span>
-				<div class="pre-container">
-					<pre>{{ q.value }}</pre>
-				</div>
+				<app-code>{{ q.value }}</app-code>
 			</div>
 		</div>
 
 		<div class="mb-3" *ngIf="result?.fragment">
 			<span class="font-semibold inline-block mb-1 w-full">Fragment</span>
-			<pre>{{ result?.fragment }}</pre>
+			<app-code>{{ result?.fragment }}</app-code>
 		</div>
 	</app-form-section>
 
