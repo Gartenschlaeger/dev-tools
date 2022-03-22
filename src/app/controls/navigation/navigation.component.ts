@@ -16,19 +16,16 @@ export class NavigationComponent implements OnInit {
     items: INavigationItem[] = []
 
     ngOnInit(): void {
+        this.pushItem('Home', '/home')
+        this.pushItem('URL Aanalyzer', '/url-analyzer')
+        this.pushItem('Docker Run', '/docker-run')
+        this.pushItem('Days between', '/days-between')
+    }
+
+    pushItem(title: string, url: string) {
         this.items.push({
-            title: 'Home',
-            routerLink: '/home',
-            isVisible: true
-        })
-        this.items.push({
-            title: 'URL Analyzer',
-            routerLink: '/url-analyzer',
-            isVisible: true
-        })
-        this.items.push({
-            title: 'Docker Run',
-            routerLink: '/docker-run',
+            title: title,
+            routerLink: url,
             isVisible: true
         })
     }

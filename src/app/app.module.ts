@@ -3,6 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NavigationComponent } from 'src/app/controls/navigation/navigation.component'
+import { DateService } from 'src/app/services/date.service'
 import { FormService } from 'src/app/services/form-service.service'
 import { FormFieldErrorsComponent } from 'src/app/shared/form-field-errors/form-field-errors.component'
 import { FormTextfieldComponent } from 'src/app/shared/form-textfield/form-textfield.component'
@@ -15,6 +16,7 @@ import { NavigationLinkComponent } from './controls/navigation-link/navigation-l
 import { PageHeaderComponent } from './controls/page-header/page-header.component'
 import { TabControlComponent } from './controls/tab-control/tab-control.component'
 import { TabComponent } from './controls/tab/tab.component'
+import { DaysBetweenComponent } from './pages/days-between/days-between.component'
 import { DockerRunPageComponent } from './pages/docker-run-page/docker-run-page.component'
 import { HomePageComponent } from './pages/home-page/home-page.component'
 import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer-page.component'
@@ -33,10 +35,11 @@ import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer
         TabComponent,
         TabControlComponent,
         FormSectionComponent,
-        FormTextfieldComponent
+        FormTextfieldComponent,
+        DaysBetweenComponent
     ],
     imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, ReactiveFormsModule, SvgIconModule],
-    providers: [FormService],
+    providers: [FormService, DateService],
     bootstrap: [AppComponent]
 })
 export class AppModule {}
