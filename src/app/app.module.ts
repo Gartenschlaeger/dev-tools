@@ -19,8 +19,10 @@ import { TabComponent } from './controls/tab/tab.component'
 import { DaysBetweenComponent } from './pages/days-between/days-between.component'
 import { DockerRunPageComponent } from './pages/docker-run-page/docker-run-page.component'
 import { HomePageComponent } from './pages/home-page/home-page.component'
-import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer-page.component';
-import { CodeComponent } from './shared/code/code.component'
+import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer-page.component'
+import { URLDecoderPageComponent } from './pages/url-decoder-page/url-decoder-page.component'
+import { CodeComponent } from './shared/code/code.component';
+import { AlertComponent } from './shared/alert/alert.component'
 
 @NgModule({
 	declarations: [
@@ -38,7 +40,9 @@ import { CodeComponent } from './shared/code/code.component'
 		FormSectionComponent,
 		FormTextfieldComponent,
 		DaysBetweenComponent,
-  CodeComponent
+		CodeComponent,
+		URLDecoderPageComponent,
+  AlertComponent
 	],
 	imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, ReactiveFormsModule, SvgIconModule],
 	providers: [FormService, DateService],

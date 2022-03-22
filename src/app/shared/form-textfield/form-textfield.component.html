@@ -13,3 +13,5 @@
 	class="px-3 py-2 border-2 h-10 border-gray-300 focus:border-gray-400 text-gray-500 outline-none rounded w-full transition-all"
 	autocomplete="off"
 />
+
+<app-form-field-errors *ngIf="!label" [control]="control.control"></app-form-field-errors>
