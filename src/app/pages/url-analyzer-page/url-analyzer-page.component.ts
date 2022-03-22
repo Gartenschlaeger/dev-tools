@@ -29,12 +29,9 @@ export class UrlAnalyzerPageComponent implements OnInit {
 
 	defineFormGroup(): FormGroup {
 		return new FormGroup({
-			url: new FormControl(
-				'https://c2id.com/login?response_type=code&scope=openid%20email&client_id=123&state=af0ifjsldkj&redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb#some-hash',
-				{
-					validators: [Validators.required]
-				}
-			)
+			url: new FormControl('', {
+				validators: [Validators.required]
+			})
 		})
 	}
 
@@ -61,6 +58,8 @@ export class UrlAnalyzerPageComponent implements OnInit {
 						})
 					})
 				}
+
+				this.hasError = false
 			} catch (err) {
 				this.result = null
 				this.hasError = true

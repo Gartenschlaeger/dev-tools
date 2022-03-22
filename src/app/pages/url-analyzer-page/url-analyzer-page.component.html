@@ -2,7 +2,7 @@
 
 <form [formGroup]="groupUrlAnalyzer" (submit)="submitHandler()">
 	<app-form-section title="URL">
-		<app-form-textfield formControlName="url"></app-form-textfield>
+		<app-form-textfield formControlName="url" placeholder="URL"></app-form-textfield>
 	</app-form-section>
 
 	<app-form-section title="Details" *ngIf="result">
