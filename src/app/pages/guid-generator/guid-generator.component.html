@@ -1,0 +1,16 @@
+<app-page-header title="Guid generator"></app-page-header>
+
+<app-form-section title="Guid" *ngIf="guid">
+	<div class="mb-3">
+		<label>Normal</label>
+		<app-code>{{ guid }}</app-code>
+	</div>
+	<div>
+		<label>Minified</label>
+		<app-code>{{ guidMinified }}</app-code>
+	</div>
+</app-form-section>
+
+<app-form-footer>
+	<button type="button" class="btn btn-primary" (click)="handleGenerate()">Generate</button>
+</app-form-footer>

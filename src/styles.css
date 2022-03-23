@@ -30,4 +30,8 @@
 	.form-input {
 		@apply px-3 py-2 border-2 h-10 border-gray-300 focus:border-gray-400 text-gray-500 outline-none rounded transition-all;
 	}
+
+	label {
+		@apply text-gray-700 mb-1 inline-block cursor-pointer;
+	}
 }
