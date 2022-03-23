@@ -19,7 +19,7 @@ export class DaysBetweenResult {
 	Years?: number
 }
 
-const DefaultFormState = new DaysBetweenModel()
+const FormDefaultValues = new DaysBetweenModel()
 
 @Component({
 	selector: 'app-days-between',
@@ -27,7 +27,7 @@ const DefaultFormState = new DaysBetweenModel()
 })
 export class DaysBetweenComponent implements OnInit {
 	form!: FormGroup
-	result?: DaysBetweenResult
+	result: DaysBetweenResult | null = null
 
 	constructor(private fb: FormBuilder, private formService: FormService, private dateService: DateService) {}
 
@@ -39,12 +39,12 @@ export class DaysBetweenComponent implements OnInit {
 		const validators = [Validators.required, Validators.pattern('^\\d+$'), Validators.min(1), Validators.max(9999)]
 
 		return this.fb.group({
-			fromYear: [DefaultFormState.fromYear, validators],
-			fromMonth: [DefaultFormState.fromMonth, validators],
-			fromDay: [DefaultFormState.fromDay, validators],
-			toYear: [DefaultFormState.toYear, validators],
-			toMonth: [DefaultFormState.toMonth, validators],
-			toDay: [DefaultFormState.toDay, validators]
+			fromYear: [FormDefaultValues.fromYear, validators],
+			fromMonth: [FormDefaultValues.fromMonth, validators],
+			fromDay: [FormDefaultValues.fromDay, validators],
+			toYear: [FormDefaultValues.toYear, validators],
+			toMonth: [FormDefaultValues.toMonth, validators],
+			toDay: [FormDefaultValues.toDay, validators]
 		})
 	}
 
@@ -60,5 +60,12 @@ export class DaysBetweenComponent implements OnInit {
 				Years: this.dateService.YearsBetween(minDate, toDate)
 			}
 		}
+	}
+
+	handleReset() {
+		this.form.reset()
+		this.form.markAsUntouched()
+		this.form.setValue(FormDefaultValues)
+		this.result = null
 	}
 }
