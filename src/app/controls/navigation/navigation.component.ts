@@ -16,11 +16,18 @@ export class NavigationComponent implements OnInit {
 	items: INavigationItem[] = []
 
 	ngOnInit(): void {
-		this.pushItem('Home', '/home')
 		this.pushItem('URL Aanalyzer', '/url-analyzer')
 		this.pushItem('Url Decoder', '/url-decoder')
 		this.pushItem('Docker Run', '/docker-run')
 		this.pushItem('Days between', '/days-between')
+		this.pushItem('Guid generator', '/guid-generator')
+		this.items.sort((a, b) => a.title.localeCompare(b.title))
+
+		this.items.unshift({
+			title: 'Home',
+			routerLink: '/home',
+			isVisible: true
+		})
 	}
 
 	pushItem(title: string, url: string) {
