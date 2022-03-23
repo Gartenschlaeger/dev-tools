@@ -2,9 +2,41 @@ import { Component, OnInit } from '@angular/core'
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { StringBuilder } from 'src/app/helper/string-builder'
-import { DockerRunEnvironmentVariable, DockerRunModel, DockerRunPortMapping } from 'src/app/models/docker-run.model'
 import { FormService } from 'src/app/services/form-service.service'
 import { requiredIfValidator } from 'src/app/validators/required-if.validator'
+
+export class DockerRunModel {
+	imageName: string = ''
+	imageTag: string = ''
+	containerName: string = ''
+	runDettached: boolean = true
+	volumeMappings: DockerRunVolumeMapping[] = []
+	restartMode: 'no' | 'always' | 'unless-stopped' = 'no'
+	hostname: string = ''
+	networkMode: DockerRunNetworkMode = 'bridge'
+	networkName: string = ''
+	portMappings: DockerRunPortMapping[] = []
+	environmentVariables: DockerRunEnvironmentVariable[] = []
+	useShortParams: boolean = true
+	multilineScript: boolean = true
+}
+
+export interface DockerRunPortMapping {
+	hostPort: number
+	containerPort: number
+}
+
+export interface DockerRunVolumeMapping {
+	hostPath: string
+	containerPath: string
+}
+
+export interface DockerRunEnvironmentVariable {
+	key: string
+	value: string
+}
+
+export type DockerRunNetworkMode = 'none' | 'bridge' | 'host' | 'custom'
 
 export const FormDefaultValues = new DockerRunModel()
 
