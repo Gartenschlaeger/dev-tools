@@ -23,6 +23,10 @@
 		@apply bg-gray-600 hover:bg-gray-700 text-gray-100;
 	}
 
+	.btn-rounded {
+		@apply w-8 h-8 p-1 flex justify-center items-center rounded-full bg-gray-200 hover:bg-gray-300;
+	}
+
 	select.form-input {
 		@apply bg-white;
 	}
