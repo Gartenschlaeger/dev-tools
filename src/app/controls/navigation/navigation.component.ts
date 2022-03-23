@@ -16,8 +16,8 @@ export class NavigationComponent implements OnInit {
 	items: INavigationItem[] = []
 
 	ngOnInit(): void {
-		this.pushItem('URL Aanalyzer', '/url-analyzer')
-		this.pushItem('Url Decoder', '/url-decoder')
+		this.pushItem('URL Analyzer', '/url-analyzer')
+		this.pushItem('URL Decoder', '/url-decoder')
 		this.pushItem('Docker Run', '/docker-run')
 		this.pushItem('Days between', '/days-between')
 		this.pushItem('Guid generator', '/guid-generator')
