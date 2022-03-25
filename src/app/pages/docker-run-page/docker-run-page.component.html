@@ -15,23 +15,13 @@
 
 	<!-- container -->
 	<app-form-section title="Container">
-		<div class="mb-1">
-			<label for="containerName">Name</label>
-			<input
-				type="text"
-				id="containerName"
-				class="form-input w-full"
-				placeholder="Container name"
-				formControlName="containerName"
-			/>
-			<app-form-field-errors [control]="form.get('containerName')"></app-form-field-errors>
+		<div class="space-y-1 mb-3">
+			<app-form-textfield formControlName="containerName" label="Name"></app-form-textfield>
+			<app-form-checkbox formControlName="runDettached">Dettached</app-form-checkbox>
 		</div>
-		<div class="flex items-center gap-1 mb-3">
-			<input type="checkbox" id="runDettached" formControlName="runDettached" />
-			<label for="runDettached" class="cursor-pointer">Dettached</label>
-		</div>
+
 		<div>
-			<label for="restartMode" class="mb-1 inline-block">Restart</label>
+			<app-form-label for="restartMode">Restart mode</app-form-label>
 			<select name="restartMode" id="restartMode" class="form-input w-full" formControlName="restartMode">
 				<option>no</option>
 				<option>always</option>
@@ -45,7 +35,7 @@
 			<app-tab label="Network">
 				<!-- network -->
 				<div class="mb-3">
-					<label for="networkMode">Mode</label>
+					<app-form-label for="networkMode">Mode</app-form-label>
 					<select name="networkMode" id="networkMode" class="form-input w-full" formControlName="networkMode">
 						<option>none</option>
 						<option>bridge</option>
@@ -68,18 +58,11 @@
 				</div>
 
 				<div class="mb-3">
-					<label for="hostname">Hostname</label>
-					<input
-						type="text"
-						id="hostname"
-						class="form-input w-full"
-						placeholder="Hostname"
-						formControlName="hostname"
-					/>
+					<app-form-textfield formControlName="hostname" label="Hostname"></app-form-textfield>
 				</div>
 
 				<form [formGroup]="formAddPortMapping" (submit)="handleAddPortMapping()">
-					<label for="">Port mappings</label>
+					<app-form-label>Port mappings</app-form-label>
 					<div class="flex items-stretch gap-1">
 						<div class="flex-1">
 							<input
@@ -136,7 +119,7 @@
 			<app-tab label="Environment">
 				<!-- environment -->
 				<form [formGroup]="formAddEnvVariable" (submit)="handleAddEnvironment()">
-					<label for="">Environment variables</label>
+					<app-form-label>Environment variables</app-form-label>
 					<div class="flex items-stretch gap-1">
 						<div class="flex-1">
 							<input type="text" class="form-input w-full" formControlName="key" placeholder="Key" />
@@ -169,7 +152,7 @@
 			<app-tab label="Volumes">
 				<!-- volume mappings -->
 				<form [formGroup]="formAddVolumeMapping" (submit)="handleAddVolumeMapping()">
-					<label for="">Volume mappings</label>
+					<app-form-label>Volume mappings</app-form-label>
 					<div class="flex items-stretch gap-1">
 						<div class="flex-1">
 							<input
@@ -229,13 +212,9 @@
 	<!-- script -->
 	<app-form-section title="Script">
 		<div [ngClass]="{ 'mb-3': generatedScript }">
-			<div class="mb-1 flex items-center gap-1">
-				<input type="checkbox" id="useShortParams" formControlName="useShortParams" />
-				<label for="useShortParams" class="cursor-pointer">Short parameter names</label>
-			</div>
-			<div class="mb-1 flex items-center gap-1">
-				<input type="checkbox" id="multilineScript" formControlName="multilineScript" />
-				<label for="multilineScript" class="cursor-pointer">Multiline script</label>
+			<div class="space-y-1">
+				<app-form-checkbox formControlName="useShortParams">Short parameter names</app-form-checkbox>
+				<app-form-checkbox formControlName="multilineScript">Multiline script</app-form-checkbox>
 			</div>
 		</div>
 

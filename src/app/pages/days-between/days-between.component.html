@@ -3,7 +3,9 @@
 <form [formGroup]="form" (submit)="handleSubmit()">
 	<app-form-section title="Dates">
 		<div class="mb-3">
-			<label>From date</label>
+			<div class="mb-1">
+				<app-form-label>From date</app-form-label>
+			</div>
 			<div class="flex gap-1">
 				<div class="flex-1">
 					<app-form-textfield placeholder="Year" formControlName="fromYear"></app-form-textfield>
@@ -17,7 +19,9 @@
 			</div>
 		</div>
 		<div class="mb-3">
-			<label>To date</label>
+			<div class="mb-1">
+				<app-form-label>To date</app-form-label>
+			</div>
 			<div class="flex gap-1">
 				<div class="flex-1">
 					<app-form-textfield placeholder="Year" formControlName="toYear"></app-form-textfield>

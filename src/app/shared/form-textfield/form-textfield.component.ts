@@ -27,23 +27,26 @@ export class FormTextfieldComponent implements ControlValueAccessor {
 	onTouched = (event: any) => {}
 
 	writeValue(newValue: any): void {
-		//console.debug('writeValue', this.control.name, newValue)
+		// console.debug('writeValue', this.control.name, newValue)
 		this.value = newValue
 	}
 
 	registerOnChange(fn: any): void {
-		//console.debug('registerOnChange', this.control.name)
+		// console.debug('registerOnChange', this.control.name)
 		this.onChange = fn
 	}
 
 	registerOnTouched(fn: any): void {
-		//console.debug('registerOnTouched', this.control.name)
+		// console.debug('registerOnTouched', this.control.name)
 		this.onTouched = fn
 	}
 
 	handleChange(event: Event) {
-		this.value = this.inputElement.nativeElement.value
-		this.onChange(this.inputElement.nativeElement.value)
+		const input = event.target as HTMLInputElement
+		// console.log('handleChange', this.control.name, input.value)
+
+		this.value = input.value
+		this.onChange(input.value)
 	}
 
 	handleBlur(event: Event) {

@@ -18,15 +18,9 @@
 				</button>
 			</div>
 		</div>
-		<div>
-			<div class="space-x-1">
-				<input type="checkbox" id="addDashes" formControlName="addDashes" />
-				<label for="addDashes" class="cursor-pointer">Dashes</label>
-			</div>
-			<div class="space-x-1">
-				<input type="checkbox" id="addCurlyBraces" formControlName="addCurlyBraces" />
-				<label for="addCurlyBraces" class="cursor-pointer">Curly braces</label>
-			</div>
+		<div class="space-y-1">
+			<app-form-checkbox formControlName="addDashes">Dashes</app-form-checkbox>
+			<app-form-checkbox formControlName="addCurlyBraces">Curly braces</app-form-checkbox>
 		</div>
 	</app-form-section>
 </form>

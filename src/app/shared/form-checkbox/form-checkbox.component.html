@@ -1,0 +1,11 @@
+<div class="flex items-center gap-1">
+	<input
+		#input
+		type="checkbox"
+		[attr.id]="control.name"
+		[disabled]="isDisabled"
+		[checked]="isChecked"
+		(change)="handleChange($event)"
+	/>
+	<app-form-label class="select-none" [for]="control.name?.toString()"><ng-content></ng-content></app-form-label>
+</div>

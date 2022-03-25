@@ -24,6 +24,8 @@ import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer
 import { URLDecoderPageComponent } from './pages/url-decoder-page/url-decoder-page.component'
 import { AlertComponent } from './shared/alert/alert.component'
 import { CodeComponent } from './shared/code/code.component'
+import { FormCheckboxComponent } from './shared/form-checkbox/form-checkbox.component'
+import { FormLabelComponent } from './shared/form-label/form-label.component'
 
 @NgModule({
 	declarations: [
@@ -44,7 +46,9 @@ import { CodeComponent } from './shared/code/code.component'
 		CodeComponent,
 		URLDecoderPageComponent,
 		AlertComponent,
-		GuidGeneratorComponent
+		GuidGeneratorComponent,
+		FormCheckboxComponent,
+		FormLabelComponent
 	],
 	imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, ReactiveFormsModule, SvgIconModule],
 	providers: [FormService, DateService],
