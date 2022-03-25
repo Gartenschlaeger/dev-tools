@@ -117,7 +117,7 @@ export class DockerRunPageComponent implements OnInit {
 					validators: []
 				}),
 				containerName: new FormControl(FormDefaultValues.containerName, {
-					validators: [Validators.pattern('^[a-zA-Z_-]+$')]
+					validators: [Validators.pattern('^[a-zA-Z0-9_-]+$')]
 				}),
 				volumeMappings: this.fb.array([]),
 				hostname: new FormControl(FormDefaultValues.hostname, {}),

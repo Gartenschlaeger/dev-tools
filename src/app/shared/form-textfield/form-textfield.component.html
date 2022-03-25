@@ -1,4 +1,4 @@
-<app-form-label [for]="control.name"
+<app-form-label [for]="control.name" *ngIf="label"
 	>{{ label }} <app-form-field-errors [control]="control.control"></app-form-field-errors
 ></app-form-label>
 

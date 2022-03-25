@@ -3,9 +3,7 @@
 <form [formGroup]="form" (submit)="handleSubmit()">
 	<app-form-section title="Dates">
 		<div class="mb-3">
-			<div class="mb-1">
-				<app-form-label>From date</app-form-label>
-			</div>
+			<app-form-label>From date</app-form-label>
 			<div class="flex gap-1">
 				<div class="flex-1">
 					<app-form-textfield placeholder="Year" formControlName="fromYear"></app-form-textfield>
@@ -18,10 +16,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="mb-3">
-			<div class="mb-1">
-				<app-form-label>To date</app-form-label>
-			</div>
+		<div>
+			<app-form-label>To date</app-form-label>
 			<div class="flex gap-1">
 				<div class="flex-1">
 					<app-form-textfield placeholder="Year" formControlName="toYear"></app-form-textfield>
@@ -37,17 +33,19 @@
 	</app-form-section>
 
 	<app-form-section title="Result" *ngIf="result">
-		<div class="mb-3">
-			<span class="font-semibold inline-block mb-1 w-full">Days</span>
-			<app-code>{{ result.Days }}</app-code>
-		</div>
-		<div class="mb-3">
-			<span class="font-semibold inline-block mb-1 w-full">Months</span>
-			<app-code>{{ result.Months }}</app-code>
-		</div>
-		<div class="mb-3">
-			<span class="font-semibold inline-block mb-1 w-full">Years</span>
-			<app-code>{{ result.Years }}</app-code>
+		<div class="space-y-3">
+			<div>
+				<app-form-label>Days</app-form-label>
+				<app-code>{{ result.Days }}</app-code>
+			</div>
+			<div>
+				<app-form-label>Months</app-form-label>
+				<app-code>{{ result.Months }}</app-code>
+			</div>
+			<div>
+				<app-form-label>Years</app-form-label>
+				<app-code>{{ result.Years }}</app-code>
+			</div>
 		</div>
 	</app-form-section>
 
