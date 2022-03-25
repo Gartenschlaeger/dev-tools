@@ -236,6 +236,7 @@ export class DockerRunPageComponent implements OnInit {
 	handleReset() {
 		this.portMappings.clear()
 		this.environmentVariables.clear()
+		this.volumeMappings.clear()
 
 		this.form.reset()
 		this.form.setValue(FormDefaultValues)
