@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import { routes } from 'src/app/app-routing.module'
 
 export interface INavigationItem {
 	title: string
@@ -13,29 +14,30 @@ export interface INavigationItem {
 export class NavigationComponent implements OnInit {
 	@ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>
 
+	stickedItems: INavigationItem[] = []
 	items: INavigationItem[] = []
 
 	ngOnInit(): void {
-		this.pushItem('URL Analyzer', '/url-analyzer')
-		this.pushItem('URL Decoder', '/url-decoder')
-		this.pushItem('Docker Run', '/docker-run')
-		this.pushItem('Days between', '/days-between')
-		this.pushItem('Guid generator', '/guid-generator')
+		routes.forEach((route) => {
+			if (route.path && route.pageTitle) {
+				if (route.stickedInNavbar !== true) {
+					this.items.push({
+						title: route.pageTitle,
+						routerLink: route.path,
+						isVisible: true
+					})
+				} else {
+					this.stickedItems.push({
+						title: route.pageTitle,
+						routerLink: route.path,
+						isVisible: true
+					})
+				}
+			}
+		})
+
+		this.stickedItems.sort((a, b) => a.title.localeCompare(b.title))
 		this.items.sort((a, b) => a.title.localeCompare(b.title))
-
-		this.items.unshift({
-			title: 'Home',
-			routerLink: '/home',
-			isVisible: true
-		})
-	}
-
-	pushItem(title: string, url: string) {
-		this.items.push({
-			title: title,
-			routerLink: url,
-			isVisible: true
-		})
 	}
 
 	handleSearch(e: KeyboardEvent) {

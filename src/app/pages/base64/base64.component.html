@@ -1,0 +1,24 @@
+<app-page-header title="Base64 {{ isEncodeMode ? 'Encoder' : 'Decoder' }}"></app-page-header>
+
+<form [formGroup]="form" (submit)="handleSubmit()">
+	<app-form-section title="Source">
+		<app-form-label>{{ isEncodeMode ? 'Plain text value' : 'Base64 value' }}</app-form-label>
+		<textarea
+			formControlName="sourceValue"
+			class="px-3 py-2 border-2 border-gray-300 focus:border-gray-400 text-gray-500 outline-none rounded w-full transition-colors"
+			style="min-height: 100px"
+			rows="5"
+		></textarea>
+	</app-form-section>
+
+	<app-form-section title="Base64 value" *ngIf="processedValue">
+		<app-code>{{ processedValue }}</app-code>
+	</app-form-section>
+
+	<app-alert type="error" *ngIf="hasErrors">Failed to encode the source value</app-alert>
+
+	<app-form-footer>
+		<button class="btn btn-secondary" (click)="handleReset()">Reset</button>
+		<button class="btn btn-primary">{{ isEncodeMode ? 'Encode' : 'Decode' }}</button>
+	</app-form-footer>
+</form>

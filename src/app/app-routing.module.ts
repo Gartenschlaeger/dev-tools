@@ -1,20 +1,70 @@
 import { NgModule } from '@angular/core'
-import { RouterModule, Routes } from '@angular/router'
+import { Route, RouterModule } from '@angular/router'
+import { Base64Component } from 'src/app/pages/base64/base64.component'
 import { DaysBetweenComponent } from 'src/app/pages/days-between/days-between.component'
 import { DockerRunPageComponent } from 'src/app/pages/docker-run-page/docker-run-page.component'
 import { GuidGeneratorComponent } from 'src/app/pages/guid-generator/guid-generator.component'
 import { HomePageComponent } from 'src/app/pages/home-page/home-page.component'
+import { NotFoundComponent } from 'src/app/pages/not-found/not-found.component'
 import { UrlAnalyzerPageComponent } from 'src/app/pages/url-analyzer-page/url-analyzer-page.component'
 import { URLDecoderPageComponent } from 'src/app/pages/url-decoder-page/url-decoder-page.component'
 
-const routes: Routes = [
-	{ path: '', pathMatch: 'full', redirectTo: 'home' },
-	{ path: 'home', component: HomePageComponent },
-	{ path: 'url-analyzer', component: UrlAnalyzerPageComponent },
-	{ path: 'url-decoder', component: URLDecoderPageComponent },
-	{ path: 'docker-run', component: DockerRunPageComponent },
-	{ path: 'days-between', component: DaysBetweenComponent },
-	{ path: 'guid-generator', component: GuidGeneratorComponent }
+export interface CustomRoute extends Route {
+	pageTitle?: string
+	stickedInNavbar?: boolean
+}
+
+export const routes: CustomRoute[] = [
+	{
+		path: '',
+		pathMatch: 'full',
+		redirectTo: 'home'
+	},
+	{
+		pageTitle: 'Home',
+		stickedInNavbar: true,
+		path: 'home',
+		component: HomePageComponent
+	},
+	{
+		pageTitle: 'URL Analyzer',
+		path: 'url-analyzer',
+		component: UrlAnalyzerPageComponent
+	},
+	{
+		pageTitle: 'URL Decoder',
+		path: 'url-decoder',
+		component: URLDecoderPageComponent
+	},
+	{
+		pageTitle: 'Docker Run',
+		path: 'docker-run',
+		component: DockerRunPageComponent
+	},
+	{
+		path: 'days-between',
+		component: DaysBetweenComponent,
+		pageTitle: 'Days between'
+	},
+	{
+		pageTitle: 'Guid Generator',
+		path: 'guid-generator',
+		component: GuidGeneratorComponent
+	},
+	{
+		pageTitle: 'Base64 Encoder',
+		path: 'base64-encoder',
+		component: Base64Component
+	},
+	{
+		pageTitle: 'Base64 Decoder',
+		path: 'base64-decoder',
+		component: Base64Component
+	},
+	{
+		path: '**',
+		component: NotFoundComponent
+	}
 ]
 
 @NgModule({
