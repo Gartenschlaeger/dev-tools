@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { StringBuilder } from 'src/app/helper/string-builder'
@@ -45,6 +45,10 @@ export const FormDefaultValues = new DockerRunModel()
 	templateUrl: './docker-run-page.component.html'
 })
 export class DockerRunPageComponent implements OnInit {
+	@ViewChild('inputContainerPort') inputContainerPort!: ElementRef<HTMLInputElement>
+	@ViewChild('inputEnvironmentKey') inputEnvironmentKey!: ElementRef<HTMLInputElement>
+	@ViewChild('inputVolumeHostPath') inputVolumeHostPath!: ElementRef<HTMLInputElement>
+
 	form!: FormGroup
 	formAddEnvVariable!: FormGroup
 	environmentVariables!: FormArray
@@ -271,6 +275,7 @@ export class DockerRunPageComponent implements OnInit {
 				})
 			)
 
+			this.inputEnvironmentKey.nativeElement.focus()
 			this.formAddEnvVariable.reset()
 		}
 	}
@@ -291,6 +296,7 @@ export class DockerRunPageComponent implements OnInit {
 				})
 			)
 
+			this.inputContainerPort.nativeElement.focus()
 			this.formAddPortMapping.reset()
 		}
 	}
@@ -311,6 +317,7 @@ export class DockerRunPageComponent implements OnInit {
 				})
 			)
 
+			this.inputVolumeHostPath.nativeElement.focus()
 			this.formAddVolumeMapping.reset()
 		}
 	}

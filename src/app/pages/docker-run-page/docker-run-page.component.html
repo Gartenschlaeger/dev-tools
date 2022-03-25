@@ -66,17 +66,7 @@
 					<div class="flex items-stretch gap-1">
 						<div class="flex-1">
 							<input
-								type="text"
-								class="form-input w-full"
-								formControlName="hostPort"
-								placeholder="Host port"
-							/>
-							<app-form-field-errors
-								[control]="formAddPortMapping.get('hostPort')"
-							></app-form-field-errors>
-						</div>
-						<div class="flex-1">
-							<input
+								#inputContainerPort
 								type="text"
 								class="form-input w-full"
 								formControlName="containerPort"
@@ -86,6 +76,18 @@
 								[control]="formAddPortMapping.get('containerPort')"
 							></app-form-field-errors>
 						</div>
+						<div class="flex-1">
+							<input
+								type="text"
+								class="form-input w-full"
+								formControlName="hostPort"
+								placeholder="Host port"
+							/>
+							<app-form-field-errors
+								[control]="formAddPortMapping.get('hostPort')"
+							></app-form-field-errors>
+						</div>
+
 						<div class="flex-none">
 							<button type="submit" class="btn btn-primary">
 								<svg-plus-icon size="sm"></svg-plus-icon>
@@ -122,7 +124,13 @@
 					<app-form-label>Environment variables</app-form-label>
 					<div class="flex items-stretch gap-1">
 						<div class="flex-1">
-							<input type="text" class="form-input w-full" formControlName="key" placeholder="Key" />
+							<input
+								#inputEnvironmentKey
+								type="text"
+								class="form-input w-full"
+								formControlName="key"
+								placeholder="Key"
+							/>
 							<app-form-field-errors [control]="formAddEnvVariable.get('key')"></app-form-field-errors>
 						</div>
 						<div class="flex-1">
@@ -149,6 +157,7 @@
 					</div>
 				</div>
 			</app-tab>
+
 			<app-tab label="Volumes">
 				<!-- volume mappings -->
 				<form [formGroup]="formAddVolumeMapping" (submit)="handleAddVolumeMapping()">
@@ -156,6 +165,7 @@
 					<div class="flex items-stretch gap-1">
 						<div class="flex-1">
 							<input
+								#inputVolumeHostPath
 								type="text"
 								class="form-input w-full"
 								formControlName="hostPath"
