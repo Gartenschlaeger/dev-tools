@@ -1,4 +1,4 @@
-<app-page-header title="Docker Run Generator"></app-page-header>
+<app-page-header title="{{ pageTitle }}"></app-page-header>
 
 <form [formGroup]="form" (submit)="handleGenerateScript()">
 	<!-- image -->
@@ -238,15 +238,21 @@
 	</app-form-section>
 
 	<app-form-footer>
-		<button type="button" class="btn btn-secondary" (click)="handleReset()">Reset</button>
-		<button
-			type="button"
-			class="btn btn-primary"
-			[attr.disabled]="generatedScript ? null : 'disabled'"
-			(click)="handleShare()"
-		>
-			Share
-		</button>
-		<button type="submit" class="btn btn-primary">Generate</button>
+		<div class="flex justify-between">
+			<div>
+				<button
+					type="button"
+					class="btn btn-primary"
+					[attr.disabled]="generatedScript ? null : 'disabled'"
+					(click)="handleShare()"
+				>
+					Share
+				</button>
+			</div>
+			<div class="space-x-1">
+				<button type="button" class="btn btn-secondary" (click)="handleReset()">Reset</button>
+				<button type="submit" class="btn btn-primary">Generate</button>
+			</div>
+		</div>
 	</app-form-footer>
 </form>

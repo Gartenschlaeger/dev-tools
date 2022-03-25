@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { ActivatedRoute } from '@angular/router'
 import { FormService } from 'src/app/modules/form/services/form-service.service'
 import { requiredIfValidator } from 'src/app/modules/form/validators/required-if.validator'
+import { PageComponent } from 'src/app/pages/PageComponent'
 import { StringBuilder } from 'src/app/utilities/string-builder'
 
 export class DockerRunModel {
@@ -44,7 +45,7 @@ export const FormDefaultValues = new DockerRunModel()
 	selector: 'app-docker-run-page',
 	templateUrl: './docker-run-page.component.html'
 })
-export class DockerRunPageComponent implements OnInit {
+export class DockerRunPageComponent extends PageComponent implements OnInit {
 	@ViewChild('inputContainerPort') inputContainerPort!: ElementRef<HTMLInputElement>
 	@ViewChild('inputEnvironmentKey') inputEnvironmentKey!: ElementRef<HTMLInputElement>
 	@ViewChild('inputVolumeHostPath') inputVolumeHostPath!: ElementRef<HTMLInputElement>
@@ -59,7 +60,9 @@ export class DockerRunPageComponent implements OnInit {
 	generatedScript: string = ''
 	shareLink?: string
 
-	constructor(private fb: FormBuilder, private route: ActivatedRoute, public formService: FormService) {}
+	constructor(private route: ActivatedRoute, private fb: FormBuilder, public formService: FormService) {
+		super(route)
+	}
 
 	ngOnInit(): void {
 		this.form = this.defineFormGroupScript()

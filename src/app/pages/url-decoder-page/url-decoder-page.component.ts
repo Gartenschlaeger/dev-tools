@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { ActivatedRoute } from '@angular/router'
 import { FormService } from 'src/app/modules/form/services/form-service.service'
+import { PageComponent } from 'src/app/pages/PageComponent'
 
 export class UrlDecoderModel {
 	url: string = ''
@@ -16,12 +18,14 @@ const FormDefaults = new UrlDecoderModel()
 	selector: 'app-urldecoder-page',
 	templateUrl: './url-decoder-page.component.html'
 })
-export class URLDecoderPageComponent implements OnInit {
+export class URLDecoderPageComponent extends PageComponent implements OnInit {
 	form!: FormGroup
 	result?: UrlDecoderResult | null = null
 	hasErrors = false
 
-	constructor(private fb: FormBuilder, private fs: FormService) {}
+	constructor(private route: ActivatedRoute, private fb: FormBuilder, private fs: FormService) {
+		super(route)
+	}
 
 	ngOnInit() {
 		this.form = this.defineForm()

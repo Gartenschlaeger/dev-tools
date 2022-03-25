@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { ActivatedRoute } from '@angular/router'
 import { FormService } from 'src/app/modules/form/services/form-service.service'
 import { DateService } from 'src/app/modules/shared/services/date.service'
+import { PageComponent } from 'src/app/pages/PageComponent'
 
 export class DaysBetweenModel {
 	fromYear?: number
@@ -24,11 +26,18 @@ const FormDefaultValues = new DaysBetweenModel()
 	selector: 'app-days-between',
 	templateUrl: './days-between.component.html'
 })
-export class DaysBetweenComponent implements OnInit {
+export class DaysBetweenComponent extends PageComponent implements OnInit {
 	form!: FormGroup
 	result: DaysBetweenResult | null = null
 
-	constructor(private fb: FormBuilder, private formService: FormService, private dateService: DateService) {}
+	constructor(
+		private route: ActivatedRoute,
+		private fb: FormBuilder,
+		private formService: FormService,
+		private dateService: DateService
+	) {
+		super(route)
+	}
 
 	ngOnInit(): void {
 		this.form = this.defineForm()
