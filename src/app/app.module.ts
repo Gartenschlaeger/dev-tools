@@ -8,6 +8,7 @@ import { PageHeaderComponent } from 'src/app/components/page-header/page-header.
 import { FormModule } from 'src/app/modules/form/form.module'
 import { SharedModule } from 'src/app/modules/shared/shared.module'
 import { SvgIconModule } from 'src/app/modules/svg-icon/svg-icon.module'
+import { URLEncoderComponent } from 'src/app/pages/url-encoder/url-encoder.component'
 import { environment } from 'src/environments/environment'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
@@ -18,7 +19,6 @@ import { GuidGeneratorComponent } from './pages/guid-generator/guid-generator.co
 import { HomePageComponent } from './pages/home-page/home-page.component'
 import { NotFoundComponent } from './pages/not-found/not-found.component'
 import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer-page.component'
-import { URLDecoderPageComponent } from './pages/url-decoder-page/url-decoder-page.component'
 
 @NgModule({
 	declarations: [
@@ -30,7 +30,7 @@ import { URLDecoderPageComponent } from './pages/url-decoder-page/url-decoder-pa
 		UrlAnalyzerPageComponent,
 		DockerRunPageComponent,
 		DaysBetweenComponent,
-		URLDecoderPageComponent,
+		URLEncoderComponent,
 		GuidGeneratorComponent,
 		Base64Component,
 		NotFoundComponent

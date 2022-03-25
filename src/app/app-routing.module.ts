@@ -7,7 +7,7 @@ import { GuidGeneratorComponent } from 'src/app/pages/guid-generator/guid-genera
 import { HomePageComponent } from 'src/app/pages/home-page/home-page.component'
 import { NotFoundComponent } from 'src/app/pages/not-found/not-found.component'
 import { UrlAnalyzerPageComponent } from 'src/app/pages/url-analyzer-page/url-analyzer-page.component'
-import { URLDecoderPageComponent } from 'src/app/pages/url-decoder-page/url-decoder-page.component'
+import { URLEncoderComponent } from 'src/app/pages/url-encoder/url-encoder.component'
 
 export interface CustomRoute extends Route {
 	pageTitle?: string
@@ -34,7 +34,12 @@ export const routes: CustomRoute[] = [
 	{
 		pageTitle: 'URL Decoder',
 		path: 'url-decoder',
-		component: URLDecoderPageComponent
+		component: URLEncoderComponent
+	},
+	{
+		pageTitle: 'URL Encoder',
+		path: 'url-encoder',
+		component: URLEncoderComponent
 	},
 	{
 		pageTitle: 'Docker Run',

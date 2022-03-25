@@ -1,0 +1,22 @@
+<app-page-header title="{{ pageTitle }}"></app-page-header>
+
+<form [formGroup]="form" (submit)="handleSubmit()">
+	<app-form-section title="Source">
+		<app-form-textfield
+			formControlName="sourceValue"
+			[label]="isEncodeMode ? 'Value to encode' : 'Value to decode'"
+			placeholder="URL or query string"
+		></app-form-textfield>
+	</app-form-section>
+
+	<app-form-section title="Result" *ngIf="result">
+		<app-code *ngIf="!result.hasErrors" [scrollable]="false">{{ result.processedValue }}</app-code>
+
+		<app-alert type="error" *ngIf="result.hasErrors">Failed to decode</app-alert>
+	</app-form-section>
+
+	<app-form-footer>
+		<button type="button" class="btn btn-secondary" (click)="handleReset()">Reset</button>
+		<button type="submit" class="btn btn-primary">{{ isEncodeMode ? 'Encode' : 'Decode' }}</button>
+	</app-form-footer>
+</form>
