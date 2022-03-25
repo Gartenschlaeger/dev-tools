@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { FormService } from 'src/app/services/form-service.service'
+import { FormService } from 'src/app/modules/form/services/form-service.service'
 
 export class UrlDecoderModel {
 	url: string = ''

@@ -1,5 +1,6 @@
-import { Environment } from 'src/environments/environment.interface'
+import { Environment, LogLevel } from 'src/environments/environment.interface'
 
 export const environment: Environment = {
-	production: true
+	production: true,
+	minLogLevel: LogLevel.error
 }

@@ -2,8 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { StringBuilder } from 'src/app/helper/string-builder'
-import { FormService } from 'src/app/services/form-service.service'
-import { requiredIfValidator } from 'src/app/validators/required-if.validator'
+import { FormService } from 'src/app/modules/form/services/form-service.service'
+import { requiredIfValidator } from 'src/app/modules/form/validators/required-if.validator'
 
 export class DockerRunModel {
 	imageName: string = ''

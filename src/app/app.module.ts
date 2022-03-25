@@ -2,12 +2,9 @@ import { NgModule } from '@angular/core'
 import { ReactiveFormsModule } from '@angular/forms'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { FormModule } from 'src/app/modules/form/form.module'
 import { DateService } from 'src/app/services/date.service'
-import { FormService } from 'src/app/services/form-service.service'
-import { FormFieldErrorsComponent } from 'src/app/shared/form-field-errors/form-field-errors.component'
-import { FormFooterComponent } from 'src/app/shared/form-footer/form-footer.component'
-import { FormSectionComponent } from 'src/app/shared/form-section/form-section.component'
-import { FormTextfieldComponent } from 'src/app/shared/form-textfield/form-textfield.component'
+import { LoggingService } from 'src/app/services/logging.service'
 import { NavigationLinkComponent } from 'src/app/shared/navigation-link/navigation-link.component'
 import { NavigationComponent } from 'src/app/shared/navigation/navigation.component'
 import { PageHeaderComponent } from 'src/app/shared/page-header/page-header.component'
@@ -24,8 +21,6 @@ import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer
 import { URLDecoderPageComponent } from './pages/url-decoder-page/url-decoder-page.component'
 import { AlertComponent } from './shared/alert/alert.component'
 import { CodeComponent } from './shared/code/code.component'
-import { FormCheckboxComponent } from './shared/form-checkbox/form-checkbox.component'
-import { FormLabelComponent } from './shared/form-label/form-label.component'
 
 @NgModule({
 	declarations: [
@@ -36,22 +31,23 @@ import { FormLabelComponent } from './shared/form-label/form-label.component'
 		UrlAnalyzerPageComponent,
 		DockerRunPageComponent,
 		PageHeaderComponent,
-		FormFieldErrorsComponent,
-		FormFooterComponent,
 		TabComponent,
 		TabControlComponent,
-		FormSectionComponent,
-		FormTextfieldComponent,
 		DaysBetweenComponent,
 		CodeComponent,
 		URLDecoderPageComponent,
 		AlertComponent,
-		GuidGeneratorComponent,
-		FormCheckboxComponent,
-		FormLabelComponent
+		GuidGeneratorComponent
 	],
-	imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, ReactiveFormsModule, SvgIconModule],
-	providers: [FormService, DateService],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		BrowserAnimationsModule,
+		ReactiveFormsModule,
+		FormModule.forRoot(),
+		SvgIconModule
+	],
+	providers: [DateService, LoggingService],
 	bootstrap: [AppComponent]
 })
 export class AppModule {}
