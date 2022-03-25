@@ -4,7 +4,7 @@
 		type="checkbox"
 		[attr.id]="control.name"
 		[disabled]="isDisabled"
-		[checked]="isChecked"
+		[(ngModel)]="isChecked"
 		(change)="handleChange($event)"
 	/>
 	<app-form-label [for]="control.name"><ng-content></ng-content></app-form-label>

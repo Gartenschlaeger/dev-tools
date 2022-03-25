@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { ModuleWithProviders, NgModule } from '@angular/core'
-import { ReactiveFormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { FormCheckboxComponent } from 'src/app/modules/form/components/form-checkbox/form-checkbox.component'
 import { FormFieldErrorsComponent } from 'src/app/modules/form/components/form-field-errors/form-field-errors.component'
 import { FormFooterComponent } from 'src/app/modules/form/components/form-footer/form-footer.component'
@@ -18,7 +18,7 @@ import { FormService } from 'src/app/modules/form/services/form-service.service'
 		FormSectionComponent,
 		FormTextfieldComponent
 	],
-	imports: [CommonModule, ReactiveFormsModule],
+	imports: [CommonModule, FormsModule, ReactiveFormsModule],
 	exports: [
 		FormCheckboxComponent,
 		FormFieldErrorsComponent,

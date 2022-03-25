@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 
 export enum LogLevel {
+	trace,
 	debug,
 	info,
 	warning,
@@ -12,6 +13,10 @@ export enum LogLevel {
 })
 export class LoggingService {
 	constructor(private minLogLevel: LogLevel) {}
+
+	trace(message?: any, ...optionalParams: any[]) {
+		this.logInternal(LogLevel.trace, message, optionalParams)
+	}
 
 	debug(message?: any, ...optionalParams: any[]) {
 		this.logInternal(LogLevel.debug, message, optionalParams)
@@ -29,23 +34,9 @@ export class LoggingService {
 		this.logInternal(LogLevel.error, message, optionalParams)
 	}
 
-	logInternal(logLevel: LogLevel, message?: any, ...optionalParams: any[]) {
+	logInternal(logLevel: LogLevel, message: any, optionalParams: any[]) {
 		if (logLevel >= this.minLogLevel) {
-			switch (logLevel) {
-				default:
-				case LogLevel.debug:
-					console.debug(message, optionalParams)
-					break
-				case LogLevel.info:
-					console.info(message, optionalParams)
-					break
-				case LogLevel.warning:
-					console.warn(message, optionalParams)
-					break
-				case LogLevel.error:
-					console.error(message, optionalParams)
-					break
-			}
+			console.log(`[${LogLevel[logLevel].toUpperCase()}] ${message}`, ...optionalParams)
 		}
 	}
 }

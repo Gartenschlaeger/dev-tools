@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, Optional, Self, ViewChild } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
+import { LoggingService } from 'src/app/modules/shared/services/logging.service'
 
 @Component({
 	selector: 'app-form-checkbox',
@@ -16,7 +17,8 @@ export class FormCheckboxComponent implements ControlValueAccessor {
 	constructor(
 		@Self()
 		@Optional()
-		public control: NgControl
+		public control: NgControl,
+		private logging: LoggingService
 	) {
 		if (control) {
 			control.valueAccessor = this
@@ -31,7 +33,7 @@ export class FormCheckboxComponent implements ControlValueAccessor {
 	onTouched = (event: any) => {}
 
 	writeValue(value: boolean): void {
-		// console.log('writeValue', this.control.name, value)
+		this.logging.trace('writeValue', this.control.name, value)
 		this.isChecked = value
 	}
 
