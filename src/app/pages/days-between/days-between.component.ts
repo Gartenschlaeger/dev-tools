@@ -7,7 +7,6 @@ export class DaysBetweenModel {
 	fromYear?: number
 	fromMonth?: number
 	fromDay?: number
-
 	toYear?: number
 	toMonth?: number
 	toDay?: number
@@ -65,7 +64,6 @@ export class DaysBetweenComponent implements OnInit {
 	handleReset() {
 		this.form.reset()
 		this.form.markAsUntouched()
-		this.form.setValue(FormDefaultValues)
 		this.result = null
 	}
 }
