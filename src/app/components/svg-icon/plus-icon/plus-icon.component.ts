@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core'
-import { SvgIconSizes } from 'src/app/shared/svg-icon/types'
+import { SvgIconSizes } from 'src/app/components/svg-icon/types'
 
 @Component({
 	selector: 'svg-plus-icon',

@@ -1,9 +1,4 @@
-export enum LogLevel {
-	debug,
-	info,
-	warning,
-	error
-}
+import { LogLevel } from 'src/app/modules/shared/services/logging.service'
 
 export interface Environment {
 	production: boolean

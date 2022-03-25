@@ -1,11 +1,18 @@
 import { Injectable } from '@angular/core'
-import { LogLevel } from 'src/environments/environment.interface'
-import { environment } from '../../environments/environment'
+
+export enum LogLevel {
+	debug,
+	info,
+	warning,
+	error
+}
 
 @Injectable({
 	providedIn: 'root'
 })
 export class LoggingService {
+	constructor(private minLogLevel: LogLevel) {}
+
 	debug(message?: any, ...optionalParams: any[]) {
 		this.logInternal(LogLevel.debug, message, optionalParams)
 	}
@@ -23,8 +30,22 @@ export class LoggingService {
 	}
 
 	logInternal(logLevel: LogLevel, message?: any, ...optionalParams: any[]) {
-		if (logLevel >= environment.minLogLevel) {
-			console.log(message, optionalParams)
+		if (logLevel >= this.minLogLevel) {
+			switch (logLevel) {
+				default:
+				case LogLevel.debug:
+					console.debug(message, optionalParams)
+					break
+				case LogLevel.info:
+					console.info(message, optionalParams)
+					break
+				case LogLevel.warning:
+					console.warn(message, optionalParams)
+					break
+				case LogLevel.error:
+					console.error(message, optionalParams)
+					break
+			}
 		}
 	}
 }
