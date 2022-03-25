@@ -63,6 +63,12 @@ export class DockerRunPageComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.form = this.defineFormGroupScript()
+		this.form.valueChanges.subscribe(() => {
+			if (this.generatedScript) {
+				this.handleGenerateScript()
+			}
+		})
+
 		this.portMappings = this.form.get('portMappings') as FormArray
 		this.environmentVariables = this.form.get('environmentVariables') as FormArray
 		this.volumeMappings = this.form.get('volumeMappings') as FormArray
