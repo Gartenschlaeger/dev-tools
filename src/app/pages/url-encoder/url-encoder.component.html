@@ -7,6 +7,9 @@
 			[label]="isEncodeMode ? 'Value to encode' : 'Value to decode'"
 			placeholder="URL or query string"
 		></app-form-textfield>
+		<app-form-checkbox *ngIf="isEncodeMode" formControlName="encodeAsQueryString"
+			>Encode as query string</app-form-checkbox
+		>
 	</app-form-section>
 
 	<app-form-section title="Result" *ngIf="result">

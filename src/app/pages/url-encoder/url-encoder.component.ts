@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { FormService } from 'src/app/modules/form/services/form-service.service'
 import { PageComponent } from 'src/app/pages/PageComponent'
 
 export class UrlEncoderFormModel {
 	sourceValue: string = ''
+	encodeAsQueryString: boolean = false
 }
 
 export interface UrlEncoderResultModel {
@@ -35,9 +36,15 @@ export class URLEncoderComponent extends PageComponent implements OnInit {
 	}
 
 	defineForm(): FormGroup {
-		return this.fb.group({
+		const result = this.fb.group({
 			sourceValue: [FormDefaults.sourceValue, [Validators.required]]
 		})
+
+		if (this.isEncodeMode) {
+			result.addControl('encodeAsQueryString', new FormControl(false))
+		}
+
+		return result
 	}
 
 	handleSubmit() {
@@ -45,8 +52,17 @@ export class URLEncoderComponent extends PageComponent implements OnInit {
 			const model: UrlEncoderFormModel = this.form.value
 
 			try {
+				let processedValue: string
+				if (this.isEncodeMode) {
+					processedValue = model.encodeAsQueryString
+						? encodeURIComponent(model.sourceValue)
+						: encodeURI(model.sourceValue)
+				} else {
+					processedValue = decodeURIComponent(model.sourceValue)
+				}
+
 				this.result = {
-					processedValue: this.isEncodeMode ? encodeURI(model.sourceValue) : decodeURI(model.sourceValue),
+					processedValue,
 					hasErrors: false
 				}
 			} catch (error) {
