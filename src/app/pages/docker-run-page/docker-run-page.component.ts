@@ -133,7 +133,9 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 					validators: [Validators.pattern('^[a-zA-Z0-9_-]+$')]
 				}),
 				volumeMappings: this.fb.array([]),
-				hostname: new FormControl(FormDefaultValues.hostname, {}),
+				hostname: new FormControl(FormDefaultValues.hostname, {
+					validators: [Validators.pattern('^[a-zA-Z0-9_-]+$')]
+				}),
 				networkMode: new FormControl(FormDefaultValues.networkMode, {}),
 				networkName: new FormControl(FormDefaultValues.networkName, {
 					validators: []
@@ -234,7 +236,8 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 		})
 
 		model.environmentVariables.forEach((v) => {
-			builder.append(model.useShortParams ? '-e' : '--env', ' "', v.key, '=', v.value, '"', multilineStr)
+			const escapedValue = v.value.replace(/"/, `\\"`)
+			builder.append(model.useShortParams ? '-e' : '--env', ' "', v.key, '=', escapedValue, '"', multilineStr)
 		})
 
 		builder.append(model.imageName, ':', model.imageTag ? model.imageTag : 'latest')
