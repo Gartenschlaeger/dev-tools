@@ -1,0 +1,23 @@
+<app-page-header title="{{ pageTitle }}"></app-page-header>
+
+<form [formGroup]="form" (submit)="handleSubmit()">
+	<app-form-section title="Source text">
+		<app-form-textfield
+			label="Text to randomize"
+			placeholder="Plain text"
+			formControlName="sourceText"
+		></app-form-textfield>
+
+		<app-form-checkbox formControlName="trimResult">Trim text</app-form-checkbox>
+		<app-form-checkbox formControlName="splitIntoWords">Split into words</app-form-checkbox>
+	</app-form-section>
+
+	<app-form-section title="Result" *ngIf="result">
+		<app-code>{{ result.randomizedValue }}</app-code>
+	</app-form-section>
+
+	<app-form-footer>
+		<button type="button" class="btn btn-secondary" (click)="handleReset()">Reset</button>
+		<button type="submit" class="btn btn-primary">Mix</button>
+	</app-form-footer>
+</form>

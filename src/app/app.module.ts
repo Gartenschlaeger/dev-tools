@@ -19,6 +19,7 @@ import { GuidGeneratorComponent } from './pages/guid-generator/guid-generator.co
 import { HomePageComponent } from './pages/home-page/home-page.component'
 import { JsonFormatterComponent } from './pages/json-formatter/json-formatter.component'
 import { NotFoundComponent } from './pages/not-found/not-found.component'
+import { StringRandomizerComponent } from './pages/string-randomizer/string-randomizer.component'
 import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer-page.component'
 
 @NgModule({
@@ -35,7 +36,8 @@ import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer
 		GuidGeneratorComponent,
 		Base64Component,
 		NotFoundComponent,
-		JsonFormatterComponent
+		JsonFormatterComponent,
+		StringRandomizerComponent
 	],
 	imports: [
 		BrowserModule,
