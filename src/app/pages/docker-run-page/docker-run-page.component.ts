@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import { Component, OnInit, ViewChild } from '@angular/core'
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { FormTextfieldComponent } from 'src/app/modules/form/components/form-textfield/form-textfield.component'
@@ -49,8 +49,8 @@ export const FormDefaultValues = new DockerRunModel()
 })
 export class DockerRunPageComponent extends PageComponent implements OnInit {
 	@ViewChild('inputContainerPort') inputContainerPort!: FormTextfieldComponent
-	@ViewChild('inputEnvironmentKey') inputEnvironmentKey!: ElementRef<HTMLInputElement>
-	@ViewChild('inputVolumeHostPath') inputVolumeHostPath!: ElementRef<HTMLInputElement>
+	@ViewChild('inputEnvironmentKey') inputEnvironmentKey!: FormTextfieldComponent
+	@ViewChild('inputVolumeHostPath') inputVolumeHostPath!: FormTextfieldComponent
 
 	form!: FormGroup
 	formAddEnvVariable!: FormGroup
@@ -297,7 +297,7 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 				})
 			)
 
-			this.inputEnvironmentKey.nativeElement.focus()
+			this.inputEnvironmentKey.focus()
 			this.formAddEnvVariable.reset()
 		}
 	}
@@ -339,7 +339,7 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 				})
 			)
 
-			this.inputVolumeHostPath.nativeElement.focus()
+			this.inputVolumeHostPath.focus()
 			this.formAddVolumeMapping.reset()
 		}
 	}

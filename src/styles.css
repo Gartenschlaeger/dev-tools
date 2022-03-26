@@ -27,11 +27,7 @@
 		@apply w-8 h-8 p-1 flex justify-center items-center rounded-full bg-gray-200 hover:bg-gray-300;
 	}
 
-	select.form-input {
-		@apply bg-white;
-	}
-
-	.form-input {
-		@apply px-3 py-2 border-2 h-10 border-gray-300 focus:border-gray-400 text-gray-500 outline-none rounded transition-all;
+	select {
+		@apply bg-white px-3 py-2 border-2 h-10 border-gray-300 focus:border-blue-300 focus:ring-2 focus:ring-blue-200 text-gray-500 focus:outline-none rounded w-full transition-colors;
 	}
 }

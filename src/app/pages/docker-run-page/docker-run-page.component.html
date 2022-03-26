@@ -22,7 +22,7 @@
 
 		<div>
 			<app-form-label for="restartMode">Restart mode</app-form-label>
-			<select name="restartMode" id="restartMode" class="form-input w-full" formControlName="restartMode">
+			<select name="restartMode" id="restartMode" formControlName="restartMode">
 				<option>no</option>
 				<option>always</option>
 				<option>unless-stopped</option>
@@ -36,7 +36,7 @@
 				<!-- network -->
 				<div class="mb-3">
 					<app-form-label for="networkMode">Mode</app-form-label>
-					<select name="networkMode" id="networkMode" class="form-input w-full" formControlName="networkMode">
+					<select name="networkMode" id="networkMode" formControlName="networkMode">
 						<option>none</option>
 						<option>bridge</option>
 						<option>host</option>
@@ -106,18 +106,14 @@
 					<app-form-label>Environment variables</app-form-label>
 					<div class="flex items-stretch gap-1">
 						<div class="flex-1">
-							<input
+							<app-form-textfield
 								#inputEnvironmentKey
-								type="text"
-								class="form-input w-full"
 								formControlName="key"
 								placeholder="Key"
-							/>
-							<app-form-field-errors [control]="formAddEnvVariable.get('key')"></app-form-field-errors>
+							></app-form-textfield>
 						</div>
 						<div class="flex-1">
-							<input type="text" class="form-input w-full" formControlName="value" placeholder="Value" />
-							<app-form-field-errors [control]="formAddEnvVariable.get('value')"></app-form-field-errors>
+							<app-form-textfield formControlName="value" placeholder="Value"></app-form-textfield>
 						</div>
 						<div class="flex-none">
 							<button type="submit" class="btn btn-primary">
@@ -130,9 +126,13 @@
 				<div formArrayName="environmentVariables" class="mt-1 space-y-1" *ngIf="environmentVariables.length">
 					<div class="flex items-center gap-1" *ngFor="let c of environmentVariables.controls; index as i">
 						<ng-container [formGroupName]="i">
-							<input type="text" class="form-input flex-1" formControlName="key" placeholder="Key" />
-							<input type="text" class="form-input flex-1" formControlName="value" placeholder="Value" />
-							<button type="button" class="btn btn-danger" (click)="handleRemPortMapping(i)">
+							<div class="flex-1">
+								<app-form-textfield formControlName="key" placeholder="Key"></app-form-textfield>
+							</div>
+							<div class="flex-1">
+								<app-form-textfield formControlName="value" placeholder="Value"></app-form-textfield>
+							</div>
+							<button type="button" class="btn btn-danger" (click)="handleRemoveEnvVariable(i)">
 								<svg-delete-icon size="sm"></svg-delete-icon>
 							</button>
 						</ng-container>
@@ -146,27 +146,17 @@
 					<app-form-label>Volume mappings</app-form-label>
 					<div class="flex items-stretch gap-1">
 						<div class="flex-1">
-							<input
+							<app-form-textfield
 								#inputVolumeHostPath
-								type="text"
-								class="form-input w-full"
 								formControlName="hostPath"
 								placeholder="Host path"
-							/>
-							<app-form-field-errors
-								[control]="formAddVolumeMapping.get('hostPath')"
-							></app-form-field-errors>
+							></app-form-textfield>
 						</div>
 						<div class="flex-1">
-							<input
-								type="text"
-								class="form-input w-full"
+							<app-form-textfield
 								formControlName="containerPath"
 								placeholder="Container path"
-							/>
-							<app-form-field-errors
-								[control]="formAddVolumeMapping.get('containerPath')"
-							></app-form-field-errors>
+							></app-form-textfield>
 						</div>
 						<div class="flex-none">
 							<button type="submit" class="btn btn-primary">
@@ -179,18 +169,19 @@
 				<div formArrayName="volumeMappings" class="mt-1 space-y-1" *ngIf="volumeMappings.length">
 					<div class="flex items-center gap-1" *ngFor="let c of volumeMappings.controls; index as i">
 						<ng-container [formGroupName]="i">
-							<input
-								type="text"
-								class="form-input flex-1"
-								formControlName="hostPath"
-								placeholder="Host path"
-							/>
-							<input
-								type="text"
-								class="form-input flex-1"
-								formControlName="containerPath"
-								placeholder="Container path"
-							/>
+							<div class="flex-1">
+								<app-form-textfield
+									formControlName="hostPath"
+									placeholder="Host path"
+								></app-form-textfield>
+							</div>
+							<div class="flex-1">
+								<app-form-textfield
+									formControlName="containerPath"
+									placeholder="Container path"
+								></app-form-textfield>
+							</div>
+
 							<button type="button" class="btn btn-danger" (click)="handleRemoveVolumeMapping(i)">
 								<svg-delete-icon size="sm"></svg-delete-icon>
 							</button>
