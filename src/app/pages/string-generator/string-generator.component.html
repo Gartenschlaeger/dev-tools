@@ -1,0 +1,47 @@
+<app-page-header title="{{ pageTitle }}"></app-page-header>
+
+<form [formGroup]="form" (submit)="handleSubmit()">
+	<app-form-section title="Generator settings">
+		<div class="space-y-1 mb-3">
+			<div>
+				<app-form-checkbox formControlName="includeLowercaseCharacters"
+					>Include lowercase characters</app-form-checkbox
+				>
+			</div>
+			<div>
+				<app-form-checkbox formControlName="includeUppercaseCharacters"
+					>Include uppercase characters</app-form-checkbox
+				>
+			</div>
+			<div>
+				<app-form-checkbox formControlName="includeNumbers">Include numbers</app-form-checkbox>
+			</div>
+			<div>
+				<app-form-checkbox formControlName="includeSpecialCharacters"
+					>Include special characters</app-form-checkbox
+				>
+			</div>
+			<div *ngIf="form.get('includeSpecialCharacters')?.value">
+				<app-form-textfield
+					formControlName="specialCharacters"
+					[placeholder]="defaultSpecialCharacters"
+				></app-form-textfield>
+			</div>
+		</div>
+		<app-form-textfield
+			type="number"
+			formControlName="length"
+			label="Length"
+			placeholder="Length"
+		></app-form-textfield>
+	</app-form-section>
+
+	<app-form-section title="Result" *ngIf="result">
+		<app-code>{{ result.generatedString }}</app-code>
+	</app-form-section>
+
+	<app-form-footer>
+		<button type="button" class="btn btn-secondary" (click)="handleReset()">Reset</button>
+		<button type="submit" class="btn btn-primary">Generate</button>
+	</app-form-footer>
+</form>

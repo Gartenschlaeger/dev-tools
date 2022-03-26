@@ -7,6 +7,7 @@ import { GuidGeneratorComponent } from 'src/app/pages/guid-generator/guid-genera
 import { HomePageComponent } from 'src/app/pages/home-page/home-page.component'
 import { JsonFormatterComponent } from 'src/app/pages/json-formatter/json-formatter.component'
 import { NotFoundComponent } from 'src/app/pages/not-found/not-found.component'
+import { StringGeneratorComponent } from 'src/app/pages/string-generator/string-generator.component'
 import { StringRandomizerComponent } from 'src/app/pages/string-randomizer/string-randomizer.component'
 import { UrlAnalyzerPageComponent } from 'src/app/pages/url-analyzer-page/url-analyzer-page.component'
 import { URLEncoderComponent } from 'src/app/pages/url-encoder/url-encoder.component'
@@ -77,6 +78,11 @@ export const routes: CustomRoute[] = [
 		pageTitle: 'String Randomizer',
 		path: 'string-randomizer',
 		component: StringRandomizerComponent
+	},
+	{
+		pageTitle: 'String Generator',
+		path: 'string-generator',
+		component: StringGeneratorComponent
 	},
 	{
 		path: '**',

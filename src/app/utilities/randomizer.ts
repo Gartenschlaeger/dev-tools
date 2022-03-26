@@ -20,4 +20,22 @@ function shuffleArray(arr: string[]) {
 	return arr
 }
 
-export { shuffleString, shuffleArray }
+function getBoolean(): boolean {
+	return Math.random() >= 0.5
+}
+
+function getNumber(max: number) {
+	return Math.floor(Math.random() * (max + 1))
+}
+
+function getRandomElement(arr: any[]) {
+	const index = getNumber(arr.length - 1)
+	return arr[index]
+}
+
+function getRandomCharacter(characters: string) {
+	const index = getNumber(characters.length - 1)
+	return characters[index]
+}
+
+export { shuffleString, shuffleArray, getNumber, getBoolean, getRandomElement, getRandomCharacter }

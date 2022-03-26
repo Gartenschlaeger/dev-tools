@@ -54,16 +54,6 @@ export class NavigationComponent implements OnInit {
 			}
 		})
 
-		// if (!environment.production) {
-		// 	for (let i = 0; i < 100; i++) {
-		// 		this.items.push({
-		// 			title: 'Test ' + i,
-		// 			routerLink: '',
-		// 			isVisible: true
-		// 		})
-		// 	}
-		// }
-
 		this.stickedItems.sort((a, b) => a.title.localeCompare(b.title))
 		this.items.sort((a, b) => a.title.localeCompare(b.title))
 	}

@@ -9,7 +9,7 @@ import { LoggingService } from 'src/app/modules/shared/services/logging.service'
 export class FormTextfieldComponent implements ControlValueAccessor {
 	@Input() label?: string
 	@Input() placeholder?: string
-	@Input() type: 'text' | 'password' = 'text'
+	@Input() type: 'text' | 'password' | 'number' = 'text'
 	value: any = ''
 
 	@Output() keyup = new EventEmitter<KeyboardEvent>()

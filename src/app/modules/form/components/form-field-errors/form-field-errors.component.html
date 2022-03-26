@@ -3,4 +3,6 @@
 		>* Required</span
 	>
 	<span *ngIf="control?.hasError('pattern')" class="italic text-sm text-red-600">* Invalid format</span>
+	<span *ngIf="control?.hasError('min')" class="italic text-sm text-red-600">* Value is too small</span>
+	<span *ngIf="control?.hasError('max')" class="italic text-sm text-red-600">* Value is too large</span>
 </ng-container>
