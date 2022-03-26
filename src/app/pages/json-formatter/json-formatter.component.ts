@@ -41,6 +41,7 @@ export class JsonFormatterComponent extends PageComponent implements OnInit {
 		this.form.reset()
 		this.form.setValue(FormDefaults)
 		this.form.markAsUntouched()
+		this.result = undefined
 	}
 
 	handleSubmit() {
