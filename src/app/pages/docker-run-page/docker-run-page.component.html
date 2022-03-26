@@ -229,7 +229,7 @@
 		</div>
 
 		<div *ngIf="generatedScript">
-			<app-code>{{ generatedScript }}</app-code>
+			<app-highlighted-code [language]="'bash'" [code]="generatedScript"></app-highlighted-code>
 		</div>
 	</app-form-section>
 
