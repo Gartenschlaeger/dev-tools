@@ -17,9 +17,9 @@ import { DaysBetweenComponent } from './pages/days-between/days-between.componen
 import { DockerRunPageComponent } from './pages/docker-run-page/docker-run-page.component'
 import { GuidGeneratorComponent } from './pages/guid-generator/guid-generator.component'
 import { HomePageComponent } from './pages/home-page/home-page.component'
+import { JsonFormatterComponent } from './pages/json-formatter/json-formatter.component'
 import { NotFoundComponent } from './pages/not-found/not-found.component'
 import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer-page.component'
-import { JsonFormatterComponent } from './pages/json-formatter/json-formatter.component'
 
 @NgModule({
 	declarations: [

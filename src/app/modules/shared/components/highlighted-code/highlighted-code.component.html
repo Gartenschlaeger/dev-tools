@@ -1,0 +1,6 @@
+<div
+	class="rounded bg-white border-2 border-gray-200 text-gray-700 px-3 py-2 overflow-x-auto"
+	[ngClass]="{ 'select-all': autoselect }"
+>
+	<pre [languages]="[language]" [highlight]="code || ''"></pre>
+</div>
