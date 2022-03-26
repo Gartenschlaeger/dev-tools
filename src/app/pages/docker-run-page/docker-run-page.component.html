@@ -65,27 +65,14 @@
 					<app-form-label>Port mappings</app-form-label>
 					<div class="flex items-stretch gap-1">
 						<div class="flex-1">
-							<input
+							<app-form-textfield
 								#inputContainerPort
-								type="text"
-								class="form-input w-full"
 								formControlName="containerPort"
 								placeholder="Container port"
-							/>
-							<app-form-field-errors
-								[control]="formAddPortMapping.get('containerPort')"
-							></app-form-field-errors>
+							></app-form-textfield>
 						</div>
 						<div class="flex-1">
-							<input
-								type="text"
-								class="form-input w-full"
-								formControlName="hostPort"
-								placeholder="Host port"
-							/>
-							<app-form-field-errors
-								[control]="formAddPortMapping.get('hostPort')"
-							></app-form-field-errors>
+							<app-form-textfield formControlName="hostPort" placeholder="Host port"></app-form-textfield>
 						</div>
 
 						<div class="flex-none">
@@ -99,18 +86,18 @@
 				<div formArrayName="portMappings" class="mt-1 space-y-1" *ngIf="portMappings.length">
 					<div class="flex items-center gap-1" *ngFor="let c of portMappings.controls; index as i">
 						<ng-container [formGroupName]="i">
-							<input
-								type="text"
-								class="form-input flex-1"
-								formControlName="containerPort"
-								placeholder="Container port"
-							/>
-							<input
-								type="text"
-								class="form-input flex-1"
-								formControlName="hostPort"
-								placeholder="Host port"
-							/>
+							<div class="flex-1">
+								<app-form-textfield
+									formControlName="containerPort"
+									placeholder="Container port"
+								></app-form-textfield>
+							</div>
+							<div class="flex-1">
+								<app-form-textfield
+									formControlName="hostPort"
+									placeholder="Host port"
+								></app-form-textfield>
+							</div>
 							<button type="button" class="btn btn-danger" (click)="handleRemPortMapping(i)">
 								<svg-delete-icon size="sm"></svg-delete-icon>
 							</button>

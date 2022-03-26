@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, Optional, Self, ViewChild } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
+import { LoggingService } from 'src/app/modules/shared/services/logging.service'
 
 @Component({
 	selector: 'app-form-textfield',
@@ -16,7 +17,8 @@ export class FormTextfieldComponent implements ControlValueAccessor {
 	constructor(
 		@Self()
 		@Optional()
-		public control: NgControl
+		public control: NgControl,
+		private logger: LoggingService
 	) {
 		if (control) {
 			control.valueAccessor = this
@@ -27,23 +29,23 @@ export class FormTextfieldComponent implements ControlValueAccessor {
 	onTouched = (event: any) => {}
 
 	writeValue(newValue: any): void {
-		// console.debug('writeValue', this.control.name, newValue)
+		this.logger.trace('writeValue', this.control.name, newValue)
 		this.value = newValue
 	}
 
 	registerOnChange(fn: any): void {
-		// console.debug('registerOnChange', this.control.name)
+		this.logger.trace('registerOnChange', this.control.name)
 		this.onChange = fn
 	}
 
 	registerOnTouched(fn: any): void {
-		// console.debug('registerOnTouched', this.control.name)
+		this.logger.trace('registerOnTouched', this.control.name)
 		this.onTouched = fn
 	}
 
 	handleChange(event: Event) {
 		const input = event.target as HTMLInputElement
-		// console.log('handleChange', this.control.name, input.value)
+		this.logger.trace('handleChange', this.control.name, input.value)
 
 		this.value = input.value
 		this.onChange(input.value)
@@ -51,5 +53,11 @@ export class FormTextfieldComponent implements ControlValueAccessor {
 
 	handleBlur(event: Event) {
 		this.onTouched(event)
+	}
+
+	focus() {
+		if (this.inputElement) {
+			this.inputElement.nativeElement.focus()
+		}
 	}
 }

@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
+import { FormTextfieldComponent } from 'src/app/modules/form/components/form-textfield/form-textfield.component'
 import { FormService } from 'src/app/modules/form/services/form-service.service'
 import { requiredIfValidator } from 'src/app/modules/form/validators/required-if.validator'
 import { PageComponent } from 'src/app/pages/PageComponent'
@@ -46,7 +47,7 @@ export const FormDefaultValues = new DockerRunModel()
 	templateUrl: './docker-run-page.component.html'
 })
 export class DockerRunPageComponent extends PageComponent implements OnInit {
-	@ViewChild('inputContainerPort') inputContainerPort!: ElementRef<HTMLInputElement>
+	@ViewChild('inputContainerPort') inputContainerPort!: FormTextfieldComponent
 	@ViewChild('inputEnvironmentKey') inputEnvironmentKey!: ElementRef<HTMLInputElement>
 	@ViewChild('inputVolumeHostPath') inputVolumeHostPath!: ElementRef<HTMLInputElement>
 
@@ -309,7 +310,7 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 				})
 			)
 
-			this.inputContainerPort.nativeElement.focus()
+			this.inputContainerPort.focus()
 			this.formAddPortMapping.reset()
 		}
 	}

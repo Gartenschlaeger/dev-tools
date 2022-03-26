@@ -49,4 +49,10 @@ export class FormTextareaComponent implements ControlValueAccessor {
 	handleBlur(event: Event) {
 		this.onTouched(event)
 	}
+
+	focus() {
+		if (this.inputElement) {
+			this.inputElement.nativeElement.focus()
+		}
+	}
 }
