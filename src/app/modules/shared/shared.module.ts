@@ -34,6 +34,8 @@ export class SharedModule {
 					provide: HIGHLIGHT_OPTIONS,
 					useValue: {
 						coreLibraryLoader: () => import('highlight.js/lib/core'),
+						//lineNumbersLoader: () => import('highlightjs-line-numbers.js'),
+						//lineNumbers: true,
 						languages: {
 							json: () => import('highlight.js/lib/languages/json')
 						}
