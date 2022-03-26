@@ -5,6 +5,12 @@
 		<app-form-textarea label="JSON text" formControlName="source"></app-form-textarea>
 	</app-form-section>
 
+	<app-form-section title="Formatted JSON" *ngIf="result && !result.hasErrors">
+		<app-code [autoselect]="false">{{ result.formattedValue }}</app-code>
+	</app-form-section>
+
+	<app-alert *ngIf="result && result.hasErrors" type="error">Failed to format json</app-alert>
+
 	<app-form-footer>
 		<button type="button" class="btn btn-secondary" (click)="handleReset()">Reset</button>
 		<button type="submit" class="btn btn-primary">Format</button>

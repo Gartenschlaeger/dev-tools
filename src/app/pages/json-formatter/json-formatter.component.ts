@@ -8,6 +8,11 @@ export class JsonFormatterFormModel {
 	source: string = ''
 }
 
+export class JsonFormatterResultModel {
+	formattedValue: string = ''
+	hasErrors: boolean = false
+}
+
 const FormDefaults = new JsonFormatterFormModel()
 
 @Component({
@@ -16,6 +21,7 @@ const FormDefaults = new JsonFormatterFormModel()
 })
 export class JsonFormatterComponent extends PageComponent implements OnInit {
 	form!: FormGroup
+	result?: JsonFormatterResultModel
 
 	constructor(route: ActivatedRoute, private fb: FormBuilder, private formService: FormService) {
 		super(route)
@@ -31,10 +37,30 @@ export class JsonFormatterComponent extends PageComponent implements OnInit {
 		})
 	}
 
-	handleReset() {}
+	handleReset() {
+		this.form.reset()
+		this.form.setValue(FormDefaults)
+		this.form.markAsUntouched()
+	}
 
 	handleSubmit() {
 		if (this.formService.validateForm(this.form)) {
+			const model = this.form.value
+
+			try {
+				const obj = JSON.parse(model.source)
+				const res = JSON.stringify(obj, null, '  ')
+
+				this.result = {
+					formattedValue: res,
+					hasErrors: false
+				}
+			} catch (err) {
+				this.result = {
+					formattedValue: '',
+					hasErrors: true
+				}
+			}
 		}
 	}
 }
