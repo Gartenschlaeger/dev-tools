@@ -37,7 +37,8 @@ export class SharedModule {
 						//lineNumbersLoader: () => import('highlightjs-line-numbers.js'),
 						//lineNumbers: true,
 						languages: {
-							json: () => import('highlight.js/lib/languages/json')
+							json: () => import('highlight.js/lib/languages/json'),
+							bash: () => import('highlight.js/lib/languages/bash')
 						}
 					}
 				}

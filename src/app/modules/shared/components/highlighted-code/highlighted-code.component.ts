@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core'
 export class HighlightedCodeComponent implements OnInit {
 	@Input() code?: string
 	@Input() autoselect: boolean = true
-	@Input() language: 'json' = 'json'
+	@Input() language: 'json' | 'bash' = 'json'
 
 	constructor() {}
 
