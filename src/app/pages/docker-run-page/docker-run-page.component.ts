@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router'
 import { FormTextfieldComponent } from 'src/app/modules/form/components/form-textfield/form-textfield.component'
 import { FormService } from 'src/app/modules/form/services/form-service.service'
 import { requiredIfValidator } from 'src/app/modules/form/validators/required-if.validator'
+import { LoggingService } from 'src/app/modules/shared/services/logging.service'
 import { PageComponent } from 'src/app/pages/PageComponent'
 import { StringBuilder } from 'src/app/utilities/string-builder'
 
@@ -61,7 +62,12 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 	generatedScript: string = ''
 	shareLink?: string
 
-	constructor(private route: ActivatedRoute, private fb: FormBuilder, public formService: FormService) {
+	constructor(
+		private route: ActivatedRoute,
+		private logger: LoggingService,
+		private fb: FormBuilder,
+		public formService: FormService
+	) {
 		super(route)
 	}
 
@@ -69,7 +75,7 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 		this.form = this.defineFormGroupScript()
 		this.form.valueChanges.subscribe(() => {
 			if (this.generatedScript) {
-				this.handleGenerateScript()
+				this.handleSubmit()
 			}
 		})
 
@@ -97,7 +103,7 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 
 			this.form.setValue(model)
 
-			this.handleGenerateScript()
+			this.handleSubmit()
 		} catch (err) {
 			console.error('failed to restore shared state', err)
 		}
@@ -265,7 +271,9 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 		this.shareLink = ''
 	}
 
-	handleGenerateScript() {
+	handleSubmit() {
+		this.logger.trace(this.form, this.form.valid, this.form.errors)
+
 		if (this.formService.validateForm(this.form)) {
 			this.generatedScript = this.generateScript()
 		}

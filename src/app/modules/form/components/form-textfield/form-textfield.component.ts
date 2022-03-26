@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, Optional, Self, ViewChild } from '@angular/core'
+import { Component, ElementRef, EventEmitter, Input, Optional, Output, Self, ViewChild } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { LoggingService } from 'src/app/modules/shared/services/logging.service'
 
@@ -12,6 +12,8 @@ export class FormTextfieldComponent implements ControlValueAccessor {
 	@Input() type: 'text' | 'password' = 'text'
 	value: any = ''
 
+	@Output() keyup = new EventEmitter<KeyboardEvent>()
+
 	@ViewChild('input') inputElement!: ElementRef<HTMLInputElement>
 
 	constructor(
@@ -20,6 +22,8 @@ export class FormTextfieldComponent implements ControlValueAccessor {
 		public control: NgControl,
 		private logger: LoggingService
 	) {
+		logger.trace('FormTextfieldComponent', 'constructor', control)
+
 		if (control) {
 			control.valueAccessor = this
 		}
@@ -43,15 +47,20 @@ export class FormTextfieldComponent implements ControlValueAccessor {
 		this.onTouched = fn
 	}
 
-	handleChange(event: Event) {
+	handleChange(event: Event, eventType: 'keyup' | 'other') {
 		const input = event.target as HTMLInputElement
 		this.logger.trace('handleChange', this.control.name, input.value)
 
 		this.value = input.value
 		this.onChange(input.value)
+
+		if (eventType === 'keyup') {
+			this.keyup.emit(event as KeyboardEvent)
+		}
 	}
 
 	handleBlur(event: Event) {
+		this.logger.trace('handleBlur', this.control.name)
 		this.onTouched(event)
 	}
 

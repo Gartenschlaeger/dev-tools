@@ -1,4 +1,6 @@
 <ng-container *ngIf="control?.dirty || control?.touched">
-	<span *ngIf="control?.hasError('required')" class="italic text-sm text-red-600">* Required</span>
+	<span *ngIf="control?.hasError('required') || control?.hasError('requiredIf')" class="italic text-sm text-red-600"
+		>* Required</span
+	>
 	<span *ngIf="control?.hasError('pattern')" class="italic text-sm text-red-600">* Invalid format</span>
 </ng-container>

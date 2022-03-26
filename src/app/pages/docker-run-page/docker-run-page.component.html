@@ -1,6 +1,6 @@
 <app-page-header title="{{ pageTitle }}"></app-page-header>
 
-<form [formGroup]="form" (submit)="handleGenerateScript()">
+<form [formGroup]="form" (submit)="handleSubmit()">
 	<!-- image -->
 	<app-form-section title="Image">
 		<div class="flex gap-1">
@@ -45,16 +45,11 @@
 				</div>
 
 				<div class="mb-3" *ngIf="form.get('networkMode')?.value === 'custom'">
-					<input
-						type="text"
-						class="form-input w-full"
-						placeholder="Custom network name"
+					<app-form-textfield
 						formControlName="networkName"
-					/>
-
-					<ng-container *ngIf="form.get('networkName')?.dirty || form.get('networkName')?.touched">
-						<span *ngIf="form.hasError('requiredIf')" class="italic text-sm text-red-600">* Required</span>
-					</ng-container>
+						placeholder="Custom network name"
+					></app-form-textfield>
+					<app-form-field-errors [control]="form"></app-form-field-errors>
 				</div>
 
 				<div class="mb-3">

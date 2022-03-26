@@ -1,4 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
+import { FormBuilder, FormGroup } from '@angular/forms'
 import { routes } from 'src/app/app-routing.module'
 
 export interface INavigationItem {
@@ -12,12 +13,29 @@ export interface INavigationItem {
 	templateUrl: './navigation.component.html'
 })
 export class NavigationComponent implements OnInit {
-	@ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>
-
 	stickedItems: INavigationItem[] = []
 	items: INavigationItem[] = []
 
+	searchForm!: FormGroup
+
+	constructor(private fb: FormBuilder) {}
+
 	ngOnInit(): void {
+		this.searchForm = this.fb.group({
+			query: ['']
+		})
+
+		this.searchForm.valueChanges.subscribe(() => {
+			const queryValue: string = this.searchForm.get('query')?.value?.toLowerCase()?.trim()
+			if (queryValue) {
+				this.items.forEach((item) => {
+					item.isVisible = item.title.toLowerCase().indexOf(queryValue) !== -1
+				})
+			} else {
+				this.items.forEach((item) => (item.isVisible = true))
+			}
+		})
+
 		routes.forEach((route) => {
 			if (route.path && route.pageTitle) {
 				if (route.stickedInNavbar !== true) {
@@ -40,14 +58,9 @@ export class NavigationComponent implements OnInit {
 		this.items.sort((a, b) => a.title.localeCompare(b.title))
 	}
 
-	handleSearch(e: KeyboardEvent) {
-		if (e.key === 'Escape') {
-			this.searchInput.nativeElement.value = ''
+	handleSearchKeyup(event: KeyboardEvent) {
+		if (event.key === 'Escape') {
+			this.searchForm.patchValue({ query: '' })
 		}
-
-		const searchValue = this.searchInput.nativeElement.value.toLowerCase()
-		this.items.forEach((item) => {
-			item.isVisible = item.title.toLowerCase().indexOf(searchValue) !== -1
-		})
 	}
 }

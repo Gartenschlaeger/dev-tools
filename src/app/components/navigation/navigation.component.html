@@ -4,13 +4,13 @@
 	</ul>
 
 	<div class="bg-white mb-1 sticky top-0">
-		<input
-			type="text"
-			#searchInput
-			(keyup)="handleSearch($event)"
-			class="form-input w-full"
-			placeholder="Search.."
-		/>
+		<form [formGroup]="searchForm">
+			<app-form-textfield
+				formControlName="query"
+				placeholder="Search.."
+				(keyup)="handleSearchKeyup($event)"
+			></app-form-textfield>
+		</form>
 	</div>
 </div>
 
