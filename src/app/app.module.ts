@@ -19,6 +19,7 @@ import { GuidGeneratorComponent } from './pages/guid-generator/guid-generator.co
 import { HomePageComponent } from './pages/home-page/home-page.component'
 import { NotFoundComponent } from './pages/not-found/not-found.component'
 import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer-page.component'
+import { JsonFormatterComponent } from './pages/json-formatter/json-formatter.component'
 
 @NgModule({
 	declarations: [
@@ -33,7 +34,8 @@ import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer
 		URLEncoderComponent,
 		GuidGeneratorComponent,
 		Base64Component,
-		NotFoundComponent
+		NotFoundComponent,
+		JsonFormatterComponent
 	],
 	imports: [
 		BrowserModule,

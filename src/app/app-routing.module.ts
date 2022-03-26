@@ -5,6 +5,7 @@ import { DaysBetweenComponent } from 'src/app/pages/days-between/days-between.co
 import { DockerRunPageComponent } from 'src/app/pages/docker-run-page/docker-run-page.component'
 import { GuidGeneratorComponent } from 'src/app/pages/guid-generator/guid-generator.component'
 import { HomePageComponent } from 'src/app/pages/home-page/home-page.component'
+import { JsonFormatterComponent } from 'src/app/pages/json-formatter/json-formatter.component'
 import { NotFoundComponent } from 'src/app/pages/not-found/not-found.component'
 import { UrlAnalyzerPageComponent } from 'src/app/pages/url-analyzer-page/url-analyzer-page.component'
 import { URLEncoderComponent } from 'src/app/pages/url-encoder/url-encoder.component'
@@ -47,9 +48,9 @@ export const routes: CustomRoute[] = [
 		component: DockerRunPageComponent
 	},
 	{
+		pageTitle: 'Days between',
 		path: 'days-between',
-		component: DaysBetweenComponent,
-		pageTitle: 'Days between'
+		component: DaysBetweenComponent
 	},
 	{
 		pageTitle: 'Guid Generator',
@@ -65,6 +66,11 @@ export const routes: CustomRoute[] = [
 		pageTitle: 'Base64 Decoder',
 		path: 'base64-decoder',
 		component: Base64Component
+	},
+	{
+		pageTitle: 'JSON Formatter',
+		path: 'json-formatter',
+		component: JsonFormatterComponent
 	},
 	{
 		path: '**',

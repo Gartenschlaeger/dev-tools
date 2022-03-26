@@ -1,0 +1,12 @@
+<app-page-header title="{{ pageTitle }}"></app-page-header>
+
+<form [formGroup]="form" (submit)="handleSubmit()">
+	<app-form-section title="Source">
+		<app-form-textarea label="JSON text" formControlName="source"></app-form-textarea>
+	</app-form-section>
+
+	<app-form-footer>
+		<button type="button" class="btn btn-secondary" (click)="handleReset()">Reset</button>
+		<button type="submit" class="btn btn-primary">Format</button>
+	</app-form-footer>
+</form>

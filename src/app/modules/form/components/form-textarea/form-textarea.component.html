@@ -2,17 +2,17 @@
 	>{{ label }} <app-form-field-errors [control]="control.control"></app-form-field-errors
 ></app-form-label>
 
-<input
-	#input
-	[type]="type"
-	[attr.id]="control.name"
-	[attr.placeholder]="placeholder || label"
+<textarea
+	#textarea
 	[value]="value"
+	[attr.id]="control.name"
+	[attr.placeholder]="placeholder"
+	class="px-3 py-2 border-2 border-gray-300 focus:border-blue-300 focus:ring-2 focus:ring-blue-200 text-gray-500 outline-none rounded w-full transition-colors resize-y"
+	style="min-height: 100px"
 	(keyup)="handleChange($event)"
 	(change)="handleChange($event)"
 	(blur)="handleBlur($event)"
-	class="px-3 py-2 border-2 h-10 border-gray-300 focus:border-blue-300 focus:ring-2 focus:ring-blue-200 text-gray-500 outline-none rounded w-full transition-colors"
-	autocomplete="off"
-/>
+	rows="5"
+></textarea>
 
 <app-form-field-errors *ngIf="!label" [control]="control.control"></app-form-field-errors>
