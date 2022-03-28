@@ -73,8 +73,10 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.form = this.defineFormGroupScript()
+
 		this.form.valueChanges.subscribe(() => {
 			if (this.generatedScript) {
+				// automatically refresh the script if the user has already clicked on generate
 				this.handleSubmit()
 			}
 		})
@@ -87,6 +89,7 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 		this.formAddPortMapping = this.defineFormGroupPortMappings()
 		this.formAddVolumeMapping = this.defineFormAddVolumeMapping()
 
+		// reload settings from share query
 		this.route.queryParams.subscribe((params: any) => {
 			if (params.s) {
 				this.handleShareQuery(params.s)
@@ -95,17 +98,21 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 	}
 
 	handleShareQuery(query: string) {
+		this.logger.trace('found share query string')
+
 		try {
 			const model: DockerRunModel = JSON.parse(atob(query))
+			this.logger.debug('deserialized share query', model)
 
-			model.environmentVariables.forEach((i) => this.addEnvironmentVariable(i))
 			model.portMappings.forEach((i) => this.addPortMapping(i))
+			model.environmentVariables.forEach((i) => this.addEnvironmentVariable(i))
+			model.volumeMappings.forEach((i) => this.addVolumeMapping(i))
 
 			this.form.setValue(model)
 
 			this.handleSubmit()
 		} catch (err) {
-			console.error('failed to restore shared state', err)
+			this.logger.error('failed to restore shared state', err)
 		}
 	}
 
@@ -123,6 +130,15 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 			new FormGroup({
 				key: new FormControl(value.key, { validators: [Validators.required] }),
 				value: new FormControl(value.value, { validators: [Validators.required] })
+			})
+		)
+	}
+
+	addVolumeMapping(value: DockerRunVolumeMapping) {
+		this.volumeMappings.push(
+			new FormGroup({
+				hostPath: new FormControl(value.hostPath, {}),
+				containerPath: new FormControl(value.containerPath, {})
 			})
 		)
 	}
@@ -288,14 +304,8 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 	handleAddEnvironment() {
 		if (this.formService.validateForm(this.formAddEnvVariable)) {
 			const key: string = this.formAddEnvVariable.value.key
-			const val: string = this.formAddEnvVariable.value.value
-
-			this.environmentVariables.push(
-				new FormGroup({
-					key: new FormControl(key, { validators: [Validators.required] }),
-					value: new FormControl(val, { validators: [Validators.required] })
-				})
-			)
+			const value: string = this.formAddEnvVariable.value.value
+			this.addEnvironmentVariable({ key, value })
 
 			this.inputEnvironmentKey.focus()
 			this.formAddEnvVariable.reset()
@@ -310,13 +320,7 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 		if (this.formService.validateForm(this.formAddPortMapping)) {
 			const containerPort = this.formAddPortMapping.value.containerPort
 			const hostPort = this.formAddPortMapping.value.hostPort
-
-			this.portMappings.push(
-				new FormGroup({
-					hostPort: new FormControl(hostPort, { validators: [Validators.required] }),
-					containerPort: new FormControl(containerPort, { validators: [Validators.required] })
-				})
-			)
+			this.addPortMapping({ containerPort, hostPort })
 
 			this.inputContainerPort.focus()
 			this.formAddPortMapping.reset()
@@ -331,13 +335,7 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 		if (this.formService.validateForm(this.formAddVolumeMapping)) {
 			const hostPath: string = this.formAddVolumeMapping.value.hostPath
 			const containerPath: string = this.formAddVolumeMapping.value.containerPath
-
-			this.volumeMappings.push(
-				new FormGroup({
-					hostPath: new FormControl(hostPath, {}),
-					containerPath: new FormControl(containerPath, {})
-				})
-			)
+			this.addVolumeMapping({ hostPath, containerPath })
 
 			this.inputVolumeHostPath.focus()
 			this.formAddVolumeMapping.reset()
