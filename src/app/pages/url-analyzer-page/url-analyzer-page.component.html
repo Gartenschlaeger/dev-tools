@@ -78,7 +78,7 @@
 	<app-alert *ngIf="hasError" type="error">Failed to parse URL</app-alert>
 
 	<app-form-footer>
-		<button type="button" class="btn btn-secondary" (click)="handleReset()">Reset</button>
-		<button type="submit" class="btn btn-primary">Analyze</button>
+		<app-form-button type="button" color="secondary" (click)="handleReset()">Reset</app-form-button>
+		<app-form-button type="submit" color="primary">Analyze</app-form-button>
 	</app-form-footer>
 </form>

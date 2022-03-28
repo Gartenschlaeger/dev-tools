@@ -16,7 +16,7 @@
 	<app-alert *ngIf="result && result.hasErrors" type="error">Failed to format json</app-alert>
 
 	<app-form-footer>
-		<button type="button" class="btn btn-secondary" (click)="handleReset()">Reset</button>
-		<button type="submit" class="btn btn-primary">Format</button>
+		<app-form-button type="button" color="secondary" (click)="handleReset()">Reset</app-form-button>
+		<app-form-button type="submit" color="primary">Format</app-form-button>
 	</app-form-footer>
 </form>

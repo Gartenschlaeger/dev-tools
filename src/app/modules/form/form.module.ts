@@ -8,6 +8,7 @@ import { FormLabelComponent } from 'src/app/modules/form/components/form-label/f
 import { FormSectionComponent } from 'src/app/modules/form/components/form-section/form-section.component'
 import { FormTextfieldComponent } from 'src/app/modules/form/components/form-textfield/form-textfield.component'
 import { FormService } from 'src/app/modules/form/services/form-service.service'
+import { FormButtonComponent } from './components/form-button/form-button.component'
 import { FormTextareaComponent } from './components/form-textarea/form-textarea.component'
 
 @NgModule({
@@ -18,7 +19,8 @@ import { FormTextareaComponent } from './components/form-textarea/form-textarea.
 		FormLabelComponent,
 		FormSectionComponent,
 		FormTextfieldComponent,
-		FormTextareaComponent
+		FormTextareaComponent,
+		FormButtonComponent
 	],
 	imports: [CommonModule, FormsModule, ReactiveFormsModule],
 	exports: [
@@ -28,7 +30,8 @@ import { FormTextareaComponent } from './components/form-textarea/form-textarea.
 		FormLabelComponent,
 		FormSectionComponent,
 		FormTextfieldComponent,
-		FormTextareaComponent
+		FormTextareaComponent,
+		FormButtonComponent
 	]
 })
 export class FormModule {
