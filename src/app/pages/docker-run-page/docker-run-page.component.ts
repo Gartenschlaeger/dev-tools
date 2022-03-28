@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { FormTextfieldComponent } from 'src/app/modules/form/components/form-textfield/form-textfield.component'
 import { FormService } from 'src/app/modules/form/services/form-service.service'
 import { requiredIfValidator } from 'src/app/modules/form/validators/required-if.validator'
@@ -64,6 +64,7 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 
 	constructor(
 		private route: ActivatedRoute,
+		private router: Router,
 		private logger: LoggingService,
 		private fb: FormBuilder,
 		public formService: FormService
@@ -285,6 +286,8 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 
 		this.generatedScript = ''
 		this.shareLink = ''
+
+		this.router.navigate(['.'], { relativeTo: this.route, queryParams: {} })
 	}
 
 	handleSubmit() {
