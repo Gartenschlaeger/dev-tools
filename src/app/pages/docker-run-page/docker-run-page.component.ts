@@ -99,7 +99,7 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 	}
 
 	handleShareQuery(query: string) {
-		this.logger.trace('found share query string')
+		this.logger.debug('found share query string')
 
 		try {
 			const model: DockerRunModel = JSON.parse(atob(query))
@@ -205,6 +205,8 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 	}
 
 	generateScript(): string {
+		this.logger.debug('generateScript')
+
 		const model: DockerRunModel = this.form.value
 		const multilineStr = model.multilineScript ? ' \\\n' : ' '
 
@@ -291,7 +293,7 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 	}
 
 	handleSubmit() {
-		this.logger.trace(this.form, this.form.valid, this.form.errors)
+		this.logger.debug(this.form, this.form.valid, this.form.errors)
 
 		if (this.formService.validateForm(this.form)) {
 			this.generatedScript = this.generateScript()
@@ -299,6 +301,8 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 	}
 
 	handleShare() {
+		this.logger.debug('handleShare')
+
 		const json = JSON.stringify(this.form.value)
 		const base64 = btoa(json)
 		this.shareLink = `${window.location.origin}/docker-run/?s=${base64}`

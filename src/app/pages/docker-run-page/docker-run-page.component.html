@@ -205,7 +205,9 @@
 	<app-form-footer>
 		<div class="flex justify-between">
 			<div>
-				<button class="btn-secondary" (click)="handleShare()">Share</button>
+				<button type="button" class="btn-secondary" [disabled]="!generatedScript" (click)="handleShare()">
+					Share
+				</button>
 			</div>
 			<div class="space-x-1">
 				<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
