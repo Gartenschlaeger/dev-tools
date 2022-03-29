@@ -22,7 +22,7 @@
 
 		<div>
 			<app-form-label for="restartMode">Restart mode</app-form-label>
-			<select name="restartMode" id="restartMode" formControlName="restartMode">
+			<select name="restartMode" class="form-control w-full" id="restartMode" formControlName="restartMode">
 				<option>no</option>
 				<option>always</option>
 				<option>unless-stopped</option>
@@ -36,7 +36,12 @@
 				<!-- network -->
 				<div class="mb-3">
 					<app-form-label for="networkMode">Mode</app-form-label>
-					<select name="networkMode" id="networkMode" formControlName="networkMode">
+					<select
+						name="networkMode"
+						class="form-control w-full"
+						id="networkMode"
+						formControlName="networkMode"
+					>
 						<option>none</option>
 						<option>bridge</option>
 						<option>host</option>
@@ -71,9 +76,9 @@
 						</div>
 
 						<div class="flex-none">
-							<button type="submit" class="btn btn-primary">
+							<app-form-button type="submit" color="primary">
 								<svg-plus-icon size="sm"></svg-plus-icon>
-							</button>
+							</app-form-button>
 						</div>
 					</div>
 				</form>
@@ -93,9 +98,9 @@
 									placeholder="Host port"
 								></app-form-textfield>
 							</div>
-							<button type="button" class="btn btn-danger" (click)="handleRemPortMapping(i)">
+							<app-form-button type="submit" color="danger" (click)="handleRemPortMapping(i)">
 								<svg-delete-icon size="sm"></svg-delete-icon>
-							</button>
+							</app-form-button>
 						</ng-container>
 					</div>
 				</div>
@@ -116,9 +121,9 @@
 							<app-form-textfield formControlName="value" placeholder="Value"></app-form-textfield>
 						</div>
 						<div class="flex-none">
-							<button type="submit" class="btn btn-primary">
+							<app-form-button type="submit" color="primary">
 								<svg-plus-icon size="sm"></svg-plus-icon>
-							</button>
+							</app-form-button>
 						</div>
 					</div>
 				</form>
@@ -132,9 +137,9 @@
 							<div class="flex-1">
 								<app-form-textfield formControlName="value" placeholder="Value"></app-form-textfield>
 							</div>
-							<button type="button" class="btn btn-danger" (click)="handleRemoveEnvVariable(i)">
+							<app-form-button type="submit" color="danger" (click)="handleRemoveEnvVariable(i)">
 								<svg-delete-icon size="sm"></svg-delete-icon>
-							</button>
+							</app-form-button>
 						</ng-container>
 					</div>
 				</div>
@@ -159,9 +164,9 @@
 							></app-form-textfield>
 						</div>
 						<div class="flex-none">
-							<button type="submit" class="btn btn-primary">
+							<app-form-button type="submit" color="primary">
 								<svg-plus-icon size="sm"></svg-plus-icon>
-							</button>
+							</app-form-button>
 						</div>
 					</div>
 				</form>
@@ -181,10 +186,9 @@
 									placeholder="Container path"
 								></app-form-textfield>
 							</div>
-
-							<button type="button" class="btn btn-danger" (click)="handleRemoveVolumeMapping(i)">
+							<app-form-button type="submit" color="danger" (click)="handleRemoveVolumeMapping(i)">
 								<svg-delete-icon size="sm"></svg-delete-icon>
-							</button>
+							</app-form-button>
 						</ng-container>
 					</div>
 				</div>
@@ -213,14 +217,9 @@
 	<app-form-footer>
 		<div class="flex justify-between">
 			<div>
-				<button
-					type="button"
-					class="btn btn-primary"
-					[attr.disabled]="generatedScript ? null : 'disabled'"
-					(click)="handleShare()"
+				<app-form-button *ngIf="generatedScript" type="button" color="secondary" (click)="handleShare()"
+					>Share</app-form-button
 				>
-					Share
-				</button>
 			</div>
 			<div class="space-x-1">
 				<app-form-button type="button" color="secondary" (click)="handleReset()">Reset</app-form-button>

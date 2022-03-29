@@ -1,4 +1,4 @@
 <div class="mb-5 w-full border-l-4 border-gray-300 p-3 bg-gray-100 rounded shadow">
-	<h1 class="mb-5 text-2xl select-none">{{ title }}</h1>
+	<h1 class="mb-5 text-2xl select-none" *ngIf="title">{{ title }}</h1>
 	<ng-content></ng-content>
 </div>

@@ -1,0 +1,103 @@
+<app-page-header title="{{ pageTitle }}"></app-page-header>
+
+<form [formGroup]="form">
+	<app-form-section title="RGB">
+		<div class="space-y-1">
+			<div class="flex gap-3 items-center">
+				<div class="w-40">
+					<input
+						type="number"
+						min="0"
+						max="255"
+						value="form.value.valueR"
+						formControlName="valueR"
+						class="form-control w-full"
+					/>
+				</div>
+				<div class="flex-auto">
+					<input
+						type="range"
+						min="0"
+						max="255"
+						class="w-full"
+						value="form.value.valueR"
+						formControlName="valueR"
+						tabindex="-1"
+					/>
+				</div>
+			</div>
+			<div class="flex gap-3 items-center">
+				<div class="w-40">
+					<input
+						type="number"
+						min="0"
+						max="255"
+						value="form.value.valueG"
+						formControlName="valueG"
+						class="form-control w-full"
+					/>
+				</div>
+				<div class="flex-auto">
+					<input
+						type="range"
+						min="0"
+						max="255"
+						class="w-full"
+						value="form.value.valueG"
+						formControlName="valueG"
+						tabindex="-1"
+					/>
+				</div>
+			</div>
+			<div class="flex gap-3 items-center">
+				<div class="w-40">
+					<input
+						type="number"
+						min="0"
+						max="255"
+						value="form.value.valueB"
+						formControlName="valueB"
+						class="form-control w-full"
+					/>
+				</div>
+				<div class="flex-auto">
+					<input
+						type="range"
+						min="0"
+						max="255"
+						class="w-full"
+						value="form.value.valueB"
+						formControlName="valueB"
+						tabindex="-1"
+					/>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div
+				class="mt-3 w-full h-16 rounded"
+				[style]="{
+					'background-color':
+						'rgb(' + form.value.valueR + ',' + form.value.valueG + ',' + form.value.valueB + ')'
+				}"
+			></div>
+		</div>
+	</app-form-section>
+
+	<app-form-section>
+		<div class="space-y-3">
+			<div>
+				<app-form-label>HEX</app-form-label>
+				<app-code>{{ hexValue }}</app-code>
+			</div>
+			<div>
+				<app-form-label>RGB</app-form-label>
+				<app-code>{{ rgbValue }}</app-code>
+			</div>
+			<div>
+				<app-form-label>HSL</app-form-label>
+				<app-code>{{ hslValue }}</app-code>
+			</div>
+		</div>
+	</app-form-section>
+</form>

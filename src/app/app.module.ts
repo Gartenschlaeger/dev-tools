@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { Base64Component } from './pages/base64/base64.component'
+import { ColorConverterComponent } from './pages/color-converter/color-converter.component'
 import { DaysBetweenComponent } from './pages/days-between/days-between.component'
 import { DockerRunPageComponent } from './pages/docker-run-page/docker-run-page.component'
 import { GuidGeneratorComponent } from './pages/guid-generator/guid-generator.component'
@@ -39,7 +40,8 @@ import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer
 		NotFoundComponent,
 		JsonFormatterComponent,
 		StringRandomizerComponent,
-		StringGeneratorComponent
+		StringGeneratorComponent,
+		ColorConverterComponent
 	],
 	imports: [
 		BrowserModule,

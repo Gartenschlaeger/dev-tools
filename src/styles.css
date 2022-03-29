@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer components {
-	select {
-		@apply bg-white px-3 py-2 border-2 h-10 border-gray-300 focus:border-blue-300 focus:ring-2 focus:ring-blue-200 text-gray-500 focus:outline-none rounded w-full transition-colors;
+	.form-control {
+		@apply bg-white px-3 py-2 border-2 h-10 border-gray-300 focus:border-blue-300 focus:ring-2 focus:ring-blue-200 text-gray-500 focus:outline-none rounded transition-colors;
 	}
 }
