@@ -7,7 +7,7 @@ import { NavigationComponent } from 'src/app/components/navigation/navigation.co
 import { PageHeaderComponent } from 'src/app/components/page-header/page-header.component'
 import { FormModule } from 'src/app/modules/form/form.module'
 import { SharedModule } from 'src/app/modules/shared/shared.module'
-import { SvgIconModule } from 'src/app/modules/svg-icon/svg-icon.module'
+import { SvgIconsModule } from 'src/app/modules/svg-icons/svg-icons.module'
 import { URLEncoderComponent } from 'src/app/pages/url-encoder/url-encoder.component'
 import { environment } from 'src/environments/environment'
 import { AppRoutingModule } from './app-routing.module'
@@ -50,7 +50,7 @@ import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer
 		ReactiveFormsModule,
 		FormModule.forRoot(),
 		SharedModule.forRoot({ minLogLevel: environment.minLogLevel }),
-		SvgIconModule.forRoot()
+		SvgIconsModule.forRoot()
 	],
 	bootstrap: [AppComponent]
 })

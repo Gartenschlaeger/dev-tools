@@ -8,7 +8,7 @@
 	}
 
 	.btn-rounded {
-		@apply p-3 h-10 text-gray-700 bg-gray-200 hover:bg-gray-300 rounded-full transition-colors;
+		@apply p-2 text-gray-700 bg-gray-200 hover:bg-gray-300 rounded-full transition-colors;
 	}
 
 	.btn-primary {
