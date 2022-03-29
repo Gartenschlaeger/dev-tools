@@ -3,7 +3,27 @@
 @tailwind utilities;
 
 @layer components {
-	.form-control {
+	.btn {
+		@apply px-3 py-2 h-10 text-gray-100 rounded disabled:opacity-50 disabled:hover:bg-opacity-50 disabled:cursor-not-allowed;
+	}
+
+	.btn-rounded {
+		@apply p-3 h-10 text-gray-700 bg-gray-200 hover:bg-gray-300 rounded-full transition-colors;
+	}
+
+	.btn-primary {
+		@apply btn bg-blue-600 hover:bg-blue-700;
+	}
+
+	.btn-secondary {
+		@apply btn bg-gray-600 hover:bg-gray-700;
+	}
+
+	.btn-danger {
+		@apply btn bg-red-600 hover:bg-red-700;
+	}
+
+	.form-input {
 		@apply bg-white px-3 py-2 border-2 h-10 border-gray-300 focus:border-blue-300 focus:ring-2 focus:ring-blue-200 text-gray-500 focus:outline-none rounded transition-colors;
 	}
 }

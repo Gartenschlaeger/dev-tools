@@ -19,7 +19,7 @@
 	</app-form-section>
 
 	<app-form-footer>
-		<app-form-button type="button" color="secondary" (click)="handleReset()">Reset</app-form-button>
-		<app-form-button type="submit" color="primary">{{ isEncodeMode ? 'Encode' : 'Decode' }}</app-form-button>
+		<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
+		<button type="submit" class="btn-primary">{{ isEncodeMode ? 'Encode' : 'Decode' }}</button>
 	</app-form-footer>
 </form>

@@ -27,10 +27,7 @@
 					<app-code>{{ result.queryString }}</app-code>
 				</div>
 				<div class="flex-none">
-					<button
-						class="w-8 h-8 p-1 flex justify-center items-center rounded-full bg-gray-200 hover:bg-gray-300"
-						(click)="handleToogleSearchDetails()"
-					>
+					<button class="btn-rounded" (click)="handleToogleSearchDetails()">
 						<ng-container *ngIf="showQueryDetails">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +75,7 @@
 	<app-alert *ngIf="hasError" type="error">Failed to parse URL</app-alert>
 
 	<app-form-footer>
-		<app-form-button type="button" color="secondary" (click)="handleReset()">Reset</app-form-button>
-		<app-form-button type="submit" color="primary">Analyze</app-form-button>
+		<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
+		<button type="submit" class="btn-primary">Analyze</button>
 	</app-form-footer>
 </form>

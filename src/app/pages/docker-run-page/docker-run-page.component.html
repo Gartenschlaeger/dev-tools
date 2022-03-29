@@ -22,7 +22,7 @@
 
 		<div>
 			<app-form-label for="restartMode">Restart mode</app-form-label>
-			<select name="restartMode" class="form-control w-full" id="restartMode" formControlName="restartMode">
+			<select name="restartMode" class="form-input w-full" id="restartMode" formControlName="restartMode">
 				<option>no</option>
 				<option>always</option>
 				<option>unless-stopped</option>
@@ -36,12 +36,7 @@
 				<!-- network -->
 				<div class="mb-3">
 					<app-form-label for="networkMode">Mode</app-form-label>
-					<select
-						name="networkMode"
-						class="form-control w-full"
-						id="networkMode"
-						formControlName="networkMode"
-					>
+					<select name="networkMode" class="form-input w-full" id="networkMode" formControlName="networkMode">
 						<option>none</option>
 						<option>bridge</option>
 						<option>host</option>
@@ -74,12 +69,9 @@
 						<div class="flex-1">
 							<app-form-textfield formControlName="hostPort" placeholder="Host port"></app-form-textfield>
 						</div>
-
-						<div class="flex-none">
-							<app-form-button type="submit" color="primary">
-								<svg-plus-icon size="sm"></svg-plus-icon>
-							</app-form-button>
-						</div>
+						<button type="submit" class="btn-primary">
+							<svg-plus-icon size="sm"></svg-plus-icon>
+						</button>
 					</div>
 				</form>
 
@@ -98,9 +90,9 @@
 									placeholder="Host port"
 								></app-form-textfield>
 							</div>
-							<app-form-button type="submit" color="danger" (click)="handleRemPortMapping(i)">
+							<button class="btn-danger" (click)="handleRemPortMapping(i)">
 								<svg-delete-icon size="sm"></svg-delete-icon>
-							</app-form-button>
+							</button>
 						</ng-container>
 					</div>
 				</div>
@@ -120,11 +112,9 @@
 						<div class="flex-1">
 							<app-form-textfield formControlName="value" placeholder="Value"></app-form-textfield>
 						</div>
-						<div class="flex-none">
-							<app-form-button type="submit" color="primary">
-								<svg-plus-icon size="sm"></svg-plus-icon>
-							</app-form-button>
-						</div>
+						<button type="submit" class="btn-primary">
+							<svg-plus-icon size="sm"></svg-plus-icon>
+						</button>
 					</div>
 				</form>
 
@@ -137,9 +127,9 @@
 							<div class="flex-1">
 								<app-form-textfield formControlName="value" placeholder="Value"></app-form-textfield>
 							</div>
-							<app-form-button type="submit" color="danger" (click)="handleRemoveEnvVariable(i)">
+							<button type="button" class="btn-danger" (click)="handleRemoveEnvVariable(i)">
 								<svg-delete-icon size="sm"></svg-delete-icon>
-							</app-form-button>
+							</button>
 						</ng-container>
 					</div>
 				</div>
@@ -163,11 +153,9 @@
 								placeholder="Container path"
 							></app-form-textfield>
 						</div>
-						<div class="flex-none">
-							<app-form-button type="submit" color="primary">
-								<svg-plus-icon size="sm"></svg-plus-icon>
-							</app-form-button>
-						</div>
+						<button class="btn-primary">
+							<svg-plus-icon size="sm"></svg-plus-icon>
+						</button>
 					</div>
 				</form>
 
@@ -186,9 +174,9 @@
 									placeholder="Container path"
 								></app-form-textfield>
 							</div>
-							<app-form-button type="submit" color="danger" (click)="handleRemoveVolumeMapping(i)">
+							<button class="btn-danger" (click)="handleRemoveVolumeMapping(i)">
 								<svg-delete-icon size="sm"></svg-delete-icon>
-							</app-form-button>
+							</button>
 						</ng-container>
 					</div>
 				</div>
@@ -217,13 +205,11 @@
 	<app-form-footer>
 		<div class="flex justify-between">
 			<div>
-				<app-form-button *ngIf="generatedScript" type="button" color="secondary" (click)="handleShare()"
-					>Share</app-form-button
-				>
+				<button class="btn-secondary" (click)="handleShare()">Share</button>
 			</div>
 			<div class="space-x-1">
-				<app-form-button type="button" color="secondary" (click)="handleReset()">Reset</app-form-button>
-				<app-form-button type="submit" color="primary">Generate</app-form-button>
+				<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
+				<button type="submit" class="btn-primary">Generate</button>
 			</div>
 		</div>
 	</app-form-footer>
