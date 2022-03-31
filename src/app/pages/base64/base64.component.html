@@ -1,14 +1,15 @@
 <app-page-header title="{{ pageTitle }}"></app-page-header>
 
 <form [formGroup]="form" (submit)="handleSubmit()">
-	<app-form-section title="Source">
+	<app-form-section>
 		<app-form-textarea
-			label="{{ isEncodeMode ? 'Plain text value' : 'Base64 value' }}"
+			label="{{ isEncodeMode ? 'Plain text' : 'Base64 text' }}"
 			formControlName="sourceValue"
 		></app-form-textarea>
 	</app-form-section>
 
-	<app-form-section title="Base64 value" *ngIf="processedValue">
+	<app-form-section *ngIf="processedValue">
+		<app-form-label>{{ isEncodeMode ? 'Base64 text' : 'Plain text' }}</app-form-label>
 		<app-code>{{ processedValue }}</app-code>
 	</app-form-section>
 

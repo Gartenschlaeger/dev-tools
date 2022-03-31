@@ -1,7 +1,7 @@
 <app-page-header title="{{ pageTitle }}"></app-page-header>
 
 <form [formGroup]="form" (submit)="handleSubmit()">
-	<app-form-section title="Generator settings">
+	<app-form-section>
 		<div class="space-y-1 mb-3">
 			<div>
 				<app-form-checkbox formControlName="includeLowercaseCharacters"
@@ -36,7 +36,8 @@
 		></app-form-textfield>
 	</app-form-section>
 
-	<app-form-section title="Result" *ngIf="result">
+	<app-form-section *ngIf="result">
+		<app-form-label>Random string</app-form-label>
 		<app-code>{{ result.generatedString }}</app-code>
 	</app-form-section>
 
