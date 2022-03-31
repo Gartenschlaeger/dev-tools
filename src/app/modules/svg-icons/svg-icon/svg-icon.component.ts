@@ -39,6 +39,15 @@ export class SvgIconComponent implements OnInit {
 				result.PathData = 'M12 6v6m0 0v6m0-6h6m-6 0H6'
 				break
 
+			case 'minus':
+				result.SvgViewBoxSize = '0 0 24 24'
+				result.SvgStroke = 'currentColor'
+				result.SvgStrokeWidth = 2
+				result.PathData = 'M18 12H6'
+				result.PathStrokeLineCap = 'round'
+				result.PathStrokeLineJoin = 'round'
+				break
+
 			case 'delete':
 				result.SvgViewBoxSize = '0 0 24 24'
 				result.SvgFillMode = 'none'

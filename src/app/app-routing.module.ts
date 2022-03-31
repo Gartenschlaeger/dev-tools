@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { Route, RouterModule } from '@angular/router'
 import { Base64Component } from 'src/app/pages/base64/base64.component'
-import { ColorConverterComponent } from 'src/app/pages/color-converter/color-converter.component'
+import { ColorPickerComponent } from 'src/app/pages/color-picker/color-picker.component'
 import { DaysBetweenComponent } from 'src/app/pages/days-between/days-between.component'
 import { DockerRunPageComponent } from 'src/app/pages/docker-run-page/docker-run-page.component'
 import { GuidGeneratorComponent } from 'src/app/pages/guid-generator/guid-generator.component'
@@ -86,9 +86,9 @@ export const routes: CustomRoute[] = [
 		component: StringGeneratorComponent
 	},
 	{
-		pageTitle: 'Color converter',
-		path: 'color-converter',
-		component: ColorConverterComponent
+		pageTitle: 'Color picker',
+		path: 'color-picker',
+		component: ColorPickerComponent
 	},
 	{
 		path: '**',

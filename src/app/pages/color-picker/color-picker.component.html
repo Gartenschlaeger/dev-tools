@@ -1,8 +1,8 @@
 <app-page-header title="{{ pageTitle }}"></app-page-header>
 
 <form [formGroup]="form">
-	<app-form-section title="Source color">
-		<div class="flex gap-3">
+	<app-form-section>
+		<div class="flex gap-3 mb-5">
 			<!-- RGB -->
 			<div class="flex-1">
 				<app-form-label>RGB</app-form-label>
@@ -154,15 +154,24 @@
 				</div>
 			</div>
 		</div>
-
-		<div>
-			<div
-				class="mt-3 w-40 h-16 rounded"
-				[style]="{
-					'background-color':
-						'rgb(' + form.value.valueRN + ',' + form.value.valueGN + ',' + form.value.valueBN + ')'
-				}"
-			></div>
+		<div class="flex flex-wrap gap-1">
+			<ng-container *ngFor="let c of palette; let i = index">
+				<div
+					class="w-14 h-10 rounded cursor-pointer bg-gray-200 border-2"
+					[ngClass]="{
+						'border-black border-opacity-30': selectedPaletteColorIndex === i,
+						'border-transparent': selectedPaletteColorIndex !== i
+					}"
+					[ngStyle]="{ 'background-color': c ? 'rgb(' + c.r + ',' + c.g + ',' + c.b + ')' : null }"
+					(click)="handlePaletteColorClick(i)"
+				></div>
+			</ng-container>
+			<button
+				(click)="handleAddPalleteColor()"
+				class="w-14 h-10 rounded bg-gray-200 hover:bg-gray-300 cursor-pointer flex justify-center items-center"
+			>
+				<app-svg-icon type="plus"></app-svg-icon>
+			</button>
 		</div>
 	</app-form-section>
 
