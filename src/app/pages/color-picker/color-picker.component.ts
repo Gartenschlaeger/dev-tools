@@ -5,7 +5,7 @@ import { LoggingService } from 'src/app/modules/shared/services/logging.service'
 import { PageComponent } from 'src/app/pages/PageComponent'
 import { ColorHSL, ColorRGB, hslToRgb, rbgToHsl } from '../../utilities/colorconverter'
 
-export interface ColorConverterFormModel {
+export interface ColorPicketFormModel {
 	valueRN: number
 	valueGN: number
 	valueBN: number
@@ -25,9 +25,9 @@ const InitColor: ColorRGB = { r: 135, g: 206, b: 235 }
 
 @Component({
 	selector: 'app-color-converter',
-	templateUrl: './color-converter.component.html'
+	templateUrl: './color-picker.component.html'
 })
-export class ColorConverterComponent extends PageComponent implements OnInit {
+export class ColorPickerComponent extends PageComponent implements OnInit {
 	form!: FormGroup
 	palette: (ColorRGB | null)[] = [InitColor]
 	selectedPaletteColorIndex: number = 0
@@ -98,7 +98,7 @@ export class ColorConverterComponent extends PageComponent implements OnInit {
 	}
 
 	syncRgbToHsl() {
-		const model: ColorConverterFormModel = this.form.value
+		const model: ColorPicketFormModel = this.form.value
 		const hsl = rbgToHsl(this.toRGB(model))
 
 		this.form.get('valueHN')?.setValue(hsl.h, { onlySelf: true, emitEvent: false, emitModelToViewChange: true })
@@ -111,7 +111,7 @@ export class ColorConverterComponent extends PageComponent implements OnInit {
 	}
 
 	syncHslToRgb() {
-		const model: ColorConverterFormModel = this.form.value
+		const model: ColorPicketFormModel = this.form.value
 		const rgb = hslToRgb(this.toHSL(model))
 
 		this.form.get('valueRN')?.setValue(rgb.r, { onlySelf: true, emitEvent: false, emitModelToViewChange: true })
@@ -132,7 +132,7 @@ export class ColorConverterComponent extends PageComponent implements OnInit {
 	}
 
 	updateHexValue() {
-		const model: ColorConverterFormModel = this.form.value
+		const model: ColorPicketFormModel = this.form.value
 		const hexR = model.valueRN.toString(16).padStart(2, '0')
 		const hexG = model.valueGN.toString(16).padStart(2, '0')
 		const hexB = model.valueBN.toString(16).padStart(2, '0')
@@ -140,7 +140,7 @@ export class ColorConverterComponent extends PageComponent implements OnInit {
 		this.hexValue = `#${hexR}${hexG}${hexB}`
 	}
 
-	toRGB(model: ColorConverterFormModel): ColorRGB {
+	toRGB(model: ColorPicketFormModel): ColorRGB {
 		return {
 			r: model.valueRN,
 			g: model.valueGN,
@@ -148,7 +148,7 @@ export class ColorConverterComponent extends PageComponent implements OnInit {
 		}
 	}
 
-	toHSL(model: ColorConverterFormModel): ColorHSL {
+	toHSL(model: ColorPicketFormModel): ColorHSL {
 		return {
 			h: model.valueHN,
 			s: model.valueSN,
@@ -157,14 +157,14 @@ export class ColorConverterComponent extends PageComponent implements OnInit {
 	}
 
 	updateRgbValue() {
-		const model: ColorConverterFormModel = this.form.value
+		const model: ColorPicketFormModel = this.form.value
 		const rgb = this.toRGB(model)
 
 		this.rgbValue = `rgb(${rgb.r},${rgb.g},${rgb.b})`
 	}
 
 	updateHslValue() {
-		const model: ColorConverterFormModel = this.form.value
+		const model: ColorPicketFormModel = this.form.value
 		const hsl = this.toHSL(model)
 
 		this.hslValue = `hsl(${hsl.h},${hsl.s},${hsl.l})`
