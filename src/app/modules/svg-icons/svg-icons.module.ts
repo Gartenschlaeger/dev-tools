@@ -3,7 +3,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core'
 import { SvgIconComponent } from 'src/app/modules/svg-icons/svg-icon/svg-icon.component'
 
 export type IconSize = 'sm' | 'md' | 'lg'
-export type IconType = 'delete' | 'plus' | 'refresh' | 'hearth' | 'arrowRight' | 'arrowDown' | 'exclamation'
+export type IconType = 'delete' | 'plus' | 'minus' | 'refresh' | 'hearth' | 'arrowRight' | 'arrowDown' | 'exclamation'
 
 @NgModule({
 	imports: [CommonModule],

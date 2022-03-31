@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { LoggingService } from 'src/app/modules/shared/services/logging.service'
 import { PageComponent } from 'src/app/pages/PageComponent'
-import * as colors from '../../utilities/colorconverter'
+import { ColorHSL, ColorRGB, hslToRgb, rbgToHsl } from '../../utilities/colorconverter'
 
 export interface ColorConverterFormModel {
 	valueRN: number
@@ -21,12 +21,16 @@ export interface ColorConverterFormModel {
 	valueLR: number
 }
 
+const InitColor: ColorRGB = { r: 135, g: 206, b: 235 }
+
 @Component({
 	selector: 'app-color-converter',
 	templateUrl: './color-converter.component.html'
 })
 export class ColorConverterComponent extends PageComponent implements OnInit {
 	form!: FormGroup
+	palette: (ColorRGB | null)[] = [InitColor]
+	selectedPaletteColorIndex: number = 0
 	hexValue: string = ''
 	rgbValue: string = ''
 	hslValue: string = ''
@@ -74,70 +78,57 @@ export class ColorConverterComponent extends PageComponent implements OnInit {
 	}
 
 	defineForm(): FormGroup {
-		const init = { r: 135, g: 206, b: 235 }
-		const hsl = colors.rbgToHsl(init.r, init.g, init.b)
+		const hsl = rbgToHsl(InitColor)
 
 		return this.fb.group({
-			valueRN: [init.r],
-			valueRR: [init.r],
-			valueGN: [init.g],
-			valueGR: [init.g],
-			valueBN: [init.b],
-			valueBR: [init.b],
+			valueRN: [InitColor.r],
+			valueRR: [InitColor.r],
+			valueGN: [InitColor.g],
+			valueGR: [InitColor.g],
+			valueBN: [InitColor.b],
+			valueBR: [InitColor.b],
 
-			valueHN: [Math.round(hsl[0])],
-			valueHR: [Math.round(hsl[0])],
-			valueSN: [Math.round(hsl[1])],
-			valueSR: [Math.round(hsl[1])],
-			valueLN: [Math.round(hsl[2])],
-			valueLR: [Math.round(hsl[2])]
+			valueHN: [hsl.h],
+			valueHR: [hsl.h],
+			valueSN: [hsl.s],
+			valueSR: [hsl.s],
+			valueLN: [hsl.l],
+			valueLR: [hsl.l]
 		})
 	}
 
 	syncRgbToHsl() {
 		const model: ColorConverterFormModel = this.form.value
+		const hsl = rbgToHsl(this.toRGB(model))
 
-		const hsl = colors.rbgToHsl(model.valueRN, model.valueGN, model.valueBN)
-		const h = Math.round(hsl[0])
-		const s = Math.round(hsl[1])
-		const l = Math.round(hsl[2])
+		this.form.get('valueHN')?.setValue(hsl.h, { onlySelf: true, emitEvent: false, emitModelToViewChange: true })
+		this.form.get('valueSN')?.setValue(hsl.s, { onlySelf: true, emitEvent: false, emitModelToViewChange: true })
+		this.form.get('valueLN')?.setValue(hsl.l, { onlySelf: true, emitEvent: false, emitModelToViewChange: true })
 
-		this.form.get('valueHN')?.setValue(h, { onlySelf: true, emitEvent: false, emitModelToViewChange: true })
-		this.form.get('valueSN')?.setValue(s, { onlySelf: true, emitEvent: false, emitModelToViewChange: true })
-		this.form.get('valueLN')?.setValue(l, { onlySelf: true, emitEvent: false, emitModelToViewChange: true })
-
-		this.form.get('valueHR')?.setValue(h, { onlySelf: true, emitEvent: false, emitModelToViewChange: true })
-		this.form.get('valueSR')?.setValue(s, { onlySelf: true, emitEvent: false, emitModelToViewChange: true })
-		this.form.get('valueLR')?.setValue(l, { onlySelf: true, emitEvent: false, emitModelToViewChange: true })
-
-		// this.logger.debug('syncRgbToHsl', h, s, l)
+		this.form.get('valueHR')?.setValue(hsl.h, { onlySelf: true, emitEvent: false, emitModelToViewChange: true })
+		this.form.get('valueSR')?.setValue(hsl.s, { onlySelf: true, emitEvent: false, emitModelToViewChange: true })
+		this.form.get('valueLR')?.setValue(hsl.l, { onlySelf: true, emitEvent: false, emitModelToViewChange: true })
 	}
 
 	syncHslToRgb() {
 		const model: ColorConverterFormModel = this.form.value
+		const rgb = hslToRgb(this.toHSL(model))
 
-		const rgb = colors.hslToRgb(model.valueHN, model.valueSN, model.valueLN)
-		const r = Math.round(rgb[0])
-		const g = Math.round(rgb[1])
-		const b = Math.round(rgb[2])
+		this.form.get('valueRN')?.setValue(rgb.r, { onlySelf: true, emitEvent: false, emitModelToViewChange: true })
+		this.form.get('valueGN')?.setValue(rgb.g, { onlySelf: true, emitEvent: false, emitModelToViewChange: true })
+		this.form.get('valueBN')?.setValue(rgb.b, { onlySelf: true, emitEvent: false, emitModelToViewChange: true })
 
-		this.form.get('valueRN')?.setValue(r, { onlySelf: true, emitEvent: false, emitModelToViewChange: true })
-		this.form.get('valueGN')?.setValue(g, { onlySelf: true, emitEvent: false, emitModelToViewChange: true })
-		this.form.get('valueBN')?.setValue(b, { onlySelf: true, emitEvent: false, emitModelToViewChange: true })
-
-		this.form.get('valueRR')?.setValue(r, { onlySelf: true, emitEvent: false, emitModelToViewChange: true })
-		this.form.get('valueGR')?.setValue(g, { onlySelf: true, emitEvent: false, emitModelToViewChange: true })
-		this.form.get('valueBR')?.setValue(b, { onlySelf: true, emitEvent: false, emitModelToViewChange: true })
-
-		// this.logger.debug('syncHslToRgb', r, g, b)
+		this.form.get('valueRR')?.setValue(rgb.r, { onlySelf: true, emitEvent: false, emitModelToViewChange: true })
+		this.form.get('valueGR')?.setValue(rgb.g, { onlySelf: true, emitEvent: false, emitModelToViewChange: true })
+		this.form.get('valueBR')?.setValue(rgb.b, { onlySelf: true, emitEvent: false, emitModelToViewChange: true })
 	}
 
 	updateValues() {
-		// this.logger.debug('updateValues', this.form.value)
-
 		this.updateHexValue()
 		this.updateRgbValue()
 		this.updateHslValue()
+
+		this.palette[this.selectedPaletteColorIndex] = this.toRGB(this.form.value)
 	}
 
 	updateHexValue() {
@@ -149,20 +140,53 @@ export class ColorConverterComponent extends PageComponent implements OnInit {
 		this.hexValue = `#${hexR}${hexG}${hexB}`
 	}
 
+	toRGB(model: ColorConverterFormModel): ColorRGB {
+		return {
+			r: model.valueRN,
+			g: model.valueGN,
+			b: model.valueBN
+		}
+	}
+
+	toHSL(model: ColorConverterFormModel): ColorHSL {
+		return {
+			h: model.valueHN,
+			s: model.valueSN,
+			l: model.valueLN
+		}
+	}
+
 	updateRgbValue() {
 		const model: ColorConverterFormModel = this.form.value
+		const rgb = this.toRGB(model)
 
-		this.rgbValue = `rgb(${model.valueRN},${model.valueGN},${model.valueBN})`
+		this.rgbValue = `rgb(${rgb.r},${rgb.g},${rgb.b})`
 	}
 
 	updateHslValue() {
 		const model: ColorConverterFormModel = this.form.value
+		const hsl = this.toHSL(model)
 
-		const hsl = colors.rbgToHsl(model.valueRN, model.valueGN, model.valueBN)
-		const h = Math.round(hsl[0])
-		const s = Math.round(hsl[1])
-		const l = Math.round(hsl[2])
+		this.hslValue = `hsl(${hsl.h},${hsl.s},${hsl.l})`
+	}
 
-		this.hslValue = `hsl(${h},${s},${l})`
+	handlePaletteColorClick(index: number) {
+		this.selectedPaletteColorIndex = index
+
+		const rgb = this.palette[index]
+		if (rgb) {
+			this.form.patchValue({
+				valueRN: rgb.r,
+				valueGN: rgb.g,
+				valueBN: rgb.b
+			})
+		} else {
+			this.palette[index] = this.toRGB(this.form.value)
+		}
+	}
+
+	handleAddPalleteColor() {
+		this.palette.push(this.toRGB(this.form.value))
+		this.selectedPaletteColorIndex = this.palette.length - 1
 	}
 }
