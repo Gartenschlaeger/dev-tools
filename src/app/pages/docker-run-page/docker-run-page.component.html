@@ -185,7 +185,7 @@
 	</app-form-section>
 
 	<!-- script -->
-	<app-form-section title="Script">
+	<app-form-section title="Script" *ngIf="generatedScript">
 		<div [ngClass]="{ 'mb-3': generatedScript }">
 			<div class="space-y-1">
 				<app-form-checkbox formControlName="useShortParams">Short parameter names</app-form-checkbox>
@@ -193,9 +193,7 @@
 			</div>
 		</div>
 
-		<div *ngIf="generatedScript">
-			<app-highlighted-code [language]="'bash'" [code]="generatedScript"></app-highlighted-code>
-		</div>
+		<app-highlighted-code [language]="'bash'" [code]="generatedScript"></app-highlighted-code>
 	</app-form-section>
 
 	<app-form-section title="Share" *ngIf="shareLink">
