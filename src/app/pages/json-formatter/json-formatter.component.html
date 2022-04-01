@@ -1,11 +1,12 @@
 <app-page-header title="{{ pageTitle }}"></app-page-header>
 
 <form [formGroup]="form" (submit)="handleSubmit()">
-	<app-form-section title="Source">
+	<app-form-section>
 		<app-form-textarea label="JSON text" formControlName="source"></app-form-textarea>
 	</app-form-section>
 
-	<app-form-section title="Formatted JSON" *ngIf="result && !result.hasErrors">
+	<app-form-section *ngIf="result && !result.hasErrors">
+		<app-form-label>Formatted JSON</app-form-label>
 		<app-highlighted-code
 			[autoselect]="false"
 			[language]="'json'"

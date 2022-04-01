@@ -1,7 +1,7 @@
 <app-page-header title="{{ pageTitle }}"></app-page-header>
 
 <form [formGroup]="form" (submit)="handleSubmit()">
-	<app-form-section title="Dates">
+	<app-form-section>
 		<div class="mb-3">
 			<app-form-label>From date</app-form-label>
 			<div class="flex gap-1">
@@ -32,7 +32,7 @@
 		</div>
 	</app-form-section>
 
-	<app-form-section title="Result" *ngIf="result">
+	<app-form-section *ngIf="result">
 		<div class="space-y-3">
 			<div>
 				<app-form-label>Days</app-form-label>
