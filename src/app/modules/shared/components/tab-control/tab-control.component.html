@@ -1,12 +1,7 @@
-<div>
-	<ul class="flex gap-1 select-none mb-5">
-		<li
-			class="bg-gray-200 hover:bg-gray-300 rounded px-3 py-2 cursor-pointer text-sm"
-			[ngClass]="{ 'bg-gray-500 hover:bg-gray-500 text-gray-100': t.isActive, 'text-gray-800': !t.isActive }"
-			*ngFor="let t of tabs"
-			(click)="handleTabClick(t)"
-		>
-			{{ t.label }}
+<div class="tab-control">
+	<ul>
+		<li *ngFor="let tab of tabs" [ngClass]="{ active: tab.isActive }" (click)="handleTabClick(tab)">
+			{{ tab.label }}
 		</li>
 	</ul>
 	<div class="w-full">

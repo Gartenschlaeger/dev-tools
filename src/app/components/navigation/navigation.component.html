@@ -1,8 +1,8 @@
-<div class="sticky top-0 bg-white mb-1 py-3">
+<div class="sticky top-0 bg-white dark:bg-gray-800 mb-1 py-3">
 	<ul class="mb-2" *ngFor="let i of stickedItems">
 		<app-navigation-link *ngIf="i.isVisible" [routerLink]="i.routerLink" [name]="i.title"></app-navigation-link>
 	</ul>
-	<div class="bg-white">
+	<div>
 		<form [formGroup]="searchForm">
 			<app-form-textfield
 				formControlName="query"

@@ -7,27 +7,27 @@
 
 	<app-form-section title="Details" *ngIf="result">
 		<div class="mb-3">
-			<span class="font-semibold inline-block mb-1 w-full">Host</span>
+			<app-form-label>Host</app-form-label>
 			<app-code>{{ result?.hostname }}</app-code>
 		</div>
 		<div class="mb-3" *ngIf="result.port">
-			<span class="font-semibold inline-block mb-1 w-full">Port</span>
+			<app-form-label>Port</app-form-label>
 			<app-code>{{ result.port }}</app-code>
 		</div>
 
 		<div class="mb-3" *ngIf="result.path">
-			<span class="font-semibold inline-block mb-1 w-full">Path</span>
+			<app-form-label>Path</app-form-label>
 			<app-code>{{ result.path }}</app-code>
 		</div>
 
 		<div class="mb-3" *ngIf="result.queryString">
-			<span class="font-semibold inline-block mb-1 w-full">Query strings</span>
+			<app-form-label>Query strings</app-form-label>
 			<div class="flex gap-1 items-center">
 				<div class="flex-1 overflow-hidden">
 					<app-code>{{ result.queryString }}</app-code>
 				</div>
 				<div class="flex-none">
-					<button class="btn-rounded" (click)="handleToogleSearchDetails()">
+					<button class="btn-misc btn-sm rounded-full" (click)="handleToogleSearchDetails()">
 						<app-svg-icon type="arrowDown" *ngIf="showQueryDetails"></app-svg-icon>
 						<app-svg-icon type="arrowRight" *ngIf="!showQueryDetails"></app-svg-icon>
 					</button>
@@ -37,13 +37,13 @@
 
 		<div class="mb-3 ml-5 space-y-2" *ngIf="showQueryDetails">
 			<div *ngFor="let q of result.queryStringValues">
-				<span class="font-semibold inline-block mb-1 w-full">{{ q.name }}</span>
+				<app-form-label>{{ q.name }}</app-form-label>
 				<app-code>{{ q.value }}</app-code>
 			</div>
 		</div>
 
 		<div class="mb-3" *ngIf="result?.fragment">
-			<span class="font-semibold inline-block mb-1 w-full">Fragment</span>
+			<app-form-label>Fragment</app-form-label>
 			<app-code>{{ result?.fragment }}</app-code>
 		</div>
 	</app-form-section>
