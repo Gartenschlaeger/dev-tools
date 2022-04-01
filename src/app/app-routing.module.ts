@@ -12,6 +12,7 @@ import { StringGeneratorComponent } from 'src/app/pages/string-generator/string-
 import { StringRandomizerComponent } from 'src/app/pages/string-randomizer/string-randomizer.component'
 import { UrlAnalyzerPageComponent } from 'src/app/pages/url-analyzer-page/url-analyzer-page.component'
 import { URLEncoderComponent } from 'src/app/pages/url-encoder/url-encoder.component'
+import { QrCodeGeneratorComponent } from './pages/qr-code-generator/qr-code-generator.component'
 
 export interface CustomRoute extends Route {
 	pageTitle?: string
@@ -89,6 +90,11 @@ export const routes: CustomRoute[] = [
 		pageTitle: 'Color picker',
 		path: 'color-picker',
 		component: ColorPickerComponent
+	},
+	{
+		pageTitle: 'QRCode Generator',
+		path: 'qrcode-generator',
+		component: QrCodeGeneratorComponent
 	},
 	{
 		path: '**',

@@ -6,7 +6,7 @@
 	#input
 	[type]="type"
 	[attr.id]="control.name"
-	[attr.placeholder]="placeholder || label"
+	[attr.placeholder]="placeholder"
 	[value]="value"
 	(keyup)="handleChange($event, 'keyup')"
 	(change)="handleChange($event, 'other')"

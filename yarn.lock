@@ -1771,6 +1771,13 @@ ajv@^8.0.0, ajv@^8.8.0:
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
+angular2-qrcode@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/angular2-qrcode/-/angular2-qrcode-2.0.3.tgz#8a44d8035bc7d5bdc2e53473877d8378912f4db7"
+  integrity sha512-blXNY7VGSuxxfyAg0aa7urWFkoIT2YrygMzyWNRhzPY7UN1ddM4MWAZSzCEFVTzIIu9x4bZcpYDKG7JnmM9IFg==
+  dependencies:
+    qrious "^4.0.2"
+
 ansi-colors@4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-4.1.1.tgz#cbb9ae256bf750af1eab344f229aa27fe94ba348"
@@ -5213,6 +5220,11 @@ qjobs@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/qjobs/-/qjobs-1.2.0.tgz#c45e9c61800bd087ef88d7e256423bdd49e5d071"
   integrity sha512-8YOJEHtxpySA3fFDyCRxA+UUV+fA+rTWnuWvylOK/NCjhY+b4ocCtmu8TtsWb+mYeU+GCHf/S66KZF/AsteKHg==
+
+qrious@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/qrious/-/qrious-4.0.2.tgz#09c4d4079d2b961617f62c69cff3b9bb66a39693"
+  integrity sha512-xWPJIrK1zu5Ypn898fBp8RHkT/9ibquV2Kv24S/JY9VYEhMBMKur1gHVsOiNUh7PHP9uCgejjpZUHUIXXKoU/g==
 
 qs@6.9.7:
   version "6.9.7"

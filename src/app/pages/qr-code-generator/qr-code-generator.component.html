@@ -1,0 +1,38 @@
+<app-page-header title="{{ pageTitle }}"></app-page-header>
+
+<form [formGroup]="form" (submit)="handleSubmit()">
+	<app-form-section>
+		<div class="mb-3">
+			<app-form-textarea label="Text" formControlName="text" placeholder=""></app-form-textarea>
+		</div>
+		<div>
+			<app-form-label for="size">Size</app-form-label>
+			<div class="flex gap-2 items-center">
+				<div class="w-40">
+					<input
+						type="number"
+						id="size"
+						formControlName="size"
+						min="100"
+						max="999"
+						class="form-input w-full"
+					/>
+				</div>
+				<div class="flex-1">
+					<input formControlName="size" type="range" min="100" max="999" class="w-full" />
+				</div>
+			</div>
+		</div>
+	</app-form-section>
+
+	<app-form-footer>
+		<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
+		<button type="submit" class="btn-primary">Generate</button>
+	</app-form-footer>
+
+	<app-form-section *ngIf="result">
+		<div class="flex justify-center mt-16">
+			<qr-code [size]="result.size" [value]="result.text" [canvas]="true"></qr-code>
+		</div>
+	</app-form-section>
+</form>
