@@ -92,7 +92,7 @@ export const routes: CustomRoute[] = [
 		component: ColorPickerComponent
 	},
 	{
-		pageTitle: 'QRCode Generator',
+		pageTitle: 'QR Code Generator',
 		path: 'qrcode-generator',
 		component: QrCodeGeneratorComponent
 	},
