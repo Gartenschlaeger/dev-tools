@@ -39,6 +39,33 @@
 		dark:bg-red-600 dark:hover:bg-red-500 dark:text-gray-200;
 	}
 
+	.page-header {
+		@apply select-none;
+	}
+
+	.page-header h1 {
+		@apply text-2xl 
+		dark:text-gray-100;
+	}
+
+	.page-header hr {
+		@apply my-3 mb-5
+		dark:border-gray-600;
+	}
+
+	.form-section {
+		@apply mb-5 w-full;
+	}
+
+	.form-section h1 {
+		@apply mb-5 select-none text-2xl
+		dark:text-gray-200;
+	}
+
+	.form-footer {
+		@apply mt-8 w-full flex justify-end items-center gap-1;
+	}
+
 	.form-label {
 		@apply inline-block select-none
 		text-gray-800
@@ -56,8 +83,8 @@
 
 	.code-block {
 		@apply rounded px-3 py-2 overflow-x-auto border-2
-		bg-white border-gray-200 text-gray-700 
-		dark:bg-gray-900 dark:border-gray-600 dark:text-gray-400;
+		bg-white border-gray-200 text-gray-400 
+		dark:bg-gray-900 dark:border-gray-600;
 	}
 
 	a {

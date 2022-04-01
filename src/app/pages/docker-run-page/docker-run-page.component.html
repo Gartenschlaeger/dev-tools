@@ -204,16 +204,8 @@
 	</app-form-section>
 
 	<app-form-footer>
-		<div class="flex justify-between">
-			<div>
-				<button type="button" class="btn-secondary" [disabled]="!generatedScript" (click)="handleShare()">
-					Share
-				</button>
-			</div>
-			<div class="space-x-1">
-				<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
-				<button type="submit" class="btn-primary">Generate</button>
-			</div>
-		</div>
+		<button type="button" class="btn-secondary" [disabled]="!generatedScript" (click)="handleShare()">Share</button>
+		<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
+		<button type="submit" class="btn-primary">Generate</button>
 	</app-form-footer>
 </form>

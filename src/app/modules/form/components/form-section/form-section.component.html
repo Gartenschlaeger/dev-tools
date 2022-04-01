@@ -1,6 +1,4 @@
-<div
-	class="mb-5 p-3 dark:p-0 w-full border-l-4 border-gray-300 dark:border-none bg-gray-100 dark:bg-gray-800 rounded shadow"
->
-	<h1 class="mb-5 text-2xl dark:text-gray-200 select-none" *ngIf="title">{{ title }}</h1>
+<div class="form-section">
+	<h1 *ngIf="title">{{ title }}</h1>
 	<ng-content></ng-content>
 </div>
