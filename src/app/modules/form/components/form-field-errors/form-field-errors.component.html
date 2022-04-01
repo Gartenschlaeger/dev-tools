@@ -1,8 +1,16 @@
 <ng-container *ngIf="control?.dirty || control?.touched">
-	<span *ngIf="control?.hasError('required') || control?.hasError('requiredIf')" class="italic text-sm text-red-600"
+	<span
+		*ngIf="control?.hasError('required') || control?.hasError('requiredIf')"
+		class="italic text-sm text-red-600 dark:text-red-400"
 		>* Required</span
 	>
-	<span *ngIf="control?.hasError('pattern')" class="italic text-sm text-red-600">* Invalid format</span>
-	<span *ngIf="control?.hasError('min')" class="italic text-sm text-red-600">* Value is too small</span>
-	<span *ngIf="control?.hasError('max')" class="italic text-sm text-red-600">* Value is too large</span>
+	<span *ngIf="control?.hasError('pattern')" class="italic text-sm text-red-600 dark:text-red-400"
+		>* Invalid format</span
+	>
+	<span *ngIf="control?.hasError('min')" class="italic text-sm text-red-600 dark:text-red-400"
+		>* Value is too small</span
+	>
+	<span *ngIf="control?.hasError('max')" class="italic text-sm text-red-600 dark:text-red-400"
+		>* Value is too large</span
+	>
 </ng-container>
