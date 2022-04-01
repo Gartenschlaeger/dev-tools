@@ -3,7 +3,7 @@
 <form [formGroup]="form" (submit)="handleSubmit()">
 	<!-- image -->
 	<app-form-section title="Image">
-		<div class="flex gap-1">
+		<div class="flex gap-2">
 			<div class="flex-1">
 				<app-form-textfield label="Image name" formControlName="imageName"></app-form-textfield>
 			</div>
@@ -15,11 +15,14 @@
 
 	<!-- container -->
 	<app-form-section title="Container">
-		<div class="mb-3">
-			<app-form-textfield formControlName="containerName" label="Name"></app-form-textfield>
-			<app-form-checkbox formControlName="runDettached">Dettached</app-form-checkbox>
+		<div class="mb-3 space-y-1">
+			<div>
+				<app-form-textfield formControlName="containerName" label="Name"></app-form-textfield>
+			</div>
+			<div>
+				<app-form-checkbox formControlName="runDettached">Dettached</app-form-checkbox>
+			</div>
 		</div>
-
 		<div>
 			<app-form-label for="restartMode">Restart mode</app-form-label>
 			<select name="restartMode" class="form-input w-full" id="restartMode" formControlName="restartMode">
@@ -56,9 +59,9 @@
 					<app-form-textfield formControlName="hostname" label="Hostname"></app-form-textfield>
 				</div>
 
-				<form [formGroup]="formAddPortMapping" (submit)="handleAddPortMapping()">
+				<form class="mb-2" [formGroup]="formAddPortMapping" (submit)="handleAddPortMapping()">
 					<app-form-label>Port mappings</app-form-label>
-					<div class="flex items-stretch gap-1">
+					<div class="flex items-stretch gap-2">
 						<div class="flex-1">
 							<app-form-textfield
 								#inputContainerPort
@@ -75,8 +78,8 @@
 					</div>
 				</form>
 
-				<div formArrayName="portMappings" class="mt-1 space-y-1" *ngIf="portMappings.length">
-					<div class="flex items-center gap-1" *ngFor="let c of portMappings.controls; index as i">
+				<div formArrayName="portMappings" class="mt-1 space-y-2" *ngIf="portMappings.length">
+					<div class="flex items-center gap-2" *ngFor="let c of portMappings.controls; index as i">
 						<ng-container [formGroupName]="i">
 							<div class="flex-1">
 								<app-form-textfield
@@ -99,9 +102,9 @@
 			</app-tab>
 			<app-tab label="Environment">
 				<!-- environment -->
-				<form [formGroup]="formAddEnvVariable" (submit)="handleAddEnvironment()">
+				<form class="mb-2" [formGroup]="formAddEnvVariable" (submit)="handleAddEnvironment()">
 					<app-form-label>Environment variables</app-form-label>
-					<div class="flex items-stretch gap-1">
+					<div class="flex items-stretch gap-2">
 						<div class="flex-1">
 							<app-form-textfield
 								#inputEnvironmentKey
@@ -118,8 +121,8 @@
 					</div>
 				</form>
 
-				<div formArrayName="environmentVariables" class="mt-1 space-y-1" *ngIf="environmentVariables.length">
-					<div class="flex items-center gap-1" *ngFor="let c of environmentVariables.controls; index as i">
+				<div formArrayName="environmentVariables" class="mt-1 space-y-2" *ngIf="environmentVariables.length">
+					<div class="flex items-center gap-2" *ngFor="let c of environmentVariables.controls; index as i">
 						<ng-container [formGroupName]="i">
 							<div class="flex-1">
 								<app-form-textfield formControlName="key" placeholder="Key"></app-form-textfield>
@@ -137,9 +140,9 @@
 
 			<app-tab label="Volumes">
 				<!-- volume mappings -->
-				<form [formGroup]="formAddVolumeMapping" (submit)="handleAddVolumeMapping()">
+				<form class="mb-2" [formGroup]="formAddVolumeMapping" (submit)="handleAddVolumeMapping()">
 					<app-form-label>Volume mappings</app-form-label>
-					<div class="flex items-stretch gap-1">
+					<div class="flex items-stretch gap-2">
 						<div class="flex-1">
 							<app-form-textfield
 								#inputVolumeHostPath
@@ -159,8 +162,8 @@
 					</div>
 				</form>
 
-				<div formArrayName="volumeMappings" class="mt-1 space-y-1" *ngIf="volumeMappings.length">
-					<div class="flex items-center gap-1" *ngFor="let c of volumeMappings.controls; index as i">
+				<div formArrayName="volumeMappings" class="mt-1 space-y-2" *ngIf="volumeMappings.length">
+					<div class="flex items-center gap-2" *ngFor="let c of volumeMappings.controls; index as i">
 						<ng-container [formGroupName]="i">
 							<div class="flex-1">
 								<app-form-textfield
