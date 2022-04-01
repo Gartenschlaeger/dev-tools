@@ -42,14 +42,12 @@ export class StringRandomizerComponent extends PageComponent implements OnInit {
 	}
 
 	handleReset() {
-		this.form.reset()
-		this.form.setValue(FormDefaults)
-		this.form.markAsUntouched()
+		this.formService.reset(this.form, FormDefaults)
 		this.result = undefined
 	}
 
 	handleSubmit() {
-		if (this.formService.validateForm(this.form)) {
+		if (this.formService.validate(this.form)) {
 			const model: StringRandomizerFormModel = this.form.value
 
 			let randomizedValue: string

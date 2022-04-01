@@ -57,7 +57,7 @@ export class DaysBetweenComponent extends PageComponent implements OnInit {
 	}
 
 	handleSubmit() {
-		if (this.formService.validateForm(this.form)) {
+		if (this.formService.validate(this.form)) {
 			const model = this.form.value as DaysBetweenModel
 			const minDate = new Date(model.fromYear!, model.fromMonth! - 1, model.fromDay!)
 			const toDate = new Date(model.toYear!, model.toMonth! - 1, model.toDay!)
@@ -71,8 +71,7 @@ export class DaysBetweenComponent extends PageComponent implements OnInit {
 	}
 
 	handleReset() {
-		this.form.reset()
-		this.form.markAsUntouched()
+		this.formService.reset(this.form)
 		this.result = null
 	}
 }

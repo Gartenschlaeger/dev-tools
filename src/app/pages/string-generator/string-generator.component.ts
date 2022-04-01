@@ -63,15 +63,14 @@ export class StringGeneratorComponent extends PageComponent implements OnInit {
 	}
 
 	handleReset() {
-		this.form.reset()
-		this.form.setValue(FormDefaults)
-		this.form.markAsUntouched()
+		this.formService.reset(this.form, FormDefaults)
 		this.result = undefined
 	}
 
 	handleSubmit() {
 		this.logger.debug('handleSubmit()', this.form.valid, this.form)
-		if (this.formService.validateForm(this.form)) {
+
+		if (this.formService.validate(this.form)) {
 			const model: StringGeneratorFormModel = this.form.value
 
 			let types = ''

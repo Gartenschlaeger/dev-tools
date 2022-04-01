@@ -276,15 +276,10 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 		this.environmentVariables.clear()
 		this.volumeMappings.clear()
 
-		this.form.reset()
-		this.form.setValue(FormDefaultValues)
-		this.form.markAsUntouched()
-
-		this.formAddPortMapping.reset()
-		this.formAddPortMapping.markAsUntouched()
-
-		this.formAddEnvVariable.reset()
-		this.formAddEnvVariable.markAsUntouched()
+		this.formService.reset(this.form, FormDefaultValues)
+		this.formService.reset(this.formAddPortMapping)
+		this.formService.reset(this.formAddEnvVariable)
+		this.formService.reset(this.formAddVolumeMapping)
 
 		this.generatedScript = ''
 		this.shareLink = ''
@@ -295,7 +290,7 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 	handleSubmit() {
 		this.logger.debug(this.form, this.form.valid, this.form.errors)
 
-		if (this.formService.validateForm(this.form)) {
+		if (this.formService.validate(this.form)) {
 			this.generatedScript = this.generateScript()
 		}
 	}
@@ -309,7 +304,7 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 	}
 
 	handleAddEnvironment() {
-		if (this.formService.validateForm(this.formAddEnvVariable)) {
+		if (this.formService.validate(this.formAddEnvVariable)) {
 			const key: string = this.formAddEnvVariable.value.key
 			const value: string = this.formAddEnvVariable.value.value
 			this.addEnvironmentVariable({ key, value })
@@ -324,7 +319,7 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 	}
 
 	handleAddPortMapping() {
-		if (this.formService.validateForm(this.formAddPortMapping)) {
+		if (this.formService.validate(this.formAddPortMapping)) {
 			const containerPort = this.formAddPortMapping.value.containerPort
 			const hostPort = this.formAddPortMapping.value.hostPort
 			this.addPortMapping({ containerPort, hostPort })
@@ -339,7 +334,7 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 	}
 
 	handleAddVolumeMapping() {
-		if (this.formService.validateForm(this.formAddVolumeMapping)) {
+		if (this.formService.validate(this.formAddVolumeMapping)) {
 			const hostPath: string = this.formAddVolumeMapping.value.hostPath
 			const containerPath: string = this.formAddVolumeMapping.value.containerPath
 			this.addVolumeMapping({ hostPath, containerPath })

@@ -45,8 +45,8 @@ export class UrlAnalyzerPageComponent extends PageComponent implements OnInit {
 		})
 	}
 
-	submitHandler() {
-		if (this.formService.validateForm(this.form)) {
+	handleSubmit() {
+		if (this.formService.validate(this.form)) {
 			try {
 				const url = new URL(this.form.get('url')?.value)
 
@@ -82,9 +82,7 @@ export class UrlAnalyzerPageComponent extends PageComponent implements OnInit {
 	}
 
 	handleReset() {
-		this.form.reset()
-		this.form.markAsUntouched()
-		this.form.setValue(UrlAnalyzerFormDefaults)
+		this.formService.reset(this.form, UrlAnalyzerFormDefaults)
 		this.result = null
 	}
 }

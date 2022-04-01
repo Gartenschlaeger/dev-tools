@@ -1,30 +1,23 @@
-import { FormControl, FormGroup } from '@angular/forms'
+import { FormGroup } from '@angular/forms'
 
 export class FormService {
-	validateForm(group: FormGroup): boolean {
+	validate(group: FormGroup): boolean {
 		for (let field in group.controls) {
-			let control = group.get(field)
+			const control = group.get(field)
+			control?.markAsDirty()
 			control?.markAsTouched()
 		}
 
 		return group.valid
 	}
 
-	resetForm(group: FormGroup): void {
+	reset(group: FormGroup, value?: { [key: string]: any }): void {
 		group.reset()
-		group.markAsUntouched()
-	}
 
-	GetControl(group: FormGroup, controlPath: string): FormControl {
-		return group.get(controlPath) as FormControl
-	}
-
-	getControlValue(group: FormGroup, controlPath: string): string {
-		const control = group.get(controlPath)
-		if (control) {
-			return control.value
+		if (value) {
+			group.setValue(value)
 		}
 
-		return ''
+		group.markAsUntouched()
 	}
 }

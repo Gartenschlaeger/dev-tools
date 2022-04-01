@@ -1,6 +1,6 @@
 <app-page-header title="{{ pageTitle }}"></app-page-header>
 
-<form [formGroup]="form" (submit)="submitHandler()">
+<form [formGroup]="form" (submit)="handleSubmit()">
 	<app-form-section>
 		<app-form-textfield label="URL" formControlName="url" placeholder="http(s)://"></app-form-textfield>
 	</app-form-section>

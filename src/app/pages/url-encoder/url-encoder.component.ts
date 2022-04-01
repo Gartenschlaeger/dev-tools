@@ -21,9 +21,9 @@ const FormDefaults = new UrlEncoderFormModel()
 	templateUrl: './url-encoder.component.html'
 })
 export class URLEncoderComponent extends PageComponent implements OnInit {
+	isEncodeMode!: boolean
 	form!: FormGroup
 	result?: UrlEncoderResultModel
-	isEncodeMode!: boolean
 
 	constructor(private route: ActivatedRoute, private fb: FormBuilder, private formService: FormService) {
 		super(route)
@@ -48,7 +48,7 @@ export class URLEncoderComponent extends PageComponent implements OnInit {
 	}
 
 	handleSubmit() {
-		if (this.formService.validateForm(this.form)) {
+		if (this.formService.validate(this.form)) {
 			const model: UrlEncoderFormModel = this.form.value
 
 			try {
@@ -75,9 +75,7 @@ export class URLEncoderComponent extends PageComponent implements OnInit {
 	}
 
 	handleReset() {
-		this.form.reset()
-		this.form.setValue(FormDefaults)
-		this.form.markAsUntouched()
 		this.result = undefined
+		this.formService.reset(this.form, FormDefaults)
 	}
 }

@@ -48,7 +48,7 @@ export class Base64Component extends PageComponent implements OnInit {
 	handleSubmit() {
 		this.logger.trace('handleSubmit', this.form.valid)
 
-		if (this.formService.validateForm(this.form)) {
+		if (this.formService.validate(this.form)) {
 			const model: Base64Model = this.form.value
 
 			try {
@@ -63,9 +63,7 @@ export class Base64Component extends PageComponent implements OnInit {
 	}
 
 	handleReset() {
-		this.form.reset()
-		this.form.setValue(FormDefaults)
-		this.form.markAsUntouched()
+		this.formService.reset(this.form, FormDefaults)
 		this.processedValue = ''
 		this.hasErrors = false
 	}

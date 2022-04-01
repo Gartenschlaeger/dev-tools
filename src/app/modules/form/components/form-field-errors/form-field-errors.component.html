@@ -1,4 +1,4 @@
-<ng-container *ngIf="control?.dirty || control?.touched">
+<ng-container *ngIf="control?.dirty && control?.invalid">
 	<span
 		*ngIf="control?.hasError('required') || control?.hasError('requiredIf')"
 		class="italic text-sm text-red-600 dark:text-red-400"
@@ -14,3 +14,9 @@
 		>* Value is too large</span
 	>
 </ng-container>
+
+<!-- <span class="pl-2 text-gray-400 text-xs">
+	{{ control?.invalid ? 'invalid' : '' }}
+	{{ control?.touched ? 'touched' : '' }}
+	{{ control?.dirty ? 'dirty' : '' }}
+</span> -->
