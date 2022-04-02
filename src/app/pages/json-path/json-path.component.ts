@@ -6,8 +6,13 @@ import { FormService } from '../../modules/form/services/form-service.service'
 import { PageComponent } from '../PageComponent'
 
 class JsonPathFormModule {
-	json?: string
-	path?: string
+	json: string = ''
+	path: string = ''
+}
+
+class JsonPathResult {
+	result?: string
+	error?: string
 }
 
 const FormDefaults = new JsonPathFormModule()
@@ -18,9 +23,7 @@ const FormDefaults = new JsonPathFormModule()
 })
 export class JsonPathComponent extends PageComponent implements OnInit {
 	form!: FormGroup
-	result?: string
-	error?: string
-	pathError?: string
+	result: JsonPathResult | null = null
 
 	constructor(route: ActivatedRoute, private fb: FormBuilder, private formService: FormService) {
 		super(route)
@@ -39,30 +42,32 @@ export class JsonPathComponent extends PageComponent implements OnInit {
 
 	handleReset() {
 		this.formService.reset(this.form, FormDefaults)
-		this.result = undefined
+		this.result = null
 	}
 
 	handleSubmit() {
 		if (this.formService.validate(this.form)) {
 			const model: JsonPathFormModule = this.form.value
 
-			this.error = undefined
+			let tmp = new JsonPathResult()
 
 			let inputObj: any
 			try {
 				inputObj = JSON.parse(model.json!)
 			} catch (err: any) {
-				this.error = 'Error while parsing the input JSON : "\n' + err?.message + '"'
+				tmp.error = 'Error while parsing the input JSON : "\n' + err?.message + '"'
 			}
 
-			let result: any
+			let pathResult: any
 			try {
-				result = jsonpath.query(inputObj, model.path!)
+				pathResult = jsonpath.query(inputObj, model.path!)
 			} catch (err: any) {
-				this.error = 'Error while evaluating the path query : "\n' + err.message + '"'
+				tmp.error = 'Error while evaluating the path query : "\n' + err.message + '"'
 			}
 
-			this.result = JSON.stringify(result, null, '  ')
+			tmp.result = JSON.stringify(pathResult, null, '  ')
+
+			this.result = tmp
 		}
 	}
 }
