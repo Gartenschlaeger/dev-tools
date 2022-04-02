@@ -13,7 +13,7 @@ const FormDefaults = new QrCodeGeneratorFormModel()
 
 @Component({
 	selector: 'app-qr-code-generator',
-	templateUrl: './qr-code-generator.component.html'
+	templateUrl: './qrcode-generator.component.html'
 })
 export class QrCodeGeneratorComponent extends PageComponent implements OnInit {
 	form!: FormGroup

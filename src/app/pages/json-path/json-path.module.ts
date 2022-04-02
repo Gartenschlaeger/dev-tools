@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
+import { SharedModule } from '../../modules/shared/shared.module'
 import { JsonPathComponent } from './json-path.component'
 
 const routes: Routes = [
@@ -11,7 +12,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-	declarations: [],
-	imports: [CommonModule, RouterModule.forChild(routes)]
+	declarations: [JsonPathComponent],
+	imports: [CommonModule, RouterModule.forChild(routes), SharedModule]
 })
 export class JsonPathModule {}

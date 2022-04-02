@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
-import { FormService } from 'src/app/modules/form/services/form-service.service'
-import { PageComponent } from 'src/app/pages/PageComponent'
+import { FormService } from '../../modules/form/services/form-service.service'
 import * as randomizer from '../../utilities/randomizer'
+import { PageComponent } from '../PageComponent'
 
 export class StringRandomizerFormModel {
 	sourceText: string = ''
