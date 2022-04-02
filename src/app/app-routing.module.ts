@@ -12,7 +12,6 @@ import { StringGeneratorComponent } from 'src/app/pages/string-generator/string-
 import { StringRandomizerComponent } from 'src/app/pages/string-randomizer/string-randomizer.component'
 import { UrlAnalyzerPageComponent } from 'src/app/pages/url-analyzer-page/url-analyzer-page.component'
 import { URLEncoderComponent } from 'src/app/pages/url-encoder/url-encoder.component'
-import { JsonPathComponent } from './pages/json-path/json-path.component'
 import { QrCodeGeneratorComponent } from './pages/qr-code-generator/qr-code-generator.component'
 
 export interface CustomRoute extends Route {
@@ -80,7 +79,7 @@ export const routes: CustomRoute[] = [
 	{
 		pageTitle: 'JSON Path',
 		path: 'json-path',
-		component: JsonPathComponent
+		loadChildren: () => import('./pages/json-path/json-path.module').then((m) => m.JsonPathModule)
 	},
 	{
 		pageTitle: 'String Randomizer',
