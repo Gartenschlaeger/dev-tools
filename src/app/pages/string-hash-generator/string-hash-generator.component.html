@@ -1,0 +1,39 @@
+<app-page-header title="{{ pageTitle }}"></app-page-header>
+
+<form [formGroup]="form" (submit)="handleSubmit()">
+	<app-form-section>
+		<div class="space-y-3">
+			<div>
+				<app-form-label for="algorithm">Algorithm</app-form-label>
+				<select id="algorithm" class="form-input w-full" formControlName="algorithm">
+					<option value="md5">MD5</option>
+					<option value="md5hmac">MD5 HMAC</option>
+					<option value="sha1">SHA1</option>
+				</select>
+			</div>
+			<div *ngIf="form.get('algorithm')?.value === 'md5hmac'">
+				<app-form-label for="key"
+					>Key <app-form-field-errors [control]="form"></app-form-field-errors
+				></app-form-label>
+				<app-form-textfield formControlName="key"></app-form-textfield>
+			</div>
+			<div>
+				<app-form-textfield label="Text" formControlName="inputText"></app-form-textfield>
+			</div>
+		</div>
+	</app-form-section>
+
+	<app-form-section>
+		<ng-container *ngIf="hashedString && !error">
+			<app-form-label>Hash</app-form-label>
+			<app-code>{{ hashedString }}</app-code>
+		</ng-container>
+
+		<app-alert type="error" *ngIf="error">{{ error }}</app-alert>
+	</app-form-section>
+
+	<app-form-footer>
+		<button type="reset" class="btn-secondary" (click)="handleReset()">Reset</button>
+		<button type="submit" class="btn-primary">Generate</button>
+	</app-form-footer>
+</form>
