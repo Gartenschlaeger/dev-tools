@@ -12,7 +12,6 @@ import { StringGeneratorComponent } from 'src/app/pages/string-generator/string-
 import { StringRandomizerComponent } from 'src/app/pages/string-randomizer/string-randomizer.component'
 import { UrlAnalyzerPageComponent } from 'src/app/pages/url-analyzer-page/url-analyzer-page.component'
 import { URLEncoderComponent } from 'src/app/pages/url-encoder/url-encoder.component'
-import { QrCodeGeneratorComponent } from './pages/qr-code-generator/qr-code-generator.component'
 
 export interface CustomRoute extends Route {
 	pageTitle?: string
@@ -99,7 +98,8 @@ export const routes: CustomRoute[] = [
 	{
 		pageTitle: 'QR Code Generator',
 		path: 'qrcode-generator',
-		component: QrCodeGeneratorComponent
+		loadChildren: () =>
+			import('./pages/qrcode-generator/qrcode-generator.module').then((m) => m.QRCodeGeneratorModule)
 	},
 	{
 		path: '**',
