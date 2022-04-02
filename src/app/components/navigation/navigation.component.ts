@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
-import { NavigationItems } from '../../app.navigation-items'
-import { AppRoutes } from '../../app.routes'
+import { routes } from '../../app.routes'
+import { items } from './app.navigation-items'
 
 export interface INavigationItem {
 	title: string
@@ -21,23 +21,21 @@ export class NavigationComponent implements OnInit {
 
 	constructor(private fb: FormBuilder) {}
 
-	ngOnInit(): void {
-		this.searchForm = this.fb.group({
-			query: ['']
-		})
+	ngOnInit() {
+		this.defineSearchForm()
 
-		this.searchForm.valueChanges.subscribe(() => {
-			const queryValue: string = this.searchForm.get('query')?.value?.toLowerCase()?.trim()
-			if (queryValue) {
-				this.items.forEach((item) => {
-					item.isVisible = item.title.toLowerCase().indexOf(queryValue) !== -1
-				})
-			} else {
-				this.items.forEach((item) => (item.isVisible = true))
-			}
-		})
+		this.addRoutesAsNavigationItems()
 
-		AppRoutes.forEach((route) => {
+		items.forEach((item) => this.items.push(item))
+
+		this.stickedItems.sort((a, b) => a.title.localeCompare(b.title))
+		this.items.sort((a, b) => a.title.localeCompare(b.title))
+
+		this.items.map((item) => (item.isVisible = true))
+	}
+
+	addRoutesAsNavigationItems() {
+		routes.forEach((route) => {
 			if (route.path && route.pageTitle) {
 				if (route.stickedInNavbar !== true) {
 					this.items.push({
@@ -52,11 +50,23 @@ export class NavigationComponent implements OnInit {
 				}
 			}
 		})
+	}
 
-		NavigationItems.forEach((item) => this.items.push(item))
+	defineSearchForm() {
+		this.searchForm = this.fb.group({
+			query: ['']
+		})
 
-		this.stickedItems.sort((a, b) => a.title.localeCompare(b.title))
-		this.items.sort((a, b) => a.title.localeCompare(b.title))
+		this.searchForm.valueChanges.subscribe(() => {
+			const queryValue: string = this.searchForm.get('query')?.value?.toLowerCase()?.trim()
+			if (queryValue) {
+				this.items.forEach((item) => {
+					item.isVisible = item.title.toLowerCase().indexOf(queryValue) !== -1
+				})
+			} else {
+				this.items.forEach((item) => (item.isVisible = true))
+			}
+		})
 	}
 
 	handleSearchKeyup(event: KeyboardEvent) {

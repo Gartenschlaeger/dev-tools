@@ -12,7 +12,7 @@ import { StringRandomizerComponent } from './pages/string-randomizer/string-rand
 import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer-page.component'
 import { URLEncoderComponent } from './pages/url-encoder/url-encoder.component'
 
-export const AppRoutes: CustomRoute[] = [
+export const routes: CustomRoute[] = [
 	{
 		path: '',
 		pathMatch: 'full',

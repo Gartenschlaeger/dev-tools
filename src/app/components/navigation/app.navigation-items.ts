@@ -1,6 +1,6 @@
-import { INavigationItem } from './components/navigation/navigation.component'
+import { INavigationItem } from './navigation.component'
 
-export const NavigationItems: INavigationItem[] = [
+export const items: INavigationItem[] = [
 	{
 		title: 'MD5 Hash Generator',
 		routerLink: 'string-hash-generator/md5'

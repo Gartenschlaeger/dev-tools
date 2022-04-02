@@ -8,7 +8,7 @@ import { SharedModule } from 'src/app/modules/shared/shared.module'
 import { URLEncoderComponent } from 'src/app/pages/url-encoder/url-encoder.component'
 import { environment } from '../environments/environment'
 import { AppComponent } from './app.component'
-import { AppRoutes } from './app.routes'
+import { routes } from './app.routes'
 import { Base64Component } from './pages/base64/base64.component'
 import { ColorPickerComponent } from './pages/color-picker/color-picker.component'
 import { DaysBetweenComponent } from './pages/days-between/days-between.component'
@@ -41,7 +41,7 @@ import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer
 	],
 	imports: [
 		BrowserModule,
-		RouterModule.forRoot(AppRoutes),
+		RouterModule.forRoot(routes),
 		BrowserAnimationsModule,
 		SharedModule.forRoot({ minLogLevel: environment.minLogLevel })
 	],
