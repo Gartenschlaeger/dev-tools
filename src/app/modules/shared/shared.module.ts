@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { RouterModule } from '@angular/router'
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs'
 import { FormModule } from '../form/form.module'
+import { FormService } from '../form/services/form-service.service'
 import { SvgIconsModule } from '../svg-icons/svg-icons.module'
 import { AlertComponent } from './components/alert/alert.component'
 import { CodeComponent } from './components/code/code.component'
@@ -46,6 +47,7 @@ export class SharedModule {
 			ngModule: SharedModule,
 			providers: [
 				DateService,
+				FormService,
 				{
 					provide: LoggingService,
 					useFactory: () => new LoggingService(config.minLogLevel),

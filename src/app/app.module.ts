@@ -5,6 +5,7 @@ import { NavigationLinkComponent } from 'src/app/components/navigation-link/navi
 import { NavigationComponent } from 'src/app/components/navigation/navigation.component'
 import { SharedModule } from 'src/app/modules/shared/shared.module'
 import { URLEncoderComponent } from 'src/app/pages/url-encoder/url-encoder.component'
+import { environment } from '../environments/environment'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { Base64Component } from './pages/base64/base64.component'
@@ -37,7 +38,12 @@ import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer
 		StringGeneratorComponent,
 		ColorPickerComponent
 	],
-	imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, SharedModule],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		BrowserAnimationsModule,
+		SharedModule.forRoot({ minLogLevel: environment.minLogLevel })
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule {}

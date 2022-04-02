@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
-import { Routes } from '@angular/router'
+import { RouterModule, Routes } from '@angular/router'
 import { QRCodeModule } from 'angular2-qrcode'
 import { SharedModule } from '../../modules/shared/shared.module'
 import { QrCodeGeneratorComponent } from './qrcode-generator.component'
@@ -13,7 +13,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-	declarations: [],
-	imports: [CommonModule, SharedModule, QRCodeModule]
+	declarations: [QrCodeGeneratorComponent],
+	imports: [CommonModule, RouterModule.forChild(routes), SharedModule, QRCodeModule]
 })
 export class QRCodeGeneratorModule {}

@@ -12,7 +12,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-	declarations: [],
+	declarations: [JsonPathComponent],
 	imports: [CommonModule, RouterModule.forChild(routes), SharedModule]
 })
 export class JsonPathModule {}
