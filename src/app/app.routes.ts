@@ -85,7 +85,6 @@ export const AppRoutes: CustomRoute[] = [
 		component: StringGeneratorComponent
 	},
 	{
-		pageTitle: 'String Hash Generator',
 		path: 'string-hash-generator',
 		loadChildren: () =>
 			import('./pages/string-hash-generator/string-hash-generator.module').then(

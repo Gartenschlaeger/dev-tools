@@ -1,17 +1,15 @@
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms'
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import * as CryptoJS from 'crypto-js'
 import { FormService } from '../../modules/form/services/form-service.service'
+import { LoggingService } from '../../modules/shared/services/logging.service'
 import { PageComponent } from '../PageComponent'
 
-class StringHashGeneratorFormModel {
-	algorithm: StringHashAlgorithm = 'md5'
-	inputText: string = ''
-	key: string = ''
+interface StringHashGeneratorFormModel {
+	key: string
+	inputText: string
 }
-
-const FormDefaults = new StringHashGeneratorFormModel()
 
 export type StringHashAlgorithm = 'md5' | 'md5hmac' | 'sha1'
 
@@ -21,53 +19,83 @@ export type StringHashAlgorithm = 'md5' | 'md5hmac' | 'sha1'
 })
 export class StringHashGeneratorComponent extends PageComponent implements OnInit {
 	form!: FormGroup
+	algorithm: StringHashAlgorithm | null = null
+
 	hashedString: string | null = null
 	error: string | null = null
 
-	constructor(route: ActivatedRoute, private fb: FormBuilder, private formService: FormService) {
+	constructor(
+		private route: ActivatedRoute,
+		private fb: FormBuilder,
+		private formService: FormService,
+		private logger: LoggingService
+	) {
 		super(route)
 	}
 
 	ngOnInit() {
+		this.setAlgorithm(this.route.snapshot.paramMap.get('algorithm') as StringHashAlgorithm)
+		this.route.paramMap.subscribe((paramMap) => {
+			this.setAlgorithm(paramMap.get('algorithm') as StringHashAlgorithm)
+			this.handleReset()
+		})
+	}
+
+	setAlgorithm(algorithm: StringHashAlgorithm | null) {
+		switch (algorithm) {
+			case 'md5':
+			case 'md5hmac':
+			case 'sha1':
+				this.algorithm = algorithm
+				break
+
+			default:
+				this.logger.warning(`Got invalid algorithm ${algorithm}, fallback to md5`)
+				this.algorithm = 'md5'
+				break
+		}
+
 		this.form = this.defineForm()
+		this.pageTitle = `${this.getAlgorithmName()} Hash Generator`
+	}
+
+	getAlgorithmName(): string | null {
+		switch (this.algorithm) {
+			case 'md5':
+				return 'MD5'
+			case 'md5hmac':
+				return 'HMAC MD5'
+			case 'sha1':
+				return 'SHA1'
+		}
+
+		return null
 	}
 
 	defineForm(): FormGroup {
-		return this.fb.group(
-			{
-				algorithm: [FormDefaults.algorithm, [Validators.required]],
-				key: [FormDefaults.key],
-				inputText: [FormDefaults.inputText, [Validators.required]]
-			},
-			{
-				validators: [this.keyValidator]
-			}
-		)
-	}
+		const form = this.fb.group({
+			inputText: ['', [Validators.required]]
+		})
 
-	keyValidator(form: FormGroup): ValidationErrors | null {
-		const model: StringHashGeneratorFormModel = form.value
-		if (model.algorithm === 'md5hmac' && model.key && model.key.length) {
-			return null
+		if (this.algorithm === 'md5hmac') {
+			form.addControl('key', new FormControl('', [Validators.required]))
 		}
 
-		return { required: true }
+		return form
 	}
 
 	handleReset() {
 		this.hashedString = null
 		this.error = null
-		this.formService.reset(this.form, FormDefaults)
+		this.formService.reset(this.form)
 	}
 
 	handleSubmit() {
 		if (this.formService.validate(this.form)) {
 			const model: StringHashGeneratorFormModel = this.form.value
-			if (model.algorithm && model.inputText) {
+			if (model.inputText) {
 				try {
-					this.error = null
-
-					switch (model.algorithm) {
+					switch (this.algorithm) {
 						case 'md5':
 							this.hashedString = CryptoJS.MD5(model.inputText).toString()
 							break
@@ -78,6 +106,8 @@ export class StringHashGeneratorComponent extends PageComponent implements OnIni
 							this.hashedString = CryptoJS.SHA1(model.inputText).toString()
 							break
 					}
+
+					this.error = null
 				} catch (err: any) {
 					this.error = `Error while hashing string : "${err?.message ?? err}"`
 				}

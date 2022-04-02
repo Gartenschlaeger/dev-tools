@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
+import { NavigationItems } from '../../app.navigation-items'
 import { AppRoutes } from '../../app.routes'
 
 export interface INavigationItem {
 	title: string
 	routerLink: string
-	isVisible: boolean
+	isVisible?: boolean
 }
 
 @Component({
@@ -41,18 +42,18 @@ export class NavigationComponent implements OnInit {
 				if (route.stickedInNavbar !== true) {
 					this.items.push({
 						title: route.pageTitle,
-						routerLink: route.path,
-						isVisible: true
+						routerLink: route.path
 					})
 				} else {
 					this.stickedItems.push({
 						title: route.pageTitle,
-						routerLink: route.path,
-						isVisible: true
+						routerLink: route.path
 					})
 				}
 			}
 		})
+
+		NavigationItems.forEach((item) => this.items.push(item))
 
 		this.stickedItems.sort((a, b) => a.title.localeCompare(b.title))
 		this.items.sort((a, b) => a.title.localeCompare(b.title))

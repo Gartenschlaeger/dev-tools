@@ -7,8 +7,7 @@ import { StringHashGeneratorComponent } from './string-hash-generator.component'
 
 const routes: CustomRoute[] = [
 	{
-		pageTitle: 'Hash Generator',
-		path: '',
+		path: ':algorithm',
 		component: StringHashGeneratorComponent
 	}
 ]

@@ -3,19 +3,8 @@
 <form [formGroup]="form" (submit)="handleSubmit()">
 	<app-form-section>
 		<div class="space-y-3">
-			<div>
-				<app-form-label for="algorithm">Algorithm</app-form-label>
-				<select id="algorithm" class="form-input w-full" formControlName="algorithm">
-					<option value="md5">MD5</option>
-					<option value="md5hmac">MD5 HMAC</option>
-					<option value="sha1">SHA1</option>
-				</select>
-			</div>
-			<div *ngIf="form.get('algorithm')?.value === 'md5hmac'">
-				<app-form-label for="key"
-					>Key <app-form-field-errors [control]="form"></app-form-field-errors
-				></app-form-label>
-				<app-form-textfield formControlName="key"></app-form-textfield>
+			<div *ngIf="form.contains('key')">
+				<app-form-textfield label="Key" formControlName="key"></app-form-textfield>
 			</div>
 			<div>
 				<app-form-textfield label="Text" formControlName="inputText"></app-form-textfield>
