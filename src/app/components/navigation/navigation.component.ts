@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
-import { routes } from 'src/app/app-routing.module'
+import { AppRoutes } from '../../app.routes'
 
 export interface INavigationItem {
 	title: string
@@ -36,7 +36,7 @@ export class NavigationComponent implements OnInit {
 			}
 		})
 
-		routes.forEach((route) => {
+		AppRoutes.forEach((route) => {
 			if (route.path && route.pageTitle) {
 				if (route.stickedInNavbar !== true) {
 					this.items.push({

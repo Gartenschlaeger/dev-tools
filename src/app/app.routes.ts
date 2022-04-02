@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core'
-import { Route, RouterModule } from '@angular/router'
+import { CustomRoute } from './modules/shared/entities/custom-route'
 import { Base64Component } from './pages/base64/base64.component'
 import { ColorPickerComponent } from './pages/color-picker/color-picker.component'
 import { DaysBetweenComponent } from './pages/days-between/days-between.component'
@@ -13,12 +12,7 @@ import { StringRandomizerComponent } from './pages/string-randomizer/string-rand
 import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer-page.component'
 import { URLEncoderComponent } from './pages/url-encoder/url-encoder.component'
 
-export interface CustomRoute extends Route {
-	pageTitle?: string
-	stickedInNavbar?: boolean
-}
-
-export const routes: CustomRoute[] = [
+export const AppRoutes: CustomRoute[] = [
 	{
 		path: '',
 		pathMatch: 'full',
@@ -106,9 +100,3 @@ export const routes: CustomRoute[] = [
 		component: NotFoundComponent
 	}
 ]
-
-@NgModule({
-	imports: [RouterModule.forRoot(routes)],
-	exports: [RouterModule]
-})
-export class AppRoutingModule {}

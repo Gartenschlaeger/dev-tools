@@ -1,10 +1,12 @@
 import { ActivatedRoute } from '@angular/router'
-import { CustomRoute } from 'src/app/app-routing.module'
+import { CustomRoute } from '../modules/shared/entities/custom-route'
 
 export abstract class PageComponent {
 	public pageTitle?: string
 
 	constructor(route: ActivatedRoute) {
+		console.log('Loading Component', this, route.routeConfig)
+
 		const config = route.routeConfig as CustomRoute
 		if (config) {
 			this.pageTitle = config.pageTitle

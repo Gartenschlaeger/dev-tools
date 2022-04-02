@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
-import { RouterModule, Routes } from '@angular/router'
+import { RouterModule } from '@angular/router'
+import { CustomRoute } from '../../modules/shared/entities/custom-route'
 import { SharedModule } from '../../modules/shared/shared.module'
 import { JsonPathComponent } from './json-path.component'
 
-const routes: Routes = [
+const routes: CustomRoute[] = [
 	{
+		pageTitle: 'JSON Path',
 		path: '',
 		component: JsonPathComponent
 	}
