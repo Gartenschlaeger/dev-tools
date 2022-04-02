@@ -1,0 +1,24 @@
+<app-page-header title="{{ pageTitle }}"></app-page-header>
+
+<form [formGroup]="form" (submit)="handleSubmit()">
+	<app-form-section>
+		<div class="mb-3">
+			<app-form-textarea label="JSON" formControlName="json"></app-form-textarea>
+		</div>
+		<div class="mb-1">
+			<app-form-textfield label="Path" formControlName="path"></app-form-textfield>
+		</div>
+		<div><a href="https://goessner.net/articles/JsonPath/" target="_blank">Syntax</a></div>
+	</app-form-section>
+
+	<app-alert type="error" *ngIf="error" class="whitespace-pre">{{ error }}</app-alert>
+
+	<app-form-section *ngIf="result && !error">
+		<app-highlighted-code [language]="'json'" [code]="result"></app-highlighted-code>
+	</app-form-section>
+
+	<app-form-footer>
+		<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
+		<button type="submit" class="btn-primary">Evaluate</button>
+	</app-form-footer>
+</form>

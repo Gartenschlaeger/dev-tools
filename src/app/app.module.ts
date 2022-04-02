@@ -20,6 +20,7 @@ import { DockerRunPageComponent } from './pages/docker-run-page/docker-run-page.
 import { GuidGeneratorComponent } from './pages/guid-generator/guid-generator.component'
 import { HomePageComponent } from './pages/home-page/home-page.component'
 import { JsonFormatterComponent } from './pages/json-formatter/json-formatter.component'
+import { JsonPathComponent } from './pages/json-path/json-path.component'
 import { NotFoundComponent } from './pages/not-found/not-found.component'
 import { QrCodeGeneratorComponent } from './pages/qr-code-generator/qr-code-generator.component'
 import { StringGeneratorComponent } from './pages/string-generator/string-generator.component'
@@ -41,6 +42,7 @@ import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer
 		Base64Component,
 		NotFoundComponent,
 		JsonFormatterComponent,
+		JsonPathComponent,
 		StringRandomizerComponent,
 		StringGeneratorComponent,
 		ColorPickerComponent,
