@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { FormService } from 'src/app/modules/form/services/form-service.service'
-import { PageComponent } from 'src/app/pages/PageComponent'
 
 export class UrlEncoderFormModel {
 	sourceValue: string = ''
@@ -20,15 +19,17 @@ const FormDefaults = new UrlEncoderFormModel()
 	selector: 'app-url-encoder',
 	templateUrl: './url-encoder.component.html'
 })
-export class URLEncoderComponent extends PageComponent implements OnInit {
-	isEncodeMode!: boolean
+export class URLEncoderComponent implements OnInit {
 	form!: FormGroup
+	isEncodeMode!: boolean
+	pageTitle!: string
 	result?: UrlEncoderResultModel
 
-	constructor(private route: ActivatedRoute, private fb: FormBuilder, private formService: FormService) {
-		super(route)
+	constructor(route: ActivatedRoute, private fb: FormBuilder, private formService: FormService) {
+		const isEncodeMode = route.snapshot.url[0].path === 'url-encoder'
 
-		this.isEncodeMode = route.snapshot.url[0].path === 'url-encoder'
+		this.isEncodeMode = isEncodeMode
+		this.pageTitle = isEncodeMode ? 'URL Encoder' : 'URL Decoder'
 	}
 
 	ngOnInit() {

@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router'
 import * as CryptoJS from 'crypto-js'
 import { FormService } from '../../modules/form/services/form-service.service'
 import { LoggingService } from '../../modules/shared/services/logging.service'
-import { PageComponent } from '../PageComponent'
 
 interface StringHashGeneratorFormModel {
 	key: string
@@ -17,8 +16,9 @@ export type StringHashAlgorithm = 'md5' | 'md5hmac' | 'sha1'
 	selector: 'app-string-hash-generator',
 	templateUrl: './string-hash-generator.component.html'
 })
-export class StringHashGeneratorComponent extends PageComponent implements OnInit {
+export class StringHashGeneratorComponent implements OnInit {
 	form!: FormGroup
+	pageTitle!: string
 	algorithm: StringHashAlgorithm | null = null
 
 	hashedString: string | null = null
@@ -29,9 +29,7 @@ export class StringHashGeneratorComponent extends PageComponent implements OnIni
 		private fb: FormBuilder,
 		private formService: FormService,
 		private logger: LoggingService
-	) {
-		super(route)
-	}
+	) {}
 
 	ngOnInit() {
 		this.setAlgorithm(this.route.snapshot.paramMap.get('algorithm') as StringHashAlgorithm)

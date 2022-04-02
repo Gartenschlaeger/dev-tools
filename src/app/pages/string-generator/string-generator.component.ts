@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { FormService } from 'src/app/modules/form/services/form-service.service'
 import { LoggingService } from 'src/app/modules/shared/services/logging.service'
-import { PageComponent } from 'src/app/pages/PageComponent'
 import * as randomizer from '../../utilities/randomizer'
 
 export class StringGeneratorFormModel {
@@ -30,7 +29,7 @@ const FormDefaults = new StringGeneratorFormModel()
 	selector: 'app-string-generator',
 	templateUrl: './string-generator.component.html'
 })
-export class StringGeneratorComponent extends PageComponent implements OnInit {
+export class StringGeneratorComponent implements OnInit {
 	form!: FormGroup
 	result?: StringGeneratorResultModel
 
@@ -43,9 +42,7 @@ export class StringGeneratorComponent extends PageComponent implements OnInit {
 		private fb: FormBuilder,
 		private formService: FormService,
 		private logger: LoggingService
-	) {
-		super(route)
-	}
+	) {}
 
 	ngOnInit() {
 		this.form = this.defineForm()

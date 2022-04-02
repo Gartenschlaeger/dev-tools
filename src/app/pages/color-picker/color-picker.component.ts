@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
-import { ActivatedRoute } from '@angular/router'
-import { LoggingService } from 'src/app/modules/shared/services/logging.service'
-import { PageComponent } from 'src/app/pages/PageComponent'
 import { ColorHSL, ColorRGB, hslToRgb, rbgToHsl } from '../../utilities/colorconverter'
 
 export interface ColorPicketFormModel {
@@ -27,7 +24,7 @@ const InitColor: ColorRGB = { r: 135, g: 206, b: 235 }
 	selector: 'app-color-converter',
 	templateUrl: './color-picker.component.html'
 })
-export class ColorPickerComponent extends PageComponent implements OnInit {
+export class ColorPickerComponent implements OnInit {
 	form!: FormGroup
 	palette: (ColorRGB | null)[] = [InitColor]
 	selectedPaletteColorIndex: number = 0
@@ -35,9 +32,7 @@ export class ColorPickerComponent extends PageComponent implements OnInit {
 	rgbValue: string = ''
 	hslValue: string = ''
 
-	constructor(route: ActivatedRoute, private fb: FormBuilder, private logger: LoggingService) {
-		super(route)
-	}
+	constructor(private fb: FormBuilder) {}
 
 	ngOnInit() {
 		this.form = this.defineForm()

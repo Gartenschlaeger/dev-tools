@@ -5,7 +5,6 @@ import { FormTextfieldComponent } from 'src/app/modules/form/components/form-tex
 import { FormService } from 'src/app/modules/form/services/form-service.service'
 import { requiredIfValidator } from 'src/app/modules/form/validators/required-if.validator'
 import { LoggingService } from 'src/app/modules/shared/services/logging.service'
-import { PageComponent } from 'src/app/pages/PageComponent'
 import { StringBuilder } from 'src/app/utilities/string-builder'
 
 export class DockerRunModel {
@@ -47,7 +46,7 @@ export const FormDefaultValues = new DockerRunModel()
 	selector: 'app-docker-run-page',
 	templateUrl: './docker-run-page.component.html'
 })
-export class DockerRunPageComponent extends PageComponent implements OnInit {
+export class DockerRunPageComponent implements OnInit {
 	@ViewChild('inputContainerPort') inputContainerPort!: FormTextfieldComponent
 	@ViewChild('inputEnvironmentKey') inputEnvironmentKey!: FormTextfieldComponent
 	@ViewChild('inputVolumeHostPath') inputVolumeHostPath!: FormTextfieldComponent
@@ -68,9 +67,7 @@ export class DockerRunPageComponent extends PageComponent implements OnInit {
 		private logger: LoggingService,
 		private fb: FormBuilder,
 		public formService: FormService
-	) {
-		super(route)
-	}
+	) {}
 
 	ngOnInit(): void {
 		this.form = this.defineFormGroupScript()

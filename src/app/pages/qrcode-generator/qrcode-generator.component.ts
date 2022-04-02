@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { ActivatedRoute } from '@angular/router'
 import { FormService } from '../../modules/form/services/form-service.service'
-import { PageComponent } from '../PageComponent'
 
 export class QrCodeGeneratorFormModel {
 	text: string = ''
@@ -15,13 +13,11 @@ const FormDefaults = new QrCodeGeneratorFormModel()
 	selector: 'app-qr-code-generator',
 	templateUrl: './qrcode-generator.component.html'
 })
-export class QrCodeGeneratorComponent extends PageComponent implements OnInit {
+export class QrCodeGeneratorComponent implements OnInit {
 	form!: FormGroup
 	result?: QrCodeGeneratorFormModel
 
-	constructor(route: ActivatedRoute, private fb: FormBuilder, private formService: FormService) {
-		super(route)
-	}
+	constructor(private fb: FormBuilder, private formService: FormService) {}
 
 	ngOnInit() {
 		this.form = this.defineForm()

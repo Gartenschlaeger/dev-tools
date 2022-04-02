@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
-import { routes } from '../../app.routes'
 import { items } from './app.navigation-items'
 
 export interface INavigationItem {
 	title: string
 	routerLink: string
 	isVisible?: boolean
+	isSticked?: boolean
 }
 
 @Component({
@@ -14,42 +14,27 @@ export interface INavigationItem {
 	templateUrl: './navigation.component.html'
 })
 export class NavigationComponent implements OnInit {
-	stickedItems: INavigationItem[] = []
-	items: INavigationItem[] = []
-
 	searchForm!: FormGroup
+	items: INavigationItem[] = []
+	stickedItems: INavigationItem[] = []
 
 	constructor(private fb: FormBuilder) {}
 
 	ngOnInit() {
 		this.defineSearchForm()
 
-		this.addRoutesAsNavigationItems()
+		items.forEach((item) => {
+			item.isVisible = true
 
-		items.forEach((item) => this.items.push(item))
-
-		this.stickedItems.sort((a, b) => a.title.localeCompare(b.title))
-		this.items.sort((a, b) => a.title.localeCompare(b.title))
-
-		this.items.map((item) => (item.isVisible = true))
-	}
-
-	addRoutesAsNavigationItems() {
-		routes.forEach((route) => {
-			if (route.path && route.pageTitle) {
-				if (route.stickedInNavbar !== true) {
-					this.items.push({
-						title: route.pageTitle,
-						routerLink: route.path
-					})
-				} else {
-					this.stickedItems.push({
-						title: route.pageTitle,
-						routerLink: route.path
-					})
-				}
+			if (item.isSticked) {
+				this.stickedItems.push(item)
+			} else {
+				this.items.push(item)
 			}
 		})
+
+		this.items.sort((a, b) => a.title.localeCompare(b.title))
+		this.stickedItems.sort((a, b) => a.title.localeCompare(b.title))
 	}
 
 	defineSearchForm() {

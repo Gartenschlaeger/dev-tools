@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { ActivatedRoute } from '@angular/router'
 import * as jsonpath from 'jsonpath'
 import { FormService } from '../../modules/form/services/form-service.service'
-import { PageComponent } from '../PageComponent'
 
 class JsonPathFormModule {
 	json: string = ''
@@ -21,13 +19,11 @@ const FormDefaults = new JsonPathFormModule()
 	selector: 'app-json-path',
 	templateUrl: './json-path.component.html'
 })
-export class JsonPathComponent extends PageComponent implements OnInit {
+export class JsonPathComponent implements OnInit {
 	form!: FormGroup
 	result: JsonPathResult | null = null
 
-	constructor(route: ActivatedRoute, private fb: FormBuilder, private formService: FormService) {
-		super(route)
-	}
+	constructor(private fb: FormBuilder, private formService: FormService) {}
 
 	ngOnInit() {
 		this.form = this.defineForm()

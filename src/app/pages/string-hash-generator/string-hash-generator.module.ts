@@ -1,11 +1,10 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
-import { RouterModule } from '@angular/router'
-import { CustomRoute } from '../../modules/shared/entities/custom-route'
+import { Route, RouterModule } from '@angular/router'
 import { SharedModule } from '../../modules/shared/shared.module'
 import { StringHashGeneratorComponent } from './string-hash-generator.component'
 
-const routes: CustomRoute[] = [
+const routes: Route[] = [
 	{
 		path: ':algorithm',
 		component: StringHashGeneratorComponent
