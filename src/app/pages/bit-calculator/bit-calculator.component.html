@@ -1,0 +1,169 @@
+<app-page-header title="Bit Calculator"></app-page-header>
+
+<form [formGroup]="form">
+	<app-form-section>
+		<div class="space-y-8">
+			<div class="flex gap-8">
+				<div formArrayName="byte1">
+					<app-form-label>Byte 1</app-form-label>
+					<div class="flex gap-2">
+						<div class="w-10">
+							<app-form-checkbox prefix="byte1_" formControlName="0">1</app-form-checkbox>
+						</div>
+						<div class="w-10">
+							<app-form-checkbox prefix="byte1_" formControlName="1">2</app-form-checkbox>
+						</div>
+						<div class="w-10">
+							<app-form-checkbox prefix="byte1_" formControlName="2">3</app-form-checkbox>
+						</div>
+						<div class="w-10">
+							<app-form-checkbox prefix="byte1_" formControlName="3">4</app-form-checkbox>
+						</div>
+					</div>
+					<div class="flex gap-2">
+						<div class="w-10">
+							<app-form-checkbox prefix="byte1_" formControlName="4">5</app-form-checkbox>
+						</div>
+						<div class="w-10">
+							<app-form-checkbox prefix="byte1_" formControlName="5">6</app-form-checkbox>
+						</div>
+						<div class="w-10">
+							<app-form-checkbox prefix="byte1_" formControlName="6">7</app-form-checkbox>
+						</div>
+						<div class="w-10">
+							<app-form-checkbox prefix="byte1_" formControlName="7">8</app-form-checkbox>
+						</div>
+					</div>
+					<div class="flex gap-2">
+						<button class="btn-link" (click)="handleSetBits(0, true)">all</button>
+						<button class="btn-link" (click)="handleSetBits(0, false)">none</button>
+					</div>
+				</div>
+				<div formArrayName="byte2">
+					<app-form-label>Byte 2</app-form-label>
+					<div class="flex gap-2">
+						<div class="w-10">
+							<app-form-checkbox prefix="byte2_" formControlName="0">1</app-form-checkbox>
+						</div>
+						<div class="w-10">
+							<app-form-checkbox prefix="byte2_" formControlName="1">2</app-form-checkbox>
+						</div>
+						<div class="w-10">
+							<app-form-checkbox prefix="byte2_" formControlName="2">3</app-form-checkbox>
+						</div>
+						<div class="w-10">
+							<app-form-checkbox prefix="byte2_" formControlName="3">4</app-form-checkbox>
+						</div>
+					</div>
+					<div class="flex gap-2">
+						<div class="w-10">
+							<app-form-checkbox prefix="byte2_" formControlName="4">5</app-form-checkbox>
+						</div>
+						<div class="w-10">
+							<app-form-checkbox prefix="byte2_" formControlName="5">6</app-form-checkbox>
+						</div>
+						<div class="w-10">
+							<app-form-checkbox prefix="byte2_" formControlName="6">7</app-form-checkbox>
+						</div>
+						<div class="w-10">
+							<app-form-checkbox prefix="byte2_" formControlName="7">8</app-form-checkbox>
+						</div>
+					</div>
+					<div class="flex gap-2">
+						<button class="btn-link" (click)="handleSetBits(1, true)">all</button>
+						<button class="btn-link" (click)="handleSetBits(1, false)">none</button>
+					</div>
+				</div>
+			</div>
+			<div class="flex gap-8">
+				<div formArrayName="byte3">
+					<app-form-label>Byte 1</app-form-label>
+					<div class="flex gap-2">
+						<div class="w-10">
+							<app-form-checkbox prefix="byte3_" formControlName="0">1</app-form-checkbox>
+						</div>
+						<div class="w-10">
+							<app-form-checkbox prefix="byte3_" formControlName="1">2</app-form-checkbox>
+						</div>
+						<div class="w-10">
+							<app-form-checkbox prefix="byte3_" formControlName="2">3</app-form-checkbox>
+						</div>
+						<div class="w-10">
+							<app-form-checkbox prefix="byte3_" formControlName="3">4</app-form-checkbox>
+						</div>
+					</div>
+					<div class="flex gap-2">
+						<div class="w-10">
+							<app-form-checkbox prefix="byte3_" formControlName="4">5</app-form-checkbox>
+						</div>
+						<div class="w-10">
+							<app-form-checkbox prefix="byte3_" formControlName="5">6</app-form-checkbox>
+						</div>
+						<div class="w-10">
+							<app-form-checkbox prefix="byte3_" formControlName="6">7</app-form-checkbox>
+						</div>
+						<div class="w-10">
+							<app-form-checkbox prefix="byte3_" formControlName="7">8</app-form-checkbox>
+						</div>
+					</div>
+					<div class="flex gap-2">
+						<button class="btn-link" (click)="handleSetBits(2, true)">all</button>
+						<button class="btn-link" (click)="handleSetBits(2, false)">none</button>
+					</div>
+				</div>
+				<div formArrayName="byte4">
+					<app-form-label>Byte 2</app-form-label>
+					<div class="flex gap-2">
+						<div class="w-10">
+							<app-form-checkbox prefix="byte4_" formControlName="0">1</app-form-checkbox>
+						</div>
+						<div class="w-10">
+							<app-form-checkbox prefix="byte4_" formControlName="1">2</app-form-checkbox>
+						</div>
+						<div class="w-10">
+							<app-form-checkbox prefix="byte4_" formControlName="2">3</app-form-checkbox>
+						</div>
+						<div class="w-10">
+							<app-form-checkbox prefix="byte4_" formControlName="3">4</app-form-checkbox>
+						</div>
+					</div>
+					<div class="flex gap-2">
+						<div class="w-10">
+							<app-form-checkbox prefix="byte4_" formControlName="4">5</app-form-checkbox>
+						</div>
+						<div class="w-10">
+							<app-form-checkbox prefix="byte4_" formControlName="5">6</app-form-checkbox>
+						</div>
+						<div class="w-10">
+							<app-form-checkbox prefix="byte4_" formControlName="6">7</app-form-checkbox>
+						</div>
+						<div class="w-10">
+							<app-form-checkbox prefix="byte4_" formControlName="7">8</app-form-checkbox>
+						</div>
+					</div>
+					<div class="flex gap-2">
+						<button class="btn-link" (click)="handleSetBits(3, true)">all</button>
+						<button class="btn-link" (click)="handleSetBits(3, false)">none</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</app-form-section>
+
+	<app-form-section *ngIf="results">
+		<div class="space-y-3">
+			<div>
+				<app-form-label>Binary</app-form-label>
+				<app-code>{{ results.binaryRepresentation }}</app-code>
+			</div>
+			<div>
+				<app-form-label>Decimal</app-form-label>
+				<app-code>{{ results.decimalRepresentation }}</app-code>
+			</div>
+		</div>
+	</app-form-section>
+
+	<app-form-footer>
+		<button class="btn-secondary" (click)="handleReset()">Reset</button>
+	</app-form-footer>
+</form>

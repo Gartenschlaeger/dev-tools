@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
-import { items } from './app.navigation-items'
+import { items } from '../../app.navigation-items'
 
 export interface INavigationItem {
 	title: string

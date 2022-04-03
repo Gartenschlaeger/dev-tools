@@ -8,6 +8,7 @@ import { LoggingService } from 'src/app/modules/shared/services/logging.service'
 })
 export class FormCheckboxComponent implements ControlValueAccessor {
 	@Input() isDisabled: boolean = false
+	@Input() prefix?: string
 
 	@ViewChild('input') input!: ElementRef<HTMLInputElement>
 

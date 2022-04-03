@@ -2,10 +2,10 @@
 	<input
 		#input
 		type="checkbox"
-		[attr.id]="control.name"
+		[attr.id]="(prefix || '') + control.name"
 		[disabled]="isDisabled"
 		[(ngModel)]="isChecked"
 		(change)="handleChange($event)"
 	/>
-	<app-form-label [for]="control.name"><ng-content></ng-content></app-form-label>
+	<app-form-label [for]="(prefix || '') + control.name"><ng-content></ng-content></app-form-label>
 </div>

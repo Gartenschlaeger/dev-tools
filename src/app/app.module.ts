@@ -10,6 +10,7 @@ import { environment } from '../environments/environment'
 import { AppComponent } from './app.component'
 import { routes } from './app.routes'
 import { Base64Component } from './pages/base64/base64.component'
+import { BitCalculatorComponent } from './pages/bit-calculator/bit-calculator.component'
 import { ColorPickerComponent } from './pages/color-picker/color-picker.component'
 import { DaysBetweenComponent } from './pages/days-between/days-between.component'
 import { DockerRunPageComponent } from './pages/docker-run-page/docker-run-page.component'
@@ -37,7 +38,8 @@ import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer
 		JsonFormatterComponent,
 		StringRandomizerComponent,
 		StringGeneratorComponent,
-		ColorPickerComponent
+		ColorPickerComponent,
+		BitCalculatorComponent
 	],
 	imports: [
 		BrowserModule,

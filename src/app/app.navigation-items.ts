@@ -1,4 +1,4 @@
-import { INavigationItem } from './navigation.component'
+import { INavigationItem } from './components/navigation/navigation.component'
 
 export const items: INavigationItem[] = [
 	{ title: 'Home', routerLink: 'home', isSticked: true },
@@ -18,5 +18,6 @@ export const items: INavigationItem[] = [
 	{ title: 'String Randomizer', routerLink: 'string-randomizer' },
 	{ title: 'URL Analyzer', routerLink: 'url-analyzer' },
 	{ title: 'URL Decoder', routerLink: 'url-decoder' },
-	{ title: 'URL Encoder', routerLink: 'url-encoder' }
+	{ title: 'URL Encoder', routerLink: 'url-encoder' },
+	{ title: 'Bit Calculator', routerLink: 'bit-calculator' }
 ]

@@ -1,5 +1,6 @@
 import { Route } from '@angular/router'
 import { Base64Component } from './pages/base64/base64.component'
+import { BitCalculatorComponent } from './pages/bit-calculator/bit-calculator.component'
 import { ColorPickerComponent } from './pages/color-picker/color-picker.component'
 import { DaysBetweenComponent } from './pages/days-between/days-between.component'
 import { DockerRunPageComponent } from './pages/docker-run-page/docker-run-page.component'
@@ -85,6 +86,10 @@ export const routes: Route[] = [
 		path: 'qrcode-generator',
 		loadChildren: () =>
 			import('./pages/qrcode-generator/qrcode-generator.module').then((m) => m.QRCodeGeneratorModule)
+	},
+	{
+		path: 'bit-calculator',
+		component: BitCalculatorComponent
 	},
 	{
 		path: '**',
