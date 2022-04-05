@@ -91,7 +91,7 @@ export class BitCalculatorComponent implements OnInit {
 		}
 
 		this.results = {
-			binaryRepresentation: binary,
+			binaryRepresentation: binary.trim(),
 			decimalRepresentation: decimal.toLocaleString()
 		}
 	}
