@@ -111,11 +111,43 @@
 	} */
 
 	.form-checkbox svg {
-		@apply text-blue-600 dark:text-blue-500 pointer-events-none;
+		@apply pointer-events-none 
+		text-blue-600 
+		dark:text-blue-500;
 	}
 
 	.form-checkbox input:checked + div svg {
 		@apply block;
+	}
+
+	/* input range */
+	.form-range {
+		@apply appearance-none bg-transparent;
+	}
+
+	.form-range::-moz-range-track {
+		@apply rounded h-2 border-none
+		bg-gray-300 
+		dark:bg-gray-500;
+	}
+
+	.form-range::-webkit-slider-runnable-track {
+		@apply rounded h-2 border-none
+		bg-gray-300 
+		dark:bg-gray-500;
+	}
+
+	.form-range::-moz-range-thumb {
+		@apply appearance-none w-3 h-5 border-none rounded-md
+		bg-blue-500
+		dark:bg-blue-300;
+	}
+
+	.form-range::-webkit-slider-thumb {
+		@apply appearance-none w-3 h-5 border-none rounded-md
+		bg-blue-500
+		dark:bg-blue-300;
+		margin-top: -0.35em;
 	}
 
 	/* code blocks */
