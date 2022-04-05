@@ -106,9 +106,9 @@
 		dark:bg-gray-900 dark:border-gray-500;
 	}
 
-	/* .form-checkbox input:checked + div {
-		@apply border-gray-600 dark:border-blue-500;
-	} */
+	.form-checkbox input:checked + div {
+		@apply border-blue-500;
+	}
 
 	.form-checkbox svg {
 		@apply pointer-events-none 
