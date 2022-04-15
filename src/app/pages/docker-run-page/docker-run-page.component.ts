@@ -6,6 +6,7 @@ import { FormService } from 'src/app/modules/form/services/form-service.service'
 import { requiredIfValidator } from 'src/app/modules/form/validators/required-if.validator'
 import { LoggingService } from 'src/app/modules/shared/services/logging.service'
 import { StringBuilder } from 'src/app/utilities/string-builder'
+import { PageService } from '../../utilities/page-service'
 
 export class DockerRunModel {
 	imageName: string = ''
@@ -66,7 +67,8 @@ export class DockerRunPageComponent implements OnInit {
 		private router: Router,
 		private logger: LoggingService,
 		private fb: FormBuilder,
-		public formService: FormService
+		public formService: FormService,
+		private pageService: PageService
 	) {}
 
 	ngOnInit(): void {
@@ -93,6 +95,8 @@ export class DockerRunPageComponent implements OnInit {
 				this.handleShareQuery(params.s)
 			}
 		})
+
+		this.pageService.setPageTitle('Docker run')
 	}
 
 	handleShareQuery(query: string) {

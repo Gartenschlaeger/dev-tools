@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms'
 import { FormService } from '../../modules/form/services/form-service.service'
+import { PageService } from '../../utilities/page-service'
 
 interface BitCalculatorFormModel {
 	byte1: boolean[]
@@ -22,11 +23,12 @@ export class BitCalculatorComponent implements OnInit {
 	form!: FormGroup
 	results: BitCalculatorResults | null = null
 
-	constructor(private fb: FormBuilder, private formService: FormService) {}
+	constructor(private fb: FormBuilder, private formService: FormService, private pageService: PageService) {}
 
 	ngOnInit() {
 		this.defineForm()
 		this.calculateValues()
+		this.pageService.setPageTitle('Bit Calculator')
 	}
 
 	defineForm() {

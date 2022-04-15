@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { ActivatedRoute } from '@angular/router'
 import { FormService } from 'src/app/modules/form/services/form-service.service'
+import { PageService } from '../../utilities/page-service'
 
 export class UrlAnalyzerModel {
 	url: string = ''
@@ -28,10 +28,12 @@ export class UrlAnalyzerPageComponent implements OnInit {
 	hasError = false
 	showQueryDetails = false
 
-	constructor(public formService: FormService, private route: ActivatedRoute) {}
+	constructor(public formService: FormService, private pageService: PageService) {}
 
 	ngOnInit(): void {
 		this.form = this.defineFormGroup()
+
+		this.pageService.setPageTitle('URL Analyzer')
 	}
 
 	defineFormGroup(): FormGroup {

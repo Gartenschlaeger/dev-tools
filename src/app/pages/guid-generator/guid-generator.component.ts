@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { v4 as uuidv4 } from 'uuid'
+import { PageService } from '../../utilities/page-service'
 
 export class GuidGeneratorModel {
 	addDashes: boolean = true
@@ -18,7 +19,7 @@ export class GuidGeneratorComponent implements OnInit {
 	form!: FormGroup
 	guid?: string
 
-	constructor(private fb: FormBuilder, private route: ActivatedRoute) {}
+	constructor(private fb: FormBuilder, private route: ActivatedRoute, private pageService: PageService) {}
 
 	ngOnInit() {
 		this.form = this.fb.group({
@@ -31,6 +32,8 @@ export class GuidGeneratorComponent implements OnInit {
 		})
 
 		this.generateGuid()
+
+		this.pageService.setPageTitle('Guid Generator')
 	}
 
 	generateGuid() {

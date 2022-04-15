@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
 import { ColorHSL, ColorRGB, hslToRgb, rbgToHsl } from '../../utilities/colorconverter'
+import { PageService } from '../../utilities/page-service'
 
 export interface ColorPicketFormModel {
 	valueRN: number
@@ -32,7 +33,7 @@ export class ColorPickerComponent implements OnInit {
 	rgbValue: string = ''
 	hslValue: string = ''
 
-	constructor(private fb: FormBuilder) {}
+	constructor(private pageService: PageService, private fb: FormBuilder) {}
 
 	ngOnInit() {
 		this.form = this.defineForm()
@@ -61,6 +62,8 @@ export class ColorPickerComponent implements OnInit {
 		this.form.get('valueLR')?.valueChanges.subscribe(() => this.syncHslToRgb())
 
 		this.updateValues()
+
+		this.pageService.setPageTitle('Color picker')
 	}
 
 	keepControlsInSync(controlA: string, controlB: string) {

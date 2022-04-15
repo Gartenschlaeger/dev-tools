@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { FormService } from 'src/app/modules/form/services/form-service.service'
 import { DateService } from 'src/app/modules/shared/services/date.service'
+import { PageService } from '../../utilities/page-service'
 
 export class DaysBetweenModel {
 	fromYear?: number
@@ -33,11 +34,13 @@ export class DaysBetweenComponent implements OnInit {
 		private route: ActivatedRoute,
 		private fb: FormBuilder,
 		private formService: FormService,
-		private dateService: DateService
+		private dateService: DateService,
+		private pageService: PageService
 	) {}
 
 	ngOnInit(): void {
 		this.form = this.defineForm()
+		this.pageService.setPageTitle('Days between')
 	}
 
 	defineForm(): FormGroup {

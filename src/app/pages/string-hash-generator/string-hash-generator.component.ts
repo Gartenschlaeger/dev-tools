@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router'
 import * as CryptoJS from 'crypto-js'
 import { FormService } from '../../modules/form/services/form-service.service'
 import { LoggingService } from '../../modules/shared/services/logging.service'
+import { PageService } from '../../utilities/page-service'
 
 interface StringHashGeneratorFormModel {
 	key: string
@@ -28,7 +29,8 @@ export class StringHashGeneratorComponent implements OnInit {
 		private route: ActivatedRoute,
 		private fb: FormBuilder,
 		private formService: FormService,
-		private logger: LoggingService
+		private logger: LoggingService,
+		private pageService: PageService
 	) {}
 
 	ngOnInit() {
@@ -36,7 +38,11 @@ export class StringHashGeneratorComponent implements OnInit {
 		this.route.paramMap.subscribe((paramMap) => {
 			this.setAlgorithm(paramMap.get('algorithm') as StringHashAlgorithm)
 			this.handleReset()
+
+			this.pageService.setPageTitle(this.pageTitle)
 		})
+
+		this.pageService.setPageTitle(this.pageTitle)
 	}
 
 	setAlgorithm(algorithm: StringHashAlgorithm | null) {
