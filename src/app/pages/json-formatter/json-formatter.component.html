@@ -3,6 +3,9 @@
 <form [formGroup]="form" (submit)="handleSubmit()">
 	<app-form-section>
 		<app-form-textarea label="JSON text" formControlName="source"></app-form-textarea>
+		<div class="space-y-1">
+			<app-form-checkbox formControlName="minify">Minify</app-form-checkbox>
+		</div>
 	</app-form-section>
 
 	<app-form-section *ngIf="result && !result.hasErrors">
