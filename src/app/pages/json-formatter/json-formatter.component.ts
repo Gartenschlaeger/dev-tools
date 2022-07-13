@@ -6,6 +6,7 @@ import { PageService } from '../../utilities/page-service'
 export class JsonFormatterFormModel {
 	source: string = ''
 	minify: boolean = false
+	stringify: boolean = false
 }
 
 export class JsonFormatterResultModel {
@@ -34,7 +35,8 @@ export class JsonFormatterComponent implements OnInit {
 	defineForm(): FormGroup {
 		return this.fb.group({
 			source: [FormDefaults.source, [Validators.required]],
-			minify: [FormDefaults.minify]
+			minify: [FormDefaults.minify],
+			stringify: [FormDefaults.stringify]
 		})
 	}
 
@@ -55,6 +57,10 @@ export class JsonFormatterComponent implements OnInit {
 					res = JSON.stringify(obj)
 				} else {
 					res = JSON.stringify(obj, null, '  ')
+				}
+
+				if (model.stringify) {
+					res = JSON.stringify(res)
 				}
 
 				this.result = {
