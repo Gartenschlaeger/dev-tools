@@ -4,6 +4,7 @@
 	<app-form-section>
 		<app-form-textarea label="JSON text" formControlName="source"></app-form-textarea>
 	</app-form-section>
+
 	<app-form-section>
 		<div class="flex">
 			<div class="flex-1">
@@ -24,6 +25,7 @@
 	</app-form-section>
 
 	<app-alert *ngIf="result && result.hasErrors" type="error">Failed to format json</app-alert>
+
 	<app-form-section *ngIf="result && !result.hasErrors">
 		<app-form-label>Formatted JSON</app-form-label>
 		<app-highlighted-code

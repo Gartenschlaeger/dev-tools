@@ -1,0 +1,38 @@
+<app-page-header title="JSON Parser"></app-page-header>
+
+<form [formGroup]="form" (submit)="handleSubmit()">
+	<app-form-section>
+		<app-form-textarea label="JSON text" formControlName="source"></app-form-textarea>
+	</app-form-section>
+
+	<app-form-section>
+		<div class="flex justify-end gap-1">
+			<div class="mr-3">
+				<button
+					type="button"
+					class="btn-secondary"
+					(click)="handlePassToJsonFormatter()"
+					[disabled]="result.formattedValue === undefined"
+				>
+					Format
+				</button>
+			</div>
+
+			<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
+			<button type="submit" class="btn-primary">Parse</button>
+		</div>
+	</app-form-section>
+
+	<app-form-section *ngIf="result.errorMessage !== undefined">
+		<app-alert type="error"> {{ result.errorMessage }}</app-alert>
+	</app-form-section>
+
+	<app-form-section *ngIf="result.formattedValue !== undefined">
+		<app-form-label>Parsed JSON</app-form-label>
+		<app-highlighted-code
+			[autoselect]="false"
+			[language]="'json'"
+			[code]="result.formattedValue"
+		></app-highlighted-code>
+	</app-form-section>
+</form>
