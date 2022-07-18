@@ -27,14 +27,21 @@ export class JsonFormatterComponent implements OnInit {
 	constructor(private fb: FormBuilder, private formService: FormService, private pageService: PageService) {}
 
 	ngOnInit() {
+		this.pageService.setPageTitle('JSON Formatter')
+
 		this.form = this.defineForm()
 
-		this.pageService.setPageTitle('JSON Formatter')
+		// if source was passed by another page immediately start formatting
+		const model: JsonFormatterFormModel = this.form.value
+		if (model.source) {
+			this.handleSubmit()
+		}
 	}
 
 	defineForm(): FormGroup {
+		const source = (history.state.source as string) || FormDefaults.source
 		return this.fb.group({
-			source: [FormDefaults.source, [Validators.required]],
+			source: [source, [Validators.required]],
 			minify: [FormDefaults.minify],
 			stringify: [FormDefaults.stringify]
 		})

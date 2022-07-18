@@ -7,6 +7,7 @@ import { DockerRunPageComponent } from './pages/docker-run-page/docker-run-page.
 import { GuidGeneratorComponent } from './pages/guid-generator/guid-generator.component'
 import { HomePageComponent } from './pages/home-page/home-page.component'
 import { JsonFormatterComponent } from './pages/json-formatter/json-formatter.component'
+import { JsonParserComponent } from './pages/json-parser/json-parser.component'
 import { NotFoundComponent } from './pages/not-found/not-found.component'
 import { StringGeneratorComponent } from './pages/string-generator/string-generator.component'
 import { StringRandomizerComponent } from './pages/string-randomizer/string-randomizer.component'
@@ -58,6 +59,10 @@ export const routes: Route[] = [
 	{
 		path: 'json-formatter',
 		component: JsonFormatterComponent
+	},
+	{
+		path: 'json-parser',
+		component: JsonParserComponent
 	},
 	{
 		path: 'json-path',

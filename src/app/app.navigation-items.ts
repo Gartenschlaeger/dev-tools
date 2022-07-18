@@ -9,6 +9,7 @@ export const items: INavigationItem[] = [
 	{ title: 'Docker run', routerLink: 'docker-run' },
 	{ title: 'Guid Generator', routerLink: 'guid-generator' },
 	{ title: 'JSON Formatter', routerLink: 'json-formatter' },
+	{ title: 'JSON Parser', routerLink: 'json-parser' },
 	{ title: 'JSON Path', routerLink: 'json-path' },
 	{ title: 'QR Code Generator', routerLink: 'qrcode-generator' },
 	{ title: 'Random String Generator', routerLink: 'string-generator' },
