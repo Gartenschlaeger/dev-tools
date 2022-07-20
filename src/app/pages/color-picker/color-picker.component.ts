@@ -3,6 +3,10 @@ import { FormBuilder, FormGroup } from '@angular/forms'
 import { ColorHSL, ColorRGB, hslToRgb, rbgToHsl } from '../../utilities/colorconverter'
 import { PageService } from '../../utilities/page-service'
 
+const KEY_LOCAL_STORAGE_FORM = 'color-picker.form.value'
+const KEY_LOCAL_STORAGE_PALETTE_VALUES = 'color-picker.palette.values'
+const KEY_LOCAL_STORAGE_PALETTE_SELECT = 'color-picker.palette.select'
+
 export interface ColorPicketFormModel {
 	valueRN: number
 	valueGN: number
@@ -31,6 +35,7 @@ export class ColorPickerComponent implements OnInit {
 	selectedPaletteColorIndex: number = 0
 	hexValue: string = ''
 	rgbValue: string = ''
+	rgbValueDecimal: string = ''
 	hslValue: string = ''
 
 	constructor(private pageService: PageService, private fb: FormBuilder) {}
@@ -61,6 +66,7 @@ export class ColorPickerComponent implements OnInit {
 		this.form.get('valueLN')?.valueChanges.subscribe(() => this.syncHslToRgb())
 		this.form.get('valueLR')?.valueChanges.subscribe(() => this.syncHslToRgb())
 
+		this.loadPalette()
 		this.updateValues()
 
 		this.pageService.setPageTitle('Color picker')
@@ -77,21 +83,42 @@ export class ColorPickerComponent implements OnInit {
 
 	defineForm(): FormGroup {
 		const hsl = rbgToHsl(InitColor)
+		let model: ColorPicketFormModel = {
+			valueRN: InitColor.r,
+			valueRR: InitColor.r,
+			valueGN: InitColor.g,
+			valueGR: InitColor.g,
+			valueBN: InitColor.b,
+			valueBR: InitColor.b,
+
+			valueHN: hsl.h,
+			valueHR: hsl.h,
+			valueSN: hsl.s,
+			valueSR: hsl.s,
+			valueLN: hsl.l,
+			valueLR: hsl.l
+		}
+
+		const fromLocalStorageValue = localStorage.getItem(KEY_LOCAL_STORAGE_FORM)
+		if (fromLocalStorageValue) {
+			const fromLocalStorageModel: ColorPicketFormModel = JSON.parse(fromLocalStorageValue)
+			model = fromLocalStorageModel
+		}
 
 		return this.fb.group({
-			valueRN: [InitColor.r],
-			valueRR: [InitColor.r],
-			valueGN: [InitColor.g],
-			valueGR: [InitColor.g],
-			valueBN: [InitColor.b],
-			valueBR: [InitColor.b],
+			valueRN: [model.valueRN],
+			valueRR: [model.valueRR],
+			valueGN: [model.valueGN],
+			valueGR: [model.valueGR],
+			valueBN: [model.valueBN],
+			valueBR: [model.valueBR],
 
-			valueHN: [hsl.h],
-			valueHR: [hsl.h],
-			valueSN: [hsl.s],
-			valueSR: [hsl.s],
-			valueLN: [hsl.l],
-			valueLR: [hsl.l]
+			valueHN: [model.valueHN],
+			valueHR: [model.valueHR],
+			valueSN: [model.valueSN],
+			valueSR: [model.valueSR],
+			valueLN: [model.valueLN],
+			valueLR: [model.valueLR]
 		})
 	}
 
@@ -127,6 +154,32 @@ export class ColorPickerComponent implements OnInit {
 		this.updateHslValue()
 
 		this.palette[this.selectedPaletteColorIndex] = this.toRGB(this.form.value)
+
+		this.saveFormValue()
+		this.savePalette()
+	}
+
+	saveFormValue() {
+		localStorage.setItem(KEY_LOCAL_STORAGE_FORM, JSON.stringify(this.form.value))
+	}
+
+	savePalette() {
+		localStorage.setItem(KEY_LOCAL_STORAGE_PALETTE_VALUES, JSON.stringify(this.palette))
+		localStorage.setItem(KEY_LOCAL_STORAGE_PALETTE_SELECT, JSON.stringify(this.selectedPaletteColorIndex))
+	}
+
+	loadPalette() {
+		const value = localStorage.getItem(KEY_LOCAL_STORAGE_PALETTE_VALUES)
+		if (value) {
+			const model = JSON.parse(value)
+			this.palette = model
+		}
+
+		const selection = localStorage.getItem(KEY_LOCAL_STORAGE_PALETTE_SELECT)
+		if (selection) {
+			const model = JSON.parse(selection)
+			this.selectedPaletteColorIndex = model
+		}
 	}
 
 	updateHexValue() {
@@ -135,7 +188,7 @@ export class ColorPickerComponent implements OnInit {
 		const hexG = model.valueGN.toString(16).padStart(2, '0')
 		const hexB = model.valueBN.toString(16).padStart(2, '0')
 
-		this.hexValue = `#${hexR}${hexG}${hexB}`
+		this.hexValue = `${hexR}${hexG}${hexB}`
 	}
 
 	toRGB(model: ColorPicketFormModel): ColorRGB {
@@ -159,6 +212,7 @@ export class ColorPickerComponent implements OnInit {
 		const rgb = this.toRGB(model)
 
 		this.rgbValue = `rgb(${rgb.r},${rgb.g},${rgb.b})`
+		this.rgbValueDecimal = `${(rgb.r / 255).toFixed(2)} ${(rgb.g / 255).toFixed(2)} ${(rgb.b / 255).toFixed(2)}`
 	}
 
 	updateHslValue() {
@@ -186,5 +240,42 @@ export class ColorPickerComponent implements OnInit {
 	handleAddPalleteColor() {
 		this.palette.push(this.toRGB(this.form.value))
 		this.selectedPaletteColorIndex = this.palette.length - 1
+
+		this.savePalette()
+	}
+
+	handleRemoveColor() {
+		if (this.palette.length > 1) {
+			this.palette.splice(this.selectedPaletteColorIndex, 1)
+
+			if (this.selectedPaletteColorIndex > 0) {
+				this.selectedPaletteColorIndex--
+			} else {
+				this.selectedPaletteColorIndex = 0
+			}
+
+			this.handlePaletteColorClick(this.selectedPaletteColorIndex)
+		}
+	}
+
+	handlePickHex() {
+		const pickedValue = prompt('Hex color (RGB or RRGGBB):', this.hexValue)
+		if (pickedValue) {
+			const regex = new RegExp('^#?([0-9a-fA-F]{1,2})([0-9a-fA-F]{1,2})([0-9a-fA-F]{1,2})$')
+			const match = regex.exec(pickedValue)
+			if (match) {
+				const values = []
+				for (let i = 1; i <= 3; i++) {
+					const v = parseInt(match[i].length == 1 ? match[i] + match[i] : match[i], 16)
+					values.push(v)
+				}
+
+				this.form.patchValue({
+					valueRN: values[0],
+					valueGN: values[1],
+					valueBN: values[2]
+				})
+			}
+		}
 	}
 }
