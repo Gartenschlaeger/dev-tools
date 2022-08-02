@@ -211,7 +211,7 @@ export class ColorPickerComponent implements OnInit {
 		const model: ColorPicketFormModel = this.form.value
 		const rgb = this.toRGB(model)
 
-		this.rgbValue = `rgb(${rgb.r},${rgb.g},${rgb.b})`
+		this.rgbValue = `${rgb.r} ${rgb.g} ${rgb.b}`
 		this.rgbValueDecimal = `${(rgb.r / 255).toFixed(2)} ${(rgb.g / 255).toFixed(2)} ${(rgb.b / 255).toFixed(2)}`
 	}
 
@@ -219,7 +219,7 @@ export class ColorPickerComponent implements OnInit {
 		const model: ColorPicketFormModel = this.form.value
 		const hsl = this.toHSL(model)
 
-		this.hslValue = `hsl(${hsl.h},${hsl.s},${hsl.l})`
+		this.hslValue = `${hsl.h} ${hsl.s} ${hsl.l}`
 	}
 
 	handlePaletteColorClick(index: number) {
@@ -274,6 +274,30 @@ export class ColorPickerComponent implements OnInit {
 					valueRN: values[0],
 					valueGN: values[1],
 					valueBN: values[2]
+				})
+			}
+		}
+	}
+
+	handlePickRgbDec() {
+		const pickedValue = prompt('RGB (r g b):', this.rgbValueDecimal)
+		if (pickedValue) {
+			const parts = pickedValue.split(' ', 3)
+			if (parts.length === 3) {
+				// parse values
+				const values = [parseFloat(parts[0].trim()), parseFloat(parts[1].trim()), parseFloat(parts[2].trim())]
+
+				// check for valid values
+				for (let i = 0; i < values.length; i++) {
+					if (values[i] < 0 || values[i] > 1) {
+						return
+					}
+				}
+
+				this.form.patchValue({
+					valueRN: Math.round(values[0] * 255),
+					valueGN: Math.round(values[1] * 255),
+					valueBN: Math.round(values[2] * 255)
 				})
 			}
 		}

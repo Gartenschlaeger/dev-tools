@@ -202,15 +202,22 @@
 				</div>
 			</div>
 			<div>
-				<app-form-label>RGB decimal</app-form-label>
-				<app-code>{{ rgbValueDecimal }}</app-code>
+				<app-form-label>RGB dec</app-form-label>
+				<div class="flex gap-2">
+					<div class="flex-1">
+						<app-code>{{ rgbValueDecimal }}</app-code>
+					</div>
+					<div class="flex-none flex items-center">
+						<button class="btn-sm btn-secondary" type="button" (click)="handlePickRgbDec()">Pick</button>
+					</div>
+				</div>
 			</div>
 			<div>
-				<app-form-label>RGB (CSS)</app-form-label>
+				<app-form-label>RGB</app-form-label>
 				<app-code>{{ rgbValue }}</app-code>
 			</div>
 			<div>
-				<app-form-label>HSL (CSS)</app-form-label>
+				<app-form-label>HSL</app-form-label>
 				<app-code>{{ hslValue }}</app-code>
 			</div>
 		</div>
