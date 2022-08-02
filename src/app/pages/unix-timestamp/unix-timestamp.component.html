@@ -1,0 +1,51 @@
+<app-page-header title="Unix Timestamp"></app-page-header>
+
+<app-form-section>
+	<app-form-label>Current Unix Timestamp {{ currentTimestamp }}</app-form-label>
+</app-form-section>
+
+<app-form-section>
+	<div class="flex gap-2">
+		<div class="w-24">
+			<app-form-label>Year</app-form-label>
+		</div>
+		<div class="w-24">
+			<app-form-label>Month</app-form-label>
+		</div>
+		<div class="w-24">
+			<app-form-label>Day</app-form-label>
+		</div>
+		<div class="w-24">
+			<app-form-label>Hour</app-form-label>
+		</div>
+		<div class="w-24">
+			<app-form-label>Minute</app-form-label>
+		</div>
+		<div class="w-24">
+			<app-form-label>Second</app-form-label>
+		</div>
+	</div>
+	<div class="flex gap-2 items-center">
+		<div class="w-24">
+			<app-form-textfield [placeholder]="'yyyy'"></app-form-textfield>
+		</div>
+		<div class="w-24">
+			<app-form-textfield [placeholder]="'yyyy'"></app-form-textfield>
+		</div>
+		<div class="w-24">
+			<app-form-textfield [placeholder]="'yyyy'"></app-form-textfield>
+		</div>
+		<div class="w-24">
+			<app-form-textfield [placeholder]="'yyyy'"></app-form-textfield>
+		</div>
+		<div class="w-24">
+			<app-form-textfield [placeholder]="'yyyy'"></app-form-textfield>
+		</div>
+		<div class="w-24">
+			<app-form-textfield [placeholder]="'yyyy'"></app-form-textfield>
+		</div>
+		<div>
+			<button class="btn-sm btn-primary" type="submit">Convert</button>
+		</div>
+	</div>
+</app-form-section>

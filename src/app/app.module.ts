@@ -21,7 +21,8 @@ import { JsonParserComponent } from './pages/json-parser/json-parser.component'
 import { NotFoundComponent } from './pages/not-found/not-found.component'
 import { StringGeneratorComponent } from './pages/string-generator/string-generator.component'
 import { StringRandomizerComponent } from './pages/string-randomizer/string-randomizer.component'
-import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer-page.component'
+import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer-page.component';
+import { UnixTimestampComponent } from './pages/unix-timestamp/unix-timestamp.component'
 
 @NgModule({
 	declarations: [
@@ -41,7 +42,8 @@ import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer
 		StringRandomizerComponent,
 		StringGeneratorComponent,
 		ColorPickerComponent,
-		BitCalculatorComponent
+		BitCalculatorComponent,
+  UnixTimestampComponent
 	],
 	imports: [
 		BrowserModule,
