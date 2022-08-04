@@ -12,6 +12,11 @@
 		</div>
 	</app-form-section>
 
+	<app-form-footer>
+		<button type="reset" class="btn-secondary" (click)="handleReset()">Reset</button>
+		<button type="submit" class="btn-primary">Generate</button>
+	</app-form-footer>
+
 	<app-form-section>
 		<ng-container *ngIf="hashedString && !error">
 			<app-form-label>Hash</app-form-label>
@@ -20,9 +25,4 @@
 
 		<app-alert type="error" *ngIf="error">{{ error }}</app-alert>
 	</app-form-section>
-
-	<app-form-footer>
-		<button type="reset" class="btn-secondary" (click)="handleReset()">Reset</button>
-		<button type="submit" class="btn-primary">Generate</button>
-	</app-form-footer>
 </form>

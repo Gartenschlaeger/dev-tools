@@ -36,13 +36,13 @@
 		></app-form-textfield>
 	</app-form-section>
 
-	<app-form-section *ngIf="result">
-		<app-form-label>Random string</app-form-label>
-		<app-code>{{ result.generatedString }}</app-code>
-	</app-form-section>
-
 	<app-form-footer>
 		<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
 		<button type="submit" class="btn-primary">Generate</button>
 	</app-form-footer>
+
+	<app-form-section *ngIf="result">
+		<app-form-label>Random string</app-form-label>
+		<app-code>{{ result.generatedString }}</app-code>
+	</app-form-section>
 </form>

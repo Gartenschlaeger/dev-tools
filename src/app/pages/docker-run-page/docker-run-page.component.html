@@ -187,6 +187,12 @@
 		</app-tab-control>
 	</app-form-section>
 
+	<app-form-footer>
+		<button type="button" class="btn-secondary" [disabled]="!generatedScript" (click)="handleShare()">Share</button>
+		<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
+		<button type="submit" class="btn-primary">Generate</button>
+	</app-form-footer>
+
 	<!-- script -->
 	<app-form-section title="Script" *ngIf="generatedScript">
 		<div [ngClass]="{ 'mb-3': generatedScript }">
@@ -202,10 +208,4 @@
 	<app-form-section title="Share" *ngIf="shareLink">
 		<app-code>{{ shareLink }}</app-code>
 	</app-form-section>
-
-	<app-form-footer>
-		<button type="button" class="btn-secondary" [disabled]="!generatedScript" (click)="handleShare()">Share</button>
-		<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
-		<button type="submit" class="btn-primary">Generate</button>
-	</app-form-footer>
 </form>

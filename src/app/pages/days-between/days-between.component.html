@@ -32,6 +32,11 @@
 		</div>
 	</app-form-section>
 
+	<app-form-footer>
+		<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
+		<button type="submit" class="btn-primary">Calculate</button>
+	</app-form-footer>
+
 	<app-form-section *ngIf="result">
 		<div class="space-y-3">
 			<div>
@@ -48,9 +53,4 @@
 			</div>
 		</div>
 	</app-form-section>
-
-	<app-form-footer>
-		<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
-		<button type="submit" class="btn-primary">Calculate</button>
-	</app-form-footer>
 </form>
