@@ -39,7 +39,7 @@ export class UrlAnalyzerPageComponent implements OnInit {
 	defineFormGroup(): FormGroup {
 		return new FormGroup({
 			url: new FormControl(UrlAnalyzerFormDefaults.url, {
-				validators: [Validators.required, Validators.pattern('^http(s)?:\\/\\/.+')]
+				validators: [Validators.required]
 			})
 		})
 	}
@@ -47,7 +47,15 @@ export class UrlAnalyzerPageComponent implements OnInit {
 	handleSubmit() {
 		if (this.formService.validate(this.form)) {
 			try {
-				const url = new URL(this.form.get('url')?.value)
+				const model: UrlAnalyzerModel = this.form.value
+
+				let urlToParse = model.url
+				if (!urlToParse.toLowerCase().startsWith('http')) {
+					urlToParse = 'https://' + urlToParse
+				}
+
+				// console.log(urlToParse)
+				const url = new URL(urlToParse)
 
 				this.result = new UrlAnalyzerResult()
 				this.result.hostname = url.hostname
