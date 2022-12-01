@@ -22,7 +22,7 @@
 
 	<div class="flex w-full">
 		<!-- Right : side-by-side -->
-		<div class="td-table-container side-by-side" *ngIf="isSideBySideMode" id="td-left-compare-container">
+		<div class="td-table-container side-by-side" *ngIf="isSideBySideMode">
 			<table class="td-table">
 				<tbody>
 					<tr *ngFor="let row of filteredTableRows; trackBy: trackTableRows">
@@ -74,7 +74,7 @@
 			</table>
 		</div>
 		<!-- Left : side-by-side -->
-		<div class="td-table-container side-by-side" *ngIf="isSideBySideMode" id="td-right-compare-container">
+		<div class="td-table-container side-by-side" *ngIf="isSideBySideMode">
 			<table class="td-table">
 				<tbody>
 					<tr *ngFor="let row of filteredTableRows; trackBy: trackTableRows">
