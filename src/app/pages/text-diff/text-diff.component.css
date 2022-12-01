@@ -27,11 +27,6 @@
 	overflow-x: auto;
 }
 
-.td-table-wrapper {
-	display: flex;
-	width: 100%;
-}
-
 .td-table {
 	border: 1px solid darkgray;
 	max-height: 50vh;

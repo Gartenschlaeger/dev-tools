@@ -10,11 +10,19 @@
 				<app-form-textarea label="Right text" formControlName="right"></app-form-textarea>
 			</div>
 		</div>
+		<div class="mb-3 flex gap-3">
+			<label class="form-label"
+				><input type="radio" formControlName="isSideBySideMode" [value]="true" /> Side by side</label
+			>
+			<label class="form-label"
+				><input type="radio" formControlName="isSideBySideMode" [value]="false" /> Line by line</label
+			>
+		</div>
 	</app-form-section>
 
-	<div class="td-table-wrapper">
-		<!-- Right side-by-side -->
-		<div class="td-table-container side-by-side" *ngIf="format === 'SideBySide'" id="td-left-compare-container">
+	<div class="flex w-full">
+		<!-- Right : side-by-side -->
+		<div class="td-table-container side-by-side" *ngIf="isSideBySideMode" id="td-left-compare-container">
 			<table class="td-table">
 				<tbody>
 					<tr *ngFor="let row of filteredTableRows; trackBy: trackTableRows">
@@ -65,14 +73,8 @@
 				</tbody>
 			</table>
 		</div>
-		<!-- Left side-by-side -->
-		<div
-			class="td-table-container side-by-side"
-			*ngIf="format === 'SideBySide'"
-			id="td-right-compare-container"
-			tdContainer
-			cdkScrollable
-		>
+		<!-- Left : side-by-side -->
+		<div class="td-table-container side-by-side" *ngIf="isSideBySideMode" id="td-right-compare-container">
 			<table class="td-table">
 				<tbody>
 					<tr *ngFor="let row of filteredTableRows; trackBy: trackTableRows">
@@ -124,7 +126,7 @@
 			</table>
 		</div>
 		<!-- Line By Line - combined table -->
-		<div class="td-table-container line-by-line" *ngIf="format === 'LineByLine'">
+		<div class="td-table-container line-by-line" *ngIf="!isSideBySideMode">
 			<table class="td-table">
 				<tbody>
 					<tr *ngFor="let row of filteredTableRowsLineByLine; trackBy: trackTableRows">

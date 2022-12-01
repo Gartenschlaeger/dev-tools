@@ -2,13 +2,13 @@ import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { FormService } from '../../modules/form/services/form-service.service'
 import { DiffPart } from './entities/DiffPart'
-import { DiffTableFormat } from './entities/DiffTableFormat'
 import { DiffTableRowResult } from './entities/DiffTableRowResult'
 import { TextDiffService } from './services/text-diff-service'
 
 class TextDiffFormModel {
 	left: string = ''
 	right: string = ''
+	isSideBySideMode: boolean = true
 }
 
 const FormDefaults = new TextDiffFormModel()
@@ -20,8 +20,7 @@ const FormDefaults = new TextDiffFormModel()
 })
 export class TextDiffComponent {
 	form!: FormGroup
-
-	format: DiffTableFormat = 'SideBySide'
+	isSideBySideMode: boolean = true
 
 	tableRows?: DiffTableRowResult[]
 	tableRowsLineByLine?: DiffTableRowResult[]
@@ -36,7 +35,8 @@ export class TextDiffComponent {
 	defineForm(): FormGroup {
 		return this.fb.group({
 			left: [FormDefaults.left, [Validators.required]],
-			right: [FormDefaults.right, [Validators.required]]
+			right: [FormDefaults.right, [Validators.required]],
+			isSideBySideMode: [FormDefaults.isSideBySideMode]
 		})
 	}
 
@@ -95,6 +95,9 @@ export class TextDiffComponent {
 			this.diffsCount = this.tableRows.filter((row) => row.hasDiffs).length
 			this.filteredTableRows = this.tableRows
 			this.filteredTableRowsLineByLine = this.tableRowsLineByLine
+			this.isSideBySideMode = model.isSideBySideMode
+
+			console.log(model)
 		}
 	}
 
