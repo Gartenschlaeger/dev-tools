@@ -149,6 +149,9 @@
 			</div>
 		</div>
 	</app-form-section>
+	<app-form-footer>
+		<button class="btn-secondary" (click)="handleReset()">Reset</button>
+	</app-form-footer>
 
 	<app-form-section *ngIf="results">
 		<div class="space-y-3">
@@ -162,8 +165,4 @@
 			</div>
 		</div>
 	</app-form-section>
-
-	<app-form-footer>
-		<button class="btn-secondary" (click)="handleReset()">Reset</button>
-	</app-form-footer>
 </form>

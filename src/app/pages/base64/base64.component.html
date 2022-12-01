@@ -8,15 +8,15 @@
 		></app-form-textarea>
 	</app-form-section>
 
+	<app-form-footer>
+		<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
+		<button type="submit" class="btn-primary">{{ isEncodeMode ? 'Encode' : 'Decode' }}</button>
+	</app-form-footer>
+
 	<app-form-section *ngIf="processedValue">
 		<app-form-label>{{ isEncodeMode ? 'Base64 text' : 'Plain text' }}</app-form-label>
 		<app-code>{{ processedValue }}</app-code>
 	</app-form-section>
 
 	<app-alert type="error" *ngIf="hasErrors">Failed to encode the source value</app-alert>
-
-	<app-form-footer>
-		<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
-		<button type="submit" class="btn-primary">{{ isEncodeMode ? 'Encode' : 'Decode' }}</button>
-	</app-form-footer>
 </form>

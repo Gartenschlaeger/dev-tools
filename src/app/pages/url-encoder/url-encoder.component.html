@@ -16,15 +16,15 @@
 		</div>
 	</app-form-section>
 
+	<app-form-footer>
+		<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
+		<button type="submit" class="btn-primary">{{ isEncodeMode ? 'Encode' : 'Decode' }}</button>
+	</app-form-footer>
+
 	<app-form-section *ngIf="result && !result.hasErrors">
 		<app-form-label>{{ isEncodeMode ? 'Encoded value' : 'Decoded value' }}</app-form-label>
 		<app-code [scrollable]="false">{{ result.processedValue }}</app-code>
 	</app-form-section>
 
 	<app-alert type="error" *ngIf="result && result?.hasErrors">Text processing failed</app-alert>
-
-	<app-form-footer>
-		<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
-		<button type="submit" class="btn-primary">{{ isEncodeMode ? 'Encode' : 'Decode' }}</button>
-	</app-form-footer>
 </form>

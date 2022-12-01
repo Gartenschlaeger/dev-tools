@@ -11,14 +11,13 @@
 		<div><a href="https://goessner.net/articles/JsonPath/" target="_blank">Syntax</a></div>
 	</app-form-section>
 
-	<app-alert type="error" *ngIf="result && result.error" class="whitespace-pre">{{ result.error }}</app-alert>
-
-	<app-form-section *ngIf="result && !result.error">
-		<app-highlighted-code [language]="'json'" [code]="result.result"></app-highlighted-code>
-	</app-form-section>
-
 	<app-form-footer>
 		<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
 		<button type="submit" class="btn-primary">Evaluate</button>
 	</app-form-footer>
+
+	<app-form-section *ngIf="result">
+		<app-alert type="error" *ngIf="result.error" class="whitespace-pre">{{ result.error }}</app-alert>
+		<app-highlighted-code *ngIf="!result.error" [language]="'json'" [code]="result.result"></app-highlighted-code>
+	</app-form-section>
 </form>

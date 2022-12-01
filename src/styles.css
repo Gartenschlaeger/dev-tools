@@ -81,7 +81,7 @@
 	}
 
 	.form-footer {
-		@apply mt-8 w-full flex justify-end items-center gap-1;
+		@apply my-8 w-full flex justify-end items-center gap-1;
 	}
 
 	/* labels */

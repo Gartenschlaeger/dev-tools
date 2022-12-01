@@ -21,5 +21,6 @@ export const items: INavigationItem[] = [
 	{ title: 'URL Decoder', routerLink: 'url-decoder' },
 	{ title: 'URL Encoder', routerLink: 'url-encoder' },
 	{ title: 'Unix Timestamp', routerLink: 'unix-timestamp' },
-	{ title: 'Bit Calculator', routerLink: 'bit-calculator' }
+	{ title: 'Bit Calculator', routerLink: 'bit-calculator' },
+	{ title: 'Text Diff', routerLink: 'text-diff' }
 ]
