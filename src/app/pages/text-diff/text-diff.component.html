@@ -1,0 +1,19 @@
+<app-page-header title="Text Diff"></app-page-header>
+
+<form [formGroup]="form" (submit)="handleSubmit()">
+	<app-form-section>
+		<div class="flex gap-2">
+			<div class="mb-3 flex-1">
+				<app-form-textarea label="Left text" formControlName="left"></app-form-textarea>
+			</div>
+			<div class="mb-3 flex-1">
+				<app-form-textarea label="Right text" formControlName="right"></app-form-textarea>
+			</div>
+		</div>
+	</app-form-section>
+
+	<app-form-footer>
+		<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
+		<button type="submit" class="btn-primary">Compare</button>
+	</app-form-footer>
+</form>

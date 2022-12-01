@@ -97,6 +97,10 @@ export const routes: Route[] = [
 		component: BitCalculatorComponent
 	},
 	{
+		path: 'text-diff',
+		loadChildren: () => import('./pages/text-diff/text-diff.module').then((m) => m.TextDiffModule)
+	},
+	{
 		path: '**',
 		component: NotFoundComponent
 	}
