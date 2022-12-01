@@ -20,32 +20,21 @@
 		</div>
 	</app-form-section>
 
-	<div class="flex w-full">
-		<!-- Right : side-by-side -->
-		<div class="td-table-container" *ngIf="isSideBySideMode">
-			<table class="td-table">
-				<tbody>
-					<tr *ngFor="let row of filteredTableRows; trackBy: trackTableRows">
-						<td
-							scope="row"
-							class="fit-column line-number-col"
-							[ngClass]="{
-								'delete-row': row.leftContent?.prefix === '-',
-								'empty-row': !row.leftContent?.lineContent
-							}"
-						>
-							{{ row.leftContent?.lineNumber !== -1 ? row.leftContent?.lineNumber : ' ' }}
-						</td>
-						<td
-							class="fit-column prefix-col"
-							[ngClass]="{
-								'delete-row': row.leftContent?.prefix === '-',
-								'empty-row': !row.leftContent?.lineContent
-							}"
-						>
-							<span>{{ row.leftContent?.prefix || ' ' }}</span>
-						</td>
-						<td
+	<app-form-footer>
+		<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
+		<button type="submit" class="btn-primary">Compare</button>
+	</app-form-footer>
+
+	<div class="flex w-full" *ngIf="hasCompared">
+		<!-- side by side -->
+		<div *ngIf="isSideBySideMode" class="df-container">
+			<div *ngFor="let row of filteredTableRows; trackBy: trackTableRows" class="text-line">
+				<div class="text-column">
+					<div class="line-number">
+						{{ row.leftContent?.lineNumber !== -1 ? row.leftContent?.lineNumber : ' ' }}
+					</div>
+					<div class="line-changes">
+						<span
 							class="content-col"
 							[ngClass]="{
 								'delete-row': row.leftContent?.prefix === '-',
@@ -54,8 +43,8 @@
 							*ngIf="!row.hasDiffs"
 						>
 							<span [innerHTML]="row.leftContent?.lineContent | formatLine"></span>
-						</td>
-						<td
+						</span>
+						<span
 							class="content-col"
 							[ngClass]="{
 								'delete-row': row.leftContent?.prefix === '-',
@@ -68,36 +57,15 @@
 								[ngClass]="{ highlight: diff.isDiff }"
 								*ngFor="let diff of row.leftContent?.lineDiffs; trackBy: trackDiffs"
 							></span>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<!-- Left : side-by-side -->
-		<div class="td-table-container" *ngIf="isSideBySideMode">
-			<table class="td-table">
-				<tbody>
-					<tr *ngFor="let row of filteredTableRows; trackBy: trackTableRows">
-						<td
-							scope="row"
-							class="fit-column line-number-col"
-							[ngClass]="{
-								'insert-row': row.rightContent?.prefix === '+',
-								'empty-row': !row.rightContent?.lineContent
-							}"
-						>
-							{{ row.rightContent?.lineNumber !== -1 ? row.rightContent?.lineNumber : ' ' }}
-						</td>
-						<td
-							class="fit-column prefix-col"
-							[ngClass]="{
-								'insert-row': row.rightContent?.prefix === '+',
-								'empty-row': !row.rightContent?.lineContent
-							}"
-						>
-							<span>{{ row.rightContent?.prefix || ' ' }}</span>
-						</td>
-						<td
+						</span>
+					</div>
+				</div>
+				<div class="text-column">
+					<div class="line-number">
+						{{ row.rightContent?.lineNumber !== -1 ? row.rightContent?.lineNumber : ' ' }}
+					</div>
+					<div class="line-changes">
+						<span
 							class="content-col"
 							[ngClass]="{
 								'insert-row': row.rightContent?.prefix === '+',
@@ -106,8 +74,8 @@
 							*ngIf="!row.hasDiffs"
 						>
 							<span [innerHTML]="row.rightContent?.lineContent | formatLine"></span>
-						</td>
-						<td
+						</span>
+						<span
 							class="content-col"
 							[ngClass]="{
 								'insert-row': row.rightContent?.prefix === '+',
@@ -120,29 +88,20 @@
 								[ngClass]="{ highlight: diff.isDiff }"
 								*ngFor="let diff of row.rightContent?.lineDiffs; trackBy: trackDiffs"
 							></span>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+						</span>
+					</div>
+				</div>
+			</div>
 		</div>
-		<!-- Line By Line - combined table -->
-		<div class="td-table-container" *ngIf="!isSideBySideMode">
-			<table class="td-table">
+
+		<!-- line by line -->
+		<div class="df-container" *ngIf="!isSideBySideMode">
+			<table class="w-full">
 				<tbody>
 					<tr *ngFor="let row of filteredTableRowsLineByLine; trackBy: trackTableRows">
-						<td scope="row" class="fit-column line-number-col-left">{{ row.leftContent?.lineNumber }}</td>
-						<td scope="row" class="fit-column line-number-col">{{ row.rightContent?.lineNumber }}</td>
+						<td class="line-number">{{ row.leftContent?.lineNumber }}</td>
+						<td class="line-number">{{ row.rightContent?.lineNumber }}</td>
 						<td
-							class="fit-column prefix-col"
-							[ngClass]="{
-								'delete-row': row.leftContent?.prefix === '-',
-								'insert-row': row.rightContent?.prefix === '+'
-							}"
-						>
-							<span>{{ row.leftContent?.prefix || row.rightContent?.prefix || ' ' }}</span>
-						</td>
-						<td
-							class="content-col"
 							[ngClass]="{
 								'delete-row': row.leftContent?.prefix === '-',
 								'insert-row': row.rightContent?.prefix === '+'
@@ -152,7 +111,6 @@
 							<span [innerHTML]="row.leftContent?.lineContent | formatLine"></span>
 						</td>
 						<td
-							class="content-col"
 							[ngClass]="{
 								'delete-row': row.leftContent.prefix === '-',
 								'insert-row': row.rightContent?.prefix === '+'
@@ -166,7 +124,6 @@
 							></span>
 						</td>
 						<td
-							class="content-col"
 							[ngClass]="{
 								'delete-row': row.leftContent?.prefix === '-',
 								'insert-row': row.rightContent.prefix === '+'
@@ -184,9 +141,4 @@
 			</table>
 		</div>
 	</div>
-
-	<app-form-footer>
-		<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
-		<button type="submit" class="btn-primary">Compare</button>
-	</app-form-footer>
 </form>

@@ -20,8 +20,9 @@ const FormDefaults = new TextDiffFormModel()
 })
 export class TextDiffComponent {
 	form!: FormGroup
-	isSideBySideMode: boolean = true
 
+	hasCompared: boolean = false
+	isSideBySideMode: boolean = true
 	tableRows?: DiffTableRowResult[]
 	tableRowsLineByLine?: DiffTableRowResult[]
 	diffsCount?: number
@@ -40,15 +41,16 @@ export class TextDiffComponent {
 		})
 	}
 
-	trackTableRows(index: number, row: DiffTableRowResult) {
-		return row && row.leftContent
-			? row.leftContent.lineContent
-			: row && row.rightContent
-			? row.rightContent.lineContent
-			: undefined
+	trackTableRows(index: number, row: DiffTableRowResult): string | undefined {
+		if (row && row.leftContent) {
+			return row.leftContent.lineContent
+		} else if (row && row.rightContent) {
+			return row.rightContent.lineContent
+		}
+		return undefined
 	}
 
-	trackDiffs(index: number, diff: DiffPart) {
+	trackDiffs(index: number, diff: DiffPart): string | undefined {
 		return diff && diff.content ? diff.content : undefined
 	}
 
@@ -96,12 +98,12 @@ export class TextDiffComponent {
 			this.filteredTableRows = this.tableRows
 			this.filteredTableRowsLineByLine = this.tableRowsLineByLine
 			this.isSideBySideMode = model.isSideBySideMode
-
-			console.log(model)
+			this.hasCompared = true
 		}
 	}
 
 	handleReset() {
 		this.formService.reset(this.form, FormDefaults)
+		this.hasCompared = false
 	}
 }
