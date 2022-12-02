@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core'
 import { MatSidenav } from '@angular/material/sidenav'
 import { Router } from '@angular/router'
-import { INavigationItem } from './components/navigation/navigation.component'
+import { INavigationItem } from './entities/INavigationItem'
 
 @Component({
 	selector: 'app-root',

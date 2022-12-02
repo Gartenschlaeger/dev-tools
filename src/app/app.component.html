@@ -10,7 +10,10 @@
 			<a mat-button class="px-2 py-1 text-xl" [routerLink]="['/home']">DevTools</a>
 		</mat-toolbar>
 
-		<router-outlet></router-outlet>
+		<div class="page-container">
+			<app-page-header></app-page-header>
+			<router-outlet></router-outlet>
+		</div>
 	</mat-sidenav-content>
 </mat-sidenav-container>
 

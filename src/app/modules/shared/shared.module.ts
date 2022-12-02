@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common'
 import { ModuleWithProviders, NgModule } from '@angular/core'
 import { ReactiveFormsModule } from '@angular/forms'
+import { MatIconModule } from '@angular/material/icon'
 import { RouterModule } from '@angular/router'
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs'
 import { FormModule } from '../form/form.module'
 import { FormService } from '../form/services/form-service.service'
-import { SvgIconsModule } from '../svg-icons/svg-icons.module'
 import { AlertComponent } from './components/alert/alert.component'
 import { CodeComponent } from './components/code/code.component'
 import { HighlightedCodeComponent } from './components/highlighted-code/highlighted-code.component'
@@ -21,18 +21,17 @@ export interface SharedModuleConfiguration {
 
 @NgModule({
 	declarations: [
-		PageHeaderComponent,
 		AlertComponent,
 		CodeComponent,
 		HighlightedCodeComponent,
 		TabControlComponent,
-		TabComponent
+		TabComponent,
+		PageHeaderComponent
 	],
-	imports: [CommonModule, RouterModule, ReactiveFormsModule, HighlightModule, FormModule, SvgIconsModule],
+	imports: [CommonModule, RouterModule, ReactiveFormsModule, HighlightModule, FormModule, MatIconModule],
 	exports: [
 		ReactiveFormsModule,
 		FormModule,
-		SvgIconsModule,
 		PageHeaderComponent,
 		AlertComponent,
 		CodeComponent,

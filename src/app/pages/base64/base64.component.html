@@ -1,17 +1,15 @@
 <app-page-header title="{{ pageTitle }}"></app-page-header>
 
 <form [formGroup]="form" (submit)="handleSubmit()">
-	<app-form-section>
-		<app-form-textarea
-			label="{{ isEncodeMode ? 'Plain text' : 'Base64 text' }}"
-			formControlName="sourceValue"
-		></app-form-textarea>
-	</app-form-section>
+	<mat-form-field appearance="fill">
+		<mat-label>{{ isEncodeMode ? 'Plain text' : 'Base64 text' }}</mat-label>
+		<textarea matInput formControlName="sourceValue" rows="8"></textarea>
+	</mat-form-field>
 
-	<app-form-footer>
-		<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
-		<button type="submit" class="btn-primary">{{ isEncodeMode ? 'Encode' : 'Decode' }}</button>
-	</app-form-footer>
+	<section>
+		<button mat-button type="button" (click)="handleReset()">Reset</button>
+		<button mat-button type="submit" color="primary">{{ isEncodeMode ? 'Encode' : 'Decode' }}</button>
+	</section>
 
 	<app-form-section *ngIf="processedValue">
 		<app-form-label>{{ isEncodeMode ? 'Base64 text' : 'Plain text' }}</app-form-label>

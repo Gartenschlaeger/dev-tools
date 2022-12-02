@@ -1,21 +1,26 @@
-<mat-nav-list>
-	<ng-container *ngFor="let item of stickedItems">
-		<mat-list-item *ngIf="item.isVisible" (click)="handleItemClick(item)">{{ item.title }}</mat-list-item>
-	</ng-container>
-</mat-nav-list>
+<div class="pt-3">
+	<form [formGroup]="searchForm" class="mx-3">
+		<mat-form-field class="w-full" tabindex="-1">
+			<mat-label>Search</mat-label>
+			<input matInput type="search" formControlName="query" tabindex="-1" />
+			<button mat-button matSuffix mat-icon-button (click)="handleClearSearchField()" tabindex="-1">
+				<mat-icon>close</mat-icon>
+			</button>
+		</mat-form-field>
+	</form>
 
-<form [formGroup]="searchForm" class="mx-3">
-	<mat-form-field class="w-full">
-		<mat-label>Search</mat-label>
-		<input matInput type="search" formControlName="query" />
-		<button mat-button matSuffix mat-icon-button (click)="handleClearSearchField()">
-			<mat-icon>close</mat-icon>
-		</button>
-	</mat-form-field>
-</form>
-
-<mat-nav-list>
-	<ng-container *ngFor="let item of items">
-		<mat-list-item *ngIf="item.isVisible" (click)="handleItemClick(item)">{{ item.title }}</mat-list-item>
-	</ng-container>
-</mat-nav-list>
+	<mat-nav-list>
+		<ng-container *ngFor="let item of stickedItems">
+			<mat-list-item *ngIf="item.isVisible" (click)="handleItemClick(item)">
+				<mat-icon *ngIf="item.icon" class="mr-1">{{ item.icon }}</mat-icon>
+				<span>{{ item.title }}</span>
+			</mat-list-item>
+		</ng-container>
+		<ng-container *ngFor="let item of items">
+			<mat-list-item *ngIf="item.isVisible" (click)="handleItemClick(item)">
+				<mat-icon *ngIf="item.icon" class="mr-1">{{ item.icon }}</mat-icon>
+				<span>{{ item.title }}</span>
+			</mat-list-item>
+		</ng-container>
+	</mat-nav-list>
+</div>

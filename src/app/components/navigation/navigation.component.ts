@@ -2,13 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
 import { Router } from '@angular/router'
 import { items } from '../../app.navigation-items'
-
-export interface INavigationItem {
-	title: string
-	routerLink: string
-	isVisible?: boolean
-	isSticked?: boolean
-}
+import { INavigationItem } from '../../entities/INavigationItem'
 
 @Component({
 	selector: 'app-navigation',
