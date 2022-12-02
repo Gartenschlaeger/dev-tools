@@ -1,9 +1,9 @@
 <div class="pt-3">
 	<form [formGroup]="searchForm" class="mx-3">
-		<mat-form-field class="w-full" tabindex="-1">
+		<mat-form-field class="w-full">
 			<mat-label>Search</mat-label>
-			<input matInput type="search" formControlName="query" tabindex="-1" />
-			<button mat-button matSuffix mat-icon-button (click)="handleClearSearchField()" tabindex="-1">
+			<input matInput type="text" formControlName="query" tabindex="-1" />
+			<button matSuffix mat-icon-button (click)="handleClearSearchField()" tabindex="-1">
 				<mat-icon>close</mat-icon>
 			</button>
 		</mat-form-field>
