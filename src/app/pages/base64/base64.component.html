@@ -7,7 +7,7 @@
 		<mat-card-content>
 			<mat-form-field class="w-full">
 				<mat-label>{{ isEncodeMode ? 'Plain text' : 'Base64 text' }}</mat-label>
-				<textarea matInput formControlName="sourceValue" rows="8"></textarea>
+				<textarea matInput formControlName="sourceValue" rows="5"></textarea>
 			</mat-form-field>
 
 			<app-alert type="error" *ngIf="hasErrors">Failed to encode the source value</app-alert>
