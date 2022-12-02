@@ -1,12 +1,12 @@
-<mat-toolbar color="primary">
-	<button mat-icon-button (click)="onMenuButtonClick()">
+<mat-toolbar color="primary" class="gap-2">
+	<button mat-icon-button (click)="sidenav.toggle()">
 		<mat-icon>menu</mat-icon>
 	</button>
-	<span>DevTools</span>
+	<a mat-button class="px-2 py-1 text-xl" [routerLink]="['/home']">DevTools</a>
 </mat-toolbar>
 
-<mat-sidenav-container class="flex-auto" (backdropClick)="onClose('backdrop')">
-	<mat-sidenav #sidenav (keydown.escape)="onClose('escape')" disableClose class="app-sidenav">
+<mat-sidenav-container class="flex-auto" (backdropClick)="sidenav.close()">
+	<mat-sidenav #sidenav disableClose class="app-sidenav">
 		<app-navigation (itemClicked)="handleNavigationItemClick($event)"></app-navigation>
 	</mat-sidenav>
 	<mat-sidenav-content class="app-content">
@@ -14,40 +14,8 @@
 	</mat-sidenav-content>
 </mat-sidenav-container>
 
-<!-- <mat-drawer-container [hasBackdrop]="true">
-	<mat-drawer #drawer [mode]="mode.value">
-		<app-navigation></app-navigation>
-	</mat-drawer>
-	<mat-drawer-content>
-		<mat-form-field>
-			<mat-label>Sidenav mode</mat-label>
-			<mat-select #mode value="side">
-				<mat-option value="side">Side</mat-option>
-				<mat-option value="over">Over</mat-option>
-				<mat-option value="push">Push</mat-option>
-			</mat-select>
-		</mat-form-field>
-		<mat-form-field>
-			<mat-label>Has backdrop</mat-label>
-			<mat-select #hasBackdrop>
-				<mat-option>Unset</mat-option>
-				<mat-option [value]="true">True</mat-option>
-				<mat-option [value]="false">False</mat-option>
-			</mat-select>
-		</mat-form-field>
-		<button mat-raised-button (click)="drawer.toggle()">Toggle drawer</button>
-	</mat-drawer-content>
-</mat-drawer-container> -->
-
 <!-- <div class="flex flex-col justify-between min-h-screen">
-	<main class="container min-w-container flex">
-		<div class="flex-none w-80 overflow-y-auto max-h-screen px-3 pb-3">
-			<app-navigation></app-navigation>
-		</div>
-		<div class="flex-1 flex-shrink-0 overflow-x-hidden overflow-y-auto p-3 mb-10">
-			<router-outlet></router-outlet>
-		</div>
-	</main>
+
 	<footer class="w-full text-sm text-gray-600 dark:text-gray-300 py-10 bg-gray-100 dark:bg-gray-900 select-none">
 		<p class="flex justify-center items-center gap-1">
 			Crafted with <span class="text-red-500"><app-svg-icon type="hearth"></app-svg-icon></span> by

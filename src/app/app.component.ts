@@ -14,14 +14,6 @@ export class AppComponent {
 
 	constructor(private router: Router) {}
 
-	onMenuButtonClick() {
-		this.sidenav.toggle()
-	}
-
-	onClose(blubb: string) {
-		this.sidenav.close()
-	}
-
 	handleNavigationItemClick(item: INavigationItem) {
 		this.router.navigateByUrl(item.routerLink)
 		this.sidenav.close()

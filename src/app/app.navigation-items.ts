@@ -1,7 +1,6 @@
 import { INavigationItem } from './components/navigation/navigation.component'
 
 export const items: INavigationItem[] = [
-	{ title: 'Home', routerLink: 'home', isSticked: true },
 	{ title: 'Base64 Encoder', routerLink: 'base64-encoder' },
 	{ title: 'Base64 Decoder', routerLink: 'base64-decoder' },
 	{ title: 'Color Picker', routerLink: 'color-picker' },

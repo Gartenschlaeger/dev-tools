@@ -57,13 +57,22 @@ export class NavigationComponent implements OnInit {
 		})
 	}
 
+	private clearSearchField() {
+		this.searchForm.patchValue({ query: '' })
+	}
+
 	handleSearchKeyup(event: KeyboardEvent) {
 		if (event.key === 'Escape') {
-			this.searchForm.patchValue({ query: '' })
+			this.clearSearchField()
 		}
 	}
 
+	handleClearSearchField() {
+		this.clearSearchField()
+	}
+
 	handleItemClick(item: INavigationItem) {
+		this.clearSearchField()
 		this.itemClicked.emit(item)
 	}
 }

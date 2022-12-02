@@ -1,26 +1,21 @@
-<mat-action-list>
-	<button *ngFor="let item of items" mat-list-item (click)="handleItemClick(item)">{{ item.title }}</button>
+<mat-action-list class="mb-3">
+	<ng-container *ngFor="let item of stickedItems">
+		<button *ngIf="item.isVisible" mat-list-item (click)="handleItemClick(item)">{{ item.title }}</button>
+	</ng-container>
 </mat-action-list>
 
-<!-- <div class="sticky top-0 bg-white dark:bg-gray-800 mb-1 py-3">
-	<ul class="mb-2" *ngFor="let i of stickedItems">
-		<app-navigation-link
-			*ngIf="i.isVisible !== false"
-			[routerLink]="i.routerLink"
-			[name]="i.title"
-		></app-navigation-link>
-	</ul>
-	<div>
-		<form [formGroup]="searchForm">
-			<app-form-textfield
-				formControlName="query"
-				placeholder="Search.."
-				(keyup)="handleSearchKeyup($event)"
-			></app-form-textfield>
-		</form>
-	</div>
-</div>
+<form [formGroup]="searchForm" class="mx-3">
+	<mat-form-field>
+		<mat-label>Search</mat-label>
+		<input matInput type="search" formControlName="query" />
+		<button mat-button matSuffix mat-icon-button (click)="handleClearSearchField()">
+			<mat-icon>close</mat-icon>
+		</button>
+	</mat-form-field>
+</form>
 
-<ul *ngFor="let i of items">
-	<app-navigation-link *ngIf="i.isVisible" [routerLink]="i.routerLink" [name]="i.title"></app-navigation-link>
-</ul> -->
+<mat-action-list>
+	<ng-container *ngFor="let item of items">
+		<button *ngIf="item.isVisible" mat-list-item (click)="handleItemClick(item)">{{ item.title }}</button>
+	</ng-container>
+</mat-action-list>

@@ -50,11 +50,7 @@
 						"polyfills": "src/polyfills.ts",
 						"tsConfig": "tsconfig.app.json",
 						"assets": ["src/favicon.ico", "src/assets"],
-						"styles": [
-							"./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-							"src/styles.css",
-							"src/highlightjs.css"
-						],
+						"styles": ["src/styles.scss", "src/highlightjs.css"],
 						"scripts": []
 					},
 					"configurations": {
@@ -116,14 +112,16 @@
 						"tsConfig": "tsconfig.spec.json",
 						"karmaConfig": "karma.conf.js",
 						"assets": ["src/favicon.ico", "src/assets"],
-						"styles": [
-							"./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-							"src/styles.css"
-						],
+						"styles": ["src/styles.scss"],
 						"scripts": []
 					}
 				}
 			}
+		}
+	},
+	"schematics": {
+		"@schematics/angular:component": {
+			"style": "scss"
 		}
 	},
 	"defaultProject": "dev-tools"
