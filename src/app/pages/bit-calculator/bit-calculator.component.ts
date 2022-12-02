@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms'
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms'
 import { FormService } from '../../modules/form/services/form-service.service'
 import { PageService } from '../../utilities/page-service'
 
@@ -20,10 +20,10 @@ interface BitCalculatorResults {
 	templateUrl: './bit-calculator.component.html'
 })
 export class BitCalculatorComponent implements OnInit {
-	form!: FormGroup
+	form!: UntypedFormGroup
 	results: BitCalculatorResults | null = null
 
-	constructor(private fb: FormBuilder, private formService: FormService, private pageService: PageService) {}
+	constructor(private fb: UntypedFormBuilder, private formService: FormService, private pageService: PageService) {}
 
 	ngOnInit() {
 		this.defineForm()
@@ -44,7 +44,7 @@ export class BitCalculatorComponent implements OnInit {
 		this.form = form
 	}
 
-	defineByte(): FormArray {
+	defineByte(): UntypedFormArray {
 		const controls = []
 		for (let i = 0; i < 8; i++) {
 			controls.push(this.fb.control(false))

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms'
 import { FormService } from '../../modules/form/services/form-service.service'
 import { DiffPart } from './entities/DiffPart'
 import { DiffTableRowResult } from './entities/DiffTableRowResult'
@@ -19,7 +19,7 @@ const FormDefaults = new TextDiffFormModel()
 	styleUrls: ['./text-diff.component.css']
 })
 export class TextDiffComponent {
-	form!: FormGroup
+	form!: UntypedFormGroup
 
 	hasCompared: boolean = false
 	isSideBySideMode: boolean = true
@@ -29,11 +29,11 @@ export class TextDiffComponent {
 	filteredTableRows?: DiffTableRowResult[]
 	filteredTableRowsLineByLine?: DiffTableRowResult[]
 
-	constructor(private fb: FormBuilder, private formService: FormService, private textDiffService: TextDiffService) {
+	constructor(private fb: UntypedFormBuilder, private formService: FormService, private textDiffService: TextDiffService) {
 		this.form = this.defineForm()
 	}
 
-	defineForm(): FormGroup {
+	defineForm(): UntypedFormGroup {
 		return this.fb.group({
 			left: [FormDefaults.left, [Validators.required]],
 			right: [FormDefaults.right, [Validators.required]],

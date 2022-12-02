@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { FormService } from 'src/app/modules/form/services/form-service.service'
 import { PageService } from '../../utilities/page-service'
 
@@ -23,7 +23,7 @@ const UrlAnalyzerFormDefaults = new UrlAnalyzerModel()
 	templateUrl: './url-analyzer-page.component.html'
 })
 export class UrlAnalyzerPageComponent implements OnInit {
-	form!: FormGroup
+	form!: UntypedFormGroup
 	result: UrlAnalyzerResult | null = null
 	hasError = false
 	showQueryDetails = false
@@ -36,9 +36,9 @@ export class UrlAnalyzerPageComponent implements OnInit {
 		this.pageService.setPageTitle('URL Analyzer')
 	}
 
-	defineFormGroup(): FormGroup {
-		return new FormGroup({
-			url: new FormControl(UrlAnalyzerFormDefaults.url, {
+	defineFormGroup(): UntypedFormGroup {
+		return new UntypedFormGroup({
+			url: new UntypedFormControl(UrlAnalyzerFormDefaults.url, {
 				validators: [Validators.required]
 			})
 		})

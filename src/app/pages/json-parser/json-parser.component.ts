@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms'
 import { NavigationExtras, Router } from '@angular/router'
 import { FormService } from '../../modules/form/services/form-service.service'
 
@@ -24,17 +24,17 @@ const FormDefaults = new JsonParserFormModel()
 	templateUrl: './json-parser.component.html'
 })
 export class JsonParserComponent implements OnInit {
-	form!: FormGroup
+	form!: UntypedFormGroup
 	result!: JsonParserResultModel
 
-	constructor(private fb: FormBuilder, private formService: FormService, private router: Router) {}
+	constructor(private fb: UntypedFormBuilder, private formService: FormService, private router: Router) {}
 
 	ngOnInit(): void {
 		this.form = this.defineForm()
 		this.result = new JsonParserResultModel()
 	}
 
-	defineForm(): FormGroup {
+	defineForm(): UntypedFormGroup {
 		return this.fb.group({
 			source: [FormDefaults.source, [Validators.required]]
 		})

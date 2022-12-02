@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup } from '@angular/forms'
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms'
 import { ColorHSL, ColorRGB, hslToRgb, rbgToHsl } from '../../utilities/colorconverter'
 import { PageService } from '../../utilities/page-service'
 
@@ -30,7 +30,7 @@ const InitColor: ColorRGB = { r: 135, g: 206, b: 235 }
 	templateUrl: './color-picker.component.html'
 })
 export class ColorPickerComponent implements OnInit {
-	form!: FormGroup
+	form!: UntypedFormGroup
 	palette: (ColorRGB | null)[] = [InitColor]
 	selectedPaletteColorIndex: number = 0
 	hexValue: string = ''
@@ -38,7 +38,7 @@ export class ColorPickerComponent implements OnInit {
 	rgbValueDecimal: string = ''
 	hslValue: string = ''
 
-	constructor(private pageService: PageService, private fb: FormBuilder) {}
+	constructor(private pageService: PageService, private fb: UntypedFormBuilder) {}
 
 	ngOnInit() {
 		this.form = this.defineForm()
@@ -81,7 +81,7 @@ export class ColorPickerComponent implements OnInit {
 		})
 	}
 
-	defineForm(): FormGroup {
+	defineForm(): UntypedFormGroup {
 		const hsl = rbgToHsl(InitColor)
 		let model: ColorPicketFormModel = {
 			valueRN: InitColor.r,

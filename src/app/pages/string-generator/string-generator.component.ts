@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { FormService } from 'src/app/modules/form/services/form-service.service'
 import { LoggingService } from 'src/app/modules/shared/services/logging.service'
@@ -31,7 +31,7 @@ const FormDefaults = new StringGeneratorFormModel()
 	templateUrl: './string-generator.component.html'
 })
 export class StringGeneratorComponent implements OnInit {
-	form!: FormGroup
+	form!: UntypedFormGroup
 	result?: StringGeneratorResultModel
 
 	get defaultSpecialCharacters() {
@@ -40,7 +40,7 @@ export class StringGeneratorComponent implements OnInit {
 
 	constructor(
 		route: ActivatedRoute,
-		private fb: FormBuilder,
+		private fb: UntypedFormBuilder,
 		private formService: FormService,
 		private logger: LoggingService,
 		private pageService: PageService
@@ -52,7 +52,7 @@ export class StringGeneratorComponent implements OnInit {
 		this.pageService.setPageTitle('Random String Generator')
 	}
 
-	defineForm(): FormGroup {
+	defineForm(): UntypedFormGroup {
 		return this.fb.group({
 			includeLowercaseCharacters: [FormDefaults.includeLowercaseCharacters],
 			includeUppercaseCharacters: [FormDefaults.includeUppercaseCharacters],

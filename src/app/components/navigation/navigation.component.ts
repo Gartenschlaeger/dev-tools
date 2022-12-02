@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core'
-import { FormBuilder, FormGroup } from '@angular/forms'
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms'
 import { Router } from '@angular/router'
 import { items } from '../../app.navigation-items'
 import { INavigationItem } from '../../entities/INavigationItem'
@@ -9,13 +9,13 @@ import { INavigationItem } from '../../entities/INavigationItem'
 	templateUrl: './navigation.component.html'
 })
 export class NavigationComponent implements OnInit {
-	searchForm!: FormGroup
+	searchForm!: UntypedFormGroup
 	items: INavigationItem[] = []
 	stickedItems: INavigationItem[] = []
 
 	@Output() itemClicked = new EventEmitter<INavigationItem>()
 
-	constructor(private fb: FormBuilder, private router: Router) {}
+	constructor(private fb: UntypedFormBuilder, private router: Router) {}
 
 	ngOnInit() {
 		this.defineSearchForm()

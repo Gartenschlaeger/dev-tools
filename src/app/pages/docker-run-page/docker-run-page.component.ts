@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { FormTextfieldComponent } from 'src/app/modules/form/components/form-textfield/form-textfield.component'
 import { FormService } from 'src/app/modules/form/services/form-service.service'
@@ -52,13 +52,13 @@ export class DockerRunPageComponent implements OnInit {
 	@ViewChild('inputEnvironmentKey') inputEnvironmentKey!: FormTextfieldComponent
 	@ViewChild('inputVolumeHostPath') inputVolumeHostPath!: FormTextfieldComponent
 
-	form!: FormGroup
-	formAddEnvVariable!: FormGroup
-	environmentVariables!: FormArray
-	formAddPortMapping!: FormGroup
-	portMappings!: FormArray
-	formAddVolumeMapping!: FormGroup
-	volumeMappings!: FormArray
+	form!: UntypedFormGroup
+	formAddEnvVariable!: UntypedFormGroup
+	environmentVariables!: UntypedFormArray
+	formAddPortMapping!: UntypedFormGroup
+	portMappings!: UntypedFormArray
+	formAddVolumeMapping!: UntypedFormGroup
+	volumeMappings!: UntypedFormArray
 	generatedScript: string = ''
 	shareLink?: string
 
@@ -66,7 +66,7 @@ export class DockerRunPageComponent implements OnInit {
 		private route: ActivatedRoute,
 		private router: Router,
 		private logger: LoggingService,
-		private fb: FormBuilder,
+		private fb: UntypedFormBuilder,
 		public formService: FormService,
 		private pageService: PageService
 	) {}
@@ -81,9 +81,9 @@ export class DockerRunPageComponent implements OnInit {
 			}
 		})
 
-		this.portMappings = this.form.get('portMappings') as FormArray
-		this.environmentVariables = this.form.get('environmentVariables') as FormArray
-		this.volumeMappings = this.form.get('volumeMappings') as FormArray
+		this.portMappings = this.form.get('portMappings') as UntypedFormArray
+		this.environmentVariables = this.form.get('environmentVariables') as UntypedFormArray
+		this.volumeMappings = this.form.get('volumeMappings') as UntypedFormArray
 
 		this.formAddEnvVariable = this.defineFormGroupEnvVariable()
 		this.formAddPortMapping = this.defineFormGroupPortMappings()
@@ -120,55 +120,55 @@ export class DockerRunPageComponent implements OnInit {
 
 	addPortMapping(value: DockerRunPortMapping) {
 		this.portMappings.push(
-			new FormGroup({
-				containerPort: new FormControl(value.containerPort, { validators: [Validators.required] }),
-				hostPort: new FormControl(value.hostPort, { validators: [Validators.required] })
+			new UntypedFormGroup({
+				containerPort: new UntypedFormControl(value.containerPort, { validators: [Validators.required] }),
+				hostPort: new UntypedFormControl(value.hostPort, { validators: [Validators.required] })
 			})
 		)
 	}
 
 	addEnvironmentVariable(value: DockerRunEnvironmentVariable) {
 		this.environmentVariables.push(
-			new FormGroup({
-				key: new FormControl(value.key, { validators: [Validators.required] }),
-				value: new FormControl(value.value, { validators: [Validators.required] })
+			new UntypedFormGroup({
+				key: new UntypedFormControl(value.key, { validators: [Validators.required] }),
+				value: new UntypedFormControl(value.value, { validators: [Validators.required] })
 			})
 		)
 	}
 
 	addVolumeMapping(value: DockerRunVolumeMapping) {
 		this.volumeMappings.push(
-			new FormGroup({
-				hostPath: new FormControl(value.hostPath, {}),
-				containerPath: new FormControl(value.containerPath, {})
+			new UntypedFormGroup({
+				hostPath: new UntypedFormControl(value.hostPath, {}),
+				containerPath: new UntypedFormControl(value.containerPath, {})
 			})
 		)
 	}
 
-	defineFormGroupScript(): FormGroup {
+	defineFormGroupScript(): UntypedFormGroup {
 		return this.fb.group(
 			{
-				imageName: new FormControl(FormDefaultValues.imageName, {
+				imageName: new UntypedFormControl(FormDefaultValues.imageName, {
 					validators: [Validators.required]
 				}),
-				imageTag: new FormControl(FormDefaultValues.imageTag, {
+				imageTag: new UntypedFormControl(FormDefaultValues.imageTag, {
 					validators: []
 				}),
-				containerName: new FormControl(FormDefaultValues.containerName, {
+				containerName: new UntypedFormControl(FormDefaultValues.containerName, {
 					validators: [Validators.pattern('^[a-zA-Z0-9_-]+$')]
 				}),
 				volumeMappings: this.fb.array([]),
-				hostname: new FormControl(FormDefaultValues.hostname, {
+				hostname: new UntypedFormControl(FormDefaultValues.hostname, {
 					validators: [Validators.pattern('^[a-zA-Z0-9_-]+$')]
 				}),
-				networkMode: new FormControl(FormDefaultValues.networkMode, {}),
-				networkName: new FormControl(FormDefaultValues.networkName, {
+				networkMode: new UntypedFormControl(FormDefaultValues.networkMode, {}),
+				networkName: new UntypedFormControl(FormDefaultValues.networkName, {
 					validators: []
 				}),
-				runDettached: new FormControl(FormDefaultValues.runDettached, {}),
-				restartMode: new FormControl(FormDefaultValues.restartMode, {}),
-				multilineScript: new FormControl(FormDefaultValues.multilineScript, {}),
-				useShortParams: new FormControl(FormDefaultValues.useShortParams, {}),
+				runDettached: new UntypedFormControl(FormDefaultValues.runDettached, {}),
+				restartMode: new UntypedFormControl(FormDefaultValues.restartMode, {}),
+				multilineScript: new UntypedFormControl(FormDefaultValues.multilineScript, {}),
+				useShortParams: new UntypedFormControl(FormDefaultValues.useShortParams, {}),
 				environmentVariables: this.fb.array([]),
 				portMappings: this.fb.array([])
 			},
@@ -176,32 +176,32 @@ export class DockerRunPageComponent implements OnInit {
 		)
 	}
 
-	defineFormGroupEnvVariable(): FormGroup {
-		return new FormGroup({
-			key: new FormControl('', {
+	defineFormGroupEnvVariable(): UntypedFormGroup {
+		return new UntypedFormGroup({
+			key: new UntypedFormControl('', {
 				validators: [Validators.required]
 			}),
-			value: new FormControl('', {
+			value: new UntypedFormControl('', {
 				validators: [Validators.required]
 			})
 		})
 	}
 
-	defineFormGroupPortMappings(): FormGroup {
-		return new FormGroup({
-			containerPort: new FormControl(null, {
+	defineFormGroupPortMappings(): UntypedFormGroup {
+		return new UntypedFormGroup({
+			containerPort: new UntypedFormControl(null, {
 				validators: [Validators.required, Validators.pattern('\\d+')]
 			}),
-			hostPort: new FormControl(null, {
+			hostPort: new UntypedFormControl(null, {
 				validators: [Validators.required, Validators.pattern('\\d+')]
 			})
 		})
 	}
 
-	defineFormAddVolumeMapping(): FormGroup {
-		return new FormGroup({
-			hostPath: new FormControl(null, {}),
-			containerPath: new FormControl(null, {})
+	defineFormAddVolumeMapping(): UntypedFormGroup {
+		return new UntypedFormGroup({
+			hostPath: new UntypedFormControl(null, {}),
+			containerPath: new UntypedFormControl(null, {})
 		})
 	}
 

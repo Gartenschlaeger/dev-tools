@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { FormService } from 'src/app/modules/form/services/form-service.service'
 import { LoggingService } from 'src/app/modules/shared/services/logging.service'
@@ -17,14 +17,14 @@ const FormDefaults = new Base64Model()
 })
 export class Base64Component implements OnInit {
 	pageTitle!: string
-	form!: FormGroup
+	form!: UntypedFormGroup
 	hasErrors: boolean = false
 	isEncodeMode!: boolean
 	processedValue: string = ''
 
 	constructor(
 		private logger: LoggingService,
-		private fb: FormBuilder,
+		private fb: UntypedFormBuilder,
 		private formService: FormService,
 		private route: ActivatedRoute,
 		private pageService: PageService
@@ -43,7 +43,7 @@ export class Base64Component implements OnInit {
 		})
 	}
 
-	defineForm(): FormGroup {
+	defineForm(): UntypedFormGroup {
 		return this.fb.group({
 			sourceValue: [FormDefaults.sourceValue, [Validators.required]]
 		})

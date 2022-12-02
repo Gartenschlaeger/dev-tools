@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms'
 import { FormService } from 'src/app/modules/form/services/form-service.service'
 import { PageService } from '../../utilities/page-service'
 
@@ -21,10 +21,10 @@ const FormDefaults = new JsonFormatterFormModel()
 	templateUrl: './json-formatter.component.html'
 })
 export class JsonFormatterComponent implements OnInit {
-	form!: FormGroup
+	form!: UntypedFormGroup
 	result?: JsonFormatterResultModel
 
-	constructor(private fb: FormBuilder, private formService: FormService, private pageService: PageService) {}
+	constructor(private fb: UntypedFormBuilder, private formService: FormService, private pageService: PageService) {}
 
 	ngOnInit() {
 		this.pageService.setPageTitle('JSON Formatter')
@@ -38,7 +38,7 @@ export class JsonFormatterComponent implements OnInit {
 		}
 	}
 
-	defineForm(): FormGroup {
+	defineForm(): UntypedFormGroup {
 		const source = (history.state.source as string) || FormDefaults.source
 		return this.fb.group({
 			source: [source, [Validators.required]],

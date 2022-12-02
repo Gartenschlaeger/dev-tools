@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { FormService } from 'src/app/modules/form/services/form-service.service'
 import { DateService } from 'src/app/modules/shared/services/date.service'
@@ -27,12 +27,12 @@ const FormDefaultValues = new DaysBetweenModel()
 	templateUrl: './days-between.component.html'
 })
 export class DaysBetweenComponent implements OnInit {
-	form!: FormGroup
+	form!: UntypedFormGroup
 	result: DaysBetweenResult | null = null
 
 	constructor(
 		private route: ActivatedRoute,
-		private fb: FormBuilder,
+		private fb: UntypedFormBuilder,
 		private formService: FormService,
 		private dateService: DateService,
 		private pageService: PageService
@@ -43,7 +43,7 @@ export class DaysBetweenComponent implements OnInit {
 		this.pageService.setPageTitle('Days between')
 	}
 
-	defineForm(): FormGroup {
+	defineForm(): UntypedFormGroup {
 		const validators = [Validators.required, Validators.pattern('^\\d+$'), Validators.min(1), Validators.max(9999)]
 
 		return this.fb.group({

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms'
 import * as jsonpath from 'jsonpath'
 import { FormService } from '../../modules/form/services/form-service.service'
 import { PageService } from '../../utilities/page-service'
@@ -21,10 +21,10 @@ const FormDefaults = new JsonPathFormModule()
 	templateUrl: './json-path.component.html'
 })
 export class JsonPathComponent implements OnInit {
-	form!: FormGroup
+	form!: UntypedFormGroup
 	result: JsonPathResult | null = null
 
-	constructor(private fb: FormBuilder, private formService: FormService, private pageService: PageService) {}
+	constructor(private fb: UntypedFormBuilder, private formService: FormService, private pageService: PageService) {}
 
 	ngOnInit() {
 		this.form = this.defineForm()
@@ -32,7 +32,7 @@ export class JsonPathComponent implements OnInit {
 		this.pageService.setPageTitle('JSON Path')
 	}
 
-	defineForm(): FormGroup {
+	defineForm(): UntypedFormGroup {
 		return this.fb.group({
 			json: [FormDefaults.json, [Validators.required]],
 			path: [FormDefaults.path, [Validators.required]]

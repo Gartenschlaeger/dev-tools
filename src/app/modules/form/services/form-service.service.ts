@@ -1,7 +1,7 @@
-import { FormGroup } from '@angular/forms'
+import { UntypedFormGroup } from '@angular/forms'
 
 export class FormService {
-	validate(group: FormGroup): boolean {
+	validate(group: UntypedFormGroup): boolean {
 		for (let field in group.controls) {
 			const control = group.get(field)
 			control?.markAsDirty()
@@ -11,7 +11,7 @@ export class FormService {
 		return group.valid
 	}
 
-	reset(group: FormGroup, value?: { [key: string]: any }): void {
+	reset(group: UntypedFormGroup, value?: { [key: string]: any }): void {
 		group.reset()
 
 		if (value) {

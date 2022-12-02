@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { FormService } from 'src/app/modules/form/services/form-service.service'
 import { PageService } from '../../utilities/page-service'
@@ -21,14 +21,14 @@ const FormDefaults = new UrlEncoderFormModel()
 	templateUrl: './url-encoder.component.html'
 })
 export class URLEncoderComponent implements OnInit {
-	form!: FormGroup
+	form!: UntypedFormGroup
 	isEncodeMode!: boolean
 	pageTitle!: string
 	result?: UrlEncoderResultModel
 
 	constructor(
 		route: ActivatedRoute,
-		private fb: FormBuilder,
+		private fb: UntypedFormBuilder,
 		private formService: FormService,
 		private pageService: PageService
 	) {
@@ -44,13 +44,13 @@ export class URLEncoderComponent implements OnInit {
 		this.pageService.setPageTitle(this.pageTitle)
 	}
 
-	defineForm(): FormGroup {
+	defineForm(): UntypedFormGroup {
 		const result = this.fb.group({
 			sourceValue: [FormDefaults.sourceValue, [Validators.required]]
 		})
 
 		if (this.isEncodeMode) {
-			result.addControl('encodeAsQueryString', new FormControl(false))
+			result.addControl('encodeAsQueryString', new UntypedFormControl(false))
 		}
 
 		return result

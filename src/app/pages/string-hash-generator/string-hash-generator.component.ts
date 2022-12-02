@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import * as CryptoJS from 'crypto-js'
 import { FormService } from '../../modules/form/services/form-service.service'
@@ -18,7 +18,7 @@ export type StringHashAlgorithm = 'md5' | 'md5hmac' | 'sha1'
 	templateUrl: './string-hash-generator.component.html'
 })
 export class StringHashGeneratorComponent implements OnInit {
-	form!: FormGroup
+	form!: UntypedFormGroup
 	pageTitle!: string
 	algorithm: StringHashAlgorithm | null = null
 
@@ -27,7 +27,7 @@ export class StringHashGeneratorComponent implements OnInit {
 
 	constructor(
 		private route: ActivatedRoute,
-		private fb: FormBuilder,
+		private fb: UntypedFormBuilder,
 		private formService: FormService,
 		private logger: LoggingService,
 		private pageService: PageService
@@ -76,13 +76,13 @@ export class StringHashGeneratorComponent implements OnInit {
 		return null
 	}
 
-	defineForm(): FormGroup {
+	defineForm(): UntypedFormGroup {
 		const form = this.fb.group({
 			inputText: ['', [Validators.required]]
 		})
 
 		if (this.algorithm === 'md5hmac') {
-			form.addControl('key', new FormControl('', [Validators.required]))
+			form.addControl('key', new UntypedFormControl('', [Validators.required]))
 		}
 
 		return form

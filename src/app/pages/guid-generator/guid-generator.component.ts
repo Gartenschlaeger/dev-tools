@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup } from '@angular/forms'
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { v4 as uuidv4 } from 'uuid'
 import { PageService } from '../../utilities/page-service'
@@ -16,10 +16,10 @@ const FormDefaultValues = new GuidGeneratorModel()
 	templateUrl: './guid-generator.component.html'
 })
 export class GuidGeneratorComponent implements OnInit {
-	form!: FormGroup
+	form!: UntypedFormGroup
 	guid?: string
 
-	constructor(private fb: FormBuilder, private route: ActivatedRoute, private pageService: PageService) {}
+	constructor(private fb: UntypedFormBuilder, private route: ActivatedRoute, private pageService: PageService) {}
 
 	ngOnInit() {
 		this.form = this.fb.group({
