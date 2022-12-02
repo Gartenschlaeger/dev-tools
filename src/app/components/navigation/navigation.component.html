@@ -1,4 +1,8 @@
-<div class="sticky top-0 bg-white dark:bg-gray-800 mb-1 py-3">
+<mat-action-list>
+	<button *ngFor="let item of items" mat-list-item (click)="handleItemClick(item)">{{ item.title }}</button>
+</mat-action-list>
+
+<!-- <div class="sticky top-0 bg-white dark:bg-gray-800 mb-1 py-3">
 	<ul class="mb-2" *ngFor="let i of stickedItems">
 		<app-navigation-link
 			*ngIf="i.isVisible !== false"
@@ -19,4 +23,4 @@
 
 <ul *ngFor="let i of items">
 	<app-navigation-link *ngIf="i.isVisible" [routerLink]="i.routerLink" [name]="i.title"></app-navigation-link>
-</ul>
+</ul> -->

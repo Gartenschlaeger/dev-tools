@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, EventEmitter, OnInit, Output } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
+import { Router } from '@angular/router'
 import { items } from '../../app.navigation-items'
 
 export interface INavigationItem {
@@ -18,7 +19,9 @@ export class NavigationComponent implements OnInit {
 	items: INavigationItem[] = []
 	stickedItems: INavigationItem[] = []
 
-	constructor(private fb: FormBuilder) {}
+	@Output() itemClicked = new EventEmitter<INavigationItem>()
+
+	constructor(private fb: FormBuilder, private router: Router) {}
 
 	ngOnInit() {
 		this.defineSearchForm()
@@ -58,5 +61,9 @@ export class NavigationComponent implements OnInit {
 		if (event.key === 'Escape') {
 			this.searchForm.patchValue({ query: '' })
 		}
+	}
+
+	handleItemClick(item: INavigationItem) {
+		this.itemClicked.emit(item)
 	}
 }

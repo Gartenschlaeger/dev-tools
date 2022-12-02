@@ -1,4 +1,45 @@
-<div class="flex flex-col justify-between min-h-screen">
+<mat-toolbar color="primary">
+	<button mat-icon-button (click)="onMenuButtonClick()">
+		<mat-icon>menu</mat-icon>
+	</button>
+	<span>DevTools</span>
+</mat-toolbar>
+
+<mat-sidenav-container class="flex-auto" (backdropClick)="onClose('backdrop')">
+	<mat-sidenav #sidenav (keydown.escape)="onClose('escape')" disableClose class="app-sidenav">
+		<app-navigation (itemClicked)="handleNavigationItemClick($event)"></app-navigation>
+	</mat-sidenav>
+	<mat-sidenav-content class="app-content">
+		<router-outlet></router-outlet>
+	</mat-sidenav-content>
+</mat-sidenav-container>
+
+<!-- <mat-drawer-container [hasBackdrop]="true">
+	<mat-drawer #drawer [mode]="mode.value">
+		<app-navigation></app-navigation>
+	</mat-drawer>
+	<mat-drawer-content>
+		<mat-form-field>
+			<mat-label>Sidenav mode</mat-label>
+			<mat-select #mode value="side">
+				<mat-option value="side">Side</mat-option>
+				<mat-option value="over">Over</mat-option>
+				<mat-option value="push">Push</mat-option>
+			</mat-select>
+		</mat-form-field>
+		<mat-form-field>
+			<mat-label>Has backdrop</mat-label>
+			<mat-select #hasBackdrop>
+				<mat-option>Unset</mat-option>
+				<mat-option [value]="true">True</mat-option>
+				<mat-option [value]="false">False</mat-option>
+			</mat-select>
+		</mat-form-field>
+		<button mat-raised-button (click)="drawer.toggle()">Toggle drawer</button>
+	</mat-drawer-content>
+</mat-drawer-container> -->
+
+<!-- <div class="flex flex-col justify-between min-h-screen">
 	<main class="container min-w-container flex">
 		<div class="flex-none w-80 overflow-y-auto max-h-screen px-3 pb-3">
 			<app-navigation></app-navigation>
@@ -13,4 +54,4 @@
 			<a href="https://github.com/Gartenschlaeger/dev-tools">Kai Gartenschläger</a>
 		</p>
 	</footer>
-</div>
+</div> -->
