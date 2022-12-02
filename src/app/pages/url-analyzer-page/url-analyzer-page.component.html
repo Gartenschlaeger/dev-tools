@@ -13,7 +13,7 @@
 	<app-form-section title="Details" *ngIf="result">
 		<div class="mb-3">
 			<app-form-label>Host</app-form-label>
-			<app-code>{{ result?.hostname }}</app-code>
+			<app-code>{{ result.hostname }}</app-code>
 		</div>
 		<div class="mb-3" *ngIf="result.port">
 			<app-form-label>Port</app-form-label>
@@ -49,7 +49,7 @@
 
 		<div class="mb-3" *ngIf="result?.fragment">
 			<app-form-label>Fragment</app-form-label>
-			<app-code>{{ result?.fragment }}</app-code>
+			<app-code>{{ result.fragment }}</app-code>
 		</div>
 	</app-form-section>
 
