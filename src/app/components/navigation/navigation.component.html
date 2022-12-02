@@ -1,8 +1,8 @@
-<mat-action-list class="mb-3">
+<mat-nav-list>
 	<ng-container *ngFor="let item of stickedItems">
-		<button *ngIf="item.isVisible" mat-list-item (click)="handleItemClick(item)">{{ item.title }}</button>
+		<mat-list-item *ngIf="item.isVisible" (click)="handleItemClick(item)">{{ item.title }}</mat-list-item>
 	</ng-container>
-</mat-action-list>
+</mat-nav-list>
 
 <form [formGroup]="searchForm" class="mx-3">
 	<mat-form-field>
@@ -14,8 +14,8 @@
 	</mat-form-field>
 </form>
 
-<mat-action-list>
+<mat-nav-list>
 	<ng-container *ngFor="let item of items">
-		<button *ngIf="item.isVisible" mat-list-item (click)="handleItemClick(item)">{{ item.title }}</button>
+		<mat-list-item *ngIf="item.isVisible" (click)="handleItemClick(item)">{{ item.title }}</mat-list-item>
 	</ng-container>
-</mat-action-list>
+</mat-nav-list>
