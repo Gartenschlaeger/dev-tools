@@ -1,0 +1,145 @@
+.flex {
+	display: flex !important;
+}
+
+.flex-column {
+	flex-direction: column !important;
+}
+
+.flex-auto {
+	flex: 1 1 auto !important;
+}
+
+.h-full {
+	height: 100% !important;
+}
+
+.w-full {
+	width: 100% !important;
+}
+
+@for $i from 0 through 10 {
+	.p-#{$i} {
+		padding: #{$i * 0.25}em !important;
+	}
+
+	.px-#{$i} {
+		padding-left: #{$i * 0.25}em !important;
+		padding-right: #{$i * 0.25}em !important;
+	}
+
+	.py-#{$i} {
+		padding-top: #{$i * 0.25}em !important;
+		padding-bottom: #{$i * 0.25}em !important;
+	}
+
+	.pl-#{$i} {
+		padding-left: #{$i * 0.25}em !important;
+	}
+
+	.pr-#{$i} {
+		padding-right: #{$i * 0.25}em !important;
+	}
+
+	.pb-#{$i} {
+		padding-bottom: #{$i * 0.25}em !important;
+	}
+
+	.pt-#{$i} {
+		padding-top: #{$i * 0.25}em !important;
+	}
+
+	.m-#{$i} {
+		margin: #{$i * 0.25}em !important;
+	}
+
+	.mx-#{$i} {
+		margin-left: #{$i * 0.25}em !important;
+		margin-right: #{$i * 0.25}em !important;
+	}
+
+	.my-#{$i} {
+		margin-top: #{$i * 0.25}em !important;
+		margin-bottom: #{$i * 0.25}em !important;
+	}
+
+	.ml-#{$i} {
+		margin-left: #{$i * 0.25}em !important;
+	}
+
+	.mr-#{$i} {
+		margin-right: #{$i * 0.25}em !important;
+	}
+
+	.mb-#{$i} {
+		margin-bottom: #{$i * 0.25}em !important;
+	}
+
+	.mt-#{$i} {
+		margin-top: #{$i * 0.25}em !important;
+	}
+
+	.gap-#{$i} {
+		gap: #{$i * 0.25}em !important;
+	}
+}
+
+.text-xs {
+	font-size: 0.75rem !important;
+	line-height: 1rem !important;
+}
+
+.text-sm {
+	font-size: 0.875rem !important;
+	line-height: 1.25rem !important;
+}
+
+.text-lg {
+	font-size: 1.125rem !important;
+	line-height: 1.75rem !important;
+}
+
+.text-xl {
+	font-size: 1.25rem !important;
+	line-height: 1.75rem !important;
+}
+
+.text-2xl {
+	font-size: 1.5rem !important;
+	line-height: 2rem !important;
+}
+
+.text-3xl {
+	font-size: 1.875rem !important;
+	line-height: 2.25rem !important;
+}
+
+.text-4xl {
+	font-size: 2.25rem !important;
+	line-height: 2.5rem !important;
+}
+
+.text-5xl {
+	font-size: 3rem !important;
+	line-height: 1 !important;
+}
+
+.text-6xl {
+	font-size: 3.75rem !important;
+	line-height: 1 !important;
+}
+
+.text-7xl {
+	font-size: 4.5rem !important;
+	line-height: 1 !important;
+}
+
+.text-8xl {
+	font-size: 6rem !important;
+	line-height: 1 !important;
+}
+
+.text-9xl {
+	font-size: 8rem !important;
+	line-height: 1 !important;
+}
