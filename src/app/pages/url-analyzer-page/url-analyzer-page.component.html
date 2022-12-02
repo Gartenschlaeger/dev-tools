@@ -1,57 +1,70 @@
-<app-page-header title="URL Analyzer"></app-page-header>
-
 <form [formGroup]="form" (submit)="handleSubmit()">
-	<app-form-section>
-		<app-form-textfield label="URL" formControlName="url" placeholder="http(s)://"></app-form-textfield>
-	</app-form-section>
-
-	<app-form-footer>
-		<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
-		<button type="submit" class="btn-primary">Analyze</button>
-	</app-form-footer>
-
-	<app-form-section title="Details" *ngIf="result">
-		<div class="mb-3">
-			<app-form-label>Host</app-form-label>
-			<app-code>{{ result.hostname }}</app-code>
-		</div>
-		<div class="mb-3" *ngIf="result.port">
-			<app-form-label>Port</app-form-label>
-			<app-code>{{ result.port }}</app-code>
-		</div>
-
-		<div class="mb-3" *ngIf="result.path">
-			<app-form-label>Path</app-form-label>
-			<app-code>{{ result.path }}</app-code>
-		</div>
-
-		<div class="mb-3" *ngIf="result.queryString">
-			<app-form-label>Query strings</app-form-label>
-			<div class="flex gap-1 items-center">
-				<div class="flex-1 overflow-hidden">
-					<app-code>{{ result.queryString }}</app-code>
-				</div>
-				<div class="flex-none">
-					<button class="btn-misc btn-sm rounded-full" (click)="handleToogleSearchDetails()">
-						<!-- <app-svg-icon type="arrowDown" *ngIf="showQueryDetails"></app-svg-icon>
-						<app-svg-icon type="arrowRight" *ngIf="!showQueryDetails"></app-svg-icon> -->
-					</button>
-				</div>
-			</div>
-		</div>
-
-		<div class="mb-3 ml-5 space-y-2" *ngIf="showQueryDetails">
-			<div *ngFor="let q of result.queryStringValues">
-				<app-form-label>{{ q.name }}</app-form-label>
-				<app-code>{{ q.value }}</app-code>
-			</div>
-		</div>
-
-		<div class="mb-3" *ngIf="result?.fragment">
-			<app-form-label>Fragment</app-form-label>
-			<app-code>{{ result.fragment }}</app-code>
-		</div>
-	</app-form-section>
+	<mat-card class="mb-3">
+		<mat-card-header>
+			<mat-card-title>URL Analyzer</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+			<mat-form-field class="w-full">
+				<mat-label>URL</mat-label>
+				<input matInput formControlName="url" placeholder="http(s)://" />
+			</mat-form-field>
+		</mat-card-content>
+		<mat-card-actions class="flex justify-center gap-2 pb-5">
+			<button mat-raised-button color="accent" type="button" (click)="handleReset()">Reset</button>
+			<button mat-raised-button color="primary" type="submit">Analyze</button>
+		</mat-card-actions>
+	</mat-card>
 
 	<app-alert *ngIf="hasError" type="error">Failed to parse URL</app-alert>
 </form>
+
+<mat-card *ngIf="result">
+	<mat-card-header>
+		<mat-card-title></mat-card-title>
+	</mat-card-header>
+	<mat-card-content>
+		<app-form-section title="Details" *ngIf="result">
+			<div class="mb-3">
+				<app-form-label>Host</app-form-label>
+				<app-code>{{ result.hostname }}</app-code>
+			</div>
+
+			<div class="mb-3" *ngIf="result.port">
+				<app-form-label>Port</app-form-label>
+				<app-code>{{ result.port }}</app-code>
+			</div>
+
+			<div class="mb-3" *ngIf="result.path">
+				<app-form-label>Path</app-form-label>
+				<app-code>{{ result.path }}</app-code>
+			</div>
+
+			<div class="mb-3" *ngIf="result.queryString">
+				<app-form-label>Query strings</app-form-label>
+				<div class="flex gap-1 items-center">
+					<div class="flex-1 overflow-hidden">
+						<app-code>{{ result.queryString }}</app-code>
+					</div>
+					<div class="flex-none">
+						<button mat-icon-button (click)="handleToogleSearchDetails()">
+							<mat-icon *ngIf="showQueryDetails">expand_more</mat-icon>
+							<mat-icon *ngIf="!showQueryDetails">chevron_right</mat-icon>
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="mb-3 ml-5 space-y-2" *ngIf="showQueryDetails">
+				<div *ngFor="let q of result.queryStringValues">
+					<app-form-label>{{ q.name }}</app-form-label>
+					<app-code>{{ q.value }}</app-code>
+				</div>
+			</div>
+
+			<div class="mb-3" *ngIf="result?.fragment">
+				<app-form-label>Fragment</app-form-label>
+				<app-code>{{ result.fragment }}</app-code>
+			</div>
+		</app-form-section>
+	</mat-card-content>
+</mat-card>

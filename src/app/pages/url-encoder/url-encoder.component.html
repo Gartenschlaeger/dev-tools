@@ -1,30 +1,33 @@
-<app-page-header title="{{ pageTitle }}"></app-page-header>
-
 <form [formGroup]="form" (submit)="handleSubmit()">
-	<app-form-section>
-		<div [ngClass]="{ 'mb-1': isEncodeMode }">
-			<app-form-textfield
-				formControlName="sourceValue"
-				[label]="isEncodeMode ? 'Value to encode' : 'Value to decode'"
-				placeholder="URL or query string"
-			></app-form-textfield>
-		</div>
-		<div class="space-y-1">
-			<app-form-checkbox *ngIf="isEncodeMode" formControlName="encodeAsQueryString"
-				>Encode as query string</app-form-checkbox
+	<mat-card class="mb-3">
+		<mat-card-header>
+			<mat-card-title>{{ pageTitle }}</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+			<mat-form-field class="w-full">
+				<mat-label>{{ isEncodeMode ? 'Value to encode' : 'Value to decode' }}</mat-label>
+				<input matInput formControlName="sourceValue" />
+			</mat-form-field>
+			<mat-checkbox *ngIf="isEncodeMode" formControlName="encodeAsQueryString"
+				>Encode as query string</mat-checkbox
 			>
-		</div>
-	</app-form-section>
-
-	<app-form-footer>
-		<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
-		<button type="submit" class="btn-primary">{{ isEncodeMode ? 'Encode' : 'Decode' }}</button>
-	</app-form-footer>
-
-	<app-form-section *ngIf="result && !result.hasErrors">
-		<app-form-label>{{ isEncodeMode ? 'Encoded value' : 'Decoded value' }}</app-form-label>
-		<app-code [scrollable]="false">{{ result.processedValue }}</app-code>
-	</app-form-section>
+		</mat-card-content>
+		<mat-card-actions class="flex justify-center gap-2 pb-5">
+			<button mat-raised-button color="accent" type="button" (click)="handleReset()">Reset</button>
+			<button mat-raised-button color="primary" type="submit" class="btn-primary">
+				{{ isEncodeMode ? 'Encode' : 'Decode' }}
+			</button>
+		</mat-card-actions>
+	</mat-card>
 
 	<app-alert type="error" *ngIf="result && result?.hasErrors">Text processing failed</app-alert>
 </form>
+
+<mat-card *ngIf="result">
+	<mat-card-header>
+		<mat-card-title>{{ isEncodeMode ? 'Encoded value' : 'Decoded value' }}</mat-card-title>
+	</mat-card-header>
+	<mat-card-content>
+		<app-code [scrollable]="false">{{ result.processedValue }}</app-code>
+	</mat-card-content>
+</mat-card>
