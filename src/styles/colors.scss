@@ -3,5 +3,5 @@
 $my-palette: mat.define-palette(mat.$indigo-palette);
 
 .bg-primary {
-    background: mat.get-color-from-palette($my-palette, 500);
+	background: mat.get-color-from-palette($my-palette, 500);
 }
