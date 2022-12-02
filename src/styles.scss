@@ -10,18 +10,8 @@ body {
 	font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
-.app-root {
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-}
-
 .app-sidenav {
 	min-width: 340px;
-}
-
-mat-form-field {
-	width: 100%;
 }
 
 .flex {
@@ -34,6 +24,10 @@ mat-form-field {
 
 .flex-auto {
 	flex: 1 1 auto !important;
+}
+
+.w-full {
+	width: 100% !important;
 }
 
 @for $i from 0 through 10 {

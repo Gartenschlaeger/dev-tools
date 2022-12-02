@@ -1,15 +1,15 @@
-<mat-toolbar color="primary" class="gap-2">
-	<button mat-icon-button (click)="sidenav.toggle()">
-		<mat-icon>menu</mat-icon>
-	</button>
-	<a mat-button class="px-2 py-1 text-xl" [routerLink]="['/home']">DevTools</a>
-</mat-toolbar>
-
-<mat-sidenav-container class="flex-auto" (backdropClick)="sidenav.close()">
+<mat-sidenav-container class="flex-auto" (backdropClick)="sidenav.close()" fullscreen>
 	<mat-sidenav #sidenav disableClose class="app-sidenav">
 		<app-navigation (itemClicked)="handleNavigationItemClick($event)"></app-navigation>
 	</mat-sidenav>
 	<mat-sidenav-content class="app-content">
+		<mat-toolbar color="primary" class="gap-2">
+			<button mat-icon-button (click)="sidenav.toggle()">
+				<mat-icon>menu</mat-icon>
+			</button>
+			<a mat-button class="px-2 py-1 text-xl" [routerLink]="['/home']">DevTools</a>
+		</mat-toolbar>
+
 		<router-outlet></router-outlet>
 	</mat-sidenav-content>
 </mat-sidenav-container>

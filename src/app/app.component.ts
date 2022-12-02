@@ -4,7 +4,7 @@ import { Router } from '@angular/router'
 import { INavigationItem } from './components/navigation/navigation.component'
 
 @Component({
-	selector: '[app-root]',
+	selector: 'app-root',
 	templateUrl: './app.component.html'
 })
 export class AppComponent {
