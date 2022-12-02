@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { ModuleWithProviders, NgModule } from '@angular/core'
-import { ReactiveFormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatIconModule } from '@angular/material/icon'
 import { RouterModule } from '@angular/router'
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs'
@@ -28,8 +28,9 @@ export interface SharedModuleConfiguration {
 		TabComponent,
 		PageHeaderComponent
 	],
-	imports: [CommonModule, RouterModule, ReactiveFormsModule, HighlightModule, FormModule, MatIconModule],
+	imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, HighlightModule, FormModule, MatIconModule],
 	exports: [
+		FormsModule,
 		ReactiveFormsModule,
 		FormModule,
 		PageHeaderComponent,

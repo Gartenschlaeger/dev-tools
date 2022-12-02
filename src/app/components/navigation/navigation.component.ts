@@ -1,6 +1,4 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core'
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms'
-import { Router } from '@angular/router'
 import { items } from '../../app.navigation-items'
 import { INavigationItem } from '../../entities/INavigationItem'
 
@@ -9,64 +7,53 @@ import { INavigationItem } from '../../entities/INavigationItem'
 	templateUrl: './navigation.component.html'
 })
 export class NavigationComponent implements OnInit {
-	searchForm!: UntypedFormGroup
-	items: INavigationItem[] = []
-	stickedItems: INavigationItem[] = []
+	itemsNormal: INavigationItem[] = []
+	itemsSticked: INavigationItem[] = []
+	searchQuery: string = ''
 
 	@Output() itemClicked = new EventEmitter<INavigationItem>()
 
-	constructor(private fb: UntypedFormBuilder, private router: Router) {}
-
 	ngOnInit() {
-		this.defineSearchForm()
-
 		items.forEach((item) => {
 			item.isVisible = true
-
 			if (item.isSticked) {
-				this.stickedItems.push(item)
+				this.itemsSticked.push(item)
 			} else {
-				this.items.push(item)
+				this.itemsNormal.push(item)
 			}
 		})
 
-		this.items.sort((a, b) => a.title.localeCompare(b.title))
-		this.stickedItems.sort((a, b) => a.title.localeCompare(b.title))
+		this.itemsNormal.sort((a, b) => a.title.localeCompare(b.title))
+		this.itemsSticked.sort((a, b) => a.title.localeCompare(b.title))
 	}
 
-	defineSearchForm() {
-		this.searchForm = this.fb.group({
-			query: ['']
-		})
-
-		this.searchForm.valueChanges.subscribe(() => {
-			const queryValue: string = this.searchForm.get('query')?.value?.toLowerCase()?.trim()
-			if (queryValue) {
-				this.items.forEach((item) => {
-					item.isVisible = item.title.toLowerCase().indexOf(queryValue) !== -1
-				})
-			} else {
-				this.items.forEach((item) => (item.isVisible = true))
-			}
-		})
-	}
-
-	private clearSearchField() {
-		this.searchForm.patchValue({ query: '' })
+	handleSearchChange() {
+		console.log(new Date(), 'searchQueryChanged')
+		const queryValue: string = this.searchQuery?.toLowerCase()?.trim()
+		if (queryValue) {
+			this.itemsNormal.forEach((item) => {
+				item.isVisible = item.title.toLowerCase().indexOf(queryValue) !== -1
+			})
+		} else {
+			this.itemsNormal.forEach((item) => (item.isVisible = true))
+		}
 	}
 
 	handleSearchKeyup(event: KeyboardEvent) {
 		if (event.key === 'Escape') {
-			this.clearSearchField()
+			this.searchQuery = ''
+			this.handleSearchChange()
 		}
 	}
 
-	handleClearSearchField() {
-		this.clearSearchField()
+	handleSearchClear() {
+		this.searchQuery = ''
+		this.handleSearchChange()
 	}
 
 	handleItemClick(item: INavigationItem) {
-		this.clearSearchField()
+		this.searchQuery = ''
+		this.handleSearchChange()
 		this.itemClicked.emit(item)
 	}
 }
