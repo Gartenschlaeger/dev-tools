@@ -1,20 +1,30 @@
-<app-page-header title="{{ pageTitle }}"></app-page-header>
-
 <form [formGroup]="form" (submit)="handleSubmit()">
-	<mat-form-field appearance="fill">
-		<mat-label>{{ isEncodeMode ? 'Plain text' : 'Base64 text' }}</mat-label>
-		<textarea matInput formControlName="sourceValue" rows="8"></textarea>
-	</mat-form-field>
+	<mat-card class="mb-3">
+		<mat-card-header>
+			<mat-card-title>{{ pageTitle }}</mat-card-title>
+		</mat-card-header>
 
-	<section>
-		<button mat-button type="button" (click)="handleReset()">Reset</button>
-		<button mat-button type="submit" color="primary">{{ isEncodeMode ? 'Encode' : 'Decode' }}</button>
-	</section>
+		<mat-card-content>
+			<mat-form-field class="w-full">
+				<mat-label>{{ isEncodeMode ? 'Plain text' : 'Base64 text' }}</mat-label>
+				<textarea matInput formControlName="sourceValue" rows="8"></textarea>
+			</mat-form-field>
 
-	<app-form-section *ngIf="processedValue">
-		<app-form-label>{{ isEncodeMode ? 'Base64 text' : 'Plain text' }}</app-form-label>
-		<app-code>{{ processedValue }}</app-code>
-	</app-form-section>
+			<app-alert type="error" *ngIf="hasErrors">Failed to encode the source value</app-alert>
+		</mat-card-content>
 
-	<app-alert type="error" *ngIf="hasErrors">Failed to encode the source value</app-alert>
+		<mat-card-actions class="flex justify-center gap-2 pb-5">
+			<button mat-raised-button type="button" color="accent" (click)="handleReset()">Reset</button>
+			<button mat-raised-button type="submit" color="primary">{{ isEncodeMode ? 'Encode' : 'Decode' }}</button>
+		</mat-card-actions>
+	</mat-card>
 </form>
+
+<mat-card *ngIf="processedValue">
+	<mat-card-header>
+		<mat-card-title>{{ isEncodeMode ? 'Base64 text' : 'Plain text' }}</mat-card-title>
+	</mat-card-header>
+	<mat-card-content>
+		<app-code>{{ processedValue }}</app-code>
+	</mat-card-content>
+</mat-card>

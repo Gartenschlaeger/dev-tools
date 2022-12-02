@@ -1,0 +1,25 @@
+.flex {
+	display: flex !important;
+}
+
+.flex-column {
+	flex-direction: column !important;
+}
+
+.flex-auto {
+	flex: 1 1 auto !important;
+}
+
+.items-center {
+	align-items: center;
+}
+
+.justify-center {
+	justify-content: center;
+}
+
+@for $i from 0 through 25 {
+	.gap-#{$i} {
+		gap: #{$i * 0.25}em !important;
+	}
+}
