@@ -1,48 +1,48 @@
-<app-page-header title="Random String Generator"></app-page-header>
-
 <form [formGroup]="form" (submit)="handleSubmit()">
-	<app-form-section>
-		<div class="space-y-1 mb-3">
+	<mat-card class="mb-6">
+		<mat-card-header>
+			<mat-card-title>Random String Generator</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
 			<div>
-				<app-form-checkbox formControlName="includeLowercaseCharacters"
-					>Include lowercase characters</app-form-checkbox
-				>
+				<mat-checkbox formControlName="includeLowercaseCharacters">Include lowercase characters</mat-checkbox>
 			</div>
-			<div>
-				<app-form-checkbox formControlName="includeUppercaseCharacters"
-					>Include uppercase characters</app-form-checkbox
-				>
-			</div>
-			<div>
-				<app-form-checkbox formControlName="includeNumbers">Include numbers</app-form-checkbox>
-			</div>
-			<div>
-				<app-form-checkbox formControlName="includeSpecialCharacters"
-					>Include special characters</app-form-checkbox
-				>
-			</div>
-			<div *ngIf="form.get('includeSpecialCharacters')?.value">
-				<app-form-textfield
-					formControlName="specialCharacters"
-					[placeholder]="defaultSpecialCharacters"
-				></app-form-textfield>
-			</div>
-		</div>
-		<app-form-textfield
-			type="number"
-			formControlName="length"
-			label="Length"
-			placeholder="Length"
-		></app-form-textfield>
-	</app-form-section>
 
-	<app-form-footer>
-		<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
-		<button type="submit" class="btn-primary">Generate</button>
-	</app-form-footer>
+			<div>
+				<mat-checkbox formControlName="includeUppercaseCharacters">Include uppercase characters</mat-checkbox>
+			</div>
 
-	<app-form-section *ngIf="result">
-		<app-form-label>Random string</app-form-label>
-		<app-code>{{ result.generatedString }}</app-code>
-	</app-form-section>
+			<div>
+				<mat-checkbox formControlName="includeNumbers">Include numbers</mat-checkbox>
+			</div>
+
+			<div>
+				<mat-checkbox formControlName="includeSpecialCharacters">Include special characters</mat-checkbox>
+			</div>
+			<div>
+				<mat-form-field *ngIf="form.get('includeSpecialCharacters')?.value">
+					<input matInput formControlName="specialCharacters" [placeholder]="defaultSpecialCharacters" />
+				</mat-form-field>
+			</div>
+			<div>
+				<mat-form-field>
+					<mat-label>Length</mat-label>
+					<input matInput type="number" formControlName="length" />
+				</mat-form-field>
+			</div>
+		</mat-card-content>
+		<mat-card-actions class="flex justify-center gap-2 pb-5">
+			<button mat-raised-button color="accent" type="button" (click)="handleReset()">Reset</button>
+			<button mat-raised-button color="primary" type="submit">Generate</button>
+		</mat-card-actions>
+	</mat-card>
 </form>
+
+<mat-card *ngIf="result">
+	<mat-card-header>
+		<mat-card-title>Random string</mat-card-title>
+	</mat-card-header>
+	<mat-card-content>
+		<pre class="select-all">{{ result.generatedString }}</pre>
+	</mat-card-content>
+</mat-card>
