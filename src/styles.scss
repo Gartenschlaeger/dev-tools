@@ -16,3 +16,10 @@ body {
 	margin: 0;
 	font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
+
+.action-buttons {
+	display: flex !important;
+	gap: 0.5em !important;
+	padding-bottom: 1.25em !important;
+	justify-content: center !important;
+}
