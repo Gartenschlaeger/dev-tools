@@ -1,247 +1,247 @@
 <form [formGroup]="form" (submit)="handleSubmit()">
-	<mat-card class="mb-3">
-		<mat-card-header>
-			<mat-card-title>Docker run</mat-card-title>
-		</mat-card-header>
+    <mat-card class="mb-3">
+        <mat-card-header>
+            <mat-card-title>Docker run</mat-card-title>
+        </mat-card-header>
 
-		<mat-card-content>
-			<mat-tab-group>
-				<!-- Image -->
-				<mat-tab label="Image">
-					<div class="flex gap-2">
-						<mat-form-field class="flex-1">
-							<mat-label>Image name</mat-label>
-							<input matInput formControlName="imageName" />
-						</mat-form-field>
-						<mat-form-field class="flex-1">
-							<mat-label>Image tag</mat-label>
-							<input matInput formControlName="imageTag" />
-						</mat-form-field>
-					</div>
-				</mat-tab>
+        <mat-card-content>
+            <mat-tab-group>
+                <!-- Image -->
+                <mat-tab label="Image">
+                    <div class="flex gap-2">
+                        <mat-form-field class="flex-1">
+                            <mat-label>Image name</mat-label>
+                            <input matInput formControlName="imageName" />
+                        </mat-form-field>
+                        <mat-form-field class="flex-1">
+                            <mat-label>Image tag</mat-label>
+                            <input matInput formControlName="imageTag" />
+                        </mat-form-field>
+                    </div>
+                </mat-tab>
 
-				<!-- Container -->
-				<mat-tab label="Container">
-					<mat-form-field class="w-full">
-						<mat-label>Name</mat-label>
-						<input matInput formControlName="containerName" />
-					</mat-form-field>
+                <!-- Container -->
+                <mat-tab label="Container">
+                    <mat-form-field class="w-full">
+                        <mat-label>Name</mat-label>
+                        <input matInput formControlName="containerName" />
+                    </mat-form-field>
 
-					<mat-checkbox formControlName="runDettached">Dettached</mat-checkbox>
+                    <mat-checkbox formControlName="runDettached">Dettached</mat-checkbox>
 
-					<mat-form-field class="w-full" appearance="fill">
-						<mat-label>Restart mode</mat-label>
-						<mat-select formControlName="restartMode">
-							<mat-option value="no">no</mat-option>
-							<mat-option value="always">always</mat-option>
-							<mat-option value="unless-stopped">unless-stopped</mat-option>
-						</mat-select>
-					</mat-form-field>
-				</mat-tab>
+                    <mat-form-field class="w-full" appearance="fill">
+                        <mat-label>Restart mode</mat-label>
+                        <mat-select formControlName="restartMode">
+                            <mat-option value="no">no</mat-option>
+                            <mat-option value="always">always</mat-option>
+                            <mat-option value="unless-stopped">unless-stopped</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </mat-tab>
 
-				<!-- network -->
-				<mat-tab label="Network settings">
-					<mat-form-field class="w-full">
-						<mat-label>Hostname</mat-label>
-						<input matInput formControlName="hostname" />
-					</mat-form-field>
+                <!-- network -->
+                <mat-tab label="Network settings">
+                    <mat-form-field class="w-full">
+                        <mat-label>Hostname</mat-label>
+                        <input matInput formControlName="hostname" />
+                    </mat-form-field>
 
-					<mat-form-field class="w-full" appearance="fill">
-						<mat-label>Mode</mat-label>
-						<mat-select formControlName="networkMode">
-							<mat-option value="none">none</mat-option>
-							<mat-option value="bridge">bridge</mat-option>
-							<mat-option value="host">host</mat-option>
-							<mat-option value="custom">custom</mat-option>
-						</mat-select>
-					</mat-form-field>
+                    <mat-form-field class="w-full" appearance="fill">
+                        <mat-label>Mode</mat-label>
+                        <mat-select formControlName="networkMode">
+                            <mat-option value="none">none</mat-option>
+                            <mat-option value="bridge">bridge</mat-option>
+                            <mat-option value="host">host</mat-option>
+                            <mat-option value="custom">custom</mat-option>
+                        </mat-select>
+                    </mat-form-field>
 
-					<mat-form-field class="w-full" *ngIf="form.get('networkMode')?.value === 'custom'">
-						<mat-label>Custom network name</mat-label>
-						<input matInput formControlName="networkName" />
-					</mat-form-field>
+                    <mat-form-field class="w-full" *ngIf="form.get('networkMode')?.value === 'custom'">
+                        <mat-label>Custom network name</mat-label>
+                        <input matInput formControlName="networkName" />
+                    </mat-form-field>
 
-					<ng-container *ngIf="form.get('networkMode')?.value !== 'host'">
-						<form class="mb-2" [formGroup]="formAddPortMapping" (submit)="handleAddPortMapping()">
-							<h1>Port mappings</h1>
+                    <ng-container *ngIf="form.get('networkMode')?.value !== 'host'">
+                        <form class="mb-2" [formGroup]="formAddPortMapping" (submit)="handleAddPortMapping()">
+                            <h1>Port mappings</h1>
 
-							<div class="flex gap-2">
-								<mat-form-field class="flex-1">
-									<mat-label>Container port</mat-label>
-									<input matInput formControlName="containerPort" #inputContainerPort />
-								</mat-form-field>
-								<mat-form-field class="flex-1">
-									<mat-label>Host port</mat-label>
-									<input matInput formControlName="hostPort" />
-								</mat-form-field>
+                            <div class="flex gap-2">
+                                <mat-form-field class="flex-1">
+                                    <mat-label>Container port</mat-label>
+                                    <input matInput formControlName="containerPort" #inputContainerPort />
+                                </mat-form-field>
+                                <mat-form-field class="flex-1">
+                                    <mat-label>Host port</mat-label>
+                                    <input matInput formControlName="hostPort" />
+                                </mat-form-field>
 
-								<button mat-icon-button type="submit">
-									<mat-icon>add</mat-icon>
-								</button>
-							</div>
-						</form>
+                                <button mat-icon-button type="submit">
+                                    <mat-icon>add</mat-icon>
+                                </button>
+                            </div>
+                        </form>
 
-						<div formArrayName="portMappings" class="mt-1 space-y-2" *ngIf="portMappings.length">
-							<mat-divider class="my-3"></mat-divider>
+                        <div formArrayName="portMappings" class="mt-1 space-y-2" *ngIf="portMappings.length">
+                            <mat-divider class="my-3"></mat-divider>
 
-							<div class="flex items-center gap-2" *ngFor="let c of portMappings.controls; index as i">
-								<ng-container [formGroupName]="i">
-									<mat-form-field class="flex-1">
-										<mat-label>Container port</mat-label>
-										<input matInput formControlName="containerPort" />
-									</mat-form-field>
-									<mat-form-field class="flex-1">
-										<mat-label>Host port</mat-label>
-										<input matInput formControlName="hostPort" />
-									</mat-form-field>
+                            <div class="flex items-center gap-2" *ngFor="let c of portMappings.controls; index as i">
+                                <ng-container [formGroupName]="i">
+                                    <mat-form-field class="flex-1">
+                                        <mat-label>Container port</mat-label>
+                                        <input matInput formControlName="containerPort" />
+                                    </mat-form-field>
+                                    <mat-form-field class="flex-1">
+                                        <mat-label>Host port</mat-label>
+                                        <input matInput formControlName="hostPort" />
+                                    </mat-form-field>
 
-									<button
-										mat-icon-button
-										color="warn"
-										type="button"
-										(click)="handleRemPortMapping(i)"
-									>
-										<mat-icon>remove</mat-icon>
-									</button>
-								</ng-container>
-							</div>
-						</div>
-					</ng-container>
-				</mat-tab>
+                                    <button
+                                        mat-icon-button
+                                        color="warn"
+                                        type="button"
+                                        (click)="handleRemPortMapping(i)"
+                                    >
+                                        <mat-icon>remove</mat-icon>
+                                    </button>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </ng-container>
+                </mat-tab>
 
-				<!-- environment variables -->
-				<mat-tab label="Environment variables">
-					<form class="mb-2" [formGroup]="formAddEnvVariable" (submit)="handleAddEnvironment()">
-						<div class="flex gap-2">
-							<mat-form-field class="flex-1">
-								<mat-label>Key</mat-label>
-								<input matInput formControlName="key" #inputEnvironmentKey />
-							</mat-form-field>
-							<mat-form-field class="flex-1">
-								<mat-label>Value</mat-label>
-								<input matInput formControlName="value" />
-							</mat-form-field>
+                <!-- environment variables -->
+                <mat-tab label="Environment variables">
+                    <form class="mb-2" [formGroup]="formAddEnvVariable" (submit)="handleAddEnvironment()">
+                        <div class="flex gap-2">
+                            <mat-form-field class="flex-1">
+                                <mat-label>Key</mat-label>
+                                <input matInput formControlName="key" #inputEnvironmentKey />
+                            </mat-form-field>
+                            <mat-form-field class="flex-1">
+                                <mat-label>Value</mat-label>
+                                <input matInput formControlName="value" />
+                            </mat-form-field>
 
-							<button mat-icon-button type="submit">
-								<mat-icon>add</mat-icon>
-							</button>
-						</div>
-					</form>
+                            <button mat-icon-button type="submit">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                        </div>
+                    </form>
 
-					<div
-						formArrayName="environmentVariables"
-						class="mt-1 space-y-2"
-						*ngIf="environmentVariables.length"
-					>
-						<mat-divider class="my-3"></mat-divider>
+                    <div
+                        formArrayName="environmentVariables"
+                        class="mt-1 space-y-2"
+                        *ngIf="environmentVariables.length"
+                    >
+                        <mat-divider class="my-3"></mat-divider>
 
-						<div
-							class="flex items-center gap-2"
-							*ngFor="let c of environmentVariables.controls; index as i"
-						>
-							<ng-container [formGroupName]="i">
-								<mat-form-field class="flex-1">
-									<mat-label>Key</mat-label>
-									<input matInput formControlName="key" />
-								</mat-form-field>
-								<mat-form-field class="flex-1">
-									<mat-label>Value</mat-label>
-									<input matInput formControlName="value" />
-								</mat-form-field>
+                        <div
+                            class="flex items-center gap-2"
+                            *ngFor="let c of environmentVariables.controls; index as i"
+                        >
+                            <ng-container [formGroupName]="i">
+                                <mat-form-field class="flex-1">
+                                    <mat-label>Key</mat-label>
+                                    <input matInput formControlName="key" />
+                                </mat-form-field>
+                                <mat-form-field class="flex-1">
+                                    <mat-label>Value</mat-label>
+                                    <input matInput formControlName="value" />
+                                </mat-form-field>
 
-								<button mat-icon-button color="warn" type="button" (click)="handleRemoveEnvVariable(i)">
-									<mat-icon>delete</mat-icon>
-								</button>
-							</ng-container>
-						</div>
-					</div>
-				</mat-tab>
+                                <button mat-icon-button color="warn" type="button" (click)="handleRemoveEnvVariable(i)">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </ng-container>
+                        </div>
+                    </div>
+                </mat-tab>
 
-				<!-- Volume mappings-->
-				<mat-tab label="Volume mappings">
-					<form class="mb-2" [formGroup]="formAddVolumeMapping" (submit)="handleAddVolumeMapping()">
-						<div class="flex gap-2">
-							<mat-form-field class="flex-1">
-								<mat-label>Host path</mat-label>
-								<input matInput formControlName="hostPath" #inputVolumeHostPath />
-							</mat-form-field>
-							<mat-form-field class="flex-1">
-								<mat-label>Container path</mat-label>
-								<input matInput formControlName="containerPath" />
-							</mat-form-field>
+                <!-- Volume mappings-->
+                <mat-tab label="Volume mappings">
+                    <form class="mb-2" [formGroup]="formAddVolumeMapping" (submit)="handleAddVolumeMapping()">
+                        <div class="flex gap-2">
+                            <mat-form-field class="flex-1">
+                                <mat-label>Host path</mat-label>
+                                <input matInput formControlName="hostPath" #inputVolumeHostPath />
+                            </mat-form-field>
+                            <mat-form-field class="flex-1">
+                                <mat-label>Container path</mat-label>
+                                <input matInput formControlName="containerPath" />
+                            </mat-form-field>
 
-							<button mat-icon-button type="submit">
-								<mat-icon>add</mat-icon>
-							</button>
-						</div>
-					</form>
+                            <button mat-icon-button type="submit">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                        </div>
+                    </form>
 
-					<div formArrayName="volumeMappings" class="mt-1 space-y-2" *ngIf="volumeMappings.length">
-						<mat-divider class="my-3"></mat-divider>
+                    <div formArrayName="volumeMappings" class="mt-1 space-y-2" *ngIf="volumeMappings.length">
+                        <mat-divider class="my-3"></mat-divider>
 
-						<div class="flex items-center gap-2" *ngFor="let c of volumeMappings.controls; index as i">
-							<ng-container [formGroupName]="i">
-								<mat-form-field class="flex-1">
-									<mat-label>Key</mat-label>
-									<input matInput formControlName="hostPath" />
-								</mat-form-field>
-								<mat-form-field class="flex-1">
-									<mat-label>Host path</mat-label>
-									<input matInput formControlName="containerPath" />
-								</mat-form-field>
+                        <div class="flex items-center gap-2" *ngFor="let c of volumeMappings.controls; index as i">
+                            <ng-container [formGroupName]="i">
+                                <mat-form-field class="flex-1">
+                                    <mat-label>Key</mat-label>
+                                    <input matInput formControlName="hostPath" />
+                                </mat-form-field>
+                                <mat-form-field class="flex-1">
+                                    <mat-label>Host path</mat-label>
+                                    <input matInput formControlName="containerPath" />
+                                </mat-form-field>
 
-								<button
-									mat-icon-button
-									color="warn"
-									type="button"
-									(click)="handleRemoveVolumeMapping(i)"
-								>
-									<mat-icon>delete</mat-icon>
-								</button>
-							</ng-container>
-						</div>
-					</div>
-				</mat-tab>
-			</mat-tab-group>
-		</mat-card-content>
+                                <button
+                                    mat-icon-button
+                                    color="warn"
+                                    type="button"
+                                    (click)="handleRemoveVolumeMapping(i)"
+                                >
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </ng-container>
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </mat-card-content>
 
-		<mat-card-actions class="action-buttons">
-			<button
-				mat-raised-button
-				color="accent"
-				type="button"
-				class="btn-secondary"
-				[disabled]="!generatedScript"
-				(click)="handleShare()"
-			>
-				Share
-			</button>
-			<button mat-raised-button color="accent" type="button" class="btn-secondary" (click)="handleReset()">
-				Reset
-			</button>
-			<button mat-raised-button color="primary" type="submit" class="btn-primary">Generate</button>
-		</mat-card-actions>
-	</mat-card>
+        <mat-card-actions class="action-buttons">
+            <button
+                mat-raised-button
+                color="accent"
+                type="button"
+                class="btn-secondary"
+                [disabled]="!generatedScript"
+                (click)="handleShare()"
+            >
+                Share
+            </button>
+            <button mat-raised-button color="accent" type="button" class="btn-secondary" (click)="handleReset()">
+                Reset
+            </button>
+            <button mat-raised-button color="primary" type="submit" class="btn-primary">Generate</button>
+        </mat-card-actions>
+    </mat-card>
 
-	<mat-card *ngIf="generatedScript">
-		<mat-card-header>
-			<mat-card-title>Script</mat-card-title>
-		</mat-card-header>
-		<mat-card-content>
-			<div [ngClass]="{ 'mb-3': generatedScript }">
-				<div>
-					<mat-checkbox formControlName="useShortParams">Short parameter names</mat-checkbox>
-				</div>
-				<div>
-					<mat-checkbox formControlName="multilineScript">Multiline script</mat-checkbox>
-				</div>
-			</div>
+    <mat-card *ngIf="generatedScript">
+        <mat-card-header>
+            <mat-card-title>Script</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div [ngClass]="{ 'mb-3': generatedScript }">
+                <div>
+                    <mat-checkbox formControlName="useShortParams">Short parameter names</mat-checkbox>
+                </div>
+                <div>
+                    <mat-checkbox formControlName="multilineScript">Multiline script</mat-checkbox>
+                </div>
+            </div>
 
-			<app-highlighted-code [language]="'bash'" [code]="generatedScript"></app-highlighted-code>
+            <app-highlighted-code [language]="'bash'" [code]="generatedScript"></app-highlighted-code>
 
-			<app-form-section title="Share" *ngIf="shareLink">
-				<app-code>{{ shareLink }}</app-code>
-			</app-form-section>
-		</mat-card-content>
-	</mat-card>
+            <app-form-section title="Share" *ngIf="shareLink">
+                <app-code>{{ shareLink }}</app-code>
+            </app-form-section>
+        </mat-card-content>
+    </mat-card>
 </form>

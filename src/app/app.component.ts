@@ -1,22 +1,23 @@
-import { Component, ViewChild } from '@angular/core'
-import { MatSidenav } from '@angular/material/sidenav'
-import { Router } from '@angular/router'
-import { INavigationItem } from './entities/INavigationItem'
+import { Component, ViewChild } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
+import { Router } from '@angular/router';
+import { INavigationItem } from './entities/INavigationItem';
 
 @Component({
-	selector: 'app-root',
-	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-	title = 'dev-tools'
+    title = 'dev-tools';
 
-	@ViewChild('sidenav') sidenav!: MatSidenav
+    @ViewChild('sidenav') sidenav!: MatSidenav;
 
-	constructor(private router: Router) {}
+    constructor(private router: Router) {
+    }
 
-	handleNavigationItemClick(item: INavigationItem) {
-		this.router.navigateByUrl(item.routerLink)
-		this.sidenav.close()
-	}
+    async handleNavigationItemClick(item: INavigationItem) {
+        await this.router.navigateByUrl(item.routerLink);
+        await this.sidenav.close();
+    }
 }

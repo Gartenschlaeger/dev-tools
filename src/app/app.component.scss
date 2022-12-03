@@ -1,25 +1,25 @@
 .app-sidenav {
-	min-width: 340px;
+    min-width: 340px;
 }
 
 .app-toolbar {
-	position: sticky;
-	top: 0;
-	z-index: 999;
-	flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    flex-shrink: 0;
 }
 
 .app-page-container {
-	padding: 1.5em;
-	flex: 1 0 auto;
+    padding: 1.5em;
+    flex: 1 0 auto;
 }
 
 .app-footer {
-	color: #fff;
-	height: 100px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 0.3em;
-	flex-shrink: 0;
+    color: #fff;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3em;
+    flex-shrink: 0;
 }
