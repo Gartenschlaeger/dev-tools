@@ -1,52 +1,53 @@
-import { Component, OnInit } from '@angular/core'
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms'
-import { FormService } from '../../modules/form/services/form-service.service'
-import { PageService } from '../../utilities/page-service'
+import { Component, OnInit } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormService } from '../../modules/form/services/form-service.service';
+import { PageService } from '../../utilities/page-service';
 
 export class QrCodeGeneratorFormModel {
-	text: string = ''
-	size: number = 220
+    text: string = '';
+    size: number = 220;
 }
 
-const FormDefaults = new QrCodeGeneratorFormModel()
+const FormDefaults = new QrCodeGeneratorFormModel();
 
 @Component({
-	selector: 'app-qr-code-generator',
-	templateUrl: './qrcode-generator.component.html'
+    selector: 'app-qr-code-generator',
+    templateUrl: './qrcode-generator.component.html'
 })
 export class QrCodeGeneratorComponent implements OnInit {
-	form!: UntypedFormGroup
-	result?: QrCodeGeneratorFormModel
+    form!: UntypedFormGroup;
+    result?: QrCodeGeneratorFormModel;
 
-	constructor(private fb: UntypedFormBuilder, private formService: FormService, private pageService: PageService) {}
+    constructor(private fb: UntypedFormBuilder, private formService: FormService, private pageService: PageService) {
+    }
 
-	ngOnInit() {
-		this.form = this.defineForm()
+    ngOnInit() {
+        this.form = this.defineForm();
 
-		this.pageService.setPageTitle('QR Code Generator')
-	}
+        this.pageService.setPageTitle('QR Code Generator');
+    }
 
-	defineForm(): UntypedFormGroup {
-		const form = this.fb.group({
-			text: [FormDefaults.text, [Validators.required]],
-			size: [FormDefaults.size, [Validators.min(100), Validators.max(999)]]
-		})
+    defineForm(): UntypedFormGroup {
+        const form = this.fb.group({
+            text: [FormDefaults.text, [Validators.required]],
+            size: [FormDefaults.size, [Validators.min(100), Validators.max(999)]]
+        });
 
-		form.get('size')?.valueChanges.subscribe((value) => {
-			this.form.get('size')?.setValue(value, { onlySelf: true, emitEvent: false, emitModelToViewChange: true })
-		})
+        form.get('size')?.valueChanges.subscribe((value) => {
+            this.form.get('size')?.setValue(value, { onlySelf: true, emitEvent: false, emitModelToViewChange: true });
+        });
 
-		return form
-	}
+        return form;
+    }
 
-	handleReset() {
-		this.formService.reset(this.form, FormDefaults)
-		this.result = undefined
-	}
+    handleReset() {
+        this.formService.reset(this.form, FormDefaults);
+        this.result = undefined;
+    }
 
-	handleSubmit() {
-		if (this.formService.validate(this.form)) {
-			this.result = { ...this.form.value }
-		}
-	}
+    handleSubmit() {
+        if (this.formService.validate(this.form)) {
+            this.result = { ...this.form.value };
+        }
+    }
 }
