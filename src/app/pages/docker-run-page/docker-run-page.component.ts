@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
-import { FormTextfieldComponent } from 'src/app/modules/form/components/form-textfield/form-textfield.component'
 import { FormService } from 'src/app/modules/form/services/form-service.service'
 import { requiredIfValidator } from 'src/app/modules/form/validators/required-if.validator'
 import { LoggingService } from 'src/app/modules/shared/services/logging.service'
@@ -48,9 +47,9 @@ export const FormDefaultValues = new DockerRunModel()
 	templateUrl: './docker-run-page.component.html'
 })
 export class DockerRunPageComponent implements OnInit {
-	@ViewChild('inputContainerPort') inputContainerPort!: FormTextfieldComponent
-	@ViewChild('inputEnvironmentKey') inputEnvironmentKey!: FormTextfieldComponent
-	@ViewChild('inputVolumeHostPath') inputVolumeHostPath!: FormTextfieldComponent
+	@ViewChild('inputContainerPort') inputContainerPort!: ElementRef<HTMLInputElement>
+	@ViewChild('inputEnvironmentKey') inputEnvironmentKey!: ElementRef<HTMLInputElement>
+	@ViewChild('inputVolumeHostPath') inputVolumeHostPath!: ElementRef<HTMLInputElement>
 
 	form!: UntypedFormGroup
 	formAddEnvVariable!: UntypedFormGroup
@@ -310,7 +309,7 @@ export class DockerRunPageComponent implements OnInit {
 			const value: string = this.formAddEnvVariable.value.value
 			this.addEnvironmentVariable({ key, value })
 
-			this.inputEnvironmentKey.focus()
+			this.inputEnvironmentKey.nativeElement.focus()
 			this.formAddEnvVariable.reset()
 		}
 	}
@@ -325,7 +324,7 @@ export class DockerRunPageComponent implements OnInit {
 			const hostPort = this.formAddPortMapping.value.hostPort
 			this.addPortMapping({ containerPort, hostPort })
 
-			this.inputContainerPort.focus()
+			this.inputContainerPort.nativeElement.focus()
 			this.formAddPortMapping.reset()
 		}
 	}
@@ -340,7 +339,7 @@ export class DockerRunPageComponent implements OnInit {
 			const containerPath: string = this.formAddVolumeMapping.value.containerPath
 			this.addVolumeMapping({ hostPath, containerPath })
 
-			this.inputVolumeHostPath.focus()
+			this.inputVolumeHostPath.nativeElement.focus()
 			this.formAddVolumeMapping.reset()
 		}
 	}

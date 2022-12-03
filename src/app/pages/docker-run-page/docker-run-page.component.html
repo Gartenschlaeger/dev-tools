@@ -1,211 +1,247 @@
-<app-page-header title="Docker run"></app-page-header>
-
 <form [formGroup]="form" (submit)="handleSubmit()">
-	<!-- image -->
-	<app-form-section title="Image">
-		<div class="flex gap-2">
-			<div class="flex-1">
-				<app-form-textfield label="Image name" formControlName="imageName"></app-form-textfield>
-			</div>
-			<div class="flex-1">
-				<app-form-textfield label="Image tag" formControlName="imageTag"></app-form-textfield>
-			</div>
-		</div>
-	</app-form-section>
+	<mat-card class="mb-3">
+		<mat-card-header>
+			<mat-card-title>Docker run</mat-card-title>
+		</mat-card-header>
 
-	<!-- container -->
-	<app-form-section title="Container">
-		<div class="mb-3 space-y-1">
-			<div>
-				<app-form-textfield formControlName="containerName" label="Name"></app-form-textfield>
-			</div>
-			<div>
-				<app-form-checkbox formControlName="runDettached">Dettached</app-form-checkbox>
-			</div>
-		</div>
-		<div>
-			<app-form-label for="restartMode">Restart mode</app-form-label>
-			<select name="restartMode" class="form-input w-full" id="restartMode" formControlName="restartMode">
-				<option>no</option>
-				<option>always</option>
-				<option>unless-stopped</option>
-			</select>
-		</div>
-	</app-form-section>
+		<mat-card-content>
+			<mat-tab-group>
+				<!-- Image -->
+				<mat-tab label="Image">
+					<div class="flex gap-2">
+						<mat-form-field class="flex-1">
+							<mat-label>Image name</mat-label>
+							<input matInput formControlName="imageName" />
+						</mat-form-field>
+						<mat-form-field class="flex-1">
+							<mat-label>Image tag</mat-label>
+							<input matInput formControlName="imageTag" />
+						</mat-form-field>
+					</div>
+				</mat-tab>
 
-	<app-form-section title="Settings">
-		<app-tab-control>
-			<app-tab label="Network">
+				<!-- Container -->
+				<mat-tab label="Container">
+					<mat-form-field class="w-full">
+						<mat-label>Name</mat-label>
+						<input matInput formControlName="containerName" />
+					</mat-form-field>
+
+					<mat-checkbox formControlName="runDettached">Dettached</mat-checkbox>
+
+					<mat-form-field class="w-full" appearance="fill">
+						<mat-label>Restart mode</mat-label>
+						<mat-select formControlName="restartMode">
+							<mat-option value="no">no</mat-option>
+							<mat-option value="always">always</mat-option>
+							<mat-option value="unless-stopped">unless-stopped</mat-option>
+						</mat-select>
+					</mat-form-field>
+				</mat-tab>
+
 				<!-- network -->
-				<div class="mb-3">
-					<app-form-label for="networkMode">Mode</app-form-label>
-					<select name="networkMode" class="form-input w-full" id="networkMode" formControlName="networkMode">
-						<option>none</option>
-						<option>bridge</option>
-						<option>host</option>
-						<option>custom</option>
-					</select>
-				</div>
+				<mat-tab label="Network settings">
+					<mat-form-field class="w-full">
+						<mat-label>Hostname</mat-label>
+						<input matInput formControlName="hostname" />
+					</mat-form-field>
 
-				<div class="mb-3" *ngIf="form.get('networkMode')?.value === 'custom'">
-					<app-form-textfield
-						formControlName="networkName"
-						placeholder="Custom network name"
-					></app-form-textfield>
-					<app-form-field-errors [control]="form"></app-form-field-errors>
-				</div>
+					<mat-form-field class="w-full" appearance="fill">
+						<mat-label>Mode</mat-label>
+						<mat-select formControlName="networkMode">
+							<mat-option value="none">none</mat-option>
+							<mat-option value="bridge">bridge</mat-option>
+							<mat-option value="host">host</mat-option>
+							<mat-option value="custom">custom</mat-option>
+						</mat-select>
+					</mat-form-field>
 
-				<div class="mb-3">
-					<app-form-textfield formControlName="hostname" label="Hostname"></app-form-textfield>
-				</div>
+					<mat-form-field class="w-full" *ngIf="form.get('networkMode')?.value === 'custom'">
+						<mat-label>Custom network name</mat-label>
+						<input matInput formControlName="networkName" />
+					</mat-form-field>
 
-				<form class="mb-2" [formGroup]="formAddPortMapping" (submit)="handleAddPortMapping()">
-					<app-form-label>Port mappings</app-form-label>
-					<div class="flex items-stretch gap-2">
-						<div class="flex-1">
-							<app-form-textfield
-								#inputContainerPort
-								formControlName="containerPort"
-								placeholder="Container port"
-							></app-form-textfield>
-						</div>
-						<div class="flex-1">
-							<app-form-textfield formControlName="hostPort" placeholder="Host port"></app-form-textfield>
-						</div>
-						<button type="submit" class="btn-primary">
-							<mat-icon>add</mat-icon>
-						</button>
-					</div>
-				</form>
+					<ng-container *ngIf="form.get('networkMode')?.value !== 'host'">
+						<form class="mb-2" [formGroup]="formAddPortMapping" (submit)="handleAddPortMapping()">
+							<h1>Port mappings</h1>
 
-				<div formArrayName="portMappings" class="mt-1 space-y-2" *ngIf="portMappings.length">
-					<div class="flex items-center gap-2" *ngFor="let c of portMappings.controls; index as i">
-						<ng-container [formGroupName]="i">
-							<div class="flex-1">
-								<app-form-textfield
-									formControlName="containerPort"
-									placeholder="Container port"
-								></app-form-textfield>
+							<div class="flex gap-2">
+								<mat-form-field class="flex-1">
+									<mat-label>Container port</mat-label>
+									<input matInput formControlName="containerPort" #inputContainerPort />
+								</mat-form-field>
+								<mat-form-field class="flex-1">
+									<mat-label>Host port</mat-label>
+									<input matInput formControlName="hostPort" />
+								</mat-form-field>
+
+								<button mat-icon-button type="submit">
+									<mat-icon>add</mat-icon>
+								</button>
 							</div>
-							<div class="flex-1">
-								<app-form-textfield
-									formControlName="hostPort"
-									placeholder="Host port"
-								></app-form-textfield>
+						</form>
+
+						<div formArrayName="portMappings" class="mt-1 space-y-2" *ngIf="portMappings.length">
+							<mat-divider class="my-3"></mat-divider>
+
+							<div class="flex items-center gap-2" *ngFor="let c of portMappings.controls; index as i">
+								<ng-container [formGroupName]="i">
+									<mat-form-field class="flex-1">
+										<mat-label>Container port</mat-label>
+										<input matInput formControlName="containerPort" />
+									</mat-form-field>
+									<mat-form-field class="flex-1">
+										<mat-label>Host port</mat-label>
+										<input matInput formControlName="hostPort" />
+									</mat-form-field>
+
+									<button
+										mat-icon-button
+										color="warn"
+										type="button"
+										(click)="handleRemPortMapping(i)"
+									>
+										<mat-icon>remove</mat-icon>
+									</button>
+								</ng-container>
 							</div>
-							<button class="btn-danger" (click)="handleRemPortMapping(i)">
-								<mat-icon>delete</mat-icon>
+						</div>
+					</ng-container>
+				</mat-tab>
+
+				<!-- environment variables -->
+				<mat-tab label="Environment variables">
+					<form class="mb-2" [formGroup]="formAddEnvVariable" (submit)="handleAddEnvironment()">
+						<div class="flex gap-2">
+							<mat-form-field class="flex-1">
+								<mat-label>Key</mat-label>
+								<input matInput formControlName="key" #inputEnvironmentKey />
+							</mat-form-field>
+							<mat-form-field class="flex-1">
+								<mat-label>Value</mat-label>
+								<input matInput formControlName="value" />
+							</mat-form-field>
+
+							<button mat-icon-button type="submit">
+								<mat-icon>add</mat-icon>
 							</button>
-						</ng-container>
-					</div>
-				</div>
-			</app-tab>
-			<app-tab label="Environment">
-				<!-- environment -->
-				<form class="mb-2" [formGroup]="formAddEnvVariable" (submit)="handleAddEnvironment()">
-					<app-form-label>Environment variables</app-form-label>
-					<div class="flex items-stretch gap-2">
-						<div class="flex-1">
-							<app-form-textfield
-								#inputEnvironmentKey
-								formControlName="key"
-								placeholder="Key"
-							></app-form-textfield>
 						</div>
-						<div class="flex-1">
-							<app-form-textfield formControlName="value" placeholder="Value"></app-form-textfield>
-						</div>
-						<button type="submit" class="btn-primary">
-							<mat-icon>add</mat-icon>
-						</button>
-					</div>
-				</form>
+					</form>
 
-				<div formArrayName="environmentVariables" class="mt-1 space-y-2" *ngIf="environmentVariables.length">
-					<div class="flex items-center gap-2" *ngFor="let c of environmentVariables.controls; index as i">
-						<ng-container [formGroupName]="i">
-							<div class="flex-1">
-								<app-form-textfield formControlName="key" placeholder="Key"></app-form-textfield>
-							</div>
-							<div class="flex-1">
-								<app-form-textfield formControlName="value" placeholder="Value"></app-form-textfield>
-							</div>
-							<button type="button" class="btn-danger" (click)="handleRemoveEnvVariable(i)">
-								<mat-icon>delete</mat-icon>
+					<div
+						formArrayName="environmentVariables"
+						class="mt-1 space-y-2"
+						*ngIf="environmentVariables.length"
+					>
+						<mat-divider class="my-3"></mat-divider>
+
+						<div
+							class="flex items-center gap-2"
+							*ngFor="let c of environmentVariables.controls; index as i"
+						>
+							<ng-container [formGroupName]="i">
+								<mat-form-field class="flex-1">
+									<mat-label>Key</mat-label>
+									<input matInput formControlName="key" />
+								</mat-form-field>
+								<mat-form-field class="flex-1">
+									<mat-label>Value</mat-label>
+									<input matInput formControlName="value" />
+								</mat-form-field>
+
+								<button mat-icon-button color="warn" type="button" (click)="handleRemoveEnvVariable(i)">
+									<mat-icon>delete</mat-icon>
+								</button>
+							</ng-container>
+						</div>
+					</div>
+				</mat-tab>
+
+				<!-- Volume mappings-->
+				<mat-tab label="Volume mappings">
+					<form class="mb-2" [formGroup]="formAddVolumeMapping" (submit)="handleAddVolumeMapping()">
+						<div class="flex gap-2">
+							<mat-form-field class="flex-1">
+								<mat-label>Host path</mat-label>
+								<input matInput formControlName="hostPath" #inputVolumeHostPath />
+							</mat-form-field>
+							<mat-form-field class="flex-1">
+								<mat-label>Container path</mat-label>
+								<input matInput formControlName="containerPath" />
+							</mat-form-field>
+
+							<button mat-icon-button type="submit">
+								<mat-icon>add</mat-icon>
 							</button>
-						</ng-container>
-					</div>
-				</div>
-			</app-tab>
-
-			<app-tab label="Volumes">
-				<!-- volume mappings -->
-				<form class="mb-2" [formGroup]="formAddVolumeMapping" (submit)="handleAddVolumeMapping()">
-					<app-form-label>Volume mappings</app-form-label>
-					<div class="flex items-stretch gap-2">
-						<div class="flex-1">
-							<app-form-textfield
-								#inputVolumeHostPath
-								formControlName="hostPath"
-								placeholder="Host path"
-							></app-form-textfield>
 						</div>
-						<div class="flex-1">
-							<app-form-textfield
-								formControlName="containerPath"
-								placeholder="Container path"
-							></app-form-textfield>
+					</form>
+
+					<div formArrayName="volumeMappings" class="mt-1 space-y-2" *ngIf="volumeMappings.length">
+						<mat-divider class="my-3"></mat-divider>
+
+						<div class="flex items-center gap-2" *ngFor="let c of volumeMappings.controls; index as i">
+							<ng-container [formGroupName]="i">
+								<mat-form-field class="flex-1">
+									<mat-label>Key</mat-label>
+									<input matInput formControlName="hostPath" />
+								</mat-form-field>
+								<mat-form-field class="flex-1">
+									<mat-label>Host path</mat-label>
+									<input matInput formControlName="containerPath" />
+								</mat-form-field>
+
+								<button
+									mat-icon-button
+									color="warn"
+									type="button"
+									(click)="handleRemoveVolumeMapping(i)"
+								>
+									<mat-icon>delete</mat-icon>
+								</button>
+							</ng-container>
 						</div>
-						<button class="btn-primary">
-							<mat-icon>add</mat-icon>
-						</button>
 					</div>
-				</form>
+				</mat-tab>
+			</mat-tab-group>
+		</mat-card-content>
 
-				<div formArrayName="volumeMappings" class="mt-1 space-y-2" *ngIf="volumeMappings.length">
-					<div class="flex items-center gap-2" *ngFor="let c of volumeMappings.controls; index as i">
-						<ng-container [formGroupName]="i">
-							<div class="flex-1">
-								<app-form-textfield
-									formControlName="hostPath"
-									placeholder="Host path"
-								></app-form-textfield>
-							</div>
-							<div class="flex-1">
-								<app-form-textfield
-									formControlName="containerPath"
-									placeholder="Container path"
-								></app-form-textfield>
-							</div>
-							<button class="btn-danger" (click)="handleRemoveVolumeMapping(i)">
-								<mat-icon>delete</mat-icon>
-							</button>
-						</ng-container>
-					</div>
+		<mat-card-actions class="flex justify-center gap-2 pb-5">
+			<button
+				mat-raised-button
+				color="accent"
+				type="button"
+				class="btn-secondary"
+				[disabled]="!generatedScript"
+				(click)="handleShare()"
+			>
+				Share
+			</button>
+			<button mat-raised-button color="accent" type="button" class="btn-secondary" (click)="handleReset()">
+				Reset
+			</button>
+			<button mat-raised-button color="primary" type="submit" class="btn-primary">Generate</button>
+		</mat-card-actions>
+	</mat-card>
+
+	<mat-card *ngIf="generatedScript">
+		<mat-card-header>
+			<mat-card-title>Script</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+			<div [ngClass]="{ 'mb-3': generatedScript }">
+				<div>
+					<mat-checkbox formControlName="useShortParams">Short parameter names</mat-checkbox>
 				</div>
-			</app-tab>
-		</app-tab-control>
-	</app-form-section>
-
-	<app-form-footer>
-		<button type="button" class="btn-secondary" [disabled]="!generatedScript" (click)="handleShare()">Share</button>
-		<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
-		<button type="submit" class="btn-primary">Generate</button>
-	</app-form-footer>
-
-	<!-- script -->
-	<app-form-section title="Script" *ngIf="generatedScript">
-		<div [ngClass]="{ 'mb-3': generatedScript }">
-			<div class="space-y-1">
-				<app-form-checkbox formControlName="useShortParams">Short parameter names</app-form-checkbox>
-				<app-form-checkbox formControlName="multilineScript">Multiline script</app-form-checkbox>
+				<div>
+					<mat-checkbox formControlName="multilineScript">Multiline script</mat-checkbox>
+				</div>
 			</div>
-		</div>
 
-		<app-highlighted-code [language]="'bash'" [code]="generatedScript"></app-highlighted-code>
-	</app-form-section>
+			<app-highlighted-code [language]="'bash'" [code]="generatedScript"></app-highlighted-code>
 
-	<app-form-section title="Share" *ngIf="shareLink">
-		<app-code>{{ shareLink }}</app-code>
-	</app-form-section>
+			<app-form-section title="Share" *ngIf="shareLink">
+				<app-code>{{ shareLink }}</app-code>
+			</app-form-section>
+		</mat-card-content>
+	</mat-card>
 </form>

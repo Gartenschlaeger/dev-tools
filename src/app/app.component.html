@@ -2,7 +2,7 @@
 	<mat-sidenav #sidenav disableClose class="app-sidenav">
 		<app-navigation (itemClicked)="handleNavigationItemClick($event)"></app-navigation>
 	</mat-sidenav>
-	<mat-sidenav-content class="flex flex-column">
+	<mat-sidenav-content class="flex flex-col">
 		<mat-toolbar color="primary" class="app-toolbar gap-2 mat-elevation-z8">
 			<button mat-icon-button (click)="sidenav.toggle()">
 				<mat-icon>menu</mat-icon>

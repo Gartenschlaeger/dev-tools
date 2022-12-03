@@ -9,6 +9,7 @@ import { MatListModule } from '@angular/material/list'
 import { MatSelectModule } from '@angular/material/select'
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { MatSliderModule } from '@angular/material/slider'
+import { MatTabsModule } from '@angular/material/tabs'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -69,7 +70,8 @@ import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer
 		MatInputModule,
 		MatSelectModule,
 		MatListModule,
-		MatCardModule
+		MatCardModule,
+		MatTabsModule
 	],
 	bootstrap: [AppComponent]
 })
