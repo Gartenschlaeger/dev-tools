@@ -1,38 +1,45 @@
-<app-page-header title="JSON Parser"></app-page-header>
-
 <form [formGroup]="form" (submit)="handleSubmit()">
-	<app-form-section>
-		<app-form-textarea label="JSON text" formControlName="source"></app-form-textarea>
-	</app-form-section>
+    <mat-card class="mb-8">
+        <mat-card-header>
+            <mat-card-title>JSON Parser</mat-card-title>
+        </mat-card-header>
 
-	<app-form-section>
-		<div class="flex justify-end gap-1">
-			<div class="mr-3">
-				<button
-					type="button"
-					class="btn-secondary"
-					(click)="handlePassToJsonFormatter()"
-					[disabled]="result.formattedValue === undefined"
-				>
-					Format
-				</button>
-			</div>
+        <mat-card-content>
+            <app-form-section>
+                <mat-form-field class="w-full">
+                    <mat-label>JSON string</mat-label>
+                    <textarea matInput formControlName="source" rows="5"></textarea>
+                </mat-form-field>
+            </app-form-section>
 
-			<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
-			<button type="submit" class="btn-primary">Parse</button>
-		</div>
-	</app-form-section>
+            <app-form-section *ngIf="result.errorMessage !== undefined">
+                <app-alert type="error"> {{ result.errorMessage }}</app-alert>
+            </app-form-section>
+        </mat-card-content>
 
-	<app-form-section *ngIf="result.errorMessage !== undefined">
-		<app-alert type="error"> {{ result.errorMessage }}</app-alert>
-	</app-form-section>
-
-	<app-form-section *ngIf="result.formattedValue !== undefined">
-		<app-form-label>Parsed JSON</app-form-label>
-		<app-highlighted-code
-			[autoselect]="false"
-			[language]="'json'"
-			[code]="result.formattedValue"
-		></app-highlighted-code>
-	</app-form-section>
+        <mat-card-actions class="action-buttons">
+            <div class="mr-3">
+                <button mat-raised-button color="accent" type="button" (click)="handlePassToJsonFormatter()"
+                        [disabled]="result.formattedValue === undefined">Format
+                </button>
+            </div>
+            <button mat-raised-button color="accent" type="button" (click)="handleReset()">Reset
+            </button>
+            <button mat-raised-button color="primary" type="submit">Parse</button>
+        </mat-card-actions>
+    </mat-card>
 </form>
+
+<mat-card *ngIf="result.formattedValue !== undefined">
+    <mat-card-header>
+        <mat-card-title>Parsed JSON</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <app-highlighted-code
+            [autoselect]="false"
+            [language]="'json'"
+            [code]="result.formattedValue"
+        ></app-highlighted-code>
+    </mat-card-content>
+</mat-card>
