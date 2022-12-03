@@ -1,28 +1,40 @@
-<app-page-header title="{{ pageTitle }}"></app-page-header>
-
 <form [formGroup]="form" (submit)="handleSubmit()">
-	<app-form-section>
-		<div class="space-y-3">
-			<div *ngIf="form.contains('key')">
-				<app-form-textfield label="Key" formControlName="key"></app-form-textfield>
-			</div>
-			<div>
-				<app-form-textfield label="Text" formControlName="inputText"></app-form-textfield>
-			</div>
-		</div>
-	</app-form-section>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>{{ pageTitle }}</mat-card-title>
+        </mat-card-header>
 
-	<app-form-footer>
-		<button type="reset" class="btn-secondary" (click)="handleReset()">Reset</button>
-		<button type="submit" class="btn-primary">Generate</button>
-	</app-form-footer>
+        <mat-card-content>
+            <div class="space-y-3">
+                <div *ngIf="form.contains('key')">
+                    <mat-form-field class="flex-1">
+                        <mat-label>Key</mat-label>
+                        <input matInput formControlName="key" />
+                    </mat-form-field>
+                </div>
 
-	<app-form-section>
-		<ng-container *ngIf="hashedString && !error">
-			<app-form-label>Hash</app-form-label>
-			<app-code>{{ hashedString }}</app-code>
-		</ng-container>
+                <mat-form-field class="flex-1">
+                    <mat-label>Text</mat-label>
+                    <input matInput formControlName="inputText" />
+                </mat-form-field>
+            </div>
 
-		<app-alert type="error" *ngIf="error">{{ error }}</app-alert>
-	</app-form-section>
+            <app-alert type="error" *ngIf="error">{{ error }}</app-alert>
+        </mat-card-content>
+
+        <mat-card-actions class="action-buttons">
+            <button mat-raised-button color="accent" type="reset" (click)="handleReset()">Reset</button>
+            <button mat-raised-button color="primary" type="submit">Generate</button>
+        </mat-card-actions>
+    </mat-card>
 </form>
+
+<mat-card *ngIf="hashedString && !error">
+    <mat-card-header>
+        <mat-card-title>Hash</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <app-code>{{ hashedString }}</app-code>
+    </mat-card-content>
+</mat-card>
