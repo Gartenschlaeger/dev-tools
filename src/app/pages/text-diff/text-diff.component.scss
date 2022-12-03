@@ -1,0 +1,39 @@
+.df-container {
+    @apply px-3 py-2 w-full border rounded
+    border-gray-300 text-gray-500
+    bg-white
+    dark:text-gray-200 dark:bg-gray-900 dark:border-gray-600;
+}
+
+.text-line {
+    @apply flex gap-1;
+}
+
+.text-column {
+    @apply flex flex-1;
+}
+
+.line-number {
+    @apply p-1 text-right;
+    width: 3em;
+}
+
+.line-changes {
+    @apply p-1 break-all;
+}
+
+.insert-row {
+    @apply text-gray-800 bg-green-100 dark:bg-green-300;
+}
+
+.insert-row > .highlight {
+    @apply text-gray-800 dark:text-gray-100 bg-green-300 dark:bg-green-500;
+}
+
+.delete-row {
+    @apply text-gray-800 bg-red-100 dark:bg-red-300;
+}
+
+.delete-row > .highlight {
+    @apply text-gray-800 dark:text-gray-100 bg-red-300 dark:bg-red-500;
+}

@@ -1,10 +1,10 @@
-import { DiffLineResult } from './DiffLineResult'
-import { SideDiff } from './SideDiff'
+import { DiffLineResult } from './DiffLineResult';
+import { SideDiff } from './SideDiff';
 
 export interface DiffTableRowResult {
-	leftContent: DiffLineResult | undefined
-	rightContent: DiffLineResult | undefined
-	belongTo: SideDiff
-	hasDiffs: boolean
-	numDiffs: number
+    leftContent: DiffLineResult | undefined;
+    rightContent: DiffLineResult | undefined;
+    belongTo: SideDiff;
+    hasDiffs: boolean;
+    numDiffs: number;
 }

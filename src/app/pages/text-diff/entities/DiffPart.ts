@@ -1,4 +1,4 @@
 export interface DiffPart {
-	content: string
-	isDiff: boolean
+    content: string;
+    isDiff: boolean;
 }

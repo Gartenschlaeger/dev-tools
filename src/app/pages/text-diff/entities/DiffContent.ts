@@ -1,4 +1,4 @@
 export interface DiffContent {
-	leftContent: string
-	rightContent: string
+    leftContent: string;
+    rightContent: string;
 }

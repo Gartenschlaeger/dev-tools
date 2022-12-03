@@ -1,8 +1,8 @@
-import { DiffPart } from './DiffPart'
+import { DiffPart } from './DiffPart';
 
 export interface DiffLineResult {
-	lineNumber: number
-	prefix: string
-	lineContent: string
-	lineDiffs: DiffPart[]
+    lineNumber: number;
+    prefix: string;
+    lineContent: string;
+    lineDiffs: DiffPart[];
 }
