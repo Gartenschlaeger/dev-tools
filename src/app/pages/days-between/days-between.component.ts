@@ -1,77 +1,67 @@
-import { Component, OnInit } from '@angular/core'
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms'
-import { ActivatedRoute } from '@angular/router'
-import { FormService } from 'src/app/modules/form/services/form-service.service'
-import { DateService } from 'src/app/modules/shared/services/date.service'
-import { PageService } from '../../utilities/page-service'
+import { Component, OnInit } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { FormService } from 'src/app/modules/form/services/form-service.service';
+import { DateService } from 'src/app/modules/shared/services/date.service';
+import { PageService } from '../../utilities/page-service';
 
 export class DaysBetweenModel {
-	fromYear?: number
-	fromMonth?: number
-	fromDay?: number
-	toYear?: number
-	toMonth?: number
-	toDay?: number
+    fromDate?: Date;
+    toDate?: Date;
 }
 
 export class DaysBetweenResult {
-	Days?: number
-	Months?: number
-	Years?: number
+    Days?: number;
+    Months?: number;
+    Years?: number;
 }
 
-const FormDefaultValues = new DaysBetweenModel()
+const FormDefaultValues = new DaysBetweenModel();
 
 @Component({
-	selector: 'app-days-between',
-	templateUrl: './days-between.component.html'
+    selector: 'app-days-between',
+    templateUrl: './days-between.component.html'
 })
 export class DaysBetweenComponent implements OnInit {
-	form!: UntypedFormGroup
-	result: DaysBetweenResult | null = null
+    form!: UntypedFormGroup;
+    result: DaysBetweenResult | null = null;
 
-	constructor(
-		private route: ActivatedRoute,
-		private fb: UntypedFormBuilder,
-		private formService: FormService,
-		private dateService: DateService,
-		private pageService: PageService
-	) {}
+    constructor(
+        private route: ActivatedRoute,
+        private fb: UntypedFormBuilder,
+        private formService: FormService,
+        private dateService: DateService,
+        private pageService: PageService
+    ) {
+    }
 
-	ngOnInit(): void {
-		this.form = this.defineForm()
-		this.pageService.setPageTitle('Days between')
-	}
+    ngOnInit(): void {
+        this.form = this.defineForm();
+        this.pageService.setPageTitle('Days between');
+    }
 
-	defineForm(): UntypedFormGroup {
-		const validators = [Validators.required, Validators.pattern('^\\d+$'), Validators.min(1), Validators.max(9999)]
+    defineForm(): UntypedFormGroup {
+        const validators = [Validators.required, Validators.pattern('^\\d+$'), Validators.min(1), Validators.max(9999)];
 
-		return this.fb.group({
-			fromYear: [FormDefaultValues.fromYear, validators],
-			fromMonth: [FormDefaultValues.fromMonth, validators],
-			fromDay: [FormDefaultValues.fromDay, validators],
-			toYear: [FormDefaultValues.toYear, validators],
-			toMonth: [FormDefaultValues.toMonth, validators],
-			toDay: [FormDefaultValues.toDay, validators]
-		})
-	}
+        return this.fb.group({
+            fromDate: [FormDefaultValues.fromDate, validators],
+            toDate: [FormDefaultValues.toDate, validators]
+        });
+    }
 
-	handleSubmit() {
-		if (this.formService.validate(this.form)) {
-			const model = this.form.value as DaysBetweenModel
-			const minDate = new Date(model.fromYear!, model.fromMonth! - 1, model.fromDay!)
-			const toDate = new Date(model.toYear!, model.toMonth! - 1, model.toDay!)
+    handleSubmit() {
+        if (this.formService.validate(this.form)) {
+            const model = this.form.value as DaysBetweenModel;
+            this.result = {
+                Days: this.dateService.DaysBetween(model.fromDate!, model.toDate!),
+                Months: this.dateService.MonthsBetween(model.fromDate!, model.toDate!),
+                Years: this.dateService.YearsBetween(model.fromDate!, model.toDate!)
+            };
+        }
+    }
 
-			this.result = {
-				Days: this.dateService.DaysBetween(minDate, toDate),
-				Months: this.dateService.MonthsBetween(minDate, toDate),
-				Years: this.dateService.YearsBetween(minDate, toDate)
-			}
-		}
-	}
-
-	handleReset() {
-		this.formService.reset(this.form)
-		this.result = null
-	}
+    handleReset() {
+        this.formService.reset(this.form);
+        this.result = null;
+    }
 }

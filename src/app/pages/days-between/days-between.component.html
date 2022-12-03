@@ -1,56 +1,48 @@
-<app-page-header title="Days between"></app-page-header>
+<form [formGroup]="form" (submit)="handleSubmit()" class="mb-8">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Days between</mat-card-title>
+        </mat-card-header>
 
-<form [formGroup]="form" (submit)="handleSubmit()">
-	<app-form-section>
-		<div class="mb-3">
-			<app-form-label>From date</app-form-label>
-			<div class="flex gap-2">
-				<div class="flex-1">
-					<app-form-textfield placeholder="Year" formControlName="fromYear"></app-form-textfield>
-				</div>
-				<div class="flex-1">
-					<app-form-textfield placeholder="Month" formControlName="fromMonth"></app-form-textfield>
-				</div>
-				<div class="flex-1">
-					<app-form-textfield placeholder="Day" formControlName="fromDay"></app-form-textfield>
-				</div>
-			</div>
-		</div>
-		<div>
-			<app-form-label>To date</app-form-label>
-			<div class="flex gap-2">
-				<div class="flex-1">
-					<app-form-textfield placeholder="Year" formControlName="toYear"></app-form-textfield>
-				</div>
-				<div class="flex-1">
-					<app-form-textfield placeholder="Month" formControlName="toMonth"></app-form-textfield>
-				</div>
-				<div class="flex-1">
-					<app-form-textfield placeholder="Day" formControlName="toDay"></app-form-textfield>
-				</div>
-			</div>
-		</div>
-	</app-form-section>
+        <mat-card-content>
+            <mat-form-field appearance="fill">
+                <mat-label>Date range</mat-label>
+                <mat-date-range-input [rangePicker]="picker">
+                    <input matStartDate formControlName="fromDate" placeholder="Start date">
+                    <input matEndDate formControlName="toDate" placeholder="End date">
+                </mat-date-range-input>
+                <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+        </mat-card-content>
 
-	<app-form-footer>
-		<button type="button" class="btn-secondary" (click)="handleReset()">Reset</button>
-		<button type="submit" class="btn-primary">Calculate</button>
-	</app-form-footer>
-
-	<app-form-section *ngIf="result">
-		<div class="space-y-3">
-			<div>
-				<app-form-label>Days</app-form-label>
-				<app-code>{{ result.Days }}</app-code>
-			</div>
-			<div>
-				<app-form-label>Months</app-form-label>
-				<app-code>{{ result.Months }}</app-code>
-			</div>
-			<div>
-				<app-form-label>Years</app-form-label>
-				<app-code>{{ result.Years }}</app-code>
-			</div>
-		</div>
-	</app-form-section>
+        <mat-card-actions class="action-buttons">
+            <button mat-raised-button color="accent" type="button" (click)="handleReset()">Reset</button>
+            <button mat-raised-button color="primary" type="submit">Calculate</button>
+        </mat-card-actions>
+    </mat-card>
 </form>
+
+<mat-card *ngIf="result">
+    <mat-card-header>
+        <mat-card-title>Result</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <div class="space-y-3">
+            <div>
+                <app-form-label>Days</app-form-label>
+                <app-code>{{ result.Days }}</app-code>
+            </div>
+            <div>
+                <app-form-label>Months</app-form-label>
+                <app-code>{{ result.Months }}</app-code>
+            </div>
+            <div>
+                <app-form-label>Years</app-form-label>
+                <app-code>{{ result.Years }}</app-code>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
