@@ -9,6 +9,7 @@ import { URLEncoderComponent } from 'src/app/pages/url-encoder/url-encoder.compo
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { routes } from './app.routes';
+import { TextInputDialogComponent } from './components/shared-dialogs/dialogs/text-input-dialog.component';
 import { Base64Component } from './pages/base64/base64.component';
 import { BitCalculatorComponent } from './pages/bit-calculator/bit-calculator.component';
 import { ColorPickerComponent } from './pages/color-picker/color-picker.component';
@@ -41,7 +42,8 @@ import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer
         StringRandomizerComponent,
         StringGeneratorComponent,
         ColorPickerComponent,
-        BitCalculatorComponent
+        BitCalculatorComponent,
+        TextInputDialogComponent
     ],
     imports: [
         BrowserModule,

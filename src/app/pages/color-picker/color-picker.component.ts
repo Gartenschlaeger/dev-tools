@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { SharedDialogsService } from '../../components/shared-dialogs/services/shared-dialogs.service';
 import { ColorHSL, ColorRGB, hslToRgb, rbgToHsl } from '../../utilities/colorconverter';
 import { PageService } from '../../utilities/page-service';
 
@@ -39,7 +40,9 @@ export class ColorPickerComponent implements OnInit {
     rgbValueDecimal: string = '';
     hslValue: string = '';
 
-    constructor(private pageService: PageService, private fb: UntypedFormBuilder) {
+    constructor(private page: PageService,
+                private formBuilder: UntypedFormBuilder,
+                private sharedDialogs: SharedDialogsService) {
     }
 
     ngOnInit() {
@@ -71,7 +74,7 @@ export class ColorPickerComponent implements OnInit {
         this.loadPalette();
         this.updateValues();
 
-        this.pageService.setPageTitle('Color picker');
+        this.page.setPageTitle('Color picker');
     }
 
     keepControlsInSync(controlA: string, controlB: string) {
@@ -114,7 +117,7 @@ export class ColorPickerComponent implements OnInit {
             model = JSON.parse(fromLocalStorageValue);
         }
 
-        return this.fb.group({
+        return this.formBuilder.group({
             valueRN: [model.valueRN],
             valueRR: [model.valueRR],
             valueGN: [model.valueGN],
@@ -266,47 +269,51 @@ export class ColorPickerComponent implements OnInit {
     }
 
     handlePickHex() {
-        const pickedValue = prompt('Hex color (RGB or RRGGBB):', this.hexValue);
-        if (pickedValue) {
-            const regex = new RegExp('^#?([0-9a-fA-F]{1,2})([0-9a-fA-F]{1,2})([0-9a-fA-F]{1,2})$');
-            const match = regex.exec(pickedValue);
-            if (match) {
-                const values = [];
-                for (let i = 1; i <= 3; i++) {
-                    const v = parseInt(match[i].length == 1 ? match[i] + match[i] : match[i], 16);
-                    values.push(v);
-                }
+        const hexPattern = /^#?([0-9a-fA-F]{1,2})([0-9a-fA-F]{1,2})([0-9a-fA-F]{1,2})$/;
+        this.sharedDialogs.openInputDialog({
+            title: 'Pick hexadecimal value',
+            message: 'Please enter the new hexadecimal value:',
+            format: hexPattern,
+            value: this.hexValue
+        }).subscribe(result => {
+            if (result) {
+                const match = hexPattern.exec(result);
+                if (match) {
+                    const values = [];
+                    for (let i = 1; i <= 3; i++) {
+                        const v = parseInt(match[i].length == 1 ? match[i] + match[i] : match[i], 16);
+                        values.push(v);
+                    }
 
-                this.form.patchValue({
-                    valueRN: values[0],
-                    valueGN: values[1],
-                    valueBN: values[2]
-                });
+                    this.form.patchValue({
+                        valueRN: values[0],
+                        valueGN: values[1],
+                        valueBN: values[2]
+                    });
+                }
             }
-        }
+        });
     }
 
-    handlePickRgbDec() {
-        const pickedValue = prompt('RGB (r g b):', this.rgbValueDecimal);
-        if (pickedValue) {
-            const parts = pickedValue.split(' ', 3);
-            if (parts.length === 3) {
-                // parse values
-                const values = [parseFloat(parts[0].trim()), parseFloat(parts[1].trim()), parseFloat(parts[2].trim())];
-
-                // check for valid values
-                for (let i = 0; i < values.length; i++) {
-                    if (values[i] < 0 || values[i] > 1) {
-                        return;
-                    }
+    handlePickRgb() {
+        const rgbPattern = /^(\d{1,3})\s(\d{1,3})\s(\d{1,3})$/;
+        this.sharedDialogs.openInputDialog({
+            title: 'Pick RGB value',
+            message: 'Please enter a new RGB value:',
+            format: rgbPattern,
+            value: this.rgbValue
+        }).subscribe(result => {
+            if (result) {
+                const match = rgbPattern.exec(result);
+                if (match) {
+                    const values = match.slice(1).map(v => parseInt(v));
+                    this.form.patchValue({
+                        valueRN: Math.round(Math.min(255, values[0])),
+                        valueGN: Math.round(Math.min(255, values[1])),
+                        valueBN: Math.round(Math.min(255, values[2]))
+                    });
                 }
-
-                this.form.patchValue({
-                    valueRN: Math.round(values[0] * 255),
-                    valueGN: Math.round(values[1] * 255),
-                    valueBN: Math.round(values[2] * 255)
-                });
             }
-        }
+        });
     }
 }

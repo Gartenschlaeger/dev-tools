@@ -1,0 +1,16 @@
+<form [formGroup]="form">
+    <h2 matDialogTitle>{{options.title}}</h2>
+
+    <mat-dialog-content>
+        <p *ngIf="options.message">{{options.message}}</p>
+        <mat-form-field>
+            <mat-label>{{options.label || 'Value'}}</mat-label>
+            <input matInput formControlName="value" [required]="true">
+        </mat-form-field>
+    </mat-dialog-content>
+
+    <mat-dialog-actions class="action-buttons">
+        <button mat-raised-button color="accent" type="button" (click)="handleCancel()">Cancel</button>
+        <button mat-raised-button color="primary" type="submit" (click)="handleOk()">OK</button>
+    </mat-dialog-actions>
+</form>
