@@ -4,90 +4,88 @@
             <mat-card-title>Bit Calculator</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <app-form-section>
-                <div class="flex flex-col gap-8">
-                    <div class="flex gap-8">
-                        <div formArrayName="byte1">
-                            <mat-label>Byte 1</mat-label>
-                            <div class="flex gap-2">
-                                <mat-checkbox formControlName="0">1</mat-checkbox>
-                                <mat-checkbox formControlName="1">2</mat-checkbox>
-                                <mat-checkbox formControlName="2">3</mat-checkbox>
-                                <mat-checkbox formControlName="3">4</mat-checkbox>
-                            </div>
-                            <div class="flex gap-2">
-                                <mat-checkbox formControlName="4">5</mat-checkbox>
-                                <mat-checkbox formControlName="5">6</mat-checkbox>
-                                <mat-checkbox formControlName="6">7</mat-checkbox>
-                                <mat-checkbox formControlName="7">8</mat-checkbox>
-                            </div>
-                            <div class="flex gap-2">
-                                <button mat-button color="accent" (click)="handleSetBits(0, true)">all</button>
-                                <button mat-button color="accent" (click)="handleSetBits(0, false)">none</button>
-                            </div>
+            <div class="flex flex-col gap-8">
+                <div class="flex gap-8">
+                    <div formArrayName="byte1">
+                        <mat-label>Byte 1</mat-label>
+                        <div class="flex gap-2">
+                            <mat-checkbox formControlName="0">1</mat-checkbox>
+                            <mat-checkbox formControlName="1">2</mat-checkbox>
+                            <mat-checkbox formControlName="2">3</mat-checkbox>
+                            <mat-checkbox formControlName="3">4</mat-checkbox>
                         </div>
-                        <div formArrayName="byte2">
-                            <mat-label>Byte 2</mat-label>
-                            <div class="flex gap-2">
-                                <mat-checkbox formControlName="0">1</mat-checkbox>
-                                <mat-checkbox formControlName="1">2</mat-checkbox>
-                                <mat-checkbox formControlName="2">3</mat-checkbox>
-                                <mat-checkbox formControlName="3">4</mat-checkbox>
-                            </div>
-                            <div class="flex gap-2">
-                                <mat-checkbox formControlName="4">5</mat-checkbox>
-                                <mat-checkbox formControlName="5">6</mat-checkbox>
-                                <mat-checkbox formControlName="6">7</mat-checkbox>
-                                <mat-checkbox formControlName="7">8</mat-checkbox>
-                            </div>
-                            <div class="flex gap-2">
-                                <button mat-button color="accent" (click)="handleSetBits(1, true)">all</button>
-                                <button mat-button color="accent" (click)="handleSetBits(1, false)">none</button>
-                            </div>
+                        <div class="flex gap-2">
+                            <mat-checkbox formControlName="4">5</mat-checkbox>
+                            <mat-checkbox formControlName="5">6</mat-checkbox>
+                            <mat-checkbox formControlName="6">7</mat-checkbox>
+                            <mat-checkbox formControlName="7">8</mat-checkbox>
+                        </div>
+                        <div class="flex gap-2">
+                            <button mat-button color="accent" (click)="handleSetBits(0, true)">all</button>
+                            <button mat-button color="accent" (click)="handleSetBits(0, false)">none</button>
                         </div>
                     </div>
-                    <div class="flex gap-8">
-                        <div formArrayName="byte3">
-                            <mat-label>Byte 3</mat-label>
-                            <div class="flex gap-2">
-                                <mat-checkbox formControlName="0">1</mat-checkbox>
-                                <mat-checkbox formControlName="1">2</mat-checkbox>
-                                <mat-checkbox formControlName="2">3</mat-checkbox>
-                                <mat-checkbox formControlName="3">4</mat-checkbox>
-                            </div>
-                            <div class="flex gap-2">
-                                <mat-checkbox formControlName="4">5</mat-checkbox>
-                                <mat-checkbox formControlName="5">6</mat-checkbox>
-                                <mat-checkbox formControlName="6">7</mat-checkbox>
-                                <mat-checkbox formControlName="7">8</mat-checkbox>
-                            </div>
-                            <div class="flex gap-2">
-                                <button mat-button color="accent" (click)="handleSetBits(2, true)">all</button>
-                                <button mat-button color="accent" (click)="handleSetBits(2, false)">none</button>
-                            </div>
+                    <div formArrayName="byte2">
+                        <mat-label>Byte 2</mat-label>
+                        <div class="flex gap-2">
+                            <mat-checkbox formControlName="0">1</mat-checkbox>
+                            <mat-checkbox formControlName="1">2</mat-checkbox>
+                            <mat-checkbox formControlName="2">3</mat-checkbox>
+                            <mat-checkbox formControlName="3">4</mat-checkbox>
                         </div>
-                        <div formArrayName="byte4">
-                            <mat-label>Byte 4</mat-label>
-                            <div class="flex gap-2">
-                                <mat-checkbox formControlName="0">1</mat-checkbox>
-                                <mat-checkbox formControlName="1">2</mat-checkbox>
-                                <mat-checkbox formControlName="2">3</mat-checkbox>
-                                <mat-checkbox formControlName="3">4</mat-checkbox>
-                            </div>
-                            <div class="flex gap-2">
-                                <mat-checkbox formControlName="4">5</mat-checkbox>
-                                <mat-checkbox formControlName="5">6</mat-checkbox>
-                                <mat-checkbox formControlName="6">7</mat-checkbox>
-                                <mat-checkbox formControlName="7">8</mat-checkbox>
-                            </div>
-                            <div class="flex gap-2">
-                                <button mat-button color="accent" (click)="handleSetBits(3, true)">all</button>
-                                <button mat-button color="accent" (click)="handleSetBits(3, false)">none</button>
-                            </div>
+                        <div class="flex gap-2">
+                            <mat-checkbox formControlName="4">5</mat-checkbox>
+                            <mat-checkbox formControlName="5">6</mat-checkbox>
+                            <mat-checkbox formControlName="6">7</mat-checkbox>
+                            <mat-checkbox formControlName="7">8</mat-checkbox>
+                        </div>
+                        <div class="flex gap-2">
+                            <button mat-button color="accent" (click)="handleSetBits(1, true)">all</button>
+                            <button mat-button color="accent" (click)="handleSetBits(1, false)">none</button>
                         </div>
                     </div>
                 </div>
-            </app-form-section>
+                <div class="flex gap-8">
+                    <div formArrayName="byte3">
+                        <mat-label>Byte 3</mat-label>
+                        <div class="flex gap-2">
+                            <mat-checkbox formControlName="0">1</mat-checkbox>
+                            <mat-checkbox formControlName="1">2</mat-checkbox>
+                            <mat-checkbox formControlName="2">3</mat-checkbox>
+                            <mat-checkbox formControlName="3">4</mat-checkbox>
+                        </div>
+                        <div class="flex gap-2">
+                            <mat-checkbox formControlName="4">5</mat-checkbox>
+                            <mat-checkbox formControlName="5">6</mat-checkbox>
+                            <mat-checkbox formControlName="6">7</mat-checkbox>
+                            <mat-checkbox formControlName="7">8</mat-checkbox>
+                        </div>
+                        <div class="flex gap-2">
+                            <button mat-button color="accent" (click)="handleSetBits(2, true)">all</button>
+                            <button mat-button color="accent" (click)="handleSetBits(2, false)">none</button>
+                        </div>
+                    </div>
+                    <div formArrayName="byte4">
+                        <mat-label>Byte 4</mat-label>
+                        <div class="flex gap-2">
+                            <mat-checkbox formControlName="0">1</mat-checkbox>
+                            <mat-checkbox formControlName="1">2</mat-checkbox>
+                            <mat-checkbox formControlName="2">3</mat-checkbox>
+                            <mat-checkbox formControlName="3">4</mat-checkbox>
+                        </div>
+                        <div class="flex gap-2">
+                            <mat-checkbox formControlName="4">5</mat-checkbox>
+                            <mat-checkbox formControlName="5">6</mat-checkbox>
+                            <mat-checkbox formControlName="6">7</mat-checkbox>
+                            <mat-checkbox formControlName="7">8</mat-checkbox>
+                        </div>
+                        <div class="flex gap-2">
+                            <button mat-button color="accent" (click)="handleSetBits(3, true)">all</button>
+                            <button mat-button color="accent" (click)="handleSetBits(3, false)">none</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </mat-card-content>
         <mat-card-actions class="action-buttons">
             <button mat-raised-button color="primary" (click)="handleReset()">Reset</button>
@@ -101,11 +99,11 @@
     </mat-card-header>
     <mat-card-content>
         <div>
-            <app-form-label>Binary</app-form-label>
+            <mat-label>Binary</mat-label>
             <app-code>{{ results.binaryRepresentation }}</app-code>
         </div>
         <div>
-            <app-form-label>Decimal</app-form-label>
+            <mat-label>Decimal</mat-label>
             <app-code>{{ results.decimalRepresentation }}</app-code>
         </div>
     </mat-card-content>

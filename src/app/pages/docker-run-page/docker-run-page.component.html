@@ -1,5 +1,5 @@
 <form [formGroup]="form" (submit)="handleSubmit()">
-    <mat-card class="mb-3">
+    <mat-card class="mb-8">
         <mat-card-header>
             <mat-card-title>Docker run</mat-card-title>
         </mat-card-header>
@@ -182,7 +182,7 @@
                         <div class="flex items-center gap-2" *ngFor="let c of volumeMappings.controls; index as i">
                             <ng-container [formGroupName]="i">
                                 <mat-form-field class="flex-1">
-                                    <mat-label>Key</mat-label>
+                                    <mat-label>Container path</mat-label>
                                     <input matInput formControlName="hostPath" />
                                 </mat-form-field>
                                 <mat-form-field class="flex-1">
@@ -223,10 +223,11 @@
         </mat-card-actions>
     </mat-card>
 
-    <mat-card *ngIf="generatedScript">
+    <mat-card *ngIf="generatedScript" class="mb-8">
         <mat-card-header>
             <mat-card-title>Script</mat-card-title>
         </mat-card-header>
+
         <mat-card-content>
             <div [ngClass]="{ 'mb-3': generatedScript }">
                 <div>
@@ -238,10 +239,16 @@
             </div>
 
             <app-highlighted-code [language]="'bash'" [code]="generatedScript"></app-highlighted-code>
+        </mat-card-content>
+    </mat-card>
 
-            <app-form-section title="Share" *ngIf="shareLink">
-                <app-code>{{ shareLink }}</app-code>
-            </app-form-section>
+    <mat-card *ngIf="shareLink">
+        <mat-card-header>
+            <mat-card-title>Share</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+            <app-code>{{ shareLink }}</app-code>
         </mat-card-content>
     </mat-card>
 </form>

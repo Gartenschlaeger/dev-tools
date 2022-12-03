@@ -1,5 +1,5 @@
 <form [formGroup]="form" (submit)="handleSubmit()">
-    <mat-card class="mb-3">
+    <mat-card class="mb-8">
         <mat-card-header>
             <mat-card-title>URL Analyzer</mat-card-title>
         </mat-card-header>
@@ -22,51 +22,50 @@
 
 <mat-card *ngIf="result">
     <mat-card-header>
-        <mat-card-title></mat-card-title>
+        <mat-card-title>Details</mat-card-title>
     </mat-card-header>
+
     <mat-card-content>
-        <app-form-section title="Details" *ngIf="result">
-            <div class="mb-3">
-                <app-form-label>Host</app-form-label>
-                <app-code>{{ result.hostname }}</app-code>
-            </div>
+        <div class="mb-3">
+            <mat-label>Host</mat-label>
+            <app-code>{{ result.hostname }}</app-code>
+        </div>
 
-            <div class="mb-3" *ngIf="result.port">
-                <app-form-label>Port</app-form-label>
-                <app-code>{{ result.port }}</app-code>
-            </div>
+        <div class="mb-3" *ngIf="result.port">
+            <mat-label>Port</mat-label>
+            <app-code>{{ result.port }}</app-code>
+        </div>
 
-            <div class="mb-3" *ngIf="result.path">
-                <app-form-label>Path</app-form-label>
-                <app-code>{{ result.path }}</app-code>
-            </div>
+        <div class="mb-3" *ngIf="result.path">
+            <mat-label>Path</mat-label>
+            <app-code>{{ result.path }}</app-code>
+        </div>
 
-            <div class="mb-3" *ngIf="result.queryString">
-                <app-form-label>Query strings</app-form-label>
-                <div class="flex gap-1 items-center">
-                    <div class="flex-1 overflow-hidden">
-                        <app-code>{{ result.queryString }}</app-code>
-                    </div>
-                    <div class="flex-none">
-                        <button mat-icon-button (click)="handleToogleSearchDetails()">
-                            <mat-icon *ngIf="showQueryDetails">expand_more</mat-icon>
-                            <mat-icon *ngIf="!showQueryDetails">chevron_right</mat-icon>
-                        </button>
-                    </div>
+        <div class="mb-3" *ngIf="result.queryString">
+            <mat-label>Query strings</mat-label>
+            <div class="flex gap-1 items-center">
+                <div class="flex-1 overflow-hidden">
+                    <app-code>{{ result.queryString }}</app-code>
+                </div>
+                <div class="flex-none">
+                    <button mat-mini-fab color="accent" (click)="handleToogleSearchDetails()">
+                        <mat-icon *ngIf="showQueryDetails">expand_more</mat-icon>
+                        <mat-icon *ngIf="!showQueryDetails">chevron_right</mat-icon>
+                    </button>
                 </div>
             </div>
+        </div>
 
-            <div class="mb-3 ml-5 space-y-2" *ngIf="showQueryDetails">
-                <div *ngFor="let q of result.queryStringValues">
-                    <app-form-label>{{ q.name }}</app-form-label>
-                    <app-code>{{ q.value }}</app-code>
-                </div>
+        <div class="mb-3 ml-5 space-y-2" *ngIf="showQueryDetails">
+            <div *ngFor="let q of result.queryStringValues">
+                <mat-label>{{ q.name }}</mat-label>
+                <app-code>{{ q.value }}</app-code>
             </div>
+        </div>
 
-            <div class="mb-3" *ngIf="result?.fragment">
-                <app-form-label>Fragment</app-form-label>
-                <app-code>{{ result.fragment }}</app-code>
-            </div>
-        </app-form-section>
+        <div class="mb-3" *ngIf="result?.fragment">
+            <mat-label>Fragment</mat-label>
+            <app-code>{{ result.fragment }}</app-code>
+        </div>
     </mat-card-content>
 </mat-card>

@@ -1,5 +1,5 @@
 <form [formGroup]="form" (submit)="handleSubmit()">
-    <mat-card class="mb-3">
+    <mat-card class="mb-8">
         <mat-card-header>
             <mat-card-title>{{ pageTitle }}</mat-card-title>
         </mat-card-header>
@@ -14,7 +14,7 @@
             </mat-checkbox
             >
         </mat-card-content>
-        
+
         <mat-card-actions class="flex justify-center gap-2 pb-5">
             <button mat-raised-button color="accent" type="button" (click)="handleReset()">Reset</button>
             <button mat-raised-button color="primary" type="submit" class="btn-primary">
