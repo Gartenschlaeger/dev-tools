@@ -1,33 +1,36 @@
 <form [formGroup]="form" (submit)="handleSubmit()">
-	<mat-card class="mb-3">
-		<mat-card-header>
-			<mat-card-title>{{ pageTitle }}</mat-card-title>
-		</mat-card-header>
-		<mat-card-content>
-			<mat-form-field class="w-full">
-				<mat-label>{{ isEncodeMode ? 'Value to encode' : 'Value to decode' }}</mat-label>
-				<input matInput formControlName="sourceValue" />
-			</mat-form-field>
-			<mat-checkbox *ngIf="isEncodeMode" formControlName="encodeAsQueryString"
-				>Encode as query string</mat-checkbox
-			>
-		</mat-card-content>
-		<mat-card-actions class="flex justify-center gap-2 pb-5">
-			<button mat-raised-button color="accent" type="button" (click)="handleReset()">Reset</button>
-			<button mat-raised-button color="primary" type="submit" class="btn-primary">
-				{{ isEncodeMode ? 'Encode' : 'Decode' }}
-			</button>
-		</mat-card-actions>
-	</mat-card>
+    <mat-card class="mb-3">
+        <mat-card-header>
+            <mat-card-title>{{ pageTitle }}</mat-card-title>
+        </mat-card-header>
 
-	<app-alert type="error" *ngIf="result && result?.hasErrors">Text processing failed</app-alert>
+        <mat-card-content>
+            <mat-form-field class="w-full">
+                <mat-label>{{ isEncodeMode ? 'Value to encode' : 'Value to decode' }}</mat-label>
+                <input matInput formControlName="sourceValue" />
+            </mat-form-field>
+            <mat-checkbox *ngIf="isEncodeMode" formControlName="encodeAsQueryString"
+            >Encode as query string
+            </mat-checkbox
+            >
+        </mat-card-content>
+        
+        <mat-card-actions class="flex justify-center gap-2 pb-5">
+            <button mat-raised-button color="accent" type="button" (click)="handleReset()">Reset</button>
+            <button mat-raised-button color="primary" type="submit" class="btn-primary">
+                {{ isEncodeMode ? 'Encode' : 'Decode' }}
+            </button>
+        </mat-card-actions>
+    </mat-card>
+
+    <app-alert type="error" *ngIf="result && result?.hasErrors">Text processing failed</app-alert>
 </form>
 
 <mat-card *ngIf="result">
-	<mat-card-header>
-		<mat-card-title>{{ isEncodeMode ? 'Encoded value' : 'Decoded value' }}</mat-card-title>
-	</mat-card-header>
-	<mat-card-content>
-		<app-code [scrollable]="false">{{ result.processedValue }}</app-code>
-	</mat-card-content>
+    <mat-card-header>
+        <mat-card-title>{{ isEncodeMode ? 'Encoded value' : 'Decoded value' }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <app-code [scrollable]="false">{{ result.processedValue }}</app-code>
+    </mat-card-content>
 </mat-card>
