@@ -19,9 +19,9 @@
                     </mat-form-field>
                 </div>
             </div>
-            <mat-radio-group class="flex gap-6">
-                <mat-radio-button formControlName="isSideBySideMode" [value]="true">Side by side</mat-radio-button>
-                <mat-radio-button formControlName="isSideBySideMode" [value]="false">Line by line</mat-radio-button>
+            <mat-radio-group class="flex gap-6" formControlName="isSideBySideMode">
+                <mat-radio-button [value]="true">Side by side</mat-radio-button>
+                <mat-radio-button [value]="false">Line by line</mat-radio-button>
             </mat-radio-group>
         </mat-card-content>
 
