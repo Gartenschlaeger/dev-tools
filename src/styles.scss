@@ -2,27 +2,17 @@
 
 @include mat.core();
 
+// ---------- light theme ----------
+
 $light-theme-primary-palette: mat.define-palette(mat.$indigo-palette);
 $light-theme-accent-palette: mat.define-palette(mat.$pink-palette);
 $light-theme-warn-palette: mat.define-palette(mat.$red-palette);
-
-$dark-theme-primary-palette: mat.define-palette(mat.$pink-palette);
-$dark-theme-accent-palette: mat.define-palette(mat.$gray-palette);
-$dark-theme-warn-palette: mat.define-palette(mat.$red-palette);
 
 $light-theme: mat.define-light-theme((
     color: (
         primary: $light-theme-primary-palette,
         accent: $light-theme-accent-palette,
         warn: $light-theme-warn-palette,
-    )
-));
-
-$dark-theme: mat.define-dark-theme((
-    color: (
-        primary: $dark-theme-primary-palette,
-        accent: $dark-theme-accent-palette,
-        warn: $dark-theme-warn-palette,
     )
 ));
 
@@ -50,6 +40,20 @@ $dark-theme: mat.define-dark-theme((
     margin: 5px 0 0;
 }
 
+// ---------- dark theme ----------
+
+$dark-theme-primary-palette: mat.define-palette(mat.$pink-palette);
+$dark-theme-accent-palette: mat.define-palette(mat.$gray-palette);
+$dark-theme-warn-palette: mat.define-palette(mat.$red-palette);
+
+$dark-theme: mat.define-dark-theme((
+    color: (
+        primary: $dark-theme-primary-palette,
+        accent: $dark-theme-accent-palette,
+        warn: $dark-theme-warn-palette,
+    )
+));
+
 .dark-theme {
     @include mat.all-component-colors($dark-theme);
 
@@ -70,7 +74,8 @@ $dark-theme: mat.define-dark-theme((
     }
 }
 
-// custom styles
+// ---------- other customizations ----------
+
 @import 'styles/flexbox.scss';
 @import 'styles/highlighjs.scss';
 @import 'styles/material.scss';
