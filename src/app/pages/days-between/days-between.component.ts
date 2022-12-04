@@ -7,7 +7,7 @@ import { PageService } from '../../utilities/page-service';
 
 export class DaysBetweenModel {
     fromDate?: Date;
-    toDate?: Date;
+    toDate: Date = new Date();
 }
 
 export class DaysBetweenResult {
@@ -41,11 +41,9 @@ export class DaysBetweenComponent implements OnInit {
     }
 
     defineForm(): UntypedFormGroup {
-        const validators = [Validators.required, Validators.pattern('^\\d+$'), Validators.min(1), Validators.max(9999)];
-
         return this.fb.group({
-            fromDate: [FormDefaultValues.fromDate, validators],
-            toDate: [FormDefaultValues.toDate, validators]
+            fromDate: [FormDefaultValues.fromDate, [Validators.required]],
+            toDate: [FormDefaultValues.toDate, [Validators.required]]
         });
     }
 
@@ -61,7 +59,7 @@ export class DaysBetweenComponent implements OnInit {
     }
 
     handleReset() {
-        this.formService.reset(this.form);
+        this.formService.reset(this.form, FormDefaultValues);
         this.result = null;
     }
 }

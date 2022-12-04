@@ -5,16 +5,33 @@
         </mat-card-header>
 
         <mat-card-content>
-            <mat-form-field appearance="fill">
-                <mat-label>Date range</mat-label>
-                <mat-date-range-input [rangePicker]="picker">
-                    <input matStartDate formControlName="fromDate" placeholder="Start date">
-                    <input matEndDate formControlName="toDate" placeholder="End date">
-                </mat-date-range-input>
-                <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-date-range-picker #picker></mat-date-range-picker>
-            </mat-form-field>
+            <div class="flex gap-3">
+                <mat-form-field appearance="fill">
+                    <mat-label>Start date</mat-label>
+                    <input matInput [matDatepicker]="fromDatepicker" formControlName="fromDate">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="fromDatepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #fromDatepicker>
+                        <mat-datepicker-actions>
+                            <button mat-button matDatepickerCancel>Cancel</button>
+                            <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                        </mat-datepicker-actions>
+                    </mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>End date</mat-label>
+                    <input matInput [matDatepicker]="toDatepicker" formControlName="toDate">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="toDatepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #toDatepicker>
+                        <mat-datepicker-actions>
+                            <button mat-button matDatepickerCancel>Cancel</button>
+                            <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                        </mat-datepicker-actions>
+                    </mat-datepicker>
+                </mat-form-field>
+            </div>
         </mat-card-content>
 
         <mat-card-actions class="action-buttons">
