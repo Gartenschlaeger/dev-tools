@@ -8,26 +8,17 @@
             <div class="flex gap-3">
                 <mat-form-field>
                     <mat-label>Start date</mat-label>
-                    <input matInput [matDatepicker]="fromDatepicker" formControlName="fromDate" placeholder="MM/DD/YYYY">
+                    <input matInput [matDatepicker]="fromDatepicker" formControlName="fromDate"
+                           placeholder="MM/DD/YYYY">
                     <mat-datepicker-toggle matIconSuffix [for]="fromDatepicker"></mat-datepicker-toggle>
-                    <mat-datepicker #fromDatepicker>
-                        <mat-datepicker-actions>
-                            <button mat-button matDatepickerCancel>Cancel</button>
-                            <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
-                        </mat-datepicker-actions>
-                    </mat-datepicker>
+                    <mat-datepicker #fromDatepicker></mat-datepicker>
                 </mat-form-field>
 
                 <mat-form-field>
                     <mat-label>End date</mat-label>
                     <input matInput [matDatepicker]="toDatepicker" formControlName="toDate" placeholder="MM/DD/YYYY">
                     <mat-datepicker-toggle matIconSuffix [for]="toDatepicker"></mat-datepicker-toggle>
-                    <mat-datepicker #toDatepicker>
-                        <mat-datepicker-actions>
-                            <button mat-button matDatepickerCancel>Cancel</button>
-                            <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
-                        </mat-datepicker-actions>
-                    </mat-datepicker>
+                    <mat-datepicker #toDatepicker></mat-datepicker>
                 </mat-form-field>
             </div>
         </mat-card-content>
