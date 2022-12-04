@@ -12,12 +12,7 @@ export class FormService {
     }
 
     reset(group: UntypedFormGroup, value?: { [key: string]: any }): void {
-        group.reset();
-
-        if (value) {
-            group.setValue(value);
-        }
-
+        group.reset(value);
         group.markAsUntouched();
     }
 }
