@@ -31,11 +31,15 @@ $dark-theme: mat.define-dark-theme((
 
 @include mat.all-component-themes($light-theme);
 
-.card-text-color {
-    color: #000;
+.text-color-accent {
+    color: mat.get-color-from-palette($_pink-palette, 500);
 }
 
-.primary-text-color {
+.text-color-card {
+    color: mat.get-color-from-palette($_indigo_palette, 500);
+}
+
+.text-color-primary {
     color: #fff;
 }
 
@@ -46,8 +50,15 @@ $dark-theme: mat.define-dark-theme((
         background: mat.get-color-from-palette($_pink-palette, 500);
     }
 
-    .card-text-color,
-    .primary-text-color {
+    .text-color-accent {
+        color: mat.get-color-from-palette($_grey_palette, 500)
+    }
+
+    .text-color-card {
+        color: #fff;
+    }
+
+    .text-color-primary {
         color: #fff;
     }
 }

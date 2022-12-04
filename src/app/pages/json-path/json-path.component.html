@@ -17,7 +17,11 @@
                 </mat-form-field>
             </div>
 
-            <a href="https://goessner.net/articles/JsonPath/" class="card-text-color" target="_blank">Syntax</a>
+            <div class="mb-8">
+                <a href="https://goessner.net/articles/JsonPath/"
+                   class="text-color-accent"
+                   target="_blank">Details about the syntax</a>
+            </div>
 
             <ng-container *ngIf="result && result.error">
                 <app-alert type="error" class="whitespace-pre">{{ result.error }}</app-alert>
