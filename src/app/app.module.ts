@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { NavigationLinkComponent } from 'src/app/components/navigation-link/navigation-link.component';
 import { NavigationComponent } from 'src/app/components/navigation/navigation.component';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { URLEncoderComponent } from 'src/app/pages/url-encoder/url-encoder.component';
@@ -28,7 +27,6 @@ import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer
     declarations: [
         AppComponent,
         NavigationComponent,
-        NavigationLinkComponent,
         HomePageComponent,
         UrlAnalyzerPageComponent,
         DockerRunPageComponent,
