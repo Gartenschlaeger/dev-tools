@@ -32,7 +32,7 @@ $light-theme: mat.define-light-theme((
 
 .code-block {
     overflow-x: auto;
-    background-color: whitesmoke;
+    background-color: whitesmoke; // TODO: replace with theme color
 }
 
 .code-block > pre {
