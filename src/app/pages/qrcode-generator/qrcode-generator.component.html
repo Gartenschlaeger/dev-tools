@@ -39,8 +39,8 @@
     </mat-card-header>
 
     <mat-card-content>
-        <div class="flex justify-center mt-16">
-            <qr-code [size]="result.size" [value]="result.text" [canvas]="true"></qr-code>
+        <div class="flex justify-center">
+            <qrcode [width]="result.size" [qrdata]="result.text" [errorCorrectionLevel]="'M'"></qrcode>
         </div>
     </mat-card-content>
 </mat-card>

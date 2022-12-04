@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
-import { QRCodeModule } from 'angular2-qrcode';
+import { QRCodeModule } from 'angularx-qrcode';
 import { SharedModule } from '../../modules/shared/shared.module';
 import { QrCodeGeneratorComponent } from './qrcode-generator.component';
 
