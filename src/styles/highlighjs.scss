@@ -1,7 +1,7 @@
 pre code.hljs {
     display: block;
     overflow-x: auto;
-    padding: 1em;
+    padding: 0;
 }
 
 code.hljs {
@@ -10,7 +10,7 @@ code.hljs {
 
 .hljs {
     color: #2f3337;
-    background: #fff;
+    background-color: whitesmoke; // TODO: replace with theme color
 }
 
 .hljs-subst {
@@ -94,19 +94,9 @@ code.hljs {
 }
 
 .dark-theme {
-    pre code.hljs {
-        display: block;
-        overflow-x: auto;
-        padding: 1em;
-    }
-
-    code.hljs {
-        padding: 3px 5px;
-    }
-
     .hljs {
         color: #fff;
-        background: #111827;
+        background-color: #4a4a4a !important; // TODO: replace with theme color
     }
 
     .hljs-subst {
@@ -179,13 +169,5 @@ code.hljs {
 
     .hljs-addition {
         color: #76c490;
-    }
-
-    .hljs-emphasis {
-        font-style: italic;
-    }
-
-    .hljs-strong {
-        font-weight: 700;
     }
 }
