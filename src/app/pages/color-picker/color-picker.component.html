@@ -3,8 +3,10 @@
         <mat-card-header>
             <mat-card-title>Color picker</mat-card-title>
         </mat-card-header>
+
         <mat-card-content>
             <div class="flex gap-8 mb-5 pr-8">
+
                 <!-- RGB -->
                 <div class="flex-1">
                     <div class="flex gap-8 items-center">
@@ -41,6 +43,7 @@
                         </mat-slider>
                     </div>
                 </div>
+
                 <div class="flex-1">
                     <!-- HSL -->
                     <div class="flex gap-8 items-center">
@@ -79,33 +82,32 @@
                 </div>
             </div>
 
-            <mat-card-content>
-                <div class="flex gap-3">
-                    <div class="flex gap-2">
-                        <button
-                            mat-mini-fab
-                            color="accent"
-                            (click)="handleAddPaletteColor()"
-                        >
-                            <mat-icon>add</mat-icon>
-                        </button>
-                        <button mat-mini-fab color="accent" type="button" (click)="handleRemoveColor()"
-                                [disabled]="palette.length < 2">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                    </div>
-                    <div class="flex flex-wrap gap-1">
-                        <ng-container *ngFor="let c of palette; let i = index">
-                            <div
-                                class="color-slot"
-                                [ngClass]="{ 'active': selectedPaletteColorIndex === i }"
-                                [ngStyle]="{ 'background-color': c ? 'rgb(' + c.r + ',' + c.g + ',' + c.b + ')' : null }"
-                                (click)="handlePaletteColorClick(i)"
-                            ></div>
-                        </ng-container>
-                    </div>
+            <!-- color palette -->
+            <div class="flex gap-3">
+                <div class="flex gap-2">
+                    <button
+                        mat-mini-fab
+                        color="accent"
+                        (click)="handleAddPaletteColor()"
+                    >
+                        <mat-icon>add</mat-icon>
+                    </button>
+                    <button mat-mini-fab color="accent" type="button" (click)="handleRemoveColor()"
+                            [disabled]="palette.length < 2">
+                        <mat-icon>delete</mat-icon>
+                    </button>
                 </div>
-            </mat-card-content>
+                <div class="flex flex-wrap gap-1">
+                    <ng-container *ngFor="let c of palette; let i = index">
+                        <div
+                            class="color-slot"
+                            [ngClass]="{ 'active': selectedPaletteColorIndex === i }"
+                            [ngStyle]="{ 'background-color': c ? 'rgb(' + c.r + ',' + c.g + ',' + c.b + ')' : null }"
+                            (click)="handlePaletteColorClick(i)"
+                        ></div>
+                    </ng-container>
+                </div>
+            </div>
         </mat-card-content>
     </mat-card>
 
@@ -113,58 +115,43 @@
         <mat-card-header>
             <mat-card-title>Values</mat-card-title>
         </mat-card-header>
+
         <mat-card-content>
             <div class="flex flex-col gap-1">
-                <div class="flex items-center gap-8">
-                    <div>
-                        <mat-label>Hex</mat-label>
-                    </div>
-                    <div class="">
-                        <app-code>{{ hexValue }}</app-code>
-                    </div>
+                <div class="flex items-center gap-3">
+                    <mat-label>Hex</mat-label>
+                    <app-code>{{ hexValue }}</app-code>
                     <div class="flex-none flex items-center">
                         <button mat-mini-fab color="accent" type="button" (click)="handlePickHex()">
                             <mat-icon>colorize</mat-icon>
                         </button>
                     </div>
                 </div>
+
                 <mat-divider></mat-divider>
-                <div>
-                    <div class="flex items-center gap-8">
-                        <div>
-                            <mat-label>RGB</mat-label>
-                        </div>
-                        <div class="">
-                            <app-code>{{ rgbValue }}</app-code>
-                        </div>
-                        <div class="flex-none flex items-center">
-                            <button mat-mini-fab color="accent" type="button" (click)="handlePickRgb()">
-                                <mat-icon>colorize</mat-icon>
-                            </button>
-                        </div>
+
+                <div class="flex items-center gap-3">
+                    <mat-label>RGB</mat-label>
+                    <app-code>{{ rgbValue }}</app-code>
+                    <div class="flex-none flex items-center">
+                        <button mat-mini-fab color="accent" type="button" (click)="handlePickRgb()">
+                            <mat-icon>colorize</mat-icon>
+                        </button>
                     </div>
                 </div>
+
                 <mat-divider></mat-divider>
-                <div>
-                    <div class="flex items-center gap-8">
-                        <div>
-                            <mat-label>RGB dec</mat-label>
-                        </div>
-                        <div class="">
-                            <app-code>{{ rgbValueDecimal }}</app-code>
-                        </div>
-                    </div>
+
+                <div class="flex items-center gap-8">
+                    <mat-label>RGB dec</mat-label>
+                    <app-code>{{ rgbValueDecimal }}</app-code>
                 </div>
+
                 <mat-divider></mat-divider>
-                <div>
-                    <div class="flex items-center gap-8">
-                        <div>
-                            <mat-label>HSL</mat-label>
-                        </div>
-                        <div class="">
-                            <app-code>{{ hslValue }}</app-code>
-                        </div>
-                    </div>
+
+                <div class="flex items-center gap-8">
+                    <mat-label>HSL</mat-label>
+                    <app-code>{{ hslValue }}</app-code>
                 </div>
             </div>
         </mat-card-content>

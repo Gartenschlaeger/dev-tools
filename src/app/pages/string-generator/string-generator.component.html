@@ -10,9 +10,12 @@
                 <mat-checkbox formControlName="includeUppercaseCharacters">Include uppercase characters</mat-checkbox>
                 <mat-checkbox formControlName="includeNumbers">Include numbers</mat-checkbox>
                 <mat-checkbox formControlName="includeSpecialCharacters">Include special characters</mat-checkbox>
+
                 <mat-form-field *ngIf="form.get('includeSpecialCharacters')?.value">
+                    <mat-label>Special characters</mat-label>
                     <input matInput formControlName="specialCharacters" [placeholder]="defaultSpecialCharacters" />
                 </mat-form-field>
+
                 <mat-form-field>
                     <mat-label>Length</mat-label>
                     <input matInput type="number" formControlName="length" />
