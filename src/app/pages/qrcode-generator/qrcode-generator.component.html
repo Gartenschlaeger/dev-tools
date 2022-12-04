@@ -8,7 +8,12 @@
             <div class="mb-3">
                 <mat-form-field class="w-full">
                     <mat-label>Text</mat-label>
-                    <textarea matInput formControlName="text" rows="3"></textarea>
+                    <textarea matInput
+                              cdkTextareaAutosize
+                              [cdkAutosizeMinRows]="3"
+                              [cdkAutosizeMaxRows]="10"
+                              formControlName="text"
+                              rows="3"></textarea>
                 </mat-form-field>
             </div>
             <div class="mr-6">
