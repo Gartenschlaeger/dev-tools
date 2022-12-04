@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+    providedIn: 'root'
+})
 export class DateService {
     public DaysBetween(from: Date, to: Date): number {
         const differenceInTime = to.getTime() - from.getTime();
