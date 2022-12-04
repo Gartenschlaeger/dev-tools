@@ -5,11 +5,15 @@
         </mat-card-header>
 
         <mat-card-content>
-            <div class="flex flex-col">
-                <mat-checkbox formControlName="includeLowercaseCharacters">Include lowercase characters</mat-checkbox>
-                <mat-checkbox formControlName="includeUppercaseCharacters">Include uppercase characters</mat-checkbox>
-                <mat-checkbox formControlName="includeNumbers">Include numbers</mat-checkbox>
-                <mat-checkbox formControlName="includeSpecialCharacters">Include special characters</mat-checkbox>
+            <div class="flex flex-col gap-3">
+                <div class="flex flex-col">
+                    <mat-checkbox formControlName="includeLowercaseCharacters">Include lowercase characters
+                    </mat-checkbox>
+                    <mat-checkbox formControlName="includeUppercaseCharacters">Include uppercase characters
+                    </mat-checkbox>
+                    <mat-checkbox formControlName="includeNumbers">Include numbers</mat-checkbox>
+                    <mat-checkbox formControlName="includeSpecialCharacters">Include special characters</mat-checkbox>
+                </div>
 
                 <mat-form-field *ngIf="form.get('includeSpecialCharacters')?.value">
                     <mat-label>Special characters</mat-label>
