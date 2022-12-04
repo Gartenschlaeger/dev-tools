@@ -7,7 +7,7 @@
             <button mat-icon-button (click)="sidenav.toggle()">
                 <mat-icon>menu</mat-icon>
             </button>
-            
+
             <button mat-button class="px-2 py-1 text-xl" [routerLink]="['/home']">DevTools</button>
 
             <span class="flex-auto"></span>
@@ -16,8 +16,14 @@
                 <mat-icon>format_color_fill</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="handleSetTheme('light')">Light</button>
-                <button mat-menu-item (click)="handleSetTheme('dark')">Dark</button>
+                <button mat-menu-item (click)="handleSetTheme('light')">
+                    <mat-icon>light_mode</mat-icon>
+                    <span>Light mode</span>
+                </button>
+                <button mat-menu-item (click)="handleSetTheme('dark')">
+                    <mat-icon>dark_mode</mat-icon>
+                    <span>Dark mode</span>
+                </button>
             </mat-menu>
         </mat-toolbar>
 
