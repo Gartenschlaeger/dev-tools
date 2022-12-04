@@ -31,35 +31,49 @@ $dark-theme: mat.define-dark-theme((
 
 @include mat.all-component-themes($light-theme);
 
-.text-color-accent {
-    color: mat.get-color-from-palette($_pink-palette, 500);
+.color-accent {
+    color: mat.get-color-from-palette($_pink-palette, 500) !important;
 }
 
-.text-color-card {
-    color: mat.get-color-from-palette($_indigo_palette, 500);
+.color-card {
+    color: mat.get-color-from-palette($_indigo_palette, 500) !important;
 }
 
-.text-color-primary {
-    color: #fff;
+.color-primary {
+    color: #fff !important; // TODO: replace with theme color
+}
+
+.code-block {
+    overflow-x: auto;
+    background-color: whitesmoke;
+}
+
+.code-block > pre {
+    padding: 16px;
+    margin: 5px 0 0;
 }
 
 .dark-theme {
     @include mat.all-component-themes($dark-theme);
 
     .bg-primary {
-        background: mat.get-color-from-palette($_pink-palette, 500);
+        background: mat.get-color-from-palette($_pink-palette, 500) !important;
     }
 
-    .text-color-accent {
-        color: mat.get-color-from-palette($_grey_palette, 500)
+    .color-accent {
+        color: mat.get-color-from-palette($_grey_palette, 500) !important;
     }
 
-    .text-color-card {
-        color: #fff;
+    .color-card {
+        color: #fff !important; // TODO: replace with theme color
     }
 
-    .text-color-primary {
-        color: #fff;
+    .color-primary {
+        color: #fff !important; // TODO: replace with theme color
+    }
+
+    .code-block {
+        background-color: #4a4a4a !important; // TODO: replace with theme color
     }
 }
 

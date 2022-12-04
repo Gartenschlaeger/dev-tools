@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input } from '@angular/core';
 
 @Component({
-	selector: 'app-code',
-	templateUrl: './code.component.html'
+    selector: 'app-code',
+    templateUrl: './code.component.html'
 })
 export class CodeComponent {
-	@Input() autoselect = true
-	@Input() scrollable = true
+    @Input() autoselect = true;
+    @Input() scrollable = true;
 }
