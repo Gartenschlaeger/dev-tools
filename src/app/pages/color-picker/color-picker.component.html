@@ -11,7 +11,7 @@
                 <div class="flex-1">
                     <div class="flex gap-8 items-center">
                         <div class="color-input-box">
-                            <mat-form-field class="flex-1" appearance="outline">
+                            <mat-form-field class="flex-1">
                                 <mat-label>Red</mat-label>
                                 <input matInput formControlName="valueRN" type="number" min="0" max="255">
                             </mat-form-field>
@@ -22,7 +22,7 @@
                     </div>
                     <div class="flex gap-8 items-center">
                         <div class="color-input-box">
-                            <mat-form-field class="flex-1" appearance="outline">
+                            <mat-form-field class="flex-1">
                                 <mat-label>Green</mat-label>
                                 <input matInput formControlName="valueGN" type="number" min="0" max="255">
                             </mat-form-field>
@@ -33,7 +33,7 @@
                     </div>
                     <div class="flex gap-8 items-center">
                         <div class="color-input-box">
-                            <mat-form-field class="flex-1" appearance="outline">
+                            <mat-form-field class="flex-1">
                                 <mat-label>Blue</mat-label>
                                 <input matInput formControlName="valueBN" type="number" min="0" max="255">
                             </mat-form-field>
@@ -48,7 +48,7 @@
                     <!-- HSL -->
                     <div class="flex gap-8 items-center">
                         <div class="color-input-box">
-                            <mat-form-field class="flex-1" appearance="outline">
+                            <mat-form-field class="flex-1">
                                 <mat-label>H</mat-label>
                                 <input matInput formControlName="valueHN" type="number" min="0" max="360">
                             </mat-form-field>
@@ -59,7 +59,7 @@
                     </div>
                     <div class="flex gap-8 items-center">
                         <div class="color-input-box">
-                            <mat-form-field class="flex-1" appearance="outline">
+                            <mat-form-field class="flex-1">
                                 <mat-label>S</mat-label>
                                 <input matInput formControlName="valueSN" type="number" min="0" max="100">
                             </mat-form-field>
@@ -70,7 +70,7 @@
                     </div>
                     <div class="flex gap-8 items-center">
                         <div class="color-input-box">
-                            <mat-form-field class="flex-1" appearance="outline">
+                            <mat-form-field class="flex-1">
                                 <mat-label>L</mat-label>
                                 <input matInput formControlName="valueLN" type="number" min="0" max="100">
                             </mat-form-field>
@@ -118,9 +118,13 @@
 
         <mat-card-content>
             <div class="flex flex-col gap-1">
-                <div class="flex items-center gap-3">
-                    <mat-label>Hex</mat-label>
-                    <app-code>{{ hexValue }}</app-code>
+                <div class="flex items-center">
+                    <div class="w-snippet-description">
+                        <mat-label>HEX</mat-label>
+                    </div>
+                    <div class="w-snippet-block">
+                        <app-code>{{ hexValue }}</app-code>
+                    </div>
                     <div class="flex-none flex items-center">
                         <button mat-mini-fab color="accent" type="button" (click)="handlePickHex()">
                             <mat-icon>colorize</mat-icon>
@@ -128,11 +132,13 @@
                     </div>
                 </div>
 
-                <mat-divider></mat-divider>
-
-                <div class="flex items-center gap-3">
-                    <mat-label>RGB</mat-label>
-                    <app-code>{{ rgbValue }}</app-code>
+                <div class="flex items-center">
+                    <div class="w-snippet-description">
+                        <mat-label>RGB</mat-label>
+                    </div>
+                    <div class="w-snippet-block">
+                        <app-code>{{ rgbValue }}</app-code>
+                    </div>
                     <div class="flex-none flex items-center">
                         <button mat-mini-fab color="accent" type="button" (click)="handlePickRgb()">
                             <mat-icon>colorize</mat-icon>
@@ -140,18 +146,22 @@
                     </div>
                 </div>
 
-                <mat-divider></mat-divider>
-
-                <div class="flex items-center gap-8">
-                    <mat-label>RGB dec</mat-label>
-                    <app-code>{{ rgbValueDecimal }}</app-code>
+                <div class="flex items-center">
+                    <div class="w-snippet-description">
+                        <mat-label>RGB</mat-label>
+                    </div>
+                    <div class="w-snippet-block">
+                        <app-code>{{ rgbValueDecimal }}</app-code>
+                    </div>
                 </div>
 
-                <mat-divider></mat-divider>
-
-                <div class="flex items-center gap-8">
-                    <mat-label>HSL</mat-label>
-                    <app-code>{{ hslValue }}</app-code>
+                <div class="flex items-center">
+                    <div class="w-snippet-description">
+                        <mat-label>HSL</mat-label>
+                    </div>
+                    <div class="w-snippet-block">
+                        <app-code>{{ hslValue }}</app-code>
+                    </div>
                 </div>
             </div>
         </mat-card-content>

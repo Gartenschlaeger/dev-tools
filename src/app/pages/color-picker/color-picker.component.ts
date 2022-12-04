@@ -272,7 +272,6 @@ export class ColorPickerComponent implements OnInit {
         const hexPattern = /^#?([0-9a-fA-F]{1,2})([0-9a-fA-F]{1,2})([0-9a-fA-F]{1,2})$/;
         this.sharedDialogs.openInputDialog({
             title: 'Pick hexadecimal value',
-            message: 'Please enter the new hexadecimal value:',
             format: hexPattern,
             value: this.hexValue
         }).subscribe(result => {
@@ -299,7 +298,6 @@ export class ColorPickerComponent implements OnInit {
         const rgbPattern = /^(\d{1,3})\s(\d{1,3})\s(\d{1,3})$/;
         this.sharedDialogs.openInputDialog({
             title: 'Pick RGB value',
-            message: 'Please enter a new RGB value:',
             format: rgbPattern,
             value: this.rgbValue
         }).subscribe(result => {
