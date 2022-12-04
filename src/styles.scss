@@ -2,41 +2,38 @@
 
 @include mat.core();
 
-// define light theme
-$_indigo_palette: mat.define-palette(mat.$indigo-palette);
-$_pink_palette: mat.define-palette(mat.$pink-palette);
-$_red_palette: mat.define-palette(mat.$red-palette);
-$_blue_gray_palette: mat.define-palette(mat.$blue-gray-palette);
-$_grey_palette: mat.define-palette(mat.$gray-palette);
+$light-theme-primary-palette: mat.define-palette(mat.$indigo-palette);
+$light-theme-accent-palette: mat.define-palette(mat.$pink-palette);
+$light-theme-warn-palette: mat.define-palette(mat.$red-palette);
+
+$dark-theme-primary-palette: mat.define-palette(mat.$pink-palette);
+$dark-theme-accent-palette: mat.define-palette(mat.$gray-palette);
+$dark-theme-warn-palette: mat.define-palette(mat.$red-palette);
 
 $light-theme: mat.define-light-theme((
     color: (
-        primary: $_indigo_palette,
-        accent: $_pink-palette,
-        warn: $_red_palette,
+        primary: $light-theme-primary-palette,
+        accent: $light-theme-accent-palette,
+        warn: $light-theme-warn-palette,
     )
 ));
 
-.bg-primary {
-    background: mat.get-color-from-palette($_indigo_palette, 500);
-}
-
 $dark-theme: mat.define-dark-theme((
     color: (
-        primary: $_pink-palette,
-        accent: $_grey_palette,
-        warn: $_red_palette,
+        primary: $dark-theme-primary-palette,
+        accent: $dark-theme-accent-palette,
+        warn: $dark-theme-warn-palette,
     )
 ));
 
 @include mat.all-component-themes($light-theme);
 
-.color-accent {
-    color: mat.get-color-from-palette($_pink-palette, 500) !important;
+.bg-primary {
+    background: mat.get-color-from-palette($light-theme-primary-palette, 500);
 }
 
-.color-card {
-    color: mat.get-color-from-palette($_indigo_palette, 500) !important;
+.color-accent {
+    color: mat.get-color-from-palette($light-theme-accent-palette, 500) !important;
 }
 
 .color-primary {
@@ -54,18 +51,14 @@ $dark-theme: mat.define-dark-theme((
 }
 
 .dark-theme {
-    @include mat.all-component-themes($dark-theme);
+    @include mat.all-component-colors($dark-theme);
 
     .bg-primary {
-        background: mat.get-color-from-palette($_pink-palette, 500) !important;
+        background: mat.get-color-from-palette($dark-theme-primary-palette, 500) !important;
     }
 
     .color-accent {
-        color: mat.get-color-from-palette($_grey_palette, 500) !important;
-    }
-
-    .color-card {
-        color: #fff !important; // TODO: replace with theme color
+        color: mat.get-color-from-palette($dark-theme-accent-palette, 500) !important;
     }
 
     .color-primary {
