@@ -4,8 +4,10 @@
 
 // ---------- light theme ----------
 
-$light-theme-primary-palette: mat.define-palette(mat.$indigo-palette);
-$light-theme-accent-palette: mat.define-palette(mat.$pink-palette);
+$light-theme-primary-default: 800;
+$light-theme-primary-palette: mat.define-palette(mat.$blue-palette, $light-theme-primary-default);
+$light-theme-accent-default: 500;
+$light-theme-accent-palette: mat.define-palette(mat.$pink-palette, $light-theme-accent-default);
 $light-theme-warn-palette: mat.define-palette(mat.$red-palette);
 
 $light-theme: mat.define-light-theme((
@@ -19,11 +21,11 @@ $light-theme: mat.define-light-theme((
 @include mat.all-component-themes($light-theme);
 
 .bg-primary {
-    background: mat.get-color-from-palette($light-theme-primary-palette, 500);
+    background: mat.get-color-from-palette($light-theme-primary-palette, $light-theme-primary-default);
 }
 
 .color-accent {
-    color: mat.get-color-from-palette($light-theme-accent-palette, 500) !important;
+    color: mat.get-color-from-palette($light-theme-accent-palette, $light-theme-accent-default) !important;
 }
 
 .color-primary {
@@ -42,10 +44,11 @@ $light-theme: mat.define-light-theme((
 
 // ---------- dark theme ----------
 
-$dark-theme-primary-palette: mat.define-palette(mat.$pink-palette);
-$dark-theme-accent-palette: mat.define-palette(mat.$gray-palette);
-$dark-theme-warn-palette: mat.define-palette(mat.$red-palette);
-
+$dark-theme-primary-default: 500;
+$dark-theme-primary-palette: mat.define-palette(mat.$pink-palette, $dark-theme-primary-default);
+$dark-theme-accent-default: 500;
+$dark-theme-accent-palette: mat.define-palette(mat.$blue-gray-palette, $dark-theme-accent-default);
+$dark-theme-warn-palette: mat.define-palette(mat.$deep-orange-palette);
 $dark-theme: mat.define-dark-theme((
     color: (
         primary: $dark-theme-primary-palette,
@@ -58,11 +61,11 @@ $dark-theme: mat.define-dark-theme((
     @include mat.all-component-colors($dark-theme);
 
     .bg-primary {
-        background: mat.get-color-from-palette($dark-theme-primary-palette, 500) !important;
+        background: mat.get-color-from-palette($dark-theme-primary-palette, $dark-theme-primary-default) !important;
     }
 
     .color-accent {
-        color: mat.get-color-from-palette($dark-theme-accent-palette, 500) !important;
+        color: mat.get-color-from-palette($dark-theme-accent-palette, $dark-theme-accent-default) !important;
     }
 
     .color-primary {
@@ -96,6 +99,7 @@ body {
 .action-buttons {
     display: flex !important;
     gap: 0.5em !important;
+    padding-top: 2.25em !important;
     padding-bottom: 1.25em !important;
     justify-content: center !important;
 }
