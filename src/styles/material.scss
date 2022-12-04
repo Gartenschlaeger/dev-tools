@@ -1,22 +1,33 @@
-// cards
+// ---------- cards ----------
+
 .mat-mdc-card-header {
     margin-bottom: 2em;
+    user-select: none;
 }
 
-// tabs
+.mat-mdc-card-title {
+    font-size: 1.3em;
+}
+
+.mat-mdc-card-content h1 {
+    font-size: 1.3em;
+    font-weight: normal;
+}
+
+// ---------- tabs ----------
+
 .mat-mdc-tab-body {
     padding-top: 2em;
     padding-bottom: 2em;
 }
 
-// all controls should have full width by default
-// width is controlled by the parent element
+// ---------- controls ----------
+
 .mat-mdc-form-field,
 .mat-mdc-slider {
     width: 100% !important;
 }
 
-// checkbox
 .mat-mdc-checkbox .mdc-form-field {
     user-select: none;
 }

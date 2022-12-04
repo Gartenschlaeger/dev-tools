@@ -7,7 +7,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
@@ -29,6 +29,7 @@ import { HighlightedCodeComponent } from './components/highlighted-code/highligh
 import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { TabControlComponent } from './components/tab-control/tab-control.component';
 import { TabComponent } from './components/tab/tab.component';
+import { MaterialDefaults } from './material-defaults';
 import { DateService } from './services/date.service';
 import { LoggingService, LogLevel } from './services/logging.service';
 
@@ -121,6 +122,10 @@ export class SharedModule {
                             bash: () => import('highlight.js/lib/languages/bash')
                         }
                     }
+                },
+                {
+                    provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+                    useValue: MaterialDefaults.matFormFieldDefaultOptions
                 }
             ]
         };
