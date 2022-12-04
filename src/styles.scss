@@ -31,11 +31,24 @@ $dark-theme: mat.define-dark-theme((
 
 @include mat.all-component-themes($light-theme);
 
+.card-text-color {
+    color: #000;
+}
+
+.primary-text-color {
+    color: #fff;
+}
+
 .dark-theme {
     @include mat.all-component-themes($dark-theme);
 
     .bg-primary {
         background: mat.get-color-from-palette($_pink-palette, 500);
+    }
+
+    .card-text-color,
+    .primary-text-color {
+        color: #fff;
     }
 }
 
