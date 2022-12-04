@@ -45,8 +45,8 @@ import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer
     ],
     imports: [
         BrowserModule,
-        RouterModule.forRoot(routes),
         BrowserAnimationsModule,
+        RouterModule.forRoot(routes),
         SharedModule.forRoot({ minLogLevel: environment.minLogLevel })
     ],
     bootstrap: [AppComponent]
