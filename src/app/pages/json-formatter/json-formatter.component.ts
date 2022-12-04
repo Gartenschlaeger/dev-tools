@@ -61,7 +61,7 @@ export class JsonFormatterComponent implements OnInit {
                 const obj = JSON.parse(model.source);
 
                 let res;
-                if (model.minify) {
+                if (model.minify || model.stringify) {
                     res = JSON.stringify(obj);
                 } else {
                     res = JSON.stringify(obj, null, '  ');
