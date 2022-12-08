@@ -27,8 +27,6 @@ import { AlertComponent } from './components/alert/alert.component';
 import { CodeComponent } from './components/code/code.component';
 import { HighlightedCodeComponent } from './components/highlighted-code/highlighted-code.component';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
-import { TabControlComponent } from './components/tab-control/tab-control.component';
-import { TabComponent } from './components/tab/tab.component';
 import { MaterialDefaults } from './material-defaults';
 import { DateService } from './services/date.service';
 import { LoggingService, LogLevel } from './services/logging.service';
@@ -42,8 +40,6 @@ export interface SharedModuleConfiguration {
         AlertComponent,
         CodeComponent,
         HighlightedCodeComponent,
-        TabControlComponent,
-        TabComponent,
         PageHeaderComponent
     ],
     imports: [
@@ -78,8 +74,6 @@ export interface SharedModuleConfiguration {
         AlertComponent,
         CodeComponent,
         HighlightedCodeComponent,
-        TabControlComponent,
-        TabComponent,
         MatCardModule,
         MatIconModule,
         MatSliderModule,

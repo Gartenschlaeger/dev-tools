@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input } from '@angular/core';
 
 @Component({
-	selector: 'app-page-header',
-	templateUrl: './page-header.component.html'
+    selector: 'app-page-header',
+    templateUrl: './page-header.component.html'
 })
 export class PageHeaderComponent {
-	@Input() title?: string
-	@Input() icon?: string
+    @Input() title?: string;
+    @Input() icon?: string;
 }
