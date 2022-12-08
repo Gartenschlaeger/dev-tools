@@ -23,7 +23,7 @@
         </mat-card-actions>
     </mat-card>
 
-    <app-alert type="error" *ngIf="result && result?.hasErrors">Text processing failed</app-alert>
+    <app-alert *ngIf="result && result?.hasErrors">Text processing failed</app-alert>
 </form>
 
 <mat-card *ngIf="result">

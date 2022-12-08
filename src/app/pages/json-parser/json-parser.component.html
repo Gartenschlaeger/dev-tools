@@ -9,9 +9,9 @@
                 <mat-label>JSON string</mat-label>
                 <textarea matInput formControlName="source" rows="5"></textarea>
             </mat-form-field>
-            
+
             <div *ngIf="result.errorMessage !== undefined">
-                <app-alert type="error"> {{ result.errorMessage }}</app-alert>
+                <app-alert> {{ result.errorMessage }}</app-alert>
             </div>
         </mat-card-content>
 

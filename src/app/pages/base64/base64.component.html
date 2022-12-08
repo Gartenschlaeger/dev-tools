@@ -10,7 +10,7 @@
                 <textarea matInput formControlName="sourceValue" rows="5"></textarea>
             </mat-form-field>
 
-            <app-alert type="error" *ngIf="hasErrors">Failed to encode the source value</app-alert>
+            <app-alert *ngIf="hasErrors">Failed to encode the source value</app-alert>
         </mat-card-content>
 
         <mat-card-actions class="action-buttons">

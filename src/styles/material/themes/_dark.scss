@@ -4,7 +4,8 @@ $dark-theme-primary-default: 500;
 $dark-theme-primary-palette: mat.define-palette(mat.$pink-palette, $dark-theme-primary-default);
 $dark-theme-accent-default: 500;
 $dark-theme-accent-palette: mat.define-palette(mat.$blue-gray-palette, $dark-theme-accent-default);
-$dark-theme-warn-palette: mat.define-palette(mat.$deep-orange-palette);
+$dark-theme-warn-default: 500;
+$dark-theme-warn-palette: mat.define-palette(mat.$deep-orange-palette, $dark-theme-warn-default);
 
 $dark-theme: mat.define-dark-theme((
     color: (
@@ -31,5 +32,12 @@ $dark-theme: mat.define-dark-theme((
 
     .code-block {
         background-color: #4a4a4a !important; // TODO: replace with theme color
+    }
+
+    .warn-box {
+        padding: 16px;
+        border-radius: 5px;
+        color: #fff;
+        background: mat.get-color-from-palette($dark-theme-warn-palette, $dark-theme-warn-default);
     }
 }

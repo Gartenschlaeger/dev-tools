@@ -15,7 +15,7 @@
                 <mat-checkbox formControlName="stringify">Convert to string</mat-checkbox>
             </div>
 
-            <app-alert *ngIf="result && result.hasErrors" type="error">Failed to format json</app-alert>
+            <app-alert *ngIf="result && result.hasErrors">Failed to format json</app-alert>
         </mat-card-content>
 
         <mat-card-actions class="action-buttons">
