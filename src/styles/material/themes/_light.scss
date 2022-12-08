@@ -1,0 +1,44 @@
+@use '@angular/material' as mat;
+
+$light-theme-primary-default: 800;
+$light-theme-primary-palette: mat.define-palette(mat.$blue-palette, $light-theme-primary-default);
+$light-theme-accent-default: 500;
+$light-theme-accent-palette: mat.define-palette(mat.$pink-palette, $light-theme-accent-default);
+$light-theme-warn-palette: mat.define-palette(mat.$red-palette);
+
+$light-theme: mat.define-light-theme((
+    color: (
+        primary: $light-theme-primary-palette,
+        accent: $light-theme-accent-palette,
+        warn: $light-theme-warn-palette,
+    )
+));
+
+@include mat.core();
+
+@include mat.all-component-themes($light-theme);
+
+.bg-primary {
+    background: mat.get-color-from-palette($light-theme-primary-palette, $light-theme-primary-default);
+}
+
+.color-accent {
+    color: mat.get-color-from-palette($light-theme-accent-palette, $light-theme-accent-default) !important;
+}
+
+.color-primary {
+    color: #fff !important; // TODO: replace with theme color
+}
+
+.code-block {
+    overflow-x: auto;
+    background-color: whitesmoke; // TODO: replace with theme color
+    border-radius: 4px;
+    margin: 0.5em 0;
+}
+
+.code-block > pre {
+    font-size: 16px;
+    padding: 16px;
+    margin: 0;
+}

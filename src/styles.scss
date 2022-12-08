@@ -1,93 +1,6 @@
-@use '@angular/material' as mat;
-
-@include mat.core();
-
-// ---------- light theme ----------
-
-$light-theme-primary-default: 800;
-$light-theme-primary-palette: mat.define-palette(mat.$blue-palette, $light-theme-primary-default);
-$light-theme-accent-default: 500;
-$light-theme-accent-palette: mat.define-palette(mat.$pink-palette, $light-theme-accent-default);
-$light-theme-warn-palette: mat.define-palette(mat.$red-palette);
-
-$light-theme: mat.define-light-theme((
-    color: (
-        primary: $light-theme-primary-palette,
-        accent: $light-theme-accent-palette,
-        warn: $light-theme-warn-palette,
-    )
-));
-
-@include mat.all-component-themes($light-theme);
-
-.bg-primary {
-    background: mat.get-color-from-palette($light-theme-primary-palette, $light-theme-primary-default);
-}
-
-.color-accent {
-    color: mat.get-color-from-palette($light-theme-accent-palette, $light-theme-accent-default) !important;
-}
-
-.color-primary {
-    color: #fff !important; // TODO: replace with theme color
-}
-
-.code-block {
-    overflow-x: auto;
-    background-color: whitesmoke; // TODO: replace with theme color
-    border-radius: 4px;
-    margin: 0.5em 0;
-}
-
-.code-block > pre {
-    font-size: 16px;
-    padding: 16px;
-    margin: 0;
-}
-
-// ---------- dark theme ----------
-
-$dark-theme-primary-default: 500;
-$dark-theme-primary-palette: mat.define-palette(mat.$pink-palette, $dark-theme-primary-default);
-$dark-theme-accent-default: 500;
-$dark-theme-accent-palette: mat.define-palette(mat.$blue-gray-palette, $dark-theme-accent-default);
-$dark-theme-warn-palette: mat.define-palette(mat.$deep-orange-palette);
-$dark-theme: mat.define-dark-theme((
-    color: (
-        primary: $dark-theme-primary-palette,
-        accent: $dark-theme-accent-palette,
-        warn: $dark-theme-warn-palette,
-    )
-));
-
-.dark-theme {
-    @include mat.all-component-colors($dark-theme);
-
-    .bg-primary {
-        background: mat.get-color-from-palette($dark-theme-primary-palette, $dark-theme-primary-default) !important;
-    }
-
-    .color-accent {
-        color: mat.get-color-from-palette($dark-theme-accent-palette, $dark-theme-accent-default) !important;
-    }
-
-    .color-primary {
-        color: #fff !important; // TODO: replace with theme color
-    }
-
-    .code-block {
-        background-color: #4a4a4a !important; // TODO: replace with theme color
-    }
-}
-
-// ---------- other customizations ----------
-
-@import 'styles/flexbox.scss';
-@import 'styles/highlighjs.scss';
-@import 'styles/material.scss';
-@import 'styles/spacing.scss';
-@import 'styles/text.scss';
-@import 'styles/misc.scss';
+@use 'styles/material';
+@use 'styles/helper';
+@use 'styles/libs';
 
 html,
 body {
@@ -97,12 +10,4 @@ body {
 body {
     margin: 0;
     font-family: Roboto, 'Helvetica Neue', sans-serif;
-}
-
-.action-buttons {
-    display: flex !important;
-    gap: 0.5em !important;
-    padding-top: 2.25em !important;
-    padding-bottom: 1.25em !important;
-    justify-content: center !important;
 }
