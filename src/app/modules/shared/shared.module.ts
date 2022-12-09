@@ -19,15 +19,16 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { RouterModule } from '@angular/router';
+import { RouterModule, TitleStrategy } from '@angular/router';
 import { HIGHLIGHT_OPTIONS, HighlightModule } from 'ngx-highlightjs';
 import { AlertComponent } from './components/alert/alert.component';
 import { CodeComponent } from './components/code/code.component';
 import { HighlightedCodeComponent } from './components/highlighted-code/highlighted-code.component';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
+import { CustomErrorStateMatcher } from './controls/custom-error-state-matcher';
 import { MatErrorsComponent } from './controls/mat-errors/mat-errors.component';
-import { CustomErrorStateMatcher } from './custom-error-state-matcher';
-import { MaterialDefaults } from './material-defaults';
+import { MaterialDefaults } from './material/material-defaults';
+import { CustomTitleStrategyService } from './routing/custom-title-strategy.service';
 import { DateService } from './services/date.service';
 import { FormService } from './services/form-service.service';
 import { LoggingService, LogLevel } from './services/logging.service';
@@ -125,6 +126,10 @@ export class SharedModule {
                 {
                     provide: ErrorStateMatcher,
                     useClass: CustomErrorStateMatcher
+                },
+                {
+                    provide: TitleStrategy,
+                    useClass: CustomTitleStrategyService
                 }
             ]
         };

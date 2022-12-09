@@ -46,7 +46,7 @@ export class JsonParserComponent implements OnInit {
         this.result.reset();
     }
 
-    handlePassToJsonFormatter() {
+    async handlePassToJsonFormatter() {
         if (this.result.formattedValue === undefined) {
             return;
         }
@@ -57,7 +57,7 @@ export class JsonParserComponent implements OnInit {
             }
         };
 
-        this.router.navigate(['/json-formatter'], extra);
+        await this.router.navigate(['/json-formatter'], extra);
     }
 
     handleSubmit() {

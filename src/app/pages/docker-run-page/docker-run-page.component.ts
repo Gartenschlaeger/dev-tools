@@ -5,7 +5,6 @@ import { LoggingService } from 'src/app/modules/shared/services/logging.service'
 import { StringBuilder } from 'src/app/utilities/string-builder';
 import { FormService } from '../../modules/shared/services/form-service.service';
 import { requiredIfValidator } from '../../modules/shared/validators/required-if.validator';
-import { PageService } from '../../utilities/page-service';
 
 export class DockerRunModel {
     imageName: string = '';
@@ -66,8 +65,7 @@ export class DockerRunPageComponent implements OnInit {
         private router: Router,
         private logger: LoggingService,
         private fb: UntypedFormBuilder,
-        public formService: FormService,
-        private pageService: PageService
+        public formService: FormService
     ) {
     }
 
@@ -95,8 +93,6 @@ export class DockerRunPageComponent implements OnInit {
                 this.handleShareQuery(params.s);
             }
         });
-
-        this.pageService.setPageTitle('Docker run');
     }
 
     handleShareQuery(query: string) {

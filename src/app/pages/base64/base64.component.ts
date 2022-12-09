@@ -3,7 +3,6 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 import { ActivatedRoute } from '@angular/router';
 import { LoggingService } from 'src/app/modules/shared/services/logging.service';
 import { FormService } from '../../modules/shared/services/form-service.service';
-import { PageService } from '../../utilities/page-service';
 
 export class Base64Model {
     sourceValue: string = '';
@@ -26,14 +25,12 @@ export class Base64Component implements OnInit {
         private logger: LoggingService,
         private fb: UntypedFormBuilder,
         private formService: FormService,
-        private route: ActivatedRoute,
-        private pageService: PageService
+        private route: ActivatedRoute
     ) {
         const isEncodeMode = route.snapshot.url[0].path === 'base64-encoder';
 
         this.isEncodeMode = isEncodeMode;
         this.pageTitle = isEncodeMode ? 'Base64 Encoder' : 'Base64 Decoder';
-        this.pageService.setPageTitle(this.pageTitle);
     }
 
     ngOnInit() {

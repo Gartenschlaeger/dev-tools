@@ -3,7 +3,6 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 import { ActivatedRoute } from '@angular/router';
 import { LoggingService } from 'src/app/modules/shared/services/logging.service';
 import { FormService } from '../../modules/shared/services/form-service.service';
-import { PageService } from '../../utilities/page-service';
 import * as randomizer from '../../utilities/randomizer';
 
 export class StringGeneratorFormModel {
@@ -42,15 +41,12 @@ export class StringGeneratorComponent implements OnInit {
         route: ActivatedRoute,
         private fb: UntypedFormBuilder,
         private formService: FormService,
-        private logger: LoggingService,
-        private pageService: PageService
+        private logger: LoggingService
     ) {
     }
 
     ngOnInit() {
         this.form = this.defineForm();
-
-        this.pageService.setPageTitle('Random String Generator');
     }
 
     defineForm(): UntypedFormGroup {

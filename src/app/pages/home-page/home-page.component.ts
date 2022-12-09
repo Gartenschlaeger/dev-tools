@@ -1,15 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { PageService } from '../../utilities/page-service';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-home-page',
     templateUrl: './home-page.component.html'
 })
-export class HomePageComponent implements OnInit {
-    constructor(private pageService: PageService) {
-    }
+export class HomePageComponent {
 
-    ngOnInit() {
-        this.pageService.resetTitle();
-    }
 }

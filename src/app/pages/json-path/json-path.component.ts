@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import * as jsonpath from 'jsonpath';
 import { FormService } from '../../modules/shared/services/form-service.service';
-import { PageService } from '../../utilities/page-service';
 
 class JsonPathFormModule {
     json: string = '';
@@ -24,13 +23,11 @@ export class JsonPathComponent implements OnInit {
     form!: UntypedFormGroup;
     result: JsonPathResult | null = null;
 
-    constructor(private fb: UntypedFormBuilder, private formService: FormService, private pageService: PageService) {
+    constructor(private fb: UntypedFormBuilder, private formService: FormService) {
     }
 
     ngOnInit() {
         this.form = this.defineForm();
-
-        this.pageService.setPageTitle('JSON Path');
     }
 
     defineForm(): UntypedFormGroup {

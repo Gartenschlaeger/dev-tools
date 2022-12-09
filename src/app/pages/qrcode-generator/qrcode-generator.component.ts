@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { FormService } from '../../modules/shared/services/form-service.service';
-import { PageService } from '../../utilities/page-service';
 
 export class QrCodeGeneratorFormModel {
     text: string = '';
@@ -18,13 +17,11 @@ export class QrCodeGeneratorComponent implements OnInit {
     form!: UntypedFormGroup;
     result?: QrCodeGeneratorFormModel;
 
-    constructor(private fb: UntypedFormBuilder, private formService: FormService, private pageService: PageService) {
+    constructor(private fb: UntypedFormBuilder, private formService: FormService) {
     }
 
     ngOnInit() {
         this.form = this.defineForm();
-
-        this.pageService.setPageTitle('QR Code Generator');
     }
 
     defineForm(): UntypedFormGroup {

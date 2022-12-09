@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { SharedDialogsService } from '../../components/shared-dialogs/services/shared-dialogs.service';
 import { ColorHSL, ColorRGB, hslToRgb, rbgToHsl } from '../../utilities/colorconverter';
-import { PageService } from '../../utilities/page-service';
 
 const KEY_LOCAL_STORAGE_FORM = 'color-picker.form.value';
 const KEY_LOCAL_STORAGE_PALETTE_VALUES = 'color-picker.palette.values';
@@ -40,8 +39,7 @@ export class ColorPickerComponent implements OnInit {
     rgbValueDecimal: string = '';
     hslValue: string = '';
 
-    constructor(private page: PageService,
-                private formBuilder: UntypedFormBuilder,
+    constructor(private formBuilder: UntypedFormBuilder,
                 private sharedDialogs: SharedDialogsService) {
     }
 
@@ -73,8 +71,6 @@ export class ColorPickerComponent implements OnInit {
 
         this.loadPalette();
         this.updateValues();
-
-        this.page.setPageTitle('Color picker');
     }
 
     keepControlsInSync(controlA: string, controlB: string) {

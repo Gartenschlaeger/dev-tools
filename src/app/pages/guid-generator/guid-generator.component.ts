@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { v4 as uuidv4 } from 'uuid';
-import { PageService } from '../../utilities/page-service';
 
 export class GuidGeneratorModel {
     addDashes: boolean = true;
@@ -19,7 +17,7 @@ export class GuidGeneratorComponent implements OnInit {
     form!: UntypedFormGroup;
     guid?: string;
 
-    constructor(private fb: UntypedFormBuilder, private route: ActivatedRoute, private pageService: PageService) {
+    constructor(private fb: UntypedFormBuilder) {
     }
 
     ngOnInit() {
@@ -33,8 +31,6 @@ export class GuidGeneratorComponent implements OnInit {
         });
 
         this.generateGuid();
-
-        this.pageService.setPageTitle('Guid Generator');
     }
 
     generateGuid() {

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { FormService } from '../../modules/shared/services/form-service.service';
-import { PageService } from '../../utilities/page-service';
 import * as randomizer from '../../utilities/randomizer';
 
 export class StringRandomizerFormModel {
@@ -24,13 +23,11 @@ export class StringRandomizerComponent implements OnInit {
     form!: UntypedFormGroup;
     result?: StringRandomizerResultModel;
 
-    constructor(private fb: UntypedFormBuilder, private formService: FormService, private pageService: PageService) {
+    constructor(private fb: UntypedFormBuilder, private formService: FormService) {
     }
 
     ngOnInit() {
         this.form = this.defineForm();
-
-        this.pageService.setPageTitle('String Randomizer');
     }
 
     defineForm(): UntypedFormGroup {

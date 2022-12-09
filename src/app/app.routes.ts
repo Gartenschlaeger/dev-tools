@@ -22,60 +22,74 @@ export const routes: Route[] = [
     },
     {
         path: 'home',
-        component: HomePageComponent
+        component: HomePageComponent,
+        title: 'Home'
     },
     {
         path: 'url-analyzer',
-        component: UrlAnalyzerPageComponent
+        component: UrlAnalyzerPageComponent,
+        title: 'URL Analyzer'
     },
     {
         path: 'url-decoder',
-        component: URLEncoderComponent
+        component: URLEncoderComponent,
+        title: 'URL Decoder'
     },
     {
         path: 'url-encoder',
-        component: URLEncoderComponent
+        component: URLEncoderComponent,
+        title: 'URL Encoder'
     },
     {
         path: 'docker-run',
-        component: DockerRunPageComponent
+        component: DockerRunPageComponent,
+        title: 'Docker run'
     },
     {
         path: 'days-between',
-        component: DaysBetweenComponent
+        component: DaysBetweenComponent,
+        title: 'Days between'
     },
     {
         path: 'guid-generator',
-        component: GuidGeneratorComponent
+        component: GuidGeneratorComponent,
+        title: 'GUID Generator'
     },
     {
         path: 'base64-encoder',
-        component: Base64Component
+        component: Base64Component,
+        title: 'Base64 Encoder'
     },
     {
         path: 'base64-decoder',
-        component: Base64Component
+        component: Base64Component,
+        title: 'Base64 Decoder'
     },
     {
         path: 'json-formatter',
-        component: JsonFormatterComponent
+        component: JsonFormatterComponent,
+        title: 'JSON Formatter'
     },
     {
         path: 'json-parser',
-        component: JsonParserComponent
+        component: JsonParserComponent,
+        title: 'JSON Parser'
     },
     {
         path: 'json-path',
         loadChildren: () => import('./pages/json-path/json-path.module')
-            .then((m) => m.JsonPathModule)
+            .then((m) => m.JsonPathModule),
+        title: 'JSON Path'
     },
     {
         path: 'string-randomizer',
-        component: StringRandomizerComponent
+        component: StringRandomizerComponent,
+        title: 'String Randomizer'
     },
     {
         path: 'string-generator',
-        component: StringGeneratorComponent
+        component: StringGeneratorComponent,
+        title: 'String Generator'
     },
     {
         path: 'string-hash-generator',
@@ -84,24 +98,29 @@ export const routes: Route[] = [
     },
     {
         path: 'color-picker',
-        component: ColorPickerComponent
+        component: ColorPickerComponent,
+        title: 'Color Picker'
     },
     {
         path: 'qrcode-generator',
         loadChildren: () => import('./pages/qrcode-generator/qrcode-generator.module')
-            .then((m) => m.QRCodeGeneratorModule)
+            .then((m) => m.QRCodeGeneratorModule),
+        title: 'QRCode Generator'
     },
     {
         path: 'bit-calculator',
-        component: BitCalculatorComponent
+        component: BitCalculatorComponent,
+        title: 'Bit Calculator'
     },
     {
         path: 'text-diff',
         loadChildren: () => import('./pages/text-diff/text-diff.module')
-            .then((m) => m.TextDiffModule)
+            .then((m) => m.TextDiffModule),
+        title: 'Text Diff'
     },
     {
         path: '**',
-        component: NotFoundComponent
+        component: NotFoundComponent,
+        title: 'Not found'
     }
 ];

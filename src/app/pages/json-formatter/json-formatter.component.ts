@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { FormService } from '../../modules/shared/services/form-service.service';
-import { PageService } from '../../utilities/page-service';
 
 export class JsonFormatterFormModel {
     source: string = '';
@@ -24,12 +23,10 @@ export class JsonFormatterComponent implements OnInit {
     form!: UntypedFormGroup;
     result?: JsonFormatterResultModel;
 
-    constructor(private fb: UntypedFormBuilder, private formService: FormService, private pageService: PageService) {
+    constructor(private fb: UntypedFormBuilder, private formService: FormService) {
     }
 
     ngOnInit() {
-        this.pageService.setPageTitle('JSON Formatter');
-
         this.form = this.defineForm();
 
         // if source was passed by another page immediately start formatting
