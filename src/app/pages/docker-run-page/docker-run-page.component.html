@@ -12,11 +12,17 @@
                         <mat-form-field class="flex-1">
                             <mat-label>Image name</mat-label>
                             <input matInput formControlName="imageName" />
+                            <mat-error>
+                                <app-mat-errors [control]="form.get('imageName')"></app-mat-errors>
+                            </mat-error>
                         </mat-form-field>
                         <mat-form-field class="flex-1">
                             <mat-label>Image tag</mat-label>
                             <input matInput formControlName="imageTag" />
                         </mat-form-field>
+                        <mat-error>
+                            <app-mat-errors [control]="form.get('imageTag')"></app-mat-errors>
+                        </mat-error>
                     </div>
                 </mat-tab>
 
@@ -25,6 +31,9 @@
                     <mat-form-field class="w-full">
                         <mat-label>Name</mat-label>
                         <input matInput formControlName="containerName" />
+                        <mat-error>
+                            <app-mat-errors [control]="form.get('containerName')"></app-mat-errors>
+                        </mat-error>
                     </mat-form-field>
 
                     <mat-checkbox formControlName="runDettached">Dettached</mat-checkbox>
@@ -36,6 +45,9 @@
                             <mat-option value="always">always</mat-option>
                             <mat-option value="unless-stopped">unless-stopped</mat-option>
                         </mat-select>
+                        <mat-error>
+                            <app-mat-errors [control]="form.get('restartMode')"></app-mat-errors>
+                        </mat-error>
                     </mat-form-field>
                 </mat-tab>
 
@@ -44,6 +56,9 @@
                     <mat-form-field class="w-full">
                         <mat-label>Hostname</mat-label>
                         <input matInput formControlName="hostname" />
+                        <mat-error>
+                            <app-mat-errors [control]="form.get('hostname')"></app-mat-errors>
+                        </mat-error>
                     </mat-form-field>
 
                     <mat-form-field class="w-full" appearance="fill">
@@ -54,11 +69,17 @@
                             <mat-option value="host">host</mat-option>
                             <mat-option value="custom">custom</mat-option>
                         </mat-select>
+                        <mat-error>
+                            <app-mat-errors [control]="form.get('networkMode')"></app-mat-errors>
+                        </mat-error>
                     </mat-form-field>
 
                     <mat-form-field class="w-full" *ngIf="form.get('networkMode')?.value === 'custom'">
                         <mat-label>Custom network name</mat-label>
                         <input matInput formControlName="networkName" />
+                        <mat-error>
+                            <app-mat-errors [control]="form.get('networkName')"></app-mat-errors>
+                        </mat-error>
                     </mat-form-field>
 
                     <ng-container *ngIf="form.get('networkMode')?.value !== 'host'">
@@ -69,10 +90,16 @@
                                 <mat-form-field class="flex-1">
                                     <mat-label>Container port</mat-label>
                                     <input matInput formControlName="containerPort" #inputContainerPort />
+                                    <mat-error>
+                                        <app-mat-errors [control]="form.get('containerPort')"></app-mat-errors>
+                                    </mat-error>
                                 </mat-form-field>
                                 <mat-form-field class="flex-1">
                                     <mat-label>Host port</mat-label>
                                     <input matInput formControlName="hostPort" />
+                                    <mat-error>
+                                        <app-mat-errors [control]="form.get('hostPort')"></app-mat-errors>
+                                    </mat-error>
                                 </mat-form-field>
 
                                 <button mat-icon-button type="submit">
@@ -81,6 +108,7 @@
                             </div>
                         </form>
 
+                        <!-- port mappings -->
                         <div formArrayName="portMappings" class="mt-1 space-y-2" *ngIf="portMappings.length">
                             <mat-divider class="my-3"></mat-divider>
 
@@ -89,10 +117,16 @@
                                     <mat-form-field class="flex-1">
                                         <mat-label>Container port</mat-label>
                                         <input matInput formControlName="containerPort" />
+                                        <mat-error>
+                                            <app-mat-errors [control]="form.get('containerPort')"></app-mat-errors>
+                                        </mat-error>
                                     </mat-form-field>
                                     <mat-form-field class="flex-1">
                                         <mat-label>Host port</mat-label>
                                         <input matInput formControlName="hostPort" />
+                                        <mat-error>
+                                            <app-mat-errors [control]="form.get('hostPort')"></app-mat-errors>
+                                        </mat-error>
                                     </mat-form-field>
 
                                     <button
@@ -116,10 +150,16 @@
                             <mat-form-field class="flex-1">
                                 <mat-label>Key</mat-label>
                                 <input matInput formControlName="key" #inputEnvironmentKey />
+                                <mat-error>
+                                    <app-mat-errors [control]="form.get('key')"></app-mat-errors>
+                                </mat-error>
                             </mat-form-field>
                             <mat-form-field class="flex-1">
                                 <mat-label>Value</mat-label>
                                 <input matInput formControlName="value" />
+                                <mat-error>
+                                    <app-mat-errors [control]="form.get('value')"></app-mat-errors>
+                                </mat-error>
                             </mat-form-field>
 
                             <button mat-icon-button type="submit">
@@ -143,10 +183,16 @@
                                 <mat-form-field class="flex-1">
                                     <mat-label>Key</mat-label>
                                     <input matInput formControlName="key" />
+                                    <mat-error>
+                                        <app-mat-errors [control]="form.get('key')"></app-mat-errors>
+                                    </mat-error>
                                 </mat-form-field>
                                 <mat-form-field class="flex-1">
                                     <mat-label>Value</mat-label>
                                     <input matInput formControlName="value" />
+                                    <mat-error>
+                                        <app-mat-errors [control]="form.get('value')"></app-mat-errors>
+                                    </mat-error>
                                 </mat-form-field>
 
                                 <button mat-icon-button color="warn" type="button" (click)="handleRemoveEnvVariable(i)">
@@ -164,10 +210,16 @@
                             <mat-form-field class="flex-1">
                                 <mat-label>Host path</mat-label>
                                 <input matInput formControlName="hostPath" #inputVolumeHostPath />
+                                <mat-error>
+                                    <app-mat-errors [control]="form.get('hostPath')"></app-mat-errors>
+                                </mat-error>
                             </mat-form-field>
                             <mat-form-field class="flex-1">
                                 <mat-label>Container path</mat-label>
                                 <input matInput formControlName="containerPath" />
+                                <mat-error>
+                                    <app-mat-errors [control]="form.get('containerPath')"></app-mat-errors>
+                                </mat-error>
                             </mat-form-field>
 
                             <button mat-icon-button type="submit">
@@ -184,10 +236,16 @@
                                 <mat-form-field class="flex-1">
                                     <mat-label>Container path</mat-label>
                                     <input matInput formControlName="hostPath" />
+                                    <mat-error>
+                                        <app-mat-errors [control]="form.get('hostPath')"></app-mat-errors>
+                                    </mat-error>
                                 </mat-form-field>
                                 <mat-form-field class="flex-1">
                                     <mat-label>Host path</mat-label>
                                     <input matInput formControlName="containerPath" />
+                                    <mat-error>
+                                        <app-mat-errors [control]="form.get('containerPath')"></app-mat-errors>
+                                    </mat-error>
                                 </mat-form-field>
 
                                 <button
