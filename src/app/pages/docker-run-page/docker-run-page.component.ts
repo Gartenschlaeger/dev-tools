@@ -1,10 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormService } from 'src/app/modules/form/services/form-service.service';
-import { requiredIfValidator } from 'src/app/modules/form/validators/required-if.validator';
 import { LoggingService } from 'src/app/modules/shared/services/logging.service';
 import { StringBuilder } from 'src/app/utilities/string-builder';
+import { FormService } from '../../modules/shared/services/form-service.service';
+import { requiredIfValidator } from '../../modules/shared/validators/required-if.validator';
 import { PageService } from '../../utilities/page-service';
 
 export class DockerRunModel {

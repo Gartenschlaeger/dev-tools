@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import * as jsonpath from 'jsonpath';
-import { FormService } from '../../modules/form/services/form-service.service';
+import { FormService } from '../../modules/shared/services/form-service.service';
 import { PageService } from '../../utilities/page-service';
 
 class JsonPathFormModule {

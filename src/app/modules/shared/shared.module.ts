@@ -21,14 +21,13 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { HIGHLIGHT_OPTIONS, HighlightModule } from 'ngx-highlightjs';
-import { FormModule } from '../form/form.module';
-import { FormService } from '../form/services/form-service.service';
 import { AlertComponent } from './components/alert/alert.component';
 import { CodeComponent } from './components/code/code.component';
 import { HighlightedCodeComponent } from './components/highlighted-code/highlighted-code.component';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { MaterialDefaults } from './material-defaults';
 import { DateService } from './services/date.service';
+import { FormService } from './services/form-service.service';
 import { LoggingService, LogLevel } from './services/logging.service';
 
 export interface SharedModuleConfiguration {
@@ -48,7 +47,6 @@ export interface SharedModuleConfiguration {
         FormsModule,
         ReactiveFormsModule,
         HighlightModule,
-        FormModule,
         MatCardModule,
         MatIconModule,
         MatSliderModule,
@@ -69,7 +67,6 @@ export interface SharedModuleConfiguration {
     exports: [
         FormsModule,
         ReactiveFormsModule,
-        FormModule,
         PageHeaderComponent,
         AlertComponent,
         CodeComponent,

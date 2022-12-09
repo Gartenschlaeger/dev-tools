@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { FormService } from 'src/app/modules/form/services/form-service.service';
+import { FormService } from '../../modules/shared/services/form-service.service';
 import { PageService } from '../../utilities/page-service';
 
 export class UrlAnalyzerModel {

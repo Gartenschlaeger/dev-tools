@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { FormService } from 'src/app/modules/form/services/form-service.service';
 import { LoggingService } from 'src/app/modules/shared/services/logging.service';
+import { FormService } from '../../modules/shared/services/form-service.service';
 import { PageService } from '../../utilities/page-service';
 import * as randomizer from '../../utilities/randomizer';
 

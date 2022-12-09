@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { FormService } from '../../modules/form/services/form-service.service';
+import { FormService } from '../../modules/shared/services/form-service.service';
 import { DiffPart } from './entities/DiffPart';
 import { DiffTableRowResult } from './entities/DiffTableRowResult';
 import { TextDiffService } from './services/text-diff-service';

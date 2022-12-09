@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
-import { FormService } from '../../modules/form/services/form-service.service';
+import { FormService } from '../../modules/shared/services/form-service.service';
 import { PageService } from '../../utilities/page-service';
 
 interface BitCalculatorFormModel {

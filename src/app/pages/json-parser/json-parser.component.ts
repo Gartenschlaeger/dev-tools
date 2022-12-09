@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { NavigationExtras, Router } from '@angular/router';
-import { FormService } from '../../modules/form/services/form-service.service';
+import { FormService } from '../../modules/shared/services/form-service.service';
 
 export class JsonParserFormModel {
     source: string = '';

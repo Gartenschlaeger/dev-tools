@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import * as CryptoJS from 'crypto-js';
-import { FormService } from '../../modules/form/services/form-service.service';
+import { FormService } from '../../modules/shared/services/form-service.service';
 import { LoggingService } from '../../modules/shared/services/logging.service';
 import { PageService } from '../../utilities/page-service';
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { FormService } from 'src/app/modules/form/services/form-service.service';
+import { FormService } from '../../modules/shared/services/form-service.service';
 import { PageService } from '../../utilities/page-service';
 
 export class UrlEncoderFormModel {
