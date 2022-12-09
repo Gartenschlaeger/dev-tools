@@ -10,12 +10,18 @@
                     <mat-form-field class="flex-1">
                         <mat-label>Key</mat-label>
                         <input matInput formControlName="key" />
+                        <mat-error>
+                            <app-mat-errors [control]="form.get('key')"></app-mat-errors>
+                        </mat-error>
                     </mat-form-field>
                 </div>
 
                 <mat-form-field class="flex-1">
                     <mat-label>Text</mat-label>
                     <input matInput formControlName="inputText" />
+                    <mat-error>
+                        <app-mat-errors [control]="form.get('inputText')"></app-mat-errors>
+                    </mat-error>
                 </mat-form-field>
             </div>
 
