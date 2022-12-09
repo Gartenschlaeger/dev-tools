@@ -6,5 +6,5 @@ import { AbstractControl } from '@angular/forms';
     templateUrl: './mat-errors.component.html'
 })
 export class MatErrorsComponent {
-    @Input() control!: AbstractControl;
+    @Input() control: AbstractControl | null = null;
 }

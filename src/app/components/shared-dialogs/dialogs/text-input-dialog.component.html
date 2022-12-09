@@ -6,6 +6,9 @@
         <mat-form-field>
             <mat-label>{{options.label || 'Value'}}</mat-label>
             <input matInput formControlName="value" [required]="true">
+            <mat-error>
+                <app-mat-errors [control]="form.get('value')!"></app-mat-errors>
+            </mat-error>
         </mat-form-field>
     </mat-dialog-content>
 
