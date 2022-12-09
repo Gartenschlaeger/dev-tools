@@ -4,7 +4,6 @@ export class FormService {
     validate(group: UntypedFormGroup): boolean {
         for (let controlName in group.controls) {
             const control = group.get(controlName);
-            control?.markAsDirty();
             control?.markAsTouched();
         }
 
@@ -14,10 +13,5 @@ export class FormService {
     reset(group: UntypedFormGroup, value?: { [key: string]: any }): void {
         group.reset(value);
         group.markAsUntouched();
-
-        // for (let controlName in group.controls) {
-        //     const control = group.controls[controlName];
-        //     control?.setErrors(null);
-        // }
     }
 }

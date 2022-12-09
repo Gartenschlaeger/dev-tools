@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatNativeDateModule } from '@angular/material/core';
+import { ErrorStateMatcher, MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
@@ -26,6 +26,7 @@ import { CodeComponent } from './components/code/code.component';
 import { HighlightedCodeComponent } from './components/highlighted-code/highlighted-code.component';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { MatErrorsComponent } from './controls/mat-errors/mat-errors.component';
+import { CustomErrorStateMatcher } from './custom-error-state-matcher';
 import { MaterialDefaults } from './material-defaults';
 import { DateService } from './services/date.service';
 import { FormService } from './services/form-service.service';
@@ -120,6 +121,10 @@ export class SharedModule {
                 {
                     provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
                     useValue: MaterialDefaults.matFormFieldDefaultOptions
+                },
+                {
+                    provide: ErrorStateMatcher,
+                    useClass: CustomErrorStateMatcher
                 }
             ]
         };
