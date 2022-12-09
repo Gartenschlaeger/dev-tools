@@ -14,6 +14,9 @@
                               [cdkAutosizeMaxRows]="10"
                               formControlName="text"
                               rows="3"></textarea>
+                    <mat-error>
+                        <app-mat-errors [control]="form.get('text')"></app-mat-errors>
+                    </mat-error>
                 </mat-form-field>
             </div>
             <div class="mr-6">
@@ -22,6 +25,9 @@
                         <mat-form-field class="flex-1" appearance="outline">
                             <mat-label>Size</mat-label>
                             <input matInput formControlName="size" type="number" min="0" max="999">
+                            <mat-error>
+                                <app-mat-errors [control]="form.get('size')"></app-mat-errors>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                     <mat-slider min="100" max="999">
