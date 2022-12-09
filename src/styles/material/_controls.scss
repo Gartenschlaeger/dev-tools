@@ -7,7 +7,8 @@
     user-select: none;
 }
 
-.mat-mdc-form-field-hint {
+.mat-mdc-form-field-hint,
+.mat-mdc-form-field-error {
     font-size: 0.8em;
     font-style: italic;
 }
