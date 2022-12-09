@@ -25,6 +25,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { CodeComponent } from './components/code/code.component';
 import { HighlightedCodeComponent } from './components/highlighted-code/highlighted-code.component';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
+import { MatErrorsComponent } from './controls/mat-errors/mat-errors.component';
 import { MaterialDefaults } from './material-defaults';
 import { DateService } from './services/date.service';
 import { FormService } from './services/form-service.service';
@@ -39,7 +40,8 @@ export interface SharedModuleConfiguration {
         AlertComponent,
         CodeComponent,
         HighlightedCodeComponent,
-        PageHeaderComponent
+        PageHeaderComponent,
+        MatErrorsComponent
     ],
     imports: [
         CommonModule,
@@ -89,7 +91,8 @@ export interface SharedModuleConfiguration {
         MatNativeDateModule,
         MatDialogModule,
         MatSlideToggleModule,
-        MatMenuModule
+        MatMenuModule,
+        MatErrorsComponent
     ]
 })
 export class SharedModule {
