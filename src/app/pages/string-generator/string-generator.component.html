@@ -18,11 +18,17 @@
                 <mat-form-field *ngIf="form.get('includeSpecialCharacters')?.value">
                     <mat-label>Special characters</mat-label>
                     <input matInput formControlName="specialCharacters" [placeholder]="defaultSpecialCharacters" />
+                    <mat-error>
+                        <app-mat-errors [control]="form.get('specialCharacters')"></app-mat-errors>
+                    </mat-error>
                 </mat-form-field>
 
                 <mat-form-field>
                     <mat-label>Length</mat-label>
                     <input matInput type="number" formControlName="length" />
+                    <mat-error>
+                        <app-mat-errors [control]="form.get('length')"></app-mat-errors>
+                    </mat-error>
                 </mat-form-field>
             </div>
         </mat-card-content>
