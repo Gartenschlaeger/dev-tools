@@ -10,12 +10,18 @@
                     <mat-form-field class="w-full">
                         <mat-label>Left text</mat-label>
                         <textarea matInput formControlName="left" rows="5"></textarea>
+                        <mat-error>
+                            <app-mat-errors [control]="form.get('left')"></app-mat-errors>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="mb-3 flex-1">
                     <mat-form-field class="w-full">
                         <mat-label>Right text</mat-label>
                         <textarea matInput formControlName="right" rows="5"></textarea>
+                        <mat-error>
+                            <app-mat-errors [control]="form.get('right')"></app-mat-errors>
+                        </mat-error>
                     </mat-form-field>
                 </div>
             </div>
