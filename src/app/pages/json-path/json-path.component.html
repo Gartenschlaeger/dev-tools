@@ -9,11 +9,17 @@
                 <mat-form-field class="w-full">
                     <mat-label>JSON</mat-label>
                     <textarea matInput formControlName="json" rows="5"></textarea>
+                    <mat-error>
+                        <app-mat-errors [control]="form.get('json')"></app-mat-errors>
+                    </mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="w-full">
                     <mat-label>Path</mat-label>
                     <input matInput formControlName="path">
+                    <mat-error>
+                        <app-mat-errors [control]="form.get('path')"></app-mat-errors>
+                    </mat-error>
                 </mat-form-field>
             </div>
 
