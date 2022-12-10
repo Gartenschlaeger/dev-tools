@@ -4,43 +4,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { NavigationComponent } from 'src/app/components/navigation/navigation.component';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
-import { URLEncoderComponent } from 'src/app/pages/url-encoder/url-encoder.component';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { routes } from './app.routes';
 import { TextInputDialogComponent } from './components/shared-dialogs/dialogs/text-input-dialog.component';
-import { Base64Component } from './pages/base64/base64.component';
-import { BitCalculatorComponent } from './pages/bit-calculator/bit-calculator.component';
-import { ColorPickerComponent } from './pages/color-picker/color-picker.component';
-import { DaysBetweenComponent } from './pages/days-between/days-between.component';
-import { DockerRunPageComponent } from './pages/docker-run-page/docker-run-page.component';
-import { GuidGeneratorComponent } from './pages/guid-generator/guid-generator.component';
-import { HomePageComponent } from './pages/home-page/home-page.component';
-import { JsonFormatterComponent } from './pages/json-formatter/json-formatter.component';
-import { JsonParserComponent } from './pages/json-parser/json-parser.component';
+import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { StringGeneratorComponent } from './pages/string-generator/string-generator.component';
-import { StringRandomizerComponent } from './pages/string-randomizer/string-randomizer.component';
-import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer-page.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         NavigationComponent,
-        HomePageComponent,
-        UrlAnalyzerPageComponent,
-        DockerRunPageComponent,
-        DaysBetweenComponent,
-        URLEncoderComponent,
-        GuidGeneratorComponent,
-        Base64Component,
+        HomeComponent,
         NotFoundComponent,
-        JsonFormatterComponent,
-        JsonParserComponent,
-        StringRandomizerComponent,
-        StringGeneratorComponent,
-        ColorPickerComponent,
-        BitCalculatorComponent,
         TextInputDialogComponent
     ],
     imports: [

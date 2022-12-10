@@ -19,9 +19,9 @@ const UrlAnalyzerFormDefaults = new UrlAnalyzerModel();
 
 @Component({
     selector: 'app-url-analyzer-page',
-    templateUrl: './url-analyzer-page.component.html'
+    templateUrl: './url-analyzer.component.html'
 })
-export class UrlAnalyzerPageComponent implements OnInit {
+export class UrlAnalyzerComponent implements OnInit {
     form!: UntypedFormGroup;
     result: UrlAnalyzerResult | null = null;
     hasError = false;

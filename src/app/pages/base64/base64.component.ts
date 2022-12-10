@@ -27,10 +27,8 @@ export class Base64Component implements OnInit {
         private formService: FormService,
         private route: ActivatedRoute
     ) {
-        const isEncodeMode = route.snapshot.url[0].path === 'base64-encoder';
-
-        this.isEncodeMode = isEncodeMode;
-        this.pageTitle = isEncodeMode ? 'Base64 Encoder' : 'Base64 Decoder';
+        this.isEncodeMode = route.snapshot.parent?.url[0].path === 'base64-encoder';
+        this.pageTitle = this.isEncodeMode ? 'Base64 Encoder' : 'Base64 Decoder';
     }
 
     ngOnInit() {

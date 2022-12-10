@@ -42,10 +42,10 @@ export type DockerRunNetworkMode = 'none' | 'bridge' | 'host' | 'custom'
 export const FormDefaultValues = new DockerRunModel();
 
 @Component({
-    selector: 'app-docker-run-page',
-    templateUrl: './docker-run-page.component.html'
+    selector: 'app-docker-run',
+    templateUrl: './docker-run.component.html'
 })
-export class DockerRunPageComponent implements OnInit {
+export class DockerRunComponent implements OnInit {
     @ViewChild('inputContainerPort') inputContainerPort!: ElementRef<HTMLInputElement>;
     @ViewChild('inputEnvironmentKey') inputEnvironmentKey!: ElementRef<HTMLInputElement>;
     @ViewChild('inputVolumeHostPath') inputVolumeHostPath!: ElementRef<HTMLInputElement>;

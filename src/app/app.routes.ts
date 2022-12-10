@@ -1,18 +1,6 @@
 import { Route } from '@angular/router';
-import { Base64Component } from './pages/base64/base64.component';
-import { BitCalculatorComponent } from './pages/bit-calculator/bit-calculator.component';
-import { ColorPickerComponent } from './pages/color-picker/color-picker.component';
-import { DaysBetweenComponent } from './pages/days-between/days-between.component';
-import { DockerRunPageComponent } from './pages/docker-run-page/docker-run-page.component';
-import { GuidGeneratorComponent } from './pages/guid-generator/guid-generator.component';
-import { HomePageComponent } from './pages/home-page/home-page.component';
-import { JsonFormatterComponent } from './pages/json-formatter/json-formatter.component';
-import { JsonParserComponent } from './pages/json-parser/json-parser.component';
+import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { StringGeneratorComponent } from './pages/string-generator/string-generator.component';
-import { StringRandomizerComponent } from './pages/string-randomizer/string-randomizer.component';
-import { UrlAnalyzerPageComponent } from './pages/url-analyzer-page/url-analyzer-page.component';
-import { URLEncoderComponent } from './pages/url-encoder/url-encoder.component';
 
 export const routes: Route[] = [
     {
@@ -22,57 +10,67 @@ export const routes: Route[] = [
     },
     {
         path: 'home',
-        component: HomePageComponent,
+        component: HomeComponent,
         title: 'Home'
     },
     {
         path: 'url-analyzer',
-        component: UrlAnalyzerPageComponent,
+        loadChildren: () => import('./pages/url-analyzer/url-analyzer.module')
+            .then((m) => m.UrlAnalyzerModule),
         title: 'URL Analyzer'
     },
     {
         path: 'url-decoder',
-        component: URLEncoderComponent,
+        loadChildren: () => import('./pages/url-encoder/url-encoder.module')
+            .then((m) => m.UrlEncoderModule),
         title: 'URL Decoder'
     },
     {
         path: 'url-encoder',
-        component: URLEncoderComponent,
+        loadChildren: () => import('./pages/url-encoder/url-encoder.module')
+            .then((m) => m.UrlEncoderModule),
         title: 'URL Encoder'
     },
     {
         path: 'docker-run',
-        component: DockerRunPageComponent,
+        loadChildren: () => import('./pages/docker-run/docker-run.module')
+            .then((m) => m.DockerRunModule),
         title: 'Docker run'
     },
     {
         path: 'days-between',
-        component: DaysBetweenComponent,
+        loadChildren: () => import('./pages/days-between/days-between.module')
+            .then((m) => m.DaysBetweenModule),
         title: 'Days between'
     },
     {
         path: 'guid-generator',
-        component: GuidGeneratorComponent,
+        loadChildren: () => import('./pages/guid-generator/guid-generator.module')
+            .then((m) => m.GuidGeneratorModule),
         title: 'GUID Generator'
     },
     {
         path: 'base64-encoder',
-        component: Base64Component,
+        loadChildren: () => import('./pages/base64/base64.module')
+            .then((m) => m.Base64Module),
         title: 'Base64 Encoder'
     },
     {
         path: 'base64-decoder',
-        component: Base64Component,
+        loadChildren: () => import('./pages/base64/base64.module')
+            .then((m) => m.Base64Module),
         title: 'Base64 Decoder'
     },
     {
         path: 'json-formatter',
-        component: JsonFormatterComponent,
+        loadChildren: () => import('./pages/json-formatter/json-formatter.module')
+            .then((m) => m.JsonFormatterModule),
         title: 'JSON Formatter'
     },
     {
         path: 'json-parser',
-        component: JsonParserComponent,
+        loadChildren: () => import('./pages/json-parser/json-parser.module')
+            .then((m) => m.JsonParserModule),
         title: 'JSON Parser'
     },
     {
@@ -83,12 +81,14 @@ export const routes: Route[] = [
     },
     {
         path: 'string-randomizer',
-        component: StringRandomizerComponent,
+        loadChildren: () => import('./pages/string-randomizer/string-randomizer.module')
+            .then((m) => m.StringRandomizerModule),
         title: 'String Randomizer'
     },
     {
         path: 'string-generator',
-        component: StringGeneratorComponent,
+        loadChildren: () => import('./pages/string-generator/string-generator.module')
+            .then((m) => m.StringGeneratorModule),
         title: 'String Generator'
     },
     {
@@ -98,7 +98,8 @@ export const routes: Route[] = [
     },
     {
         path: 'color-picker',
-        component: ColorPickerComponent,
+        loadChildren: () => import('./pages/color-picker/color-picker.module')
+            .then((m) => m.ColorPickerModule),
         title: 'Color Picker'
     },
     {
@@ -109,7 +110,8 @@ export const routes: Route[] = [
     },
     {
         path: 'bit-calculator',
-        component: BitCalculatorComponent,
+        loadChildren: () => import('./pages/bit-calculator/bit-calculator.module')
+            .then((m) => m.BitCalculatorModule),
         title: 'Bit Calculator'
     },
     {

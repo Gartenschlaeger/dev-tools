@@ -30,10 +30,8 @@ export class URLEncoderComponent implements OnInit {
         private fb: UntypedFormBuilder,
         private formService: FormService
     ) {
-        const isEncodeMode = route.snapshot.url[0].path === 'url-encoder';
-
-        this.isEncodeMode = isEncodeMode;
-        this.pageTitle = isEncodeMode ? 'URL Encoder' : 'URL Decoder';
+        this.isEncodeMode = route.snapshot.parent?.url[0].path === 'url-encoder';
+        this.pageTitle = this.isEncodeMode ? 'URL Encoder' : 'URL Decoder';
     }
 
     ngOnInit() {
