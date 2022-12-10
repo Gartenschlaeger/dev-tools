@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
-import { INavigationItem } from './entities/INavigationItem';
+import { ExtendedRoute } from './app.routes';
 import { SelectedThemeName, ThemeSwitchService } from './modules/shared/services/theme-switch.service';
 
 @Component({
@@ -17,8 +17,11 @@ export class AppComponent {
     constructor(private router: Router, private themes: ThemeSwitchService) {
     }
 
-    public async handleNavigationItemClick(item: INavigationItem) {
-        await this.router.navigateByUrl(item.routerLink);
+    public async handleNavigationItemClick(route: ExtendedRoute) {
+        if (route.path) {
+            await this.router.navigateByUrl(route.path);
+        }
+        
         await this.sidenav.close();
     }
 

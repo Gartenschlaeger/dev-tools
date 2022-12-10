@@ -1,40 +1,54 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { items } from '../../app.navigation-items';
-import { INavigationItem } from '../../entities/INavigationItem';
+import { ExtendedRoute, routes } from '../../app.routes';
 
 @Component({
     selector: 'app-navigation',
     templateUrl: './navigation.component.html'
 })
 export class NavigationComponent implements OnInit {
-    itemsNormal: INavigationItem[] = [];
-    itemsSticked: INavigationItem[] = [];
+    normalItems: ExtendedRoute[] = [];
+    pinedItems: ExtendedRoute[] = [];
     searchQuery: string = '';
 
-    @Output() itemClicked = new EventEmitter<INavigationItem>();
+    @Output() itemClicked = new EventEmitter<ExtendedRoute>();
 
     ngOnInit() {
-        items.forEach((item) => {
-            item.isVisible = true;
-            if (item.isSticked) {
-                this.itemsSticked.push(item);
+        routes.forEach((route) => {
+            route.visible = true;
+
+            if (route.hideInNav) {
+                return;
+            }
+
+            if (route.pined) {
+                this.pinedItems.push(route);
             } else {
-                this.itemsNormal.push(item);
+                this.normalItems.push(route);
             }
         });
 
-        this.itemsNormal.sort((a, b) => a.title.localeCompare(b.title));
-        this.itemsSticked.sort((a, b) => a.title.localeCompare(b.title));
+        this.normalItems.sort(this.compareFn);
+        this.pinedItems.sort(this.compareFn);
+    }
+
+    private compareFn(a: ExtendedRoute, b: ExtendedRoute): number {
+        if (typeof a.title === 'string' && typeof b.title === 'string') {
+            return a.title.localeCompare(b.title);
+        }
+
+        return 0;
     }
 
     handleSearchChange() {
         const queryValue: string = this.searchQuery?.toLowerCase()?.trim();
         if (queryValue) {
-            this.itemsNormal.forEach((item) => {
-                item.isVisible = item.title.toLowerCase().indexOf(queryValue) !== -1;
+            this.normalItems.forEach((item) => {
+                if (typeof item.title === 'string') {
+                    item.visible = item.title.toLowerCase().indexOf(queryValue) !== -1;
+                }
             });
         } else {
-            this.itemsNormal.forEach((item) => (item.isVisible = true));
+            this.normalItems.forEach((item) => (item.visible = true));
         }
     }
 
@@ -50,9 +64,9 @@ export class NavigationComponent implements OnInit {
         this.handleSearchChange();
     }
 
-    handleItemClick(item: INavigationItem) {
-        this.searchQuery = '';
-        this.handleSearchChange();
+    handleItemClick(item: ExtendedRoute) {
+        //this.searchQuery = '';
+        //this.handleSearchChange();
         this.itemClicked.emit(item);
     }
 }

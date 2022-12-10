@@ -17,16 +17,16 @@
     </div>
 
     <mat-nav-list>
-        <ng-container *ngFor="let item of itemsSticked">
-            <mat-list-item *ngIf="item.isVisible" (click)="handleItemClick(item)">
+        <ng-container *ngFor="let item of pinedItems">
+            <mat-list-item *ngIf="item.visible" (click)="handleItemClick(item)">
                 <div class="flex items-center gap-1">
                     <mat-icon *ngIf="item.icon" class="mr-1">{{ item.icon }}</mat-icon>
                     <span>{{ item.title }}</span>
                 </div>
             </mat-list-item>
         </ng-container>
-        <ng-container *ngFor="let item of itemsNormal">
-            <mat-list-item *ngIf="item.isVisible" (click)="handleItemClick(item)">
+        <ng-container *ngFor="let item of normalItems">
+            <mat-list-item *ngIf="item.visible" (click)="handleItemClick(item)">
                 <div class="flex items-center gap-1">
                     <mat-icon *ngIf="item.icon">{{ item.icon }}</mat-icon>
                     <span>{{ item.title }}</span>

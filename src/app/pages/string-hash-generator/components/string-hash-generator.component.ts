@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import * as CryptoJS from 'crypto-js';
-import { FormService } from '../../modules/shared/services/form-service.service';
-import { LoggingService } from '../../modules/shared/services/logging.service';
-import { PageUtilitiesService } from '../../modules/shared/services/page-utilities.service';
+import { FormService } from '../../../modules/shared/services/form-service.service';
 
 interface StringHashGeneratorFormModel {
     key: string;
@@ -18,61 +16,52 @@ export type StringHashAlgorithm = 'md5' | 'md5hmac' | 'sha1'
     templateUrl: './string-hash-generator.component.html'
 })
 export class StringHashGeneratorComponent implements OnInit {
+
     form!: UntypedFormGroup;
     algorithm: StringHashAlgorithm | null = null;
-
     hashedString: string | null = null;
     error: string | null = null;
 
     constructor(
+        private router: Router,
         private route: ActivatedRoute,
         private fb: UntypedFormBuilder,
-        private formService: FormService,
-        private logger: LoggingService,
-        private pageUtilities: PageUtilitiesService
+        private formService: FormService
     ) {
     }
 
     ngOnInit() {
-        this.setAlgorithm(this.route.snapshot.paramMap.get('algorithm') as StringHashAlgorithm);
-        this.route.paramMap.subscribe((paramMap) => {
-            this.setAlgorithm(paramMap.get('algorithm') as StringHashAlgorithm);
-            this.handleReset();
+        const path = this.route.snapshot.parent?.url[0].path;
+        this.setupForm(path);
+
+        this.router.events.subscribe(event => {
+            if (event instanceof NavigationEnd) {
+                const path = this.route.snapshot.parent?.url[0].path;
+                this.setupForm(path);
+            }
         });
     }
 
-    setAlgorithm(algorithm: StringHashAlgorithm | null) {
-        switch (algorithm) {
-            case 'md5':
-            case 'md5hmac':
-            case 'sha1':
-                this.algorithm = algorithm;
-                break;
-
-            default:
-                this.logger.warning(`Got invalid algorithm ${algorithm}, fallback to md5`);
-                this.algorithm = 'md5';
-                break;
-        }
-
+    private setupForm(path: string | undefined) {
+        this.algorithm = this.getAlgorithmByPath(path);
         this.form = this.defineForm();
-        this.pageUtilities.setTitle(`${this.getAlgorithmName()} Hash Generator`);
+        this.handleReset();
     }
 
-    getAlgorithmName(): string | null {
-        switch (this.algorithm) {
-            case 'md5':
-                return 'MD5';
-            case 'md5hmac':
-                return 'HMAC MD5';
-            case 'sha1':
-                return 'SHA1';
+    private getAlgorithmByPath(path: string | undefined): StringHashAlgorithm {
+        switch (path) {
+            case 'md5-hash':
+                return 'md5';
+            case 'md5-hmac-hash':
+                return 'md5hmac';
+            case 'sha1-hash':
+                return 'sha1';
         }
 
-        return null;
+        throw new Error(`Unknown url path ${path}`);
     }
 
-    defineForm(): UntypedFormGroup {
+    private defineForm(): UntypedFormGroup {
         const form = this.fb.group({
             inputText: ['', [Validators.required]]
         });
@@ -114,4 +103,5 @@ export class StringHashGeneratorComponent implements OnInit {
             }
         }
     }
+
 }
