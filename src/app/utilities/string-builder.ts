@@ -1,21 +1,21 @@
 export class StringBuilder {
-	content = ''
+    content = '';
 
-	static begin() {
-		return new StringBuilder()
-	}
+    static begin() {
+        return new StringBuilder();
+    }
 
-	append(...args: any[]): StringBuilder {
-		if (args && args.length) {
-			for (let i = 0; i < args.length; i++) {
-				this.content += args[i]
-			}
-		}
+    append(...args: any[]): StringBuilder {
+        if (args && args.length) {
+            for (let i = 0; i < args.length; i++) {
+                this.content += args[i];
+            }
+        }
 
-		return this
-	}
+        return this;
+    }
 
-	build(): string {
-		return this.content
-	}
+    build(): string {
+        return this.content;
+    }
 }

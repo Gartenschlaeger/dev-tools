@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
-import { SharedDialogsService } from '../../components/shared-dialogs/services/shared-dialogs.service';
-import { ColorHSL, ColorRGB, hslToRgb, rbgToHsl } from '../../utilities/colorconverter';
+import { SharedDialogsService } from '../../../components/shared-dialogs/services/shared-dialogs.service';
+import { ColorHSL, ColorRGB, hslToRgb, rbgToHsl } from '../services/colorconverter';
 
 const KEY_LOCAL_STORAGE_FORM = 'color-picker.form.value';
 const KEY_LOCAL_STORAGE_PALETTE_VALUES = 'color-picker.palette.values';
