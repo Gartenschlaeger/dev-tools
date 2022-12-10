@@ -1,39 +1,51 @@
-.df-container {
-    @apply px-3 py-2 w-full border rounded
-    border-gray-300 text-gray-500
-    bg-white
-    dark:text-gray-200 dark:bg-gray-900 dark:border-gray-600;
+table.side-by-side,
+table.line-by-line {
+    width: 100%;
+    border-spacing: 0;
 }
 
-.text-line {
-    @apply flex gap-1;
+td.line-number {
+    width: 0;
+    white-space: nowrap;
+    font-size: 0.8em;
+    padding: 0 5px;
 }
 
-.text-column {
-    @apply flex flex-1;
+td.line-changes {
+    width: 50%;
+    white-space: pre-wrap;
+    word-break: break-word;
 }
 
-.line-number {
-    @apply p-1 text-right;
-    width: 3em;
+td.spacer {
+    min-width: 0.5em;
+    background-color: transparent;
 }
 
-.line-changes {
-    @apply p-1 break-all;
+td {
+    vertical-align: top;
+    background-color: whitesmoke;
 }
 
-.insert-row {
-    @apply text-gray-800 bg-green-100 dark:bg-green-300;
+td.empty {
+    background-image: repeating-linear-gradient(-45deg,
+        transparent, transparent 5px, #bbb 6px, #bbb 7px, transparent 8px);
 }
 
-.insert-row > .highlight {
-    @apply text-gray-800 dark:text-gray-100 bg-green-300 dark:bg-green-500;
+.dark-theme {
+    td {
+        background-color: #4a4a4a;
+    }
 }
 
-.delete-row {
-    @apply text-gray-800 bg-red-100 dark:bg-red-300;
+.inserted {
+    background-color: #afe0ff;
 }
 
-.delete-row > .highlight {
-    @apply text-gray-800 dark:text-gray-100 bg-red-300 dark:bg-red-500;
+.deleted {
+    background-color: #ffbcbc;
+}
+
+.highlighted {
+    background-color: rgba(0, 0, 0, 0.1);
 }

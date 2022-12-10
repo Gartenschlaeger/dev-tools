@@ -13,7 +13,6 @@ export class FormatLinePipe implements PipeTransform {
             .replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;')
-            .replace(/ /g, '&nbsp;');
+            .replace(/"/g, '&quot;');
     }
 }
