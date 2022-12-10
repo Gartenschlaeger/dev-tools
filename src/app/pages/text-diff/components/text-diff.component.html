@@ -1,0 +1,137 @@
+<form [formGroup]="form" (submit)="handleSubmit()">
+    <mat-card>
+        <mat-card-content>
+            <div class="flex gap-3">
+                <div class="mb-3 flex-1">
+                    <mat-form-field class="w-full">
+                        <mat-label>Left text</mat-label>
+                        <textarea matInput formControlName="left" rows="5"></textarea>
+                        <mat-error>
+                            <app-mat-errors [control]="form.get('left')"></app-mat-errors>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="mb-3 flex-1">
+                    <mat-form-field class="w-full">
+                        <mat-label>Right text</mat-label>
+                        <textarea matInput formControlName="right" rows="5"></textarea>
+                        <mat-error>
+                            <app-mat-errors [control]="form.get('right')"></app-mat-errors>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <mat-radio-group class="flex gap-6" formControlName="isSideBySideMode">
+                <mat-radio-button [value]="true">Side by side</mat-radio-button>
+                <mat-radio-button [value]="false">Line by line</mat-radio-button>
+            </mat-radio-group>
+        </mat-card-content>
+
+        <mat-card-actions class="action-buttons">
+            <button mat-raised-button color="accent" type="button" (click)="handleReset()">Reset</button>
+            <button mat-raised-button color="primary" type="submit">Compare</button>
+        </mat-card-actions>
+    </mat-card>
+
+    <mat-card *ngIf="hasCompared && isSideBySideMode">
+        <mat-card-content>
+            <table class="side-by-side">
+                <tbody>
+                <tr *ngFor="let row of filteredTableRows; trackBy: trackTableRows">
+                    <td class="line-number">
+                        {{ row.leftContent?.lineNumber !== -1 ? row.leftContent?.lineNumber : ' ' }}
+                    </td>
+                    <td class="line-changes" [ngClass]="{'empty':!row.leftContent?.lineContent}">
+                        <span *ngIf="!row.hasDiffs"
+                              [ngClass]="{
+                              'deleted': row.leftContent?.prefix === '-',
+                              'empty': !row.leftContent?.lineContent
+                              }">
+                            <span [innerHTML]="row.leftContent?.lineContent | formatLine"></span>
+                        </span>
+                        <span *ngIf="row.hasDiffs"
+                              [ngClass]="{
+                            'deleted': row.leftContent?.prefix === '-',
+                            'empty': !row.leftContent?.lineContent
+                            }">
+                            <span
+                                [innerHTML]="diff.content | formatLine"
+                                [ngClass]="{ highlighted: diff.isDiff }"
+                                *ngFor="let diff of row.leftContent?.lineDiffs; trackBy: trackDiffs">
+                            </span>
+                        </span>
+                    </td>
+
+                    <td class="spacer"></td>
+
+                    <td class="line-number">
+                        {{ row.rightContent?.lineNumber !== -1 ? row.rightContent?.lineNumber : ' ' }}
+                    </td>
+                    <td class="line-changes" [ngClass]="{'empty':!row.rightContent?.lineContent}">
+                        <span *ngIf="!row.hasDiffs"
+                              [ngClass]="{
+                                'inserted': row.rightContent?.prefix === '+',
+                                'empty': !row.rightContent?.lineContent
+                                }">
+                            <span [innerHTML]="row.rightContent?.lineContent | formatLine"></span>
+                        </span>
+                        <span *ngIf="row.hasDiffs"
+                              [ngClass]="{
+                                'inserted': row.rightContent?.prefix === '+',
+                                'empty': !row.rightContent?.lineContent
+                                }">
+                            <span [innerHTML]="diff.content | formatLine"
+                                  [ngClass]="{ highlighted: diff.isDiff }"
+                                  *ngFor="let diff of row.rightContent?.lineDiffs; trackBy: trackDiffs">
+                            </span>
+                        </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card *ngIf="hasCompared && !isSideBySideMode" class="line-by-line">
+        <mat-card-content>
+            <table class="line-by-line">
+                <tbody>
+                <tr *ngFor="let row of filteredTableRowsLineByLine; trackBy: trackTableRows">
+                    <td class="line-number">
+                        {{ row.leftContent?.lineNumber }}</td>
+                    <td class="line-number">
+                        {{ row.rightContent?.lineNumber }}</td>
+                    <td *ngIf="!row.hasDiffs"
+                        [ngClass]="{
+                        'deleted': row.leftContent?.prefix === '-',
+                        'inserted': row.rightContent?.prefix === '+'
+                        }">
+                        <span [innerHTML]="row.leftContent?.lineContent | formatLine"></span>
+                    </td>
+                    <td *ngIf="row.hasDiffs && row.leftContent && row.leftContent?.lineDiffs?.length !== 0"
+                        [ngClass]="{
+                        'deleted': row.leftContent.prefix === '-',
+                        'inserted': row.rightContent?.prefix === '+'
+                        }">
+                        <span *ngFor="let diff of row.leftContent?.lineDiffs; trackBy: trackDiffs"
+                              [innerHTML]="diff.content | formatLine"
+                              [ngClass]="{ highlight: diff.isDiff }">
+                        </span>
+                    </td>
+                    <td *ngIf="row.hasDiffs && row.rightContent && row.rightContent?.lineDiffs?.length !== 0"
+                        [ngClass]="{
+                        'deleted': row.leftContent?.prefix === '-',
+                        'inserted': row.rightContent.prefix === '+'
+                        }">
+                        <span *ngFor="let diff of row.rightContent?.lineDiffs; trackBy: trackDiffs"
+                              [innerHTML]="diff.content | formatLine"
+                              [ngClass]="{ highlight: diff.isDiff }">
+                        </span>
+                    </td>
+                    <td *ngIf="!row.rightContent?.lineContent && !row.leftContent?.lineContent" class="empty"></td>
+                </tr>
+                </tbody>
+            </table>
+        </mat-card-content>
+    </mat-card>
+</form>

@@ -1,0 +1,14 @@
+.mat-mdc-form-field,
+.mat-mdc-slider {
+    width: 100% !important;
+}
+
+.mat-mdc-checkbox .mdc-form-field {
+    user-select: none;
+}
+
+.mat-mdc-form-field-hint,
+.mat-mdc-form-field-error {
+    font-size: 0.8em;
+    font-style: italic;
+}

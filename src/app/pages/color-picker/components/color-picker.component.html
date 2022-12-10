@@ -1,0 +1,165 @@
+<form [formGroup]="form">
+    <mat-card>
+        <mat-card-content>
+            <div class="flex gap-8 mb-5 pr-8">
+
+                <!-- RGB -->
+                <div class="flex-1">
+                    <div class="flex gap-8 items-center">
+                        <div class="color-input-box">
+                            <mat-form-field class="flex-1">
+                                <mat-label>Red</mat-label>
+                                <input matInput formControlName="valueRN" type="number" min="0" max="255">
+                            </mat-form-field>
+                        </div>
+                        <mat-slider min="0" max="255">
+                            <input matSliderThumb formControlName="valueRR" tabindex="-1">
+                        </mat-slider>
+                    </div>
+                    <div class="flex gap-8 items-center">
+                        <div class="color-input-box">
+                            <mat-form-field class="flex-1">
+                                <mat-label>Green</mat-label>
+                                <input matInput formControlName="valueGN" type="number" min="0" max="255">
+                            </mat-form-field>
+                        </div>
+                        <mat-slider min="0" max="255">
+                            <input matSliderThumb formControlName="valueGR" tabindex="-1">
+                        </mat-slider>
+                    </div>
+                    <div class="flex gap-8 items-center">
+                        <div class="color-input-box">
+                            <mat-form-field class="flex-1">
+                                <mat-label>Blue</mat-label>
+                                <input matInput formControlName="valueBN" type="number" min="0" max="255">
+                            </mat-form-field>
+                        </div>
+                        <mat-slider min="0" max="255">
+                            <input matSliderThumb formControlName="valueBR" tabindex="-1">
+                        </mat-slider>
+                    </div>
+                </div>
+
+                <div class="flex-1">
+                    <!-- HSL -->
+                    <div class="flex gap-8 items-center">
+                        <div class="color-input-box">
+                            <mat-form-field class="flex-1">
+                                <mat-label>H</mat-label>
+                                <input matInput formControlName="valueHN" type="number" min="0" max="360">
+                            </mat-form-field>
+                        </div>
+                        <mat-slider min="0" max="360">
+                            <input matSliderThumb formControlName="valueHR" tabindex="-1">
+                        </mat-slider>
+                    </div>
+                    <div class="flex gap-8 items-center">
+                        <div class="color-input-box">
+                            <mat-form-field class="flex-1">
+                                <mat-label>S</mat-label>
+                                <input matInput formControlName="valueSN" type="number" min="0" max="100">
+                            </mat-form-field>
+                        </div>
+                        <mat-slider min="0" max="100">
+                            <input matSliderThumb formControlName="valueSR" tabindex="-1">
+                        </mat-slider>
+                    </div>
+                    <div class="flex gap-8 items-center">
+                        <div class="color-input-box">
+                            <mat-form-field class="flex-1">
+                                <mat-label>L</mat-label>
+                                <input matInput formControlName="valueLN" type="number" min="0" max="100">
+                            </mat-form-field>
+                        </div>
+                        <mat-slider min="0" max="100">
+                            <input matSliderThumb formControlName="valueLR" tabindex="-1">
+                        </mat-slider>
+                    </div>
+                </div>
+            </div>
+
+            <!-- color palette -->
+            <div class="flex gap-3">
+                <div class="flex gap-2">
+                    <button
+                        mat-mini-fab
+                        color="accent"
+                        (click)="handleAddPaletteColor()"
+                    >
+                        <mat-icon>add</mat-icon>
+                    </button>
+                    <button mat-mini-fab color="accent" type="button" (click)="handleRemoveColor()"
+                            [disabled]="palette.length < 2">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+                <div class="flex flex-wrap gap-1">
+                    <ng-container *ngFor="let c of palette; let i = index">
+                        <div
+                            class="color-slot"
+                            [ngClass]="{ 'active': selectedPaletteColorIndex === i }"
+                            [ngStyle]="{ 'background-color': c ? 'rgb(' + c.r + ',' + c.g + ',' + c.b + ')' : null }"
+                            (click)="handlePaletteColorClick(i)"
+                        ></div>
+                    </ng-container>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Values</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+            <div class="flex flex-col gap-1">
+                <div class="flex items-center">
+                    <div class="w-snippet-description">
+                        <mat-label>HEX</mat-label>
+                    </div>
+                    <div class="w-snippet-block">
+                        <app-code>{{ hexValue }}</app-code>
+                    </div>
+                    <div class="flex-none flex items-center">
+                        <button mat-mini-fab color="accent" type="button" (click)="handlePickHex()">
+                            <mat-icon>colorize</mat-icon>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex items-center">
+                    <div class="w-snippet-description">
+                        <mat-label>RGB</mat-label>
+                    </div>
+                    <div class="w-snippet-block">
+                        <app-code>{{ rgbValue }}</app-code>
+                    </div>
+                    <div class="flex-none flex items-center">
+                        <button mat-mini-fab color="accent" type="button" (click)="handlePickRgb()">
+                            <mat-icon>colorize</mat-icon>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex items-center">
+                    <div class="w-snippet-description">
+                        <mat-label>RGB</mat-label>
+                    </div>
+                    <div class="w-snippet-block">
+                        <app-code>{{ rgbValueDecimal }}</app-code>
+                    </div>
+                </div>
+
+                <div class="flex items-center">
+                    <div class="w-snippet-description">
+                        <mat-label>HSL</mat-label>
+                    </div>
+                    <div class="w-snippet-block">
+                        <app-code>{{ hslValue }}</app-code>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</form>

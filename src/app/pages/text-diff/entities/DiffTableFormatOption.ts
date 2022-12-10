@@ -1,10 +1,10 @@
-import { DiffTableFormat } from './DiffTableFormat'
+import { DiffTableFormat } from './DiffTableFormat';
 
 export interface DiffTableFormatOption {
-	id: string
-	name: string
-	label: string
-	value: DiffTableFormat
-	icon?: string
-	disabled?: boolean
+    id: string;
+    name: string;
+    label: string;
+    value: DiffTableFormat;
+    icon?: string;
+    disabled?: boolean;
 }

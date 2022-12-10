@@ -1,22 +1,37 @@
-<div class="sticky top-0 bg-white dark:bg-gray-800 mb-1 py-3">
-	<ul class="mb-2" *ngFor="let i of stickedItems">
-		<app-navigation-link
-			*ngIf="i.isVisible !== false"
-			[routerLink]="i.routerLink"
-			[name]="i.title"
-		></app-navigation-link>
-	</ul>
-	<div>
-		<form [formGroup]="searchForm">
-			<app-form-textfield
-				formControlName="query"
-				placeholder="Search.."
-				(keyup)="handleSearchKeyup($event)"
-			></app-form-textfield>
-		</form>
-	</div>
-</div>
+<div class="pt-3 select-none">
+    <div class="px-3">
+        <mat-form-field class="w-full" appearance="outline">
+            <mat-label>Search</mat-label>
+            <input
+                matInput
+                type="text"
+                [(ngModel)]="searchQuery"
+                (ngModelChange)="handleSearchChange()"
+                (keyup)="handleSearchKeyup($event)"
+                tabindex="-1"
+            />
+            <button *ngIf="searchQuery" matSuffix mat-icon-button (click)="handleSearchClear()" tabindex="-1">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
 
-<ul *ngFor="let i of items">
-	<app-navigation-link *ngIf="i.isVisible" [routerLink]="i.routerLink" [name]="i.title"></app-navigation-link>
-</ul>
+    <mat-nav-list>
+        <ng-container *ngFor="let item of pinedItems">
+            <mat-list-item *ngIf="item.visible" (click)="handleItemClick(item)">
+                <div class="flex items-center gap-1">
+                    <mat-icon *ngIf="item.icon" class="mr-1">{{ item.icon }}</mat-icon>
+                    <span>{{ item.title }}</span>
+                </div>
+            </mat-list-item>
+        </ng-container>
+        <ng-container *ngFor="let item of normalItems">
+            <mat-list-item *ngIf="item.visible" (click)="handleItemClick(item)">
+                <div class="flex items-center gap-1">
+                    <mat-icon *ngIf="item.icon">{{ item.icon }}</mat-icon>
+                    <span>{{ item.title }}</span>
+                </div>
+            </mat-list-item>
+        </ng-container>
+    </mat-nav-list>
+</div>

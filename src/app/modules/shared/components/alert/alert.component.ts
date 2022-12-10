@@ -1,9 +1,8 @@
-import { Component, Input } from '@angular/core'
+import { Component } from '@angular/core';
 
 @Component({
-	selector: 'app-alert',
-	templateUrl: './alert.component.html'
+    selector: 'app-alert',
+    templateUrl: './alert.component.html'
 })
 export class AlertComponent {
-	@Input() type: 'info' | 'warning' | 'error' = 'info'
 }

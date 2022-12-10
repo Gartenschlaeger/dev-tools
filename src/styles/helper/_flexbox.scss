@@ -1,0 +1,45 @@
+.flex {
+    display: flex !important;
+}
+
+.flex-col {
+    flex-direction: column !important;
+}
+
+.flex-row {
+    flex-direction: row !important;
+}
+
+.flex-auto {
+    flex: 1 1 auto !important;
+}
+
+.flex-initial {
+    flex: 0 1 auto !important;
+}
+
+.flex-1 {
+    flex: 1 1 0 !important;
+}
+
+.flex-none {
+    flex: none !important;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.items-center {
+    align-items: center !important;
+}
+
+.justify-center {
+    justify-content: center !important;
+}
+
+@for $i from 0 through 25 {
+    .gap-#{$i} {
+        gap: #{$i * 0.25}em !important;
+    }
+}

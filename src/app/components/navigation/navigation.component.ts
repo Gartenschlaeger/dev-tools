@@ -1,62 +1,72 @@
-import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup } from '@angular/forms'
-import { items } from '../../app.navigation-items'
-
-export interface INavigationItem {
-	title: string
-	routerLink: string
-	isVisible?: boolean
-	isSticked?: boolean
-}
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ExtendedRoute, routes } from '../../app.routes';
 
 @Component({
-	selector: 'app-navigation',
-	templateUrl: './navigation.component.html'
+    selector: 'app-navigation',
+    templateUrl: './navigation.component.html'
 })
 export class NavigationComponent implements OnInit {
-	searchForm!: FormGroup
-	items: INavigationItem[] = []
-	stickedItems: INavigationItem[] = []
+    normalItems: ExtendedRoute[] = [];
+    pinedItems: ExtendedRoute[] = [];
+    searchQuery: string = '';
 
-	constructor(private fb: FormBuilder) {}
+    @Output() itemClicked = new EventEmitter<ExtendedRoute>();
 
-	ngOnInit() {
-		this.defineSearchForm()
+    ngOnInit() {
+        routes.forEach((route) => {
+            route.visible = true;
 
-		items.forEach((item) => {
-			item.isVisible = true
+            if (route.hideInNav) {
+                return;
+            }
 
-			if (item.isSticked) {
-				this.stickedItems.push(item)
-			} else {
-				this.items.push(item)
-			}
-		})
+            if (route.pined) {
+                this.pinedItems.push(route);
+            } else {
+                this.normalItems.push(route);
+            }
+        });
 
-		this.items.sort((a, b) => a.title.localeCompare(b.title))
-		this.stickedItems.sort((a, b) => a.title.localeCompare(b.title))
-	}
+        this.normalItems.sort(this.compareFn);
+        this.pinedItems.sort(this.compareFn);
+    }
 
-	defineSearchForm() {
-		this.searchForm = this.fb.group({
-			query: ['']
-		})
+    private compareFn(a: ExtendedRoute, b: ExtendedRoute): number {
+        if (typeof a.title === 'string' && typeof b.title === 'string') {
+            return a.title.localeCompare(b.title);
+        }
 
-		this.searchForm.valueChanges.subscribe(() => {
-			const queryValue: string = this.searchForm.get('query')?.value?.toLowerCase()?.trim()
-			if (queryValue) {
-				this.items.forEach((item) => {
-					item.isVisible = item.title.toLowerCase().indexOf(queryValue) !== -1
-				})
-			} else {
-				this.items.forEach((item) => (item.isVisible = true))
-			}
-		})
-	}
+        return 0;
+    }
 
-	handleSearchKeyup(event: KeyboardEvent) {
-		if (event.key === 'Escape') {
-			this.searchForm.patchValue({ query: '' })
-		}
-	}
+    handleSearchChange() {
+        const queryValue: string = this.searchQuery?.toLowerCase()?.trim();
+        if (queryValue) {
+            this.normalItems.forEach((item) => {
+                if (typeof item.title === 'string') {
+                    item.visible = item.title.toLowerCase().indexOf(queryValue) !== -1;
+                }
+            });
+        } else {
+            this.normalItems.forEach((item) => (item.visible = true));
+        }
+    }
+
+    handleSearchKeyup(event: KeyboardEvent) {
+        if (event.key === 'Escape') {
+            this.searchQuery = '';
+            this.handleSearchChange();
+        }
+    }
+
+    handleSearchClear() {
+        this.searchQuery = '';
+        this.handleSearchChange();
+    }
+
+    handleItemClick(item: ExtendedRoute) {
+        //this.searchQuery = '';
+        //this.handleSearchChange();
+        this.itemClicked.emit(item);
+    }
 }
