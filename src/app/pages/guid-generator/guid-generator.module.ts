@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { SharedModule } from '../../modules/shared/shared.module';
-import { GuidGeneratorComponent } from './guid-generator.component';
+import { GuidGeneratorComponent } from './components/guid-generator.component';
 
 const routes: Route[] = [
     {

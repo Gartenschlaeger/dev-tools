@@ -1,27 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { SharedDialogsService } from '../../../components/shared-dialogs/services/shared-dialogs.service';
+import { ColorPicketFormModel } from '../entities/color-picker-form-model';
 import { ColorHSL, ColorRGB, hslToRgb, rbgToHsl } from '../services/colorconverter';
 
 const KEY_LOCAL_STORAGE_FORM = 'color-picker.form.value';
 const KEY_LOCAL_STORAGE_PALETTE_VALUES = 'color-picker.palette.values';
 const KEY_LOCAL_STORAGE_PALETTE_SELECT = 'color-picker.palette.select';
-
-export interface ColorPicketFormModel {
-    valueRN: number;
-    valueGN: number;
-    valueBN: number;
-    valueRR: number;
-    valueGR: number;
-    valueBR: number;
-
-    valueHN: number;
-    valueSN: number;
-    valueLN: number;
-    valueHR: number;
-    valueSR: number;
-    valueLR: number;
-}
 
 const InitColor: ColorRGB = { r: 135, g: 206, b: 235 };
 

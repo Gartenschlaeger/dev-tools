@@ -1,21 +1,25 @@
-.mat-mdc-card-header {
-    margin-bottom: 2em;
-    user-select: none;
-}
+.mat-mdc-card {
+    margin-bottom: 1.5em;
 
-.mat-mdc-card-title {
-    font-size: 1.3em;
-}
+    .mat-mdc-card-header {
+        margin-bottom: 2em;
+        user-select: none;
+    }
 
-.mat-mdc-card-content h1 {
-    font-size: 1.3em;
-    font-weight: normal;
-}
+    .mat-mdc-card-title {
+        font-size: 1.3em;
+    }
 
-.mat-mdc-card .mat-mdc-card-actions.action-buttons {
-    display: flex;
-    gap: 0.5em;
-    justify-content: center;
-    padding-top: 2.25em;
-    padding-bottom: 1.25em;
+    .mat-mdc-card-content h1 {
+        font-size: 1.3em;
+        font-weight: normal;
+    }
+
+    .mat-mdc-card-actions.action-buttons {
+        display: flex;
+        gap: 0.5em;
+        justify-content: center;
+        padding-top: 2.25em;
+        padding-bottom: 1.25em;
+    }
 }

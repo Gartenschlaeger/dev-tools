@@ -3,11 +3,7 @@ import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } 
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import * as CryptoJS from 'crypto-js';
 import { FormService } from '../../../modules/shared/services/form-service.service';
-
-interface StringHashGeneratorFormModel {
-    key: string;
-    inputText: string;
-}
+import { StringHashGeneratorFormModel } from '../entities/string-hash-generator-form.model';
 
 export type StringHashAlgorithm = 'md5' | 'md5hmac' | 'sha1'
 

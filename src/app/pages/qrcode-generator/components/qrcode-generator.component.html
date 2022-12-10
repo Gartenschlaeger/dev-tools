@@ -1,0 +1,53 @@
+<form [formGroup]="form" (submit)="handleSubmit()">
+    <mat-card>
+        <mat-card-content>
+            <div class="mb-3">
+                <mat-form-field class="w-full">
+                    <mat-label>Text</mat-label>
+                    <textarea matInput
+                              cdkTextareaAutosize
+                              [cdkAutosizeMinRows]="3"
+                              [cdkAutosizeMaxRows]="10"
+                              formControlName="text"
+                              rows="3"></textarea>
+                    <mat-error>
+                        <app-mat-errors [control]="form.get('text')"></app-mat-errors>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="mr-6">
+                <div class="flex gap-8 items-center">
+                    <div class="color-input-box">
+                        <mat-form-field class="flex-1" appearance="outline">
+                            <mat-label>Size</mat-label>
+                            <input matInput formControlName="size" type="number" min="0" max="999">
+                            <mat-error>
+                                <app-mat-errors [control]="form.get('size')"></app-mat-errors>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <mat-slider min="100" max="999">
+                        <input matSliderThumb formControlName="size" tabindex="-1">
+                    </mat-slider>
+                </div>
+            </div>
+        </mat-card-content>
+
+        <mat-card-actions class="action-buttons">
+            <button mat-raised-button color="accent" type="button" (click)="handleReset()">Reset</button>
+            <button mat-raised-button color="primary" type="submit">Generate</button>
+        </mat-card-actions>
+    </mat-card>
+</form>
+
+<mat-card *ngIf="result">
+    <mat-card-header>
+        <mat-card-title>QR Code</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <div class="flex justify-center">
+            <qrcode [width]="result.size" [qrdata]="result.text" [errorCorrectionLevel]="'M'"></qrcode>
+        </div>
+    </mat-card-content>
+</mat-card>

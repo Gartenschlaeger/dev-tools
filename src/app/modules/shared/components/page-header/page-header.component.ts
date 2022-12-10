@@ -17,6 +17,10 @@ export class PageHeaderComponent {
                 if (newTitle) {
                     this.titleText = newTitle;
                 }
+
+                if (newTitle === 'Home') {
+                    this.titleText = '';
+                }
             }
         });
 

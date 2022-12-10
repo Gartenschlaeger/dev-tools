@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { SharedModule } from '../../modules/shared/shared.module';
-import { URLEncoderComponent } from './url-encoder.component';
+import { URLEncoderComponent } from './components/url-encoder.component';
 
 const routes: Route[] = [
     {

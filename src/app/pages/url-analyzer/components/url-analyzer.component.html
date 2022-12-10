@@ -1,0 +1,70 @@
+<form [formGroup]="form" (submit)="handleSubmit()">
+    <mat-card>
+        <mat-card-content>
+            <mat-form-field>
+                <mat-label>URL</mat-label>
+                <input matInput formControlName="url" placeholder="http(s)://" />
+                <mat-error>
+                    <app-mat-errors [control]="form.get('url')"></app-mat-errors>
+                </mat-error>
+            </mat-form-field>
+        </mat-card-content>
+
+        <mat-card-actions class="action-buttons">
+            <button mat-raised-button color="accent" type="button" (click)="handleReset()">Reset</button>
+            <button mat-raised-button color="primary" type="submit">Analyze</button>
+        </mat-card-actions>
+    </mat-card>
+
+    <app-alert *ngIf="hasError">Failed to parse URL</app-alert>
+</form>
+
+<mat-card *ngIf="result">
+    <mat-card-header>
+        <mat-card-title>Details</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <div class="mb-3">
+            <mat-label>Host</mat-label>
+            <app-code>{{ result.hostname }}</app-code>
+        </div>
+
+        <div class="mb-3" *ngIf="result.port">
+            <mat-label>Port</mat-label>
+            <app-code>{{ result.port }}</app-code>
+        </div>
+
+        <div class="mb-3" *ngIf="result.path">
+            <mat-label>Path</mat-label>
+            <app-code>{{ result.path }}</app-code>
+        </div>
+
+        <div class="mb-3" *ngIf="result.queryString">
+            <mat-label>Query strings</mat-label>
+            <div class="flex gap-3 items-center">
+                <div class="flex-1 overflow-hidden">
+                    <app-code>{{ result.queryString }}</app-code>
+                </div>
+                <div class="flex-none">
+                    <button mat-mini-fab color="accent" (click)="handleToogleSearchDetails()">
+                        <mat-icon *ngIf="showQueryDetails">expand_more</mat-icon>
+                        <mat-icon *ngIf="!showQueryDetails">chevron_right</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3 ml-5 space-y-2" *ngIf="showQueryDetails">
+            <div *ngFor="let q of result.queryStringValues">
+                <mat-label>{{ q.name }}</mat-label>
+                <app-code>{{ q.value }}</app-code>
+            </div>
+        </div>
+
+        <div class="mb-3" *ngIf="result?.fragment">
+            <mat-label>Fragment</mat-label>
+            <app-code>{{ result.fragment }}</app-code>
+        </div>
+    </mat-card-content>
+</mat-card>

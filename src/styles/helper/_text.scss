@@ -1,13 +1,15 @@
 // ---------- text alignment ----------
 
+.text-left {
+    text-align: left !important;
+}
+
 .text-center {
     text-align: center !important;
 }
 
-// ---------- text styles ----------
-
-.text-italic {
-    font-style: italic !important;
+.text-right {
+    text-align: right !important;
 }
 
 // ---------- text sizes ----------

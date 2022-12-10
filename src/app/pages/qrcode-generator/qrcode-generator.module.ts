@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { QRCodeModule } from 'angularx-qrcode';
 import { SharedModule } from '../../modules/shared/shared.module';
-import { QrCodeGeneratorComponent } from './qrcode-generator.component';
+import { QrCodeGeneratorComponent } from './components/qrcode-generator.component';
 
 const routes: Route[] = [
     {

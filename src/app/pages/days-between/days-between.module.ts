@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { SharedModule } from '../../modules/shared/shared.module';
-import { DaysBetweenComponent } from './days-between.component';
+import { DaysBetweenComponent } from './components/days-between.component';
 
 const routes: Route[] = [
     {

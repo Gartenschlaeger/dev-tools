@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { SharedModule } from '../../modules/shared/shared.module';
-import { Base64Component } from './base64.component';
+import { Base64Component } from './components/base64.component';
 
 const routes: Route[] = [
     {

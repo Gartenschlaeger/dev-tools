@@ -1,0 +1,48 @@
+<form [formGroup]="form" (submit)="handleSubmit()">
+    <mat-card>
+        <mat-card-content>
+            <div class="mb-1">
+                <mat-form-field class="w-full">
+                    <mat-label>JSON</mat-label>
+                    <textarea matInput formControlName="json" rows="5"></textarea>
+                    <mat-error>
+                        <app-mat-errors [control]="form.get('json')"></app-mat-errors>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-full">
+                    <mat-label>Path</mat-label>
+                    <input matInput formControlName="path">
+                    <mat-error>
+                        <app-mat-errors [control]="form.get('path')"></app-mat-errors>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="mb-8">
+                <a href="https://goessner.net/articles/JsonPath/"
+                   class="color-accent"
+                   target="_blank">Details about the syntax</a>
+            </div>
+
+            <ng-container *ngIf="result && result.error">
+                <app-alert>{{ result.error }}</app-alert>
+            </ng-container>
+        </mat-card-content>
+
+        <mat-card-actions class="action-buttons">
+            <button mat-raised-button color="accent" type="button" (click)="handleReset()">Reset</button>
+            <button mat-raised-button color="primary" type="submit">Evaluate</button>
+        </mat-card-actions>
+    </mat-card>
+</form>
+
+<mat-card *ngIf="result">
+    <mat-card-header>
+        <mat-card-title>Results</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <app-highlighted-code *ngIf="!result.error" [language]="'json'" [code]="result.result"></app-highlighted-code>
+    </mat-card-content>
+</mat-card>

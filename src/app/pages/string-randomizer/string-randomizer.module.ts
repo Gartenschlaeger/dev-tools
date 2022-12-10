@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { SharedModule } from '../../modules/shared/shared.module';
-import { StringRandomizerComponent } from './string-randomizer.component';
+import { StringRandomizerComponent } from './components/string-randomizer.component';
 
 const routes: Route[] = [
     {
