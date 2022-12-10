@@ -3,7 +3,7 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 import { ActivatedRoute } from '@angular/router';
 import { LoggingService } from 'src/app/modules/shared/services/logging.service';
 import { FormService } from '../../modules/shared/services/form-service.service';
-import * as randomizer from '../../utilities/randomizer';
+import { Randomizer } from '../../modules/shared/utilities/randomizer';
 
 export class StringGeneratorFormModel {
     includeLowercaseCharacters: boolean = true;
@@ -84,19 +84,19 @@ export class StringGeneratorComponent implements OnInit {
 
             let result = '';
             while (result.length < model.length) {
-                const type = randomizer.getRandomCharacter(types);
+                const type = Randomizer.getRandomCharacter(types);
                 switch (type) {
                     case 'l':
-                        result += randomizer.getRandomCharacter(LowercaseCharacters);
+                        result += Randomizer.getRandomCharacter(LowercaseCharacters);
                         break;
                     case 'u':
-                        result += randomizer.getRandomCharacter(UppercaseCharacters);
+                        result += Randomizer.getRandomCharacter(UppercaseCharacters);
                         break;
                     case 'n':
-                        result += randomizer.getRandomCharacter(NumberCharacters);
+                        result += Randomizer.getRandomCharacter(NumberCharacters);
                         break;
                     case 's':
-                        result += randomizer.getRandomCharacter(model.specialCharacters || DefaultSpecialCharacters);
+                        result += Randomizer.getRandomCharacter(model.specialCharacters || DefaultSpecialCharacters);
                         break;
                 }
             }

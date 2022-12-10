@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { FormService } from '../../modules/shared/services/form-service.service';
-import * as randomizer from '../../utilities/randomizer';
+import { Randomizer } from '../../modules/shared/utilities/randomizer';
 
 export class StringRandomizerFormModel {
     sourceText: string = '';
@@ -51,10 +51,10 @@ export class StringRandomizerComponent implements OnInit {
 
             if (model.splitIntoWords) {
                 const words = model.sourceText.split(' ');
-                const shuffledArray = randomizer.shuffleArray(words);
+                const shuffledArray = Randomizer.shuffleArray(words);
                 randomizedValue = shuffledArray.join(' ');
             } else {
-                randomizedValue = randomizer.shuffleString(model.sourceText);
+                randomizedValue = Randomizer.shuffleString(model.sourceText);
             }
 
             if (model.trimResult) {

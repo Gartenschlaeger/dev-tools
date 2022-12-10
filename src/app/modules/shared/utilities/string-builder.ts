@@ -1,9 +1,6 @@
 export class StringBuilder {
-    content = '';
 
-    static begin() {
-        return new StringBuilder();
-    }
+    content = '';
 
     append(...args: any[]): StringBuilder {
         if (args && args.length) {
@@ -18,4 +15,5 @@ export class StringBuilder {
     build(): string {
         return this.content;
     }
+
 }
