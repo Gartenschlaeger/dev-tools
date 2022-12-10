@@ -1,9 +1,5 @@
 <form [formGroup]="form" (submit)="handleSubmit()">
     <mat-card class="mb-8">
-        <mat-card-header>
-            <mat-card-title>{{ pageTitle }}</mat-card-title>
-        </mat-card-header>
-
         <mat-card-content>
             <mat-form-field class="w-full">
                 <mat-label>{{ isEncodeMode ? 'Value to encode' : 'Value to decode' }}</mat-label>

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { FormService } from '../../modules/shared/services/form-service.service';
 
 export class UrlEncoderFormModel {
@@ -22,16 +21,12 @@ const FormDefaults = new UrlEncoderFormModel();
 export class URLEncoderComponent implements OnInit {
     form!: UntypedFormGroup;
     isEncodeMode!: boolean;
-    pageTitle!: string;
     result?: UrlEncoderResultModel;
 
     constructor(
-        route: ActivatedRoute,
         private fb: UntypedFormBuilder,
         private formService: FormService
     ) {
-        this.isEncodeMode = route.snapshot.parent?.url[0].path === 'url-encoder';
-        this.pageTitle = this.isEncodeMode ? 'URL Encoder' : 'URL Decoder';
     }
 
     ngOnInit() {
