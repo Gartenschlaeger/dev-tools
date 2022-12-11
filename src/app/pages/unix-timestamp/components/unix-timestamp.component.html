@@ -1,0 +1,44 @@
+<mat-card>
+    <mat-card-content>
+
+        <mat-tab-group>
+
+            <mat-tab label="Timestamp">
+                <form [formGroup]="form" (submit)="handleSubmit()">
+                    <mat-form-field>
+                        <mat-label>Unix timestamp</mat-label>
+                        <input matInput type="number" formControlName="timestamp">
+                        <button type="button" mat-icon-button matPrefix (click)="handleSetCurrentTimestamp()">
+                            <mat-icon>timer</mat-icon>
+                        </button>
+                        <mat-error>
+                            <app-mat-errors></app-mat-errors>
+                        </mat-error>
+                    </mat-form-field>
+                </form>
+            </mat-tab>
+
+            <mat-tab label="Date">
+
+            </mat-tab>
+
+        </mat-tab-group>
+
+    </mat-card-content>
+
+    <mat-card-actions class="action-buttons">
+        <button type="button" mat-raised-button color="accent" (click)="handleReset()">Reset</button>
+        <button type="submit" mat-raised-button color="primary">Convert</button>
+    </mat-card-actions>
+</mat-card>
+
+<mat-card *ngIf="result">
+    <mat-card-header>
+        <mat-card-title>Results</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <app-code>{{result.utcDate}}</app-code>
+        <app-code>{{result.localDate}}</app-code>
+    </mat-card-content>
+</mat-card>
