@@ -1,16 +1,16 @@
-<div class="pt-3 select-none">
+<div class="pt-3 select-none" (window:keyup)="handleGlobalKeyUp($event)">
     <div class="px-3">
         <mat-form-field class="w-full" appearance="outline">
             <mat-label>Search</mat-label>
             <input
                 matInput
+                #matSearchInput="matInput"
                 type="text"
                 [(ngModel)]="searchQuery"
                 (ngModelChange)="handleSearchChange()"
                 (keyup)="handleSearchKeyup($event)"
-                tabindex="-1"
             />
-            <button *ngIf="searchQuery" matSuffix mat-icon-button (click)="handleSearchClear()" tabindex="-1">
+            <button *ngIf="searchQuery" matSuffix mat-icon-button (click)="handleSearchClear()">
                 <mat-icon>close</mat-icon>
             </button>
         </mat-form-field>

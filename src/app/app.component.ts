@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { ExtendedRoute } from './app.routes';
+import { NavigationComponent } from './components/navigation/navigation.component';
 import { SelectedThemeName, ThemeSwitchService } from './modules/shared/services/theme-switch.service';
 
 @Component({
@@ -10,9 +11,11 @@ import { SelectedThemeName, ThemeSwitchService } from './modules/shared/services
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
     title = 'dev-tools';
 
     @ViewChild('sidenav') sidenav!: MatSidenav;
+    @ViewChild('app_navigation') appNavigation!: NavigationComponent;
 
     constructor(private router: Router, private themes: ThemeSwitchService) {
     }
@@ -21,11 +24,16 @@ export class AppComponent {
         if (route.path) {
             await this.router.navigateByUrl(route.path);
         }
-        
+
         await this.sidenav.close();
     }
 
     public handleSetTheme(theme: SelectedThemeName) {
         this.themes.change(theme);
     }
+
+    public handleSidenavOpenedChanged(event: boolean) {
+        this.appNavigation.handleOpenedChanged(event);
+    }
+
 }

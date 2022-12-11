@@ -1,20 +1,26 @@
 <mat-sidenav-container (backdropClick)="sidenav.close()" class="h-full">
-    <mat-sidenav #sidenav disableClose class="app-sidenav">
-        <app-navigation (itemClicked)="handleNavigationItemClick($event)"></app-navigation>
+    <mat-sidenav #sidenav autoFocus="false" disableClose class="app-sidenav"
+                 (openedChange)="handleSidenavOpenedChanged($event)">
+        <app-navigation #app_navigation
+                        (itemClicked)="handleNavigationItemClick($event)"></app-navigation>
     </mat-sidenav>
+
     <mat-sidenav-content class="flex flex-col">
         <mat-toolbar color="primary" class="app-toolbar gap-2 mat-elevation-z8">
             <button mat-icon-button (click)="sidenav.toggle()">
                 <mat-icon>menu</mat-icon>
             </button>
 
-            <button mat-button class="px-2 py-1 text-xl" [routerLink]="['/home']">DevTools</button>
+            <button mat-button class="px-2 py-1 text-xl"
+                    [routerLink]="['/home']">DevTools
+            </button>
 
             <span class="flex-auto"></span>
 
             <button mat-icon-button [matMenuTriggerFor]="menu">
                 <mat-icon>format_color_fill</mat-icon>
             </button>
+
             <mat-menu #menu="matMenu">
                 <button mat-menu-item (click)="handleSetTheme('light')">
                     <mat-icon>light_mode</mat-icon>

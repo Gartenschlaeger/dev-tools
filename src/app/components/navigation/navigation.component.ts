@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { MatInput } from '@angular/material/input';
 import { ExtendedRoute, routes } from '../../app.routes';
 
 @Component({
@@ -6,9 +7,14 @@ import { ExtendedRoute, routes } from '../../app.routes';
     templateUrl: './navigation.component.html'
 })
 export class NavigationComponent implements OnInit {
+
     normalItems: ExtendedRoute[] = [];
     pinedItems: ExtendedRoute[] = [];
+    isOpened: boolean = false;
     searchQuery: string = '';
+    newSearchQuery: boolean = false;
+
+    @ViewChild('matSearchInput') matSearchInput!: MatInput;
 
     @Output() itemClicked = new EventEmitter<ExtendedRoute>();
 
@@ -27,11 +33,11 @@ export class NavigationComponent implements OnInit {
             }
         });
 
-        this.normalItems.sort(this.compareFn);
-        this.pinedItems.sort(this.compareFn);
+        this.normalItems.sort(this.itemCompareFn);
+        this.pinedItems.sort(this.itemCompareFn);
     }
 
-    private compareFn(a: ExtendedRoute, b: ExtendedRoute): number {
+    private itemCompareFn(a: ExtendedRoute, b: ExtendedRoute): number {
         if (typeof a.title === 'string' && typeof b.title === 'string') {
             return a.title.localeCompare(b.title);
         }
@@ -52,21 +58,50 @@ export class NavigationComponent implements OnInit {
         }
     }
 
-    handleSearchKeyup(event: KeyboardEvent) {
-        if (event.key === 'Escape') {
-            this.searchQuery = '';
-            this.handleSearchChange();
-        }
-    }
-
     handleSearchClear() {
         this.searchQuery = '';
         this.handleSearchChange();
     }
 
+    handleSearchKeyup(event: KeyboardEvent) {
+        if (event.key === 'Escape') {
+            if (this.searchQuery) {
+                this.searchQuery = '';
+                this.handleSearchChange();
+            }
+        }
+    }
+
+    handleGlobalKeyUp(event: KeyboardEvent) {
+        if (this.isOpened &&
+            event.key >= 'a' && event.key <= 'z') {
+
+            if (this.newSearchQuery) {
+                this.newSearchQuery = false;
+                this.searchQuery = event.key;
+            } else {
+                if (!this.matSearchInput.focused) {
+                    this.searchQuery += event.key;
+                }
+            }
+
+            if (!this.matSearchInput.focused) {
+                this.matSearchInput.focus();
+            }
+
+            this.handleSearchChange();
+        }
+    }
+
     handleItemClick(item: ExtendedRoute) {
-        //this.searchQuery = '';
-        //this.handleSearchChange();
         this.itemClicked.emit(item);
     }
+
+    handleOpenedChanged(isOpened: boolean) {
+        this.isOpened = isOpened;
+        if (this.isOpened) {
+            this.newSearchQuery = true;
+        }
+    }
+
 }
