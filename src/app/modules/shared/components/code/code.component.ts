@@ -1,6 +1,6 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { NotificationsService } from '../../services/notifications.service';
 
 @Component({
     selector: 'app-code',
@@ -14,14 +14,14 @@ export class CodeComponent {
     @ViewChild('preElement') preElement!: ElementRef<HTMLPreElement>;
 
     constructor(private clipboard: Clipboard,
-                private snackBar: MatSnackBar) {
+                private notifications: NotificationsService) {
     }
 
     handleCopy() {
         const text = this.preElement.nativeElement.textContent;
         if (text) {
             this.clipboard.copy(text);
-            this.snackBar.open('Copied to clipboard');
+            this.notifications.show('Copied to clipboard');
         }
     }
 

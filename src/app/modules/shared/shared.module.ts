@@ -35,6 +35,7 @@ import { CustomTitleStrategyService } from './routing/custom-title-strategy.serv
 import { DateService } from './services/date.service';
 import { FormService } from './services/form-service.service';
 import { LoggingService, LogLevel } from './services/logging.service';
+import { NotificationsService } from './services/notifications.service';
 
 export interface SharedModuleConfiguration {
     minLogLevel: LogLevel;
@@ -113,6 +114,7 @@ export class SharedModule {
             providers: [
                 DateService,
                 FormService,
+                NotificationsService,
                 {
                     provide: LoggingService,
                     useFactory: () => new LoggingService(config.minLogLevel),
