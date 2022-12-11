@@ -1,3 +1,5 @@
-<div class="code-block code-block-hljs" [ngClass]="{ 'select-all': autoselect }">
-    <pre [languages]="[language]" [highlight]="code || ''"></pre>
+<div class="code-block-container code-block-hljs">
+    <pre [languages]="[language]"
+         [ngClass]="{ 'select-all': autoSelect }"
+         [highlight]="code || ''"></pre>
 </div>

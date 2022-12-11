@@ -13,8 +13,6 @@
                 <mat-checkbox formControlName="minify">Minify</mat-checkbox>
                 <mat-checkbox formControlName="stringify">Convert to string</mat-checkbox>
             </div>
-
-            <app-alert *ngIf="result && result.hasErrors">Failed to format json</app-alert>
         </mat-card-content>
 
         <mat-card-actions class="action-buttons">
@@ -24,6 +22,10 @@
     </mat-card>
 </form>
 
+<mat-card *ngIf="result && result.hasErrors">
+    <app-alert>Failed to format json</app-alert>
+</mat-card>
+
 <mat-card *ngIf="result && !result.hasErrors">
     <mat-card-header>
         <mat-card-title>Formatted JSON</mat-card-title>
@@ -31,7 +33,7 @@
 
     <mat-card-content>
         <app-highlighted-code
-            [autoselect]="false"
+            [autoSelect]="false"
             [language]="'json'"
             [code]="result.formattedValue"
         ></app-highlighted-code>

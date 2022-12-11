@@ -24,10 +24,6 @@
                    class="color-accent"
                    target="_blank">Details about the syntax</a>
             </div>
-
-            <ng-container *ngIf="result && result.error">
-                <app-alert>{{ result.error }}</app-alert>
-            </ng-container>
         </mat-card-content>
 
         <mat-card-actions class="action-buttons">
@@ -37,12 +33,19 @@
     </mat-card>
 </form>
 
-<mat-card *ngIf="result">
+<mat-card *ngIf="result && result.error">
+    <app-alert>{{ result.error }}</app-alert>
+</mat-card>
+
+<mat-card *ngIf="result && !result.error">
     <mat-card-header>
         <mat-card-title>Results</mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
-        <app-highlighted-code *ngIf="!result.error" [language]="'json'" [code]="result.result"></app-highlighted-code>
+        <app-highlighted-code
+            [autoSelect]="false"
+            [language]="'json'"
+            [code]="result.result"></app-highlighted-code>
     </mat-card-content>
 </mat-card>

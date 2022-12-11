@@ -20,6 +20,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule, TitleStrategy } from '@angular/router';
 import { HIGHLIGHT_OPTIONS, HighlightModule } from 'ngx-highlightjs';
 import { AlertComponent } from './components/alert/alert.component';
@@ -58,6 +59,7 @@ export interface SharedModuleConfiguration {
         MatToolbarModule,
         MatIconModule,
         MatButtonModule,
+        MatTooltipModule,
         MatSidenavModule,
         MatFormFieldModule,
         MatCheckboxModule,
@@ -83,6 +85,7 @@ export interface SharedModuleConfiguration {
         MatToolbarModule,
         MatIconModule,
         MatButtonModule,
+        MatTooltipModule,
         MatSidenavModule,
         MatFormFieldModule,
         MatCheckboxModule,

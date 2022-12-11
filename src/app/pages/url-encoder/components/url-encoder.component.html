@@ -29,7 +29,8 @@
     <mat-card-header>
         <mat-card-title>{{ isEncodeMode ? 'Encoded value' : 'Decoded value' }}</mat-card-title>
     </mat-card-header>
+
     <mat-card-content>
-        <app-code [scrollable]="false">{{ result.processedValue }}</app-code>
+        <app-code>{{ result.processedValue }}</app-code>
     </mat-card-content>
 </mat-card>

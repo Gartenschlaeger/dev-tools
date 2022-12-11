@@ -1,0 +1,16 @@
+.code-block-container {
+    display: flex;
+    gap: 0.5em;
+    color: var(--color-control);
+    background-color: var(--background-control);
+    border-radius: 4px;
+    margin: 0.5em 0;
+
+    pre {
+        font-size: 16px;
+        margin: 0;
+        padding: 16px;
+        white-space: pre-line;
+        word-break: break-word;
+    }
+}

@@ -2,11 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-highlighted-code',
-    templateUrl: './highlighted-code.component.html'
+    templateUrl: './highlighted-code.component.html',
+    styleUrls: ['./highlighted-code.component.scss']
 })
 export class HighlightedCodeComponent implements OnInit {
+
     @Input() code?: string;
-    @Input() autoselect: boolean = true;
+    @Input() autoSelect: boolean = true;
     @Input() language: 'json' | 'bash' = 'json';
 
     constructor() {
@@ -14,4 +16,5 @@ export class HighlightedCodeComponent implements OnInit {
 
     ngOnInit(): void {
     }
+
 }

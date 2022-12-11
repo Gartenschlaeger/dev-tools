@@ -1,3 +1,6 @@
-<div class="code-block" [ngClass]="{ 'select-all': autoselect }">
-    <pre [ngClass]="{ 'overflow-x-auto': scrollable, 'whitespace-normal': !scrollable }"><ng-content></ng-content></pre>
+<div class="code-block-container" [ngClass]="{ 'select-all': autoSelect }">
+    <pre class="flex-auto" #preElement><ng-content></ng-content></pre>
+    <button mat-icon-button matTooltip="Copy" class="flex-none" (click)="handleCopy()">
+        <mat-icon>content_copy</mat-icon>
+    </button>
 </div>
