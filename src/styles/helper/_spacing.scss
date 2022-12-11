@@ -6,6 +6,10 @@
     width: 100% !important;
 }
 
+.w-auto {
+    width: auto !important;
+}
+
 @for $i from 0 through 25 {
     .p-#{$i} {
         padding: #{$i * 0.25}em !important;

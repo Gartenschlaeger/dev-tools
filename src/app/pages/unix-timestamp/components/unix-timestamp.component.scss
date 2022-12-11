@@ -1,0 +1,5 @@
+.date-gutter {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;
+    column-gap: 0.5em;
+}

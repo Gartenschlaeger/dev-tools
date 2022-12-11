@@ -34,8 +34,16 @@
     align-items: center !important;
 }
 
+.justify-start {
+    justify-content: start !important;
+}
+
 .justify-center {
     justify-content: center !important;
+}
+
+.justify-end {
+    justify-content: end !important;
 }
 
 @for $i from 0 through 25 {

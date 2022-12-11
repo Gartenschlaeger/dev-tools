@@ -8,6 +8,7 @@ import { ErrorStateMatcher, MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
@@ -66,7 +67,8 @@ export interface SharedModuleConfiguration {
         MatListModule,
         MatTabsModule,
         MatDatepickerModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        MatGridListModule
     ],
     exports: [
         FormsModule,
@@ -94,6 +96,7 @@ export interface SharedModuleConfiguration {
         MatDialogModule,
         MatSlideToggleModule,
         MatMenuModule,
+        MatGridListModule,
         MatErrorsComponent
     ]
 })
