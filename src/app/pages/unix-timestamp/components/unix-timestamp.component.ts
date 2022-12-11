@@ -134,8 +134,6 @@ export class UnixTimestampComponent implements OnInit, OnDestroy {
             const date = new Date();
             date.setTime(utc);
 
-            console.log(date);
-
             this.formTimestamp.patchValue({
                 timestamp: this.convertToUnixTimestamp(date)
             });

@@ -40,8 +40,7 @@ export class UrlAnalyzerComponent implements OnInit {
                 if (!urlToParse.toLowerCase().startsWith('http')) {
                     urlToParse = 'https://' + urlToParse;
                 }
-
-                // console.log(urlToParse)
+                
                 const url = new URL(urlToParse);
 
                 this.result = new UrlAnalyzerResult();
