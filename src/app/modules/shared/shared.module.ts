@@ -18,6 +18,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -70,7 +71,8 @@ export interface SharedModuleConfiguration {
         MatTabsModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        MatGridListModule
+        MatGridListModule,
+        MatSnackBarModule
     ],
     exports: [
         FormsModule,
@@ -100,6 +102,7 @@ export interface SharedModuleConfiguration {
         MatSlideToggleModule,
         MatMenuModule,
         MatGridListModule,
+        MatSnackBarModule,
         MatErrorsComponent
     ]
 })
