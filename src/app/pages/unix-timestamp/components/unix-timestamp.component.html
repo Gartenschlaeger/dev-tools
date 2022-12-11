@@ -1,0 +1,111 @@
+<div class="flex gap-7">
+    <div class="flex-1">
+        <form [formGroup]="formTimestamp" (submit)="handleSubmitTimestamp()">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>UTC Timestamp</mat-card-title>
+                </mat-card-header>
+
+                <mat-card-content>
+                    <div class="flex gap-5 items-center mb-5 justify-end">
+                        <div>Current UNIX timestamp</div>
+                        <div class="flex gap-1 items-center">
+                            <app-code>{{currentTimestamp}}</app-code>
+                            <button type="button" mat-icon-button color="accent"
+                                    (click)="handleSetCurrentTimestamp()">
+                                <mat-icon>radio_button_checked</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+
+                    <mat-form-field>
+                        <mat-label>Unix timestamp</mat-label>
+                        <input matInput type="number" formControlName="timestamp">
+                        <mat-error>
+                            <app-mat-errors [control]="formTimestamp.get('timestamp')"></app-mat-errors>
+                        </mat-error>
+                    </mat-form-field>
+                </mat-card-content>
+
+                <mat-card-actions class="action-buttons">
+                    <button type="button" mat-raised-button color="accent"
+                            (click)="handleReset()">Reset
+                    </button>
+                    <button type="submit" mat-raised-button color="primary">Convert</button>
+                </mat-card-actions>
+            </mat-card>
+        </form>
+    </div>
+
+    <div class="flex-1">
+        <form [formGroup]="formDate" (submit)="handleSubmitDate()">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>UTC Date</mat-card-title>
+                </mat-card-header>
+
+                <mat-card-content>
+                    <div class="date-gutter">
+                        <mat-form-field>
+                            <mat-label>Year</mat-label>
+                            <input type="number" matInput min="1970" max="9999" formControlName="year">
+                            <mat-error>
+                                <app-mat-errors [control]="formDate.get('year')"></app-mat-errors>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Month</mat-label>
+                            <input type="number" matInput min="1" max="12" formControlName="month">
+                            <mat-error>
+                                <app-mat-errors [control]="formDate.get('month')"></app-mat-errors>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Day</mat-label>
+                            <input type="number" matInput min="1" max="31" formControlName="day">
+                            <mat-error>
+                                <app-mat-errors [control]="formDate.get('day')"></app-mat-errors>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Hour</mat-label>
+                            <input type="number" matInput min="0" max="23" formControlName="hour">
+                            <mat-error>
+                                <app-mat-errors [control]="formDate.get('hour')"></app-mat-errors>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Minute</mat-label>
+                            <input type="number" matInput min="0" max="59" formControlName="minute">
+                            <mat-error>
+                                <app-mat-errors [control]="formDate.get('minute')"></app-mat-errors>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Second</mat-label>
+                            <input type="number" matInput min="0" max="59" formControlName="second">
+                            <mat-error>
+                                <app-mat-errors [control]="formDate.get('second')"></app-mat-errors>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </mat-card-content>
+
+                <mat-card-actions class="action-buttons">
+                    <button type="button" mat-raised-button color="accent"
+                            (click)="handleReset()">Reset
+                    </button>
+                    <button type="submit" mat-raised-button color="primary">Convert</button>
+                </mat-card-actions>
+            </mat-card>
+        </form>
+    </div>
+</div>
+
+
+<mat-card *ngIf="result">
+    <mat-card-content>
+        <app-code>{{result.utcDate}}</app-code>
+        <app-code>{{result.localDate}}</app-code>
+    </mat-card-content>
+</mat-card>

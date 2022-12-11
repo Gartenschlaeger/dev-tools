@@ -165,6 +165,13 @@ export const routes: ExtendedRoute[] = [
         icon: 'difference'
     },
     {
+        path: 'unix-timestamp',
+        loadChildren: () => import('./pages/unix-timestamp/unix-timestamp.module')
+            .then(m => m.UnixTimestampModule),
+        title: 'Unix Timestamp',
+        icon: 'schedule'
+    },
+    {
         path: '**',
         component: NotFoundComponent,
         title: 'Not found',
