@@ -30,8 +30,16 @@
     flex-wrap: wrap;
 }
 
+.items-start {
+    align-items: start !important;
+}
+
 .items-center {
     align-items: center !important;
+}
+
+.items-end {
+    align-items: end !important;
 }
 
 .justify-start {
@@ -44,6 +52,14 @@
 
 .justify-end {
     justify-content: end !important;
+}
+
+.justify-between {
+    justify-content: space-between !important;
+}
+
+.justify-around {
+    justify-content: space-around !important;
 }
 
 @for $i from 0 through 25 {
