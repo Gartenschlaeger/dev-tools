@@ -56,7 +56,7 @@ export const routes: ExtendedRoute[] = [
         path: 'days-between',
         loadChildren: () => import('./pages/days-between/days-between.module')
             .then((m) => m.DaysBetweenModule),
-        title: 'Days between',
+        title: 'Days between Calculator',
         icon: 'date_range'
     },
     {
@@ -98,7 +98,7 @@ export const routes: ExtendedRoute[] = [
         path: 'json-path',
         loadChildren: () => import('./pages/json-path/json-path.module')
             .then((m) => m.JsonPathModule),
-        title: 'JSON Path',
+        title: 'JSON Path Analyzer',
         icon: 'call_merge'
     },
     {
@@ -112,28 +112,28 @@ export const routes: ExtendedRoute[] = [
         path: 'random-string',
         loadChildren: () => import('./pages/string-generator/string-generator.module')
             .then((m) => m.StringGeneratorModule),
-        title: 'Random String',
+        title: 'Random String Generator',
         icon: 'shuffle'
     },
     {
         path: 'md5-hmac-hash',
         loadChildren: () => import('./pages/string-hash-generator/string-hash-generator.module')
             .then((m) => m.StringHashGeneratorModule),
-        title: 'MD5 HMAC Hash',
+        title: 'MD5 HMAC Hash Generator',
         icon: 'fingerprint'
     },
     {
         path: 'md5-hash',
         loadChildren: () => import('./pages/string-hash-generator/string-hash-generator.module')
             .then((m) => m.StringHashGeneratorModule),
-        title: 'MD5 Hash',
+        title: 'MD5 Hash Generator',
         icon: 'fingerprint'
     },
     {
         path: 'sha1-hash',
         loadChildren: () => import('./pages/string-hash-generator/string-hash-generator.module')
             .then((m) => m.StringHashGeneratorModule),
-        title: 'SHA1 Hash',
+        title: 'SHA1 Hash Generator',
         icon: 'fingerprint'
     },
     {
@@ -161,20 +161,20 @@ export const routes: ExtendedRoute[] = [
         path: 'text-diff',
         loadChildren: () => import('./pages/text-diff/text-diff.module')
             .then((m) => m.TextDiffModule),
-        title: 'Text Diff',
+        title: 'Text Compare',
         icon: 'difference'
     },
     {
         path: 'unix-timestamp',
         loadChildren: () => import('./pages/unix-timestamp/unix-timestamp.module')
             .then(m => m.UnixTimestampModule),
-        title: 'Unix Timestamp',
+        title: 'Unix Timestamp Converter',
         icon: 'schedule'
     },
     {
         path: '**',
         component: NotFoundComponent,
-        title: 'Not found',
+        title: 'Page not found',
         hideInNav: true
     }
 ];
