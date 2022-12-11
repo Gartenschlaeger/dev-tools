@@ -278,10 +278,6 @@
     </mat-card>
 
     <mat-card *ngIf="generatedScript">
-        <mat-card-header>
-            <mat-card-title>Script</mat-card-title>
-        </mat-card-header>
-
         <mat-card-content>
             <div [ngClass]="{ 'mb-3': generatedScript }">
                 <div>
@@ -298,7 +294,7 @@
 
     <mat-card *ngIf="shareLink">
         <mat-card-header>
-            <mat-card-title>Share</mat-card-title>
+            <mat-card-title>Share URL</mat-card-title>
         </mat-card-header>
 
         <mat-card-content>

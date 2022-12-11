@@ -61,13 +61,18 @@ export class JsonFormatterComponent implements OnInit {
 
                 this.result = {
                     formattedValue: res,
-                    hasErrors: false
+                    error: undefined
                 };
             } catch (err) {
                 this.result = {
                     formattedValue: '',
-                    hasErrors: true
+                    error: 'Failed to format JSON'
                 };
+
+                if (err instanceof Error) {
+                    console.log(err.message);
+                    this.result.error = err.message;
+                }
             }
         }
     }

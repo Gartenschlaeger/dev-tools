@@ -41,10 +41,6 @@
 </form>
 
 <mat-card *ngIf="result">
-    <mat-card-header>
-        <mat-card-title>QR Code</mat-card-title>
-    </mat-card-header>
-
     <mat-card-content>
         <div class="flex justify-center">
             <qrcode [width]="result.size" [qrdata]="result.text" [errorCorrectionLevel]="'M'"></qrcode>

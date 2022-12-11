@@ -1,4 +1,4 @@
-<div class="flex gap-7">
+<div class="flex gap-7 flex-wrap">
     <div class="flex-1">
         <form [formGroup]="formTimestamp" (submit)="handleSubmitTimestamp()">
             <mat-card>
@@ -11,9 +11,9 @@
                         <div>Current UNIX timestamp</div>
                         <div class="flex gap-1 items-center">
                             <app-code>{{currentTimestamp}}</app-code>
-                            <button type="button" mat-icon-button color="accent"
+                            <button type="button" mat-icon-button matTooltip="Apply"
                                     (click)="handleSetCurrentTimestamp()">
-                                <mat-icon>radio_button_checked</mat-icon>
+                                <mat-icon>check</mat-icon>
                             </button>
                         </div>
                     </div>

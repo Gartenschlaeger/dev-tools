@@ -20,9 +20,6 @@
 </form>
 
 <mat-card *ngIf="processedValue">
-    <mat-card-header>
-        <mat-card-title>{{ isEncodeMode ? 'Base64 text' : 'Plain text' }}</mat-card-title>
-    </mat-card-header>
     <mat-card-content>
         <app-code>{{ processedValue }}</app-code>
     </mat-card-content>

@@ -20,8 +20,6 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-
-            <app-alert *ngIf="error">{{ error }}</app-alert>
         </mat-card-content>
 
         <mat-card-actions class="action-buttons">
@@ -31,11 +29,11 @@
     </mat-card>
 </form>
 
-<mat-card *ngIf="hashedString && !error">
-    <mat-card-header>
-        <mat-card-title>Hash</mat-card-title>
-    </mat-card-header>
+<mat-card *ngIf="error">
+    <app-alert>{{ error }}</app-alert>
+</mat-card>
 
+<mat-card *ngIf="hashedString && !error">
     <mat-card-content>
         <app-code>{{ hashedString }}</app-code>
     </mat-card-content>

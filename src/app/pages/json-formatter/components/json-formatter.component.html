@@ -22,15 +22,11 @@
     </mat-card>
 </form>
 
-<mat-card *ngIf="result && result.hasErrors">
-    <app-alert>Failed to format json</app-alert>
+<mat-card *ngIf="result && result.error">
+    <app-alert>{{result.error}}</app-alert>
 </mat-card>
 
-<mat-card *ngIf="result && !result.hasErrors">
-    <mat-card-header>
-        <mat-card-title>Formatted JSON</mat-card-title>
-    </mat-card-header>
-
+<mat-card *ngIf="result && !result.error">
     <mat-card-content>
         <app-highlighted-code
             [autoSelect]="false"

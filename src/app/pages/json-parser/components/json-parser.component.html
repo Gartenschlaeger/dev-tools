@@ -8,10 +8,6 @@
                     <app-mat-errors [control]="form.get('source')"></app-mat-errors>
                 </mat-error>
             </mat-form-field>
-
-            <div *ngIf="result.errorMessage !== undefined">
-                <app-alert> {{ result.errorMessage }}</app-alert>
-            </div>
         </mat-card-content>
 
         <mat-card-actions class="action-buttons">
@@ -27,11 +23,11 @@
     </mat-card>
 </form>
 
-<mat-card *ngIf="result.formattedValue !== undefined">
-    <mat-card-header>
-        <mat-card-title>Parsed JSON</mat-card-title>
-    </mat-card-header>
+<mat-card *ngIf="result.errorMessage">
+    <app-alert> {{ result.errorMessage }}</app-alert>
+</mat-card>
 
+<mat-card *ngIf="result.formattedValue">
     <mat-card-content>
         <app-highlighted-code
             [autoSelect]="false"

@@ -8,10 +8,8 @@
                     <app-mat-errors [control]="form.get('sourceValue')"></app-mat-errors>
                 </mat-error>
             </mat-form-field>
-            <mat-checkbox *ngIf="isEncodeMode" formControlName="encodeAsQueryString"
-            >Encode as query string
-            </mat-checkbox
-            >
+            <mat-checkbox *ngIf="isEncodeMode" formControlName="encodeAsQueryString">Encode as query string
+            </mat-checkbox>
         </mat-card-content>
 
         <mat-card-actions class="flex justify-center gap-2 pb-5">
@@ -21,15 +19,13 @@
             </button>
         </mat-card-actions>
     </mat-card>
-
-    <app-alert *ngIf="result && result?.hasErrors">Text processing failed</app-alert>
 </form>
 
-<mat-card *ngIf="result">
-    <mat-card-header>
-        <mat-card-title>{{ isEncodeMode ? 'Encoded value' : 'Decoded value' }}</mat-card-title>
-    </mat-card-header>
+<mat-card *ngIf="result && result?.hasErrors">
+    <app-alert>Something went wrong</app-alert>
+</mat-card>
 
+<mat-card *ngIf="result && !result.hasErrors">
     <mat-card-content>
         <app-code>{{ result.processedValue }}</app-code>
     </mat-card-content>

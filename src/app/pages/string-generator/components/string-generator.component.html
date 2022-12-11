@@ -12,8 +12,9 @@
                 </div>
 
                 <mat-form-field *ngIf="form.get('includeSpecialCharacters')?.value">
-                    <mat-label>Special characters</mat-label>
-                    <input matInput formControlName="specialCharacters" [placeholder]="defaultSpecialCharacters" />
+                    
+                    <input matInput formControlName="specialCharacters"
+                           [placeholder]="defaultSpecialCharacters" />
                     <mat-error>
                         <app-mat-errors [control]="form.get('specialCharacters')"></app-mat-errors>
                     </mat-error>
@@ -37,10 +38,6 @@
 </form>
 
 <mat-card *ngIf="result">
-    <mat-card-header>
-        <mat-card-title>Random string</mat-card-title>
-    </mat-card-header>
-
     <mat-card-content>
         <app-code>{{ result.generatedString }}</app-code>
     </mat-card-content>
