@@ -1,4 +1,6 @@
 .code-block-container {
+    display: flex;
+    gap: 0.5em;
     color: var(--color-control);
     background-color: var(--background-control);
     border-radius: 4px;

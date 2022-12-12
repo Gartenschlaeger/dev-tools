@@ -1,5 +1,9 @@
 <div class="code-block-container code-block-hljs">
-    <pre [languages]="[language]"
+    <pre #preElement class="flex-auto"
+         [languages]="[language]"
          [ngClass]="{ 'select-all': autoSelect }"
          [highlight]="code || ''"></pre>
+    <button mat-icon-button matTooltip="Copy" class="flex-none" (click)="handleCopy()">
+        <mat-icon>content_copy</mat-icon>
+    </button>
 </div>
