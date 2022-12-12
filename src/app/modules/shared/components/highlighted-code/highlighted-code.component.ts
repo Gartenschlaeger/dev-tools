@@ -9,7 +9,7 @@ export class HighlightedCodeComponent implements OnInit {
 
     @Input() code?: string;
     @Input() autoSelect: boolean = true;
-    @Input() language: 'json' | 'bash' = 'json';
+    @Input() language: 'json' | 'bash' | 'typescript' = 'json';
 
     constructor() {
     }

@@ -98,7 +98,7 @@ export const routes: ExtendedRoute[] = [
         path: 'json-type-converter',
         loadChildren: () => import('./pages/json-type-converter/json-type-converter.module')
             .then(m => m.JsonTypeConverterModule),
-        title: 'JSON type converter',
+        title: 'JSON Type Converter',
         icon: 'swap_horiz'
     },
     {

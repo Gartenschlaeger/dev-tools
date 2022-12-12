@@ -126,7 +126,8 @@ export class SharedModule {
                         coreLibraryLoader: () => import('highlight.js/lib/core'),
                         languages: {
                             json: () => import('highlight.js/lib/languages/json'),
-                            bash: () => import('highlight.js/lib/languages/bash')
+                            bash: () => import('highlight.js/lib/languages/bash'),
+                            typescript: () => import('highlight.js/lib/languages/typescript')
                         }
                     }
                 },

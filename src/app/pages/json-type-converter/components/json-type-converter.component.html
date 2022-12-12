@@ -23,6 +23,7 @@
 
 <mat-card *ngIf="result && result.result">
     <mat-card-content>
-        <app-code [autoSelect]="false">{{result.result}}</app-code>
+        <app-highlighted-code [autoSelect]="false" [language]="'typescript'"
+                              [code]="result.result"></app-highlighted-code>
     </mat-card-content>
 </mat-card>
