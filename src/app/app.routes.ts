@@ -88,13 +88,6 @@ export const routes: ExtendedRoute[] = [
         icon: 'format_align_left'
     },
     {
-        path: 'json-parser',
-        loadChildren: () => import('./pages/json-parser/json-parser.module')
-            .then((m) => m.JsonParserModule),
-        title: 'JSON Parser',
-        icon: 'code'
-    },
-    {
         path: 'json-path',
         loadChildren: () => import('./pages/json-path/json-path.module')
             .then((m) => m.JsonPathModule),

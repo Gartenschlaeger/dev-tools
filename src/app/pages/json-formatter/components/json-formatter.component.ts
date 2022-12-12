@@ -46,13 +46,16 @@ export class JsonFormatterComponent implements OnInit {
             const model = this.form.value;
 
             try {
-                const obj = JSON.parse(model.source);
+                let parsedValue = JSON.parse(model.source);
+                if (typeof parsedValue !== 'object') {
+                    parsedValue = JSON.parse(parsedValue);
+                }
 
                 let res;
                 if (model.minify || model.stringify) {
-                    res = JSON.stringify(obj);
+                    res = JSON.stringify(parsedValue);
                 } else {
-                    res = JSON.stringify(obj, null, '  ');
+                    res = JSON.stringify(parsedValue, null, '  ');
                 }
 
                 if (model.stringify) {

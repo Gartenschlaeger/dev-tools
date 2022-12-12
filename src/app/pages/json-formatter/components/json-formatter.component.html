@@ -3,13 +3,13 @@
         <mat-card-content>
             <mat-form-field class="w-full">
                 <mat-label>JSON text</mat-label>
-                <textarea matInput formControlName="source" rows="5"></textarea>
+                <textarea matInput formControlName="source" rows="3"></textarea>
                 <mat-error>
                     <app-mat-errors [control]="form.get('source')"></app-mat-errors>
                 </mat-error>
             </mat-form-field>
 
-            <div class="flex flex-col">
+            <div class="flex gap-7">
                 <mat-checkbox formControlName="minify">Minify</mat-checkbox>
                 <mat-checkbox formControlName="stringify">Convert to string</mat-checkbox>
             </div>
