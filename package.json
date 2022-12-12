@@ -26,6 +26,7 @@
         "angularx-qrcode": "^15.0.0",
         "crypto-js": "^4.1.1",
         "diff-match-patch": "^1.0.5",
+        "json-to-ts": "^1.7.0",
         "jsonpath": "^1.1.1",
         "ngx-highlightjs": "^7.0.1",
         "rxjs": "~7.6.0",

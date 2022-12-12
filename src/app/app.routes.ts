@@ -95,6 +95,13 @@ export const routes: ExtendedRoute[] = [
         icon: 'call_merge'
     },
     {
+        path: 'json-type-converter',
+        loadChildren: () => import('./pages/json-type-converter/json-type-converter.module')
+            .then(m => m.JsonTypeConverterModule),
+        title: 'JSON type converter',
+        icon: 'swap_horiz'
+    },
+    {
         path: 'string-randomizer',
         loadChildren: () => import('./pages/string-randomizer/string-randomizer.module')
             .then((m) => m.StringRandomizerModule),

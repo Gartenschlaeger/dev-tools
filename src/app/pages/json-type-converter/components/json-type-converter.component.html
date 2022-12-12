@@ -1,0 +1,28 @@
+<form [formGroup]="form" (submit)="handleSubmit()">
+    <mat-card>
+        <mat-card-content>
+            <mat-form-field class="w-full">
+                <mat-label>JSON text</mat-label>
+                <textarea matInput formControlName="jsonText" rows="8"></textarea>
+                <mat-error>
+                    <app-mat-errors [control]="form.get('jsonText')"></app-mat-errors>
+                </mat-error>
+            </mat-form-field>
+        </mat-card-content>
+
+        <mat-card-actions class="action-buttons">
+            <button mat-raised-button color="accent" type="button" (click)="handleReset()">Reset</button>
+            <button mat-raised-button color="primary" type="submit">Format</button>
+        </mat-card-actions>
+    </mat-card>
+</form>
+
+<mat-card *ngIf="result && result.errorMessage">
+    <app-alert>{{result.errorMessage}}</app-alert>
+</mat-card>
+
+<mat-card *ngIf="result && result.result">
+    <mat-card-content>
+        <app-code [autoSelect]="false">{{result.result}}</app-code>
+    </mat-card-content>
+</mat-card>
