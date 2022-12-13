@@ -4,6 +4,7 @@ export class TreeNode {
     nodes?: TreeNode[];
     value?: any;
     type?: string;
+    isArrayValue?: boolean;
 
     constructor(public name: string) {
     }
@@ -30,6 +31,7 @@ export class JsonTreeParserService {
     }
 
     private addObjectPropertiesToNode(obj: any, parentNode: TreeNode) {
+        const isArray = Array.isArray(obj);
         for (let key in obj) {
             if (obj.hasOwnProperty(key)) {
                 const value = obj[key];
@@ -43,10 +45,13 @@ export class JsonTreeParserService {
                         const valueNode = new TreeNode(key);
                         valueNode.value = value;
                         valueNode.type = type;
+                        valueNode.isArrayValue = isArray;
                         this.addChildNode(parentNode, valueNode);
                         break;
+
                     case 'object':
                         const objNode = new TreeNode(key);
+                        objNode.isArrayValue = isArray;
                         this.addChildNode(parentNode, objNode);
                         if (value === null) {
                             objNode.value = 'null';
@@ -54,6 +59,7 @@ export class JsonTreeParserService {
                             this.addObjectPropertiesToNode(value, objNode);
                         }
                         break;
+
                     case 'symbol':
                         break;
                     case 'function':

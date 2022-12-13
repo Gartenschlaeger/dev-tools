@@ -15,7 +15,6 @@ class JsonFormatterFormModel {
 
 class JsonFormatterResultModel {
     formattedValue: string = '';
-    treeNode?: TreeNode;
     error?: string;
 }
 
@@ -37,16 +36,21 @@ export class JsonFormatterComponent implements OnInit {
     result?: JsonFormatterResultModel;
 
     private getNodeName(node: TreeNode): string {
+        let key = node.name;
+        if (node.isArrayValue) {
+            key = `[${key}]`;
+        }
+
         switch (node.type) {
             case 'string':
-                return `${node.name} = "${node.value}"`;
+                return `${key} = "${node.value}"`;
             case 'boolean':
-                return `${node.name} = ${node.value ? 'true' : 'false'}`;
+                return `${key} = ${node.value ? 'true' : 'false'}`;
             default:
                 if (node.value) {
-                    return `${node.name} = ${node.value}`;
+                    return `${key} = ${node.value}`;
                 }
-                return node.name;
+                return key;
         }
     }
 
