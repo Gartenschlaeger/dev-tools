@@ -1,20 +1,82 @@
+import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { FormService } from '../../../modules/shared/services/form-service.service';
-import { JsonFormatterFormModel } from '../entities/json-formatter-form.model';
-import { JsonFormatterResultModel } from '../entities/json-formatter-result.model';
+import { JsonTreeParserService, TreeNode } from '../services/json-tree-parser.service';
+
+class JsonFormatterFormModel {
+    source: string = '';
+    minify: boolean = false;
+    stringify: boolean = false;
+    viewAsTree: boolean = false;
+}
+
+class JsonFormatterResultModel {
+    formattedValue: string = '';
+    treeNode?: TreeNode;
+    error?: string;
+}
 
 const FormDefaults = new JsonFormatterFormModel();
+
+interface CustomFlatNode {
+    name: string;
+    level: number;
+    expandable: boolean;
+}
 
 @Component({
     selector: 'app-json-formatter',
     templateUrl: './json-formatter.component.html'
 })
 export class JsonFormatterComponent implements OnInit {
+
     form!: UntypedFormGroup;
     result?: JsonFormatterResultModel;
 
-    constructor(private fb: UntypedFormBuilder, private formService: FormService) {
+    private getNodeName(node: TreeNode): string {
+        switch (node.type) {
+            case 'string':
+                return `${node.name} = "${node.value}"`;
+            case 'boolean':
+                return `${node.name} = ${node.value ? 'true' : 'false'}`;
+            default:
+                if (node.value) {
+                    return `${node.name} = ${node.value}`;
+                }
+                return node.name;
+        }
+    }
+
+    private _transformer = (node: TreeNode, level: number) => {
+        return {
+            name: this.getNodeName(node),
+            expandable: node.nodes && node.nodes.length > 0 || false,
+            level: level
+        };
+    };
+
+    treeControl = new FlatTreeControl<CustomFlatNode>(
+        node => node.level,
+        node => node.expandable
+    );
+
+    treeFlattener = new MatTreeFlattener(
+        this._transformer,
+        node => node.level,
+        node => node.expandable,
+        node => node.nodes
+    );
+
+    treeDataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+
+    hasChild = (_: number, node: CustomFlatNode) => node.expandable;
+
+    constructor(private fb: UntypedFormBuilder,
+                private formService: FormService,
+                private treeParser: JsonTreeParserService) {
     }
 
     ngOnInit() {
@@ -32,13 +94,16 @@ export class JsonFormatterComponent implements OnInit {
         return this.fb.group({
             source: [source, [Validators.required]],
             minify: [FormDefaults.minify],
-            stringify: [FormDefaults.stringify]
+            stringify: [FormDefaults.stringify],
+            viewAsTree: [FormDefaults.viewAsTree]
         });
     }
 
     handleReset() {
         this.formService.reset(this.form, FormDefaults);
         this.result = undefined;
+        this.treeDataSource.data = [];
+        this.handleViewAsTreeChanged(FormDefaults.viewAsTree);
     }
 
     handleSubmit() {
@@ -46,26 +111,34 @@ export class JsonFormatterComponent implements OnInit {
             const model = this.form.value;
 
             try {
-                let parsedValue = JSON.parse(model.source);
-                if (typeof parsedValue !== 'object') {
-                    parsedValue = JSON.parse(parsedValue);
-                }
-
-                let res;
-                if (model.minify || model.stringify) {
-                    res = JSON.stringify(parsedValue);
+                if (model.viewAsTree) {
+                    const tree = this.treeParser.parse(model.source);
+                    this.treeDataSource.data = tree.nodes!;
+                    this.result = undefined;
                 } else {
-                    res = JSON.stringify(parsedValue, null, '  ');
-                }
+                    this.treeDataSource.data = [];
 
-                if (model.stringify) {
-                    res = JSON.stringify(res);
-                }
+                    let parsedValue = JSON.parse(model.source);
+                    if (typeof parsedValue !== 'object') {
+                        parsedValue = JSON.parse(parsedValue);
+                    }
 
-                this.result = {
-                    formattedValue: res,
-                    error: undefined
-                };
+                    let res;
+                    if (model.minify || model.stringify) {
+                        res = JSON.stringify(parsedValue);
+                    } else {
+                        res = JSON.stringify(parsedValue, null, '  ');
+                    }
+
+                    if (model.stringify) {
+                        res = JSON.stringify(res);
+                    }
+
+                    this.result = {
+                        formattedValue: res,
+                        error: undefined
+                    };
+                }
             } catch (err) {
                 this.result = {
                     formattedValue: '',
@@ -73,10 +146,23 @@ export class JsonFormatterComponent implements OnInit {
                 };
 
                 if (err instanceof Error) {
-                    console.log(err.message);
                     this.result.error = err.message;
                 }
             }
         }
+    }
+
+    private handleViewAsTreeChanged(isChecked: boolean) {
+        if (isChecked) {
+            this.form.get('minify')?.disable();
+            this.form.get('stringify')?.disable();
+        } else {
+            this.form.get('minify')?.enable();
+            this.form.get('stringify')?.enable();
+        }
+    }
+
+    public handleViewAsTreeChange(event: MatCheckboxChange) {
+        this.handleViewAsTreeChanged(event.checked);
     }
 }

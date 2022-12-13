@@ -3,7 +3,7 @@
         <mat-card-content>
             <mat-form-field class="w-full">
                 <mat-label>JSON text</mat-label>
-                <textarea matInput formControlName="source" rows="3"></textarea>
+                <textarea matInput formControlName="source" rows="5"></textarea>
                 <mat-error>
                     <app-mat-errors [control]="form.get('source')"></app-mat-errors>
                 </mat-error>
@@ -12,6 +12,8 @@
             <div class="flex gap-7">
                 <mat-checkbox formControlName="minify">Minify</mat-checkbox>
                 <mat-checkbox formControlName="stringify">Convert to string</mat-checkbox>
+                <mat-checkbox formControlName="viewAsTree" (change)="handleViewAsTreeChange($event)">View as tree
+                </mat-checkbox>
             </div>
         </mat-card-content>
 
@@ -33,5 +35,24 @@
             [language]="'json'"
             [code]="result.formattedValue"
         ></app-highlighted-code>
+    </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="treeDataSource.data && treeDataSource.data.length">
+    <mat-card-content>
+        <mat-tree [dataSource]="treeDataSource" [treeControl]="treeControl">
+            <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+                <button mat-icon-button disabled></button>
+                {{node.name}}
+            </mat-tree-node>
+            <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+                <button mat-icon-button matTreeNodeToggle>
+                    <mat-icon class="mat-icon-rtl-mirror">
+                        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                    </mat-icon>
+                </button>
+                {{node.name}}
+            </mat-tree-node>
+        </mat-tree>
     </mat-card-content>
 </mat-card>

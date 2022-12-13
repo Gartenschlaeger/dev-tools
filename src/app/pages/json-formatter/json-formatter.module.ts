@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { SharedModule } from '../../modules/shared/shared.module';
 import { JsonFormatterComponent } from './components/json-formatter.component';
+import { JsonTreeParserService } from './services/json-tree-parser.service';
 
 const routes: Route[] = [
     {
@@ -13,7 +14,8 @@ const routes: Route[] = [
 
 @NgModule({
     declarations: [JsonFormatterComponent],
-    imports: [CommonModule, RouterModule.forChild(routes), SharedModule]
+    imports: [CommonModule, RouterModule.forChild(routes), SharedModule],
+    providers: [JsonTreeParserService]
 })
 export class JsonFormatterModule {
 }

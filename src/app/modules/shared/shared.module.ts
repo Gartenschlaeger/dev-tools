@@ -8,7 +8,6 @@ import { ErrorStateMatcher, MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
-import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
@@ -22,6 +21,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTreeModule } from '@angular/material/tree';
 import { RouterModule, TitleStrategy } from '@angular/router';
 import { HIGHLIGHT_OPTIONS, HighlightModule } from 'ngx-highlightjs';
 import { AlertComponent } from './components/alert/alert.component';
@@ -72,7 +72,7 @@ export interface SharedModuleConfiguration {
         MatTabsModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        MatGridListModule,
+        MatTreeModule,
         MatSnackBarModule
     ],
     exports: [
@@ -102,7 +102,7 @@ export interface SharedModuleConfiguration {
         MatDialogModule,
         MatSlideToggleModule,
         MatMenuModule,
-        MatGridListModule,
+        MatTreeModule,
         MatSnackBarModule,
         MatErrorsComponent
     ]
