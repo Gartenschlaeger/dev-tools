@@ -9,7 +9,6 @@ const DEFAULT_THEME: SelectedThemeName = 'light';
     providedIn: 'root'
 })
 export class ThemeSwitchService {
-
     private selectedTheme: SelectedThemeName;
 
     constructor() {
@@ -52,7 +51,7 @@ export class ThemeSwitchService {
         return undefined;
     }
 
-    public restoreSelectedTheme() {
+    restoreSelectedTheme() {
         const fromLocalStorage = this.getThemeFromLocalStorage();
         if (fromLocalStorage) {
             return fromLocalStorage;
@@ -66,10 +65,9 @@ export class ThemeSwitchService {
         return DEFAULT_THEME;
     }
 
-    public change(theme: SelectedThemeName) {
+    change(theme: SelectedThemeName) {
         this.selectedTheme = theme;
         localStorage.setItem(LOCAL_STORAGE_KEY, theme);
         this.themeChanged();
     }
-    
 }

@@ -5,7 +5,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     providedIn: 'root'
 })
 export class NotificationsService {
-
     constructor(private snackBar: MatSnackBar) {
     }
 
@@ -16,5 +15,4 @@ export class NotificationsService {
                 horizontalPosition: 'right'
             });
     }
-
 }

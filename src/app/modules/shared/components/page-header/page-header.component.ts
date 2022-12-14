@@ -1,16 +1,14 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { PageUtilitiesService } from '../../services/page-utilities.service';
 
 @Component({
     selector: 'app-page-header',
     templateUrl: './page-header.component.html'
 })
 export class PageHeaderComponent {
-
     titleText?: string;
 
-    constructor(private router: Router, private pageUtilities: PageUtilitiesService) {
+    constructor(private router: Router) {
         router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {
                 const newTitle = router.titleStrategy?.buildTitle(router.routerState.snapshot);
@@ -23,10 +21,5 @@ export class PageHeaderComponent {
                 }
             }
         });
-
-        pageUtilities.titleChanged.subscribe(newTitle => {
-            this.titleText = newTitle;
-        });
     }
-
 }

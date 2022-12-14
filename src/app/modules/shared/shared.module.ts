@@ -32,7 +32,6 @@ import { CustomErrorStateMatcher } from './controls/custom-error-state-matcher';
 import { MatErrorsComponent } from './controls/mat-errors/mat-errors.component';
 import { MaterialDefaults } from './material/material-defaults';
 import { CustomTitleStrategyService } from './routing/custom-title-strategy.service';
-import { DateService } from './services/date.service';
 import { FormService } from './services/form-service.service';
 import { LoggingService, LogLevel } from './services/logging.service';
 import { NotificationsService } from './services/notifications.service';
@@ -112,7 +111,6 @@ export class SharedModule {
         return {
             ngModule: SharedModule,
             providers: [
-                DateService,
                 FormService,
                 NotificationsService,
                 {
