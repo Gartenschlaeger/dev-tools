@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, HostListener, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { ExtendedRoute } from './app.routes';
@@ -16,6 +16,11 @@ export class AppComponent {
 
     @ViewChild('sidenav') sidenav!: MatSidenav;
     @ViewChild('app_navigation') appNavigation!: NavigationComponent;
+
+    @HostListener('document:keydown.meta.k')
+    async openSidenavShortcut() {
+        await this.sidenav.toggle();
+    }
 
     constructor(private router: Router, private themes: ThemeSwitchService) {
     }
