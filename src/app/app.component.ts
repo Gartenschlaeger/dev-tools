@@ -17,12 +17,6 @@ export class AppComponent {
     @ViewChild('sidenav') sidenav!: MatSidenav;
     @ViewChild('app_navigation') appNavigation!: NavigationComponent;
 
-    // Global shortcut : toggle sidenav
-    @HostListener('document:keydown.meta.k')
-    async openSidenavShortcut() {
-        await this.sidenav.toggle();
-    }
-
     // Global shortcut : submit form by multiline text fields
     @HostListener('document:keydown.meta.enter')
     async submitForm() {

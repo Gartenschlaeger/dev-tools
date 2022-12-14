@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, HostListener, OnInit, Output, ViewChild } from '@angular/core';
 import { MatInput } from '@angular/material/input';
 import { ExtendedRoute, routes } from '../../app.routes';
 
@@ -17,6 +17,7 @@ export class NavigationComponent implements OnInit {
     @ViewChild('matSearchInput') matSearchInput!: MatInput;
 
     @Output() itemClicked = new EventEmitter<ExtendedRoute>();
+    @Output() toggleSidenav = new EventEmitter();
 
     ngOnInit() {
         routes.forEach((route) => {
@@ -63,19 +64,20 @@ export class NavigationComponent implements OnInit {
         this.handleSearchChange();
     }
 
-    handleSearchKeyup(event: KeyboardEvent) {
-        if (event.key === 'Escape') {
-            if (this.searchQuery) {
-                this.searchQuery = '';
-                this.handleSearchChange();
-            }
-        }
+    @HostListener('document:keydown.meta.k')
+    async openSidenavShortcut() {
+        // global shortcut cmd+k to toggle the sidenav
+        await this.toggleSidenav.emit();
     }
 
-    handleGlobalKeyUp(event: KeyboardEvent) {
-        if (this.isOpened &&
-            event.key >= 'a' && event.key <= 'z') {
+    @HostListener('document:keyup', ['$event'])
+    handleKeyupEvent(event: KeyboardEvent) {
+        if (!this.isOpened) {
+            return;
+        }
 
+        // autofocus to search control by text input
+        if (!this.matSearchInput.focused && /^[a-zA-Z0-9]$/.test(event.key)) {
             if (this.newSearchQuery) {
                 this.newSearchQuery = false;
                 this.searchQuery = event.key;
@@ -90,6 +92,20 @@ export class NavigationComponent implements OnInit {
             }
 
             this.handleSearchChange();
+        }
+
+        // escape: clear text input -> blur the element -> close the sidenav
+        if (event.key === 'Escape') {
+            if (this.matSearchInput.focused) {
+                if (this.searchQuery) {
+                    this.searchQuery = '';
+                    this.handleSearchChange();
+                } else if (document.activeElement instanceof HTMLElement) {
+                    document.activeElement.blur();
+                }
+            } else {
+                this.toggleSidenav.emit();
+            }
         }
     }
 

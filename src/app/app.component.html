@@ -2,7 +2,8 @@
     <mat-sidenav #sidenav autoFocus="false" disableClose class="app-sidenav"
                  (openedChange)="handleSidenavOpenedChanged($event)">
         <app-navigation #app_navigation
-                        (itemClicked)="handleNavigationItemClick($event)"></app-navigation>
+                        (itemClicked)="handleNavigationItemClick($event)"
+                        (toggleSidenav)="sidenav.toggle()"></app-navigation>
     </mat-sidenav>
 
     <mat-sidenav-content class="flex flex-col">

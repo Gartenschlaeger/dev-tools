@@ -1,4 +1,4 @@
-<div class="pt-3 select-none" (window:keyup)="handleGlobalKeyUp($event)">
+<div class="pt-3 select-none">
     <div class="px-3">
         <mat-form-field class="w-full" appearance="outline">
             <mat-label>Search</mat-label>
@@ -7,9 +7,7 @@
                 #matSearchInput="matInput"
                 type="text"
                 [(ngModel)]="searchQuery"
-                (ngModelChange)="handleSearchChange()"
-                (keyup)="handleSearchKeyup($event)"
-            />
+                (ngModelChange)="handleSearchChange()" />
             <button *ngIf="searchQuery" matSuffix mat-icon-button (click)="handleSearchClear()">
                 <mat-icon>close</mat-icon>
             </button>
