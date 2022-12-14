@@ -65,6 +65,7 @@ export class JsonTreeParserService {
                     case 'object':
                         const objNode = new TreeNode(key);
                         objNode.type = 'object';
+                        objNode.isArrayValue = Array.isArray(obj);
                         if (Array.isArray(value)) {
                             objNode.type = 'array';
                         }
