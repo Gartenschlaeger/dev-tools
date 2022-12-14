@@ -63,8 +63,9 @@ export class JsonFormatterComponent implements OnInit {
 
     handleReset() {
         this.formService.reset(this.form, formDefaults);
-        this.result = undefined;
         this.handleViewAsTreeChanged(formDefaults.viewAsTree);
+        this.result = undefined;
+        this.treeDataSource.data = [];
     }
 
     handleSubmit() {
