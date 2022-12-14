@@ -17,9 +17,24 @@ export class AppComponent {
     @ViewChild('sidenav') sidenav!: MatSidenav;
     @ViewChild('app_navigation') appNavigation!: NavigationComponent;
 
+    // Global shortcut : toggle sidenav
     @HostListener('document:keydown.meta.k')
     async openSidenavShortcut() {
         await this.sidenav.toggle();
+    }
+
+    // Global shortcut : submit form by multiline text fields
+    @HostListener('document:keydown.meta.enter')
+    async submitForm() {
+        const activeElement = document.activeElement;
+        if (activeElement instanceof HTMLTextAreaElement) {
+            if (activeElement.form) {
+                const submitButton = activeElement.form.querySelector('button[type=submit]');
+                if (submitButton instanceof HTMLButtonElement) {
+                    submitButton.click();
+                }
+            }
+        }
     }
 
     constructor(private router: Router, private themes: ThemeSwitchService) {
