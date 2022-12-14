@@ -1,22 +1,20 @@
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { FormService } from '../../../modules/shared/services/form-service.service';
 import { JsonTreeParserService, TreeNode } from '../services/json-tree-parser.service';
 
-class JsonFormatterFormModel {
-    source: string = '';
-    minify: boolean = false;
-    stringify: boolean = false;
-    viewAsTree: boolean = false;
+const formDefaults = {
+    source: '',
+    minify: false,
+    stringify: false,
+    viewAsTree: false
+};
 
-    static default = new JsonFormatterFormModel();
-}
-
-class JsonFormatterResultModel {
-    formattedValue: string = '';
+interface JsonFormatterResultModel {
+    formattedValue: string;
     error?: string;
 }
 
@@ -27,15 +25,22 @@ class JsonFormatterResultModel {
 })
 export class JsonFormatterComponent implements OnInit {
 
-    form!: UntypedFormGroup;
+    form = new FormGroup({
+        source: new FormControl<string>(formDefaults.source, {
+            validators: [Validators.required]
+        }),
+        minify: new FormControl<boolean>(formDefaults.minify),
+        stringify: new FormControl<boolean>(formDefaults.stringify),
+        viewAsTree: new FormControl<boolean>(formDefaults.viewAsTree)
+    });
+
     result?: JsonFormatterResultModel;
 
     treeDataSource = new MatTreeNestedDataSource<TreeNode>();
 
     treeControl = new NestedTreeControl<TreeNode>(this.getChildNodes);
 
-    constructor(private fb: UntypedFormBuilder,
-                private formService: FormService,
+    constructor(private formService: FormService,
                 private treeParser: JsonTreeParserService) {
     }
 
@@ -48,58 +53,43 @@ export class JsonFormatterComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.form = this.defineForm();
-
-        // if source was passed by another page immediately start formatting
-        const model: JsonFormatterFormModel = this.form.value;
-        if (model.source) {
+        if (this.form.value.source) {
             this.handleSubmit();
         }
-
-        this.handleViewAsTreeChanged(this.form.value.viewAsTree);
-    }
-
-    defineForm(): UntypedFormGroup {
-        const source = (history.state.source as string) || JsonFormatterFormModel.default.source;
-        return this.fb.group({
-            source: [source, [Validators.required]],
-            minify: [JsonFormatterFormModel.default.minify],
-            stringify: [JsonFormatterFormModel.default.stringify],
-            viewAsTree: [JsonFormatterFormModel.default.viewAsTree]
-        });
+        if (this.form.value.viewAsTree) {
+            this.handleViewAsTreeChanged(this.form.value.viewAsTree);
+        }
     }
 
     handleReset() {
-        this.formService.reset(this.form, JsonFormatterFormModel.default);
+        this.formService.reset(this.form, formDefaults);
         this.result = undefined;
-        this.handleViewAsTreeChanged(JsonFormatterFormModel.default.viewAsTree);
+        this.handleViewAsTreeChanged(formDefaults.viewAsTree);
     }
 
     handleSubmit() {
         if (this.formService.validate(this.form)) {
-            const model = this.form.value;
-
             try {
-                if (model.viewAsTree) {
-                    const tree = this.treeParser.parse(model.source);
+                if (this.form.value.viewAsTree) {
+                    const tree = this.treeParser.parse(this.form.value.source!);
                     this.treeDataSource.data = tree.nodes!;
                     this.result = undefined;
                 } else {
                     this.treeDataSource.data = [];
 
-                    let parsedValue = JSON.parse(model.source);
+                    let parsedValue = JSON.parse(this.form.value.source!);
                     if (typeof parsedValue !== 'object') {
                         parsedValue = JSON.parse(parsedValue);
                     }
 
                     let res;
-                    if (model.minify || model.stringify) {
+                    if (this.form.value.minify || this.form.value.stringify) {
                         res = JSON.stringify(parsedValue);
                     } else {
                         res = JSON.stringify(parsedValue, null, '  ');
                     }
 
-                    if (model.stringify) {
+                    if (this.form.value.stringify) {
                         res = JSON.stringify(res);
                     }
 
