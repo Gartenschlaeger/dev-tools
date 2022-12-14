@@ -1,8 +1,8 @@
-import { FlatTreeControl } from '@angular/cdk/tree';
+import { NestedTreeControl } from '@angular/cdk/tree';
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { FormService } from '../../../modules/shared/services/form-service.service';
 import { JsonTreeParserService, TreeNode } from '../services/json-tree-parser.service';
 
@@ -11,6 +11,8 @@ class JsonFormatterFormModel {
     minify: boolean = false;
     stringify: boolean = false;
     viewAsTree: boolean = false;
+
+    static default = new JsonFormatterFormModel();
 }
 
 class JsonFormatterResultModel {
@@ -18,69 +20,31 @@ class JsonFormatterResultModel {
     error?: string;
 }
 
-const FormDefaults = new JsonFormatterFormModel();
-
-interface CustomFlatNode {
-    name: string;
-    level: number;
-    expandable: boolean;
-}
-
 @Component({
     selector: 'app-json-formatter',
-    templateUrl: './json-formatter.component.html'
+    templateUrl: './json-formatter.component.html',
+    styleUrls: ['./json-formatter.component.scss']
 })
 export class JsonFormatterComponent implements OnInit {
 
     form!: UntypedFormGroup;
     result?: JsonFormatterResultModel;
 
-    private getNodeName(node: TreeNode): string {
-        let key = node.name;
-        if (node.isArrayValue) {
-            key = `[${key}]`;
-        }
+    treeDataSource = new MatTreeNestedDataSource<TreeNode>();
 
-        switch (node.type) {
-            case 'string':
-                return `${key} = "${node.value}"`;
-            case 'boolean':
-                return `${key} = ${node.value ? 'true' : 'false'}`;
-            default:
-                if (node.value) {
-                    return `${key} = ${node.value}`;
-                }
-                return key;
-        }
-    }
-
-    private _transformer = (node: TreeNode, level: number) => {
-        return {
-            name: this.getNodeName(node),
-            expandable: node.nodes && node.nodes.length > 0 || false,
-            level: level
-        };
-    };
-
-    treeControl = new FlatTreeControl<CustomFlatNode>(
-        node => node.level,
-        node => node.expandable
-    );
-
-    treeFlattener = new MatTreeFlattener(
-        this._transformer,
-        node => node.level,
-        node => node.expandable,
-        node => node.nodes
-    );
-
-    treeDataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-
-    hasChild = (_: number, node: CustomFlatNode) => node.expandable;
+    treeControl = new NestedTreeControl<TreeNode>(this.getChildNodes);
 
     constructor(private fb: UntypedFormBuilder,
                 private formService: FormService,
                 private treeParser: JsonTreeParserService) {
+    }
+
+    getChildNodes(node: TreeNode) {
+        return node.nodes;
+    }
+
+    hasChildren(index: number, node: TreeNode) {
+        return !!node.nodes?.length;
     }
 
     ngOnInit() {
@@ -91,23 +55,24 @@ export class JsonFormatterComponent implements OnInit {
         if (model.source) {
             this.handleSubmit();
         }
+
+        this.handleViewAsTreeChanged(this.form.value.viewAsTree);
     }
 
     defineForm(): UntypedFormGroup {
-        const source = (history.state.source as string) || FormDefaults.source;
+        const source = (history.state.source as string) || JsonFormatterFormModel.default.source;
         return this.fb.group({
             source: [source, [Validators.required]],
-            minify: [FormDefaults.minify],
-            stringify: [FormDefaults.stringify],
-            viewAsTree: [FormDefaults.viewAsTree]
+            minify: [JsonFormatterFormModel.default.minify],
+            stringify: [JsonFormatterFormModel.default.stringify],
+            viewAsTree: [JsonFormatterFormModel.default.viewAsTree]
         });
     }
 
     handleReset() {
-        this.formService.reset(this.form, FormDefaults);
+        this.formService.reset(this.form, JsonFormatterFormModel.default);
         this.result = undefined;
-        this.treeDataSource.data = [];
-        this.handleViewAsTreeChanged(FormDefaults.viewAsTree);
+        this.handleViewAsTreeChanged(JsonFormatterFormModel.default.viewAsTree);
     }
 
     handleSubmit() {

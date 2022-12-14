@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
+import { LoggingService } from '../../../modules/shared/services/logging.service';
 
 export class TreeNode {
+    parent?: TreeNode;
     nodes?: TreeNode[];
-    value?: any;
     type?: string;
+    value?: any;
     isArrayValue?: boolean;
 
     constructor(public name: string) {
@@ -12,6 +14,10 @@ export class TreeNode {
 
 @Injectable()
 export class JsonTreeParserService {
+
+    constructor(private _logger: LoggingService) {
+    }
+
     public parse(json: string): TreeNode {
         const root = new TreeNode('root');
         root.nodes = [];
@@ -19,10 +25,14 @@ export class JsonTreeParserService {
         const obj = JSON.parse(json);
         this.addObjectPropertiesToNode(obj, root);
 
+        this._logger.debug(root);
+
         return root;
     }
 
     private addChildNode(parentNode: TreeNode, childNode: TreeNode) {
+        childNode.parent = parentNode;
+
         if (parentNode.nodes === undefined) {
             parentNode.nodes = [];
         }
@@ -31,7 +41,8 @@ export class JsonTreeParserService {
     }
 
     private addObjectPropertiesToNode(obj: any, parentNode: TreeNode) {
-        const isArray = Array.isArray(obj);
+        //this._logger.debug('addObjectPropertiesToNode', obj, parentNode);
+
         for (let key in obj) {
             if (obj.hasOwnProperty(key)) {
                 const value = obj[key];
@@ -43,21 +54,29 @@ export class JsonTreeParserService {
                     case 'string':
                     case 'undefined':
                         const valueNode = new TreeNode(key);
-                        valueNode.value = value;
                         valueNode.type = type;
-                        valueNode.isArrayValue = isArray;
+                        valueNode.value = value;
+                        valueNode.isArrayValue = Array.isArray(obj);
+
                         this.addChildNode(parentNode, valueNode);
+                        //this._logger.debug('valueNode', valueNode);
                         break;
 
                     case 'object':
                         const objNode = new TreeNode(key);
-                        objNode.isArrayValue = isArray;
-                        this.addChildNode(parentNode, objNode);
+                        objNode.type = 'object';
+                        if (Array.isArray(value)) {
+                            objNode.type = 'array';
+                        }
+
                         if (value === null) {
                             objNode.value = 'null';
                         } else {
                             this.addObjectPropertiesToNode(value, objNode);
                         }
+
+                        this.addChildNode(parentNode, objNode);
+                        //this._logger.debug('objNode', objNode);
                         break;
 
                     case 'symbol':
@@ -68,4 +87,5 @@ export class JsonTreeParserService {
             }
         }
     }
+
 }

@@ -1,0 +1,31 @@
+.json-tree {
+    ul,
+    li {
+        margin-top: 0;
+        margin-bottom: 0;
+        list-style-type: none;
+    }
+
+    .json-tree-node > .json-tree-node-header {
+        display: flex;
+        align-items: center;
+
+        span.node-type {
+            color: #888;
+            font-size: 0.8em;
+        }
+
+        span.node-value {
+            color: #1b8bd9;
+            font-size: 0.8em;
+        }
+    }
+
+    .json-tree-node > .json-tree-node-header > span {
+        margin-right: 0.5em;
+    }
+
+    .json-tree-node > .json-tree-node-children {
+        padding-left: 48px;
+    }
+}

@@ -37,7 +37,7 @@ export class LoggingService {
 
     logInternal(logLevel: LogLevel, message: any, optionalParams: any[]) {
         if (logLevel >= this.minLogLevel) {
-            console.log(`[${LogLevel[logLevel].toUpperCase()}] ${message}`, ...optionalParams);
+            console.log(message, optionalParams);
         }
     }
 }
