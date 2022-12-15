@@ -53,10 +53,10 @@ export const routes: ExtendedRoute[] = [
         icon: 'terminal'
     },
     {
-        path: 'days-between',
-        loadChildren: () => import('./pages/days-between/days-between.module')
-            .then((m) => m.DaysBetweenModule),
-        title: 'Days between Calculator',
+        path: 'date-calculator',
+        loadChildren: () => import('./pages/days-between/date-calculator.module')
+            .then((m) => m.DateCalculatorModule),
+        title: 'Date Calculator',
         icon: 'date_range'
     },
     {

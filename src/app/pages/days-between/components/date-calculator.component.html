@@ -1,0 +1,101 @@
+<div class="flex gap-7 items-start">
+    <div class="flex-1">
+        <mat-card>
+            <form [formGroup]="formDateRange" (submit)="handleDateRangeSubmit()">
+                <mat-card-header>
+                    <mat-card-title>Date range</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="flex gap-3">
+                        <mat-form-field>
+                            <mat-label>Start date</mat-label>
+                            <input matInput [matDatepicker]="fromDatepicker" formControlName="fromDate"
+                                   placeholder="MM/DD/YYYY">
+                            <mat-datepicker-toggle matIconSuffix [for]="fromDatepicker"></mat-datepicker-toggle>
+                            <mat-datepicker #fromDatepicker></mat-datepicker>
+                            <mat-error>
+                                <app-mat-errors [control]="formDateRange.get('fromDate')"></app-mat-errors>
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>End date</mat-label>
+                            <input matInput [matDatepicker]="toDatepicker" formControlName="toDate"
+                                   placeholder="MM/DD/YYYY">
+                            <mat-datepicker-toggle matIconSuffix [for]="toDatepicker"></mat-datepicker-toggle>
+                            <mat-datepicker #toDatepicker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </mat-card-content>
+                <mat-card-actions class="action-buttons">
+                    <button mat-raised-button color="accent" type="button" (click)="handleDateRangeReset()">Reset
+                    </button>
+                    <button mat-raised-button color="primary" type="submit">Calculate</button>
+                </mat-card-actions>
+            </form>
+        </mat-card>
+
+        <mat-card>
+            <mat-card-content *ngIf="formDateRangeResult">
+                <div class="flex gap-3 w-full">
+                    <div class="flex-1">
+                        <mat-label>Days</mat-label>
+                        <app-code>{{ formDateRangeResult.days }}</app-code>
+                    </div>
+                    <div class="flex-1">
+                        <mat-label>Months</mat-label>
+                        <app-code>{{ formDateRangeResult.months }}</app-code>
+                    </div>
+                    <div class="flex-1">
+                        <mat-label>Years</mat-label>
+                        <app-code>{{ formDateRangeResult.years }}</app-code>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <mat-card class="flex-1">
+        <mat-card-header>
+            <mat-card-title>Date calculator</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="formDateCalculatorDate">
+                <mat-form-field>
+                    <input matInput [matDatepicker]="dateCalculatorDatePicker" placeholder="MM/DD/YYYY"
+                           formControlName="date">
+                    <mat-datepicker-toggle matIconSuffix [for]="dateCalculatorDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #dateCalculatorDatePicker></mat-datepicker>
+                </mat-form-field>
+            </form>
+
+            <form [formGroup]="formDateCalculatorModify">
+                <div class="flex gap-3 items-center">
+                    <mat-form-field>
+                        <mat-select formControlName="modifyType">
+                            <mat-option value="y">Year(s)</mat-option>
+                            <mat-option value="m">Month(s)</mat-option>
+                            <mat-option value="d">Day(s)</mat-option>
+                        </mat-select>
+                        <mat-error>
+                            <app-mat-errors [control]="formDateCalculatorModify.get('modifyType')"></app-mat-errors>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Amount</mat-label>
+                        <input type="number" matInput formControlName="modifyAmount">
+                        <button type="submit" mat-icon-button matSuffix (click)="handleDateRemove()">
+                            <mat-icon>remove</mat-icon>
+                        </button>
+                        <button type="submit" mat-icon-button matSuffix (click)="handleDateAdd()">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                        <mat-error>
+                            <app-mat-errors [control]="formDateCalculatorModify.get('modifyAmount')"></app-mat-errors>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

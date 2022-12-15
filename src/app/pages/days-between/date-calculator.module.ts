@@ -2,18 +2,18 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { SharedModule } from '../../modules/shared/shared.module';
-import { DaysBetweenComponent } from './components/days-between.component';
+import { DateCalculatorComponent } from './components/date-calculator.component';
 
 const routes: Route[] = [
     {
         path: '',
-        component: DaysBetweenComponent
+        component: DateCalculatorComponent
     }
 ];
 
 @NgModule({
-    declarations: [DaysBetweenComponent],
+    declarations: [DateCalculatorComponent],
     imports: [CommonModule, RouterModule.forChild(routes), SharedModule]
 })
-export class DaysBetweenModule {
+export class DateCalculatorModule {
 }
