@@ -1,11 +1,11 @@
-@use 'sass:map';
 @use '@angular/material' as mat;
+@use 'helper';
 
 $primary-palette: mat.define-palette(mat.$indigo-palette);
 $accent-palette: mat.define-palette(mat.$pink-palette);
 $warn-palette: mat.define-palette(mat.$red-palette);
 
-$light-theme: mat.define-light-theme((
+$theme: mat.define-light-theme((
     color: (
         primary: $primary-palette,
         accent: $accent-palette,
@@ -14,130 +14,10 @@ $light-theme: mat.define-light-theme((
 ));
 
 @include mat.core();
-
-@include mat.all-component-themes($light-theme);
-
-$color-primary-100: mat.get-contrast-color-from-palette($primary-palette, 100);
-$color-primary-200: mat.get-contrast-color-from-palette($primary-palette, 200);
-$color-primary-300: mat.get-contrast-color-from-palette($primary-palette, 300);
-$color-primary-400: mat.get-contrast-color-from-palette($primary-palette, 400);
-$color-primary-500: mat.get-contrast-color-from-palette($primary-palette, 500);
-$color-primary-600: mat.get-contrast-color-from-palette($primary-palette, 600);
-$color-primary-700: mat.get-contrast-color-from-palette($primary-palette, 700);
-$color-primary-800: mat.get-contrast-color-from-palette($primary-palette, 800);
-$color-primary-900: mat.get-contrast-color-from-palette($primary-palette, 900);
-
-$background-primary-100: mat.get-color-from-palette($primary-palette, 100);
-$background-primary-200: mat.get-color-from-palette($primary-palette, 200);
-$background-primary-300: mat.get-color-from-palette($primary-palette, 300);
-$background-primary-400: mat.get-color-from-palette($primary-palette, 400);
-$background-primary-500: mat.get-color-from-palette($primary-palette, 500);
-$background-primary-600: mat.get-color-from-palette($primary-palette, 600);
-$background-primary-700: mat.get-color-from-palette($primary-palette, 700);
-$background-primary-800: mat.get-color-from-palette($primary-palette, 800);
-$background-primary-900: mat.get-color-from-palette($primary-palette, 900);
-
-$color-accent-100: mat.get-contrast-color-from-palette($accent-palette, 100);
-$color-accent-200: mat.get-contrast-color-from-palette($accent-palette, 200);
-$color-accent-300: mat.get-contrast-color-from-palette($accent-palette, 300);
-$color-accent-400: mat.get-contrast-color-from-palette($accent-palette, 400);
-$color-accent-500: mat.get-contrast-color-from-palette($accent-palette, 500);
-$color-accent-600: mat.get-contrast-color-from-palette($accent-palette, 600);
-$color-accent-700: mat.get-contrast-color-from-palette($accent-palette, 700);
-$color-accent-800: mat.get-contrast-color-from-palette($accent-palette, 800);
-$color-accent-900: mat.get-contrast-color-from-palette($accent-palette, 900);
-
-$background-accent-100: mat.get-color-from-palette($accent-palette, 100);
-$background-accent-200: mat.get-color-from-palette($accent-palette, 200);
-$background-accent-300: mat.get-color-from-palette($accent-palette, 300);
-$background-accent-400: mat.get-color-from-palette($accent-palette, 400);
-$background-accent-500: mat.get-color-from-palette($accent-palette, 500);
-$background-accent-600: mat.get-color-from-palette($accent-palette, 600);
-$background-accent-700: mat.get-color-from-palette($accent-palette, 700);
-$background-accent-800: mat.get-color-from-palette($accent-palette, 800);
-$background-accent-900: mat.get-color-from-palette($accent-palette, 900);
-
-$color-warn-100: mat.get-contrast-color-from-palette($warn-palette, 100);
-$color-warn-200: mat.get-contrast-color-from-palette($warn-palette, 200);
-$color-warn-300: mat.get-contrast-color-from-palette($warn-palette, 300);
-$color-warn-400: mat.get-contrast-color-from-palette($warn-palette, 400);
-$color-warn-500: mat.get-contrast-color-from-palette($warn-palette, 500);
-$color-warn-600: mat.get-contrast-color-from-palette($warn-palette, 600);
-$color-warn-700: mat.get-contrast-color-from-palette($warn-palette, 700);
-$color-warn-800: mat.get-contrast-color-from-palette($warn-palette, 800);
-$color-warn-900: mat.get-contrast-color-from-palette($warn-palette, 900);
-
-$background-warn-100: mat.get-color-from-palette($warn-palette, 100);
-$background-warn-200: mat.get-color-from-palette($warn-palette, 200);
-$background-warn-300: mat.get-color-from-palette($warn-palette, 300);
-$background-warn-400: mat.get-color-from-palette($warn-palette, 400);
-$background-warn-500: mat.get-color-from-palette($warn-palette, 500);
-$background-warn-600: mat.get-color-from-palette($warn-palette, 600);
-$background-warn-700: mat.get-color-from-palette($warn-palette, 700);
-$background-warn-800: mat.get-color-from-palette($warn-palette, 800);
-$background-warn-900: mat.get-color-from-palette($warn-palette, 900);
+@include mat.all-component-themes($theme);
 
 :root {
-    --color-primary-100: #{$color-primary-100};
-    --color-primary-200: #{$color-primary-200};
-    --color-primary-300: #{$color-primary-300};
-    --color-primary-400: #{$color-primary-400};
-    --color-primary-500: #{$color-primary-500};
-    --color-primary-600: #{$color-primary-600};
-    --color-primary-700: #{$color-primary-700};
-    --color-primary-800: #{$color-primary-800};
-    --color-primary-900: #{$color-primary-900};
-
-    --background-primary-100: #{$background-primary-100};
-    --background-primary-200: #{$background-primary-200};
-    --background-primary-300: #{$background-primary-300};
-    --background-primary-400: #{$background-primary-400};
-    --background-primary-500: #{$background-primary-500};
-    --background-primary-600: #{$background-primary-600};
-    --background-primary-700: #{$background-primary-700};
-    --background-primary-800: #{$background-primary-800};
-    --background-primary-900: #{$background-primary-900};
-
-    --color-accent-100: #{$color-accent-100};
-    --color-accent-200: #{$color-accent-200};
-    --color-accent-300: #{$color-accent-300};
-    --color-accent-400: #{$color-accent-400};
-    --color-accent-500: #{$color-accent-500};
-    --color-accent-600: #{$color-accent-600};
-    --color-accent-700: #{$color-accent-700};
-    --color-accent-800: #{$color-accent-800};
-    --color-accent-900: #{$color-accent-900};
-
-    --background-accent-100: #{$background-accent-100};
-    --background-accent-200: #{$background-accent-200};
-    --background-accent-300: #{$background-accent-300};
-    --background-accent-400: #{$background-accent-400};
-    --background-accent-500: #{$background-accent-500};
-    --background-accent-600: #{$background-accent-600};
-    --background-accent-700: #{$background-accent-700};
-    --background-accent-800: #{$background-accent-800};
-    --background-accent-900: #{$background-accent-900};
-
-    --color-warn-100: #{$color-warn-100};
-    --color-warn-200: #{$color-warn-200};
-    --color-warn-300: #{$color-warn-300};
-    --color-warn-400: #{$color-warn-400};
-    --color-warn-500: #{$color-warn-500};
-    --color-warn-600: #{$color-warn-600};
-    --color-warn-700: #{$color-warn-700};
-    --color-warn-800: #{$color-warn-800};
-    --color-warn-900: #{$color-warn-900};
-
-    --background-warn-100: #{$background-warn-100};
-    --background-warn-200: #{$background-warn-200};
-    --background-warn-300: #{$background-warn-300};
-    --background-warn-400: #{$background-warn-400};
-    --background-warn-500: #{$background-warn-500};
-    --background-warn-600: #{$background-warn-600};
-    --background-warn-700: #{$background-warn-700};
-    --background-warn-800: #{$background-warn-800};
-    --background-warn-900: #{$background-warn-900};
-
-    --color-control: #000; // TODO: get from theme?
-    --background-control: whitesmoke; // TODO: get from theme?
+    @include helper.css-colors($theme);
+    --color-control: #000;
+    --background-control: whitesmoke;
 }
