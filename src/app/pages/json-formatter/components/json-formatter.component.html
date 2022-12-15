@@ -50,9 +50,9 @@
                         <span *ngIf="node.isArrayValue">]</span>
                     </span>
                     <span class="node-type">{{node.type}}
-                        <span *ngIf="node.type === 'array'">[{{node.nodes?.length}}]</span>
+                        <span *ngIf="node.type === 'array'">[{{node.nodes?.length || 0}}]</span>
                     </span>
-                    <span *ngIf="node.value === null || node.value">=</span>
+                    <span *ngIf="node.value === null || node.value !== undefined">=</span>
                     <span class="node-value" *ngIf="node.type !== 'string'">{{node.value}}</span>
                     <span class="node-value" *ngIf="node.type === 'string'">"{{node.value}}"</span>
                 </div>
@@ -71,9 +71,9 @@
                         <span *ngIf="node.isArrayValue">]</span>
                     </span>
                     <span class="node-type">{{node.type}}
-                        <span *ngIf="node.type === 'array'">[{{node.nodes?.length}}]</span>
+                        <span *ngIf="node.type === 'array'">[{{node.nodes?.length || 0}}]</span>
                     </span>
-                    <span *ngIf="node.value === null || node.value">=</span>
+                    <span *ngIf="node.value === null || node.value !== undefined">=</span>
                     <span class="node-value" *ngIf="node.type !== 'string'">{{node.value}}</span>
                     <span class="node-value" *ngIf="node.type === 'string'">"{{node.value}}"</span>
                 </div>
