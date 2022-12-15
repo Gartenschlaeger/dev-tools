@@ -38,7 +38,7 @@
     </mat-card-content>
 </mat-card>
 
-<mat-card *ngIf="treeDataSource.data && treeDataSource.data.length">
+<mat-card *ngIf="treeDataSource.data && treeDataSource.data.length && !result?.error">
     <mat-card-content>
         <mat-tree class="json-tree" [dataSource]="treeDataSource" [treeControl]="treeControl">
             <mat-tree-node class="json-tree-node" *matTreeNodeDef="let node" matTreeNodeToggle>
