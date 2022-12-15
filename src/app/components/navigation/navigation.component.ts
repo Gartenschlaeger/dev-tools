@@ -1,46 +1,77 @@
 import { Component, EventEmitter, HostListener, OnInit, Output, ViewChild } from '@angular/core';
-import { MatInput } from '@angular/material/input';
+import { MatSelectionList } from '@angular/material/list';
+import { NavigationEnd, Router } from '@angular/router';
 import { ExtendedRoute, routes } from '../../app.routes';
 
 @Component({
     selector: 'app-navigation',
-    templateUrl: './navigation.component.html'
+    templateUrl: './navigation.component.html',
+    styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent implements OnInit {
-
-    normalItems: ExtendedRoute[] = [];
-    pinedItems: ExtendedRoute[] = [];
+    items: ExtendedRoute[] = [];
     isOpened: boolean = false;
     searchQuery: string = '';
     newSearchQuery: boolean = false;
 
-    @ViewChild('matSearchInput') matSearchInput!: MatInput;
+    @ViewChild('matSelectionList') matSelectionList!: MatSelectionList;
 
     @Output() itemClicked = new EventEmitter<ExtendedRoute>();
     @Output() toggleSidenav = new EventEmitter();
 
+    constructor(private _router: Router) {
+    }
+
     ngOnInit() {
         routes.forEach((route) => {
             route.visible = true;
-
             if (route.hideInNav) {
                 return;
             }
 
-            if (route.pined) {
-                this.pinedItems.push(route);
-            } else {
-                this.normalItems.push(route);
+            this.items.push(route);
+        });
+        this.items.sort(this.itemCompareFn);
+
+        // automatically select the item for active route
+        const activeRoute = this.getActiveRoute();
+        if (activeRoute) {
+            this.activeRouteChanged(activeRoute);
+        }
+
+        this._router.events.subscribe(event => {
+            if (event instanceof NavigationEnd) {
+                const activeRoute = this.getActiveRoute();
+                if (activeRoute) {
+                    this.activeRouteChanged(activeRoute);
+                }
             }
         });
+    }
 
-        this.normalItems.sort(this.itemCompareFn);
-        this.pinedItems.sort(this.itemCompareFn);
+    private activeRouteChanged(route: ExtendedRoute) {
+        this.setSelectedItem(route);
+    }
+
+    private setSelectedItem(item: ExtendedRoute) {
+        this.items.map(item => item.selected = false);
+        item.selected = true;
+    }
+
+    private getActiveRoute() {
+        const currentUrl = this._router.url.substring(1);
+        return this.items.find(item => {
+            return item.path === currentUrl;
+        });
     }
 
     private itemCompareFn(a: ExtendedRoute, b: ExtendedRoute): number {
-        if (typeof a.title === 'string' && typeof b.title === 'string') {
-            return a.title.localeCompare(b.title);
+        if (a.pined === b.pined || !a.pined === !b.pined) {
+            if (typeof a.title === 'string' && typeof b.title === 'string') {
+                return a.title.localeCompare(b.title);
+            }
+        } else if (a.pined !== b.pined) {
+            return (b.pined ? 1 : 0) - (a.pined ? 1 : 0);
         }
 
         return 0;
@@ -49,19 +80,14 @@ export class NavigationComponent implements OnInit {
     handleSearchChange() {
         const queryValue: string = this.searchQuery?.toLowerCase()?.trim();
         if (queryValue) {
-            this.normalItems.forEach((item) => {
+            this.items.forEach((item) => {
                 if (typeof item.title === 'string') {
                     item.visible = item.title.toLowerCase().indexOf(queryValue) !== -1;
                 }
             });
         } else {
-            this.normalItems.forEach((item) => (item.visible = true));
+            this.items.forEach((item) => (item.visible = true));
         }
-    }
-
-    handleSearchClear() {
-        this.searchQuery = '';
-        this.handleSearchChange();
     }
 
     @HostListener('document:keydown.meta.k')
@@ -70,42 +96,60 @@ export class NavigationComponent implements OnInit {
         await this.toggleSidenav.emit();
     }
 
+    private handleEnterKey() {
+        // navigate to selected item on enter
+        const selectedItems = this.matSelectionList.selectedOptions.selected;
+        if (selectedItems.length) {
+            this.itemClicked.emit(selectedItems[0].value);
+        } else {
+            const visibleItem = this.items.find(i => i.visible);
+            if (visibleItem) {
+                this.matSelectionList.focus();
+            }
+        }
+    }
+
+    private handleEscapeKey() {
+        // clear search input on escape or close sidenav if no search input is available
+        if (this.searchQuery) {
+            this.searchQuery = '';
+            this.handleSearchChange();
+        } else {
+            this.toggleSidenav.emit();
+        }
+    }
+
+    private handleAutoSearch(event: KeyboardEvent) {
+        // passive search input
+        if (/^[a-zA-Z0-9\s]$/.test(event.key)) {
+            if (this.newSearchQuery) {
+                this.newSearchQuery = false;
+                this.searchQuery = '';
+            }
+
+            this.searchQuery += event.key;
+            this.handleSearchChange();
+        } else if (event.key === 'Backspace') {
+            this.searchQuery = this.searchQuery.substring(0, this.searchQuery.length - 1);
+            this.handleSearchChange();
+        }
+    }
+
     @HostListener('document:keyup', ['$event'])
     handleKeyupEvent(event: KeyboardEvent) {
         if (!this.isOpened) {
             return;
         }
 
-        // autofocus to search control by text input
-        if (!this.matSearchInput.focused && /^[a-zA-Z0-9]$/.test(event.key)) {
-            if (this.newSearchQuery) {
-                this.newSearchQuery = false;
-                this.searchQuery = event.key;
-            } else {
-                if (!this.matSearchInput.focused) {
-                    this.searchQuery += event.key;
-                }
-            }
-
-            if (!this.matSearchInput.focused) {
-                this.matSearchInput.focus();
-            }
-
-            this.handleSearchChange();
-        }
-
-        // escape: clear text input -> blur the element -> close the sidenav
-        if (event.key === 'Escape') {
-            if (this.matSearchInput.focused) {
-                if (this.searchQuery) {
-                    this.searchQuery = '';
-                    this.handleSearchChange();
-                } else if (document.activeElement instanceof HTMLElement) {
-                    document.activeElement.blur();
-                }
-            } else {
-                this.toggleSidenav.emit();
-            }
+        switch (event.key) {
+            case 'Enter':
+                this.handleEnterKey();
+                break;
+            case 'Escape':
+                this.handleEscapeKey();
+                break;
+            default:
+                this.handleAutoSearch(event);
         }
     }
 
@@ -117,7 +161,7 @@ export class NavigationComponent implements OnInit {
         this.isOpened = isOpened;
         if (this.isOpened) {
             this.newSearchQuery = true;
+            this.matSelectionList.focus();
         }
     }
-
 }

@@ -1,35 +1,16 @@
-<div class="pt-3 select-none">
-    <div class="px-3">
-        <mat-form-field class="w-full" appearance="outline">
-            <mat-label>Search</mat-label>
-            <input
-                matInput
-                #matSearchInput="matInput"
-                type="text"
-                [(ngModel)]="searchQuery"
-                (ngModelChange)="handleSearchChange()" />
-            <button *ngIf="searchQuery" matSuffix mat-icon-button (click)="handleSearchClear()">
-                <mat-icon>close</mat-icon>
-            </button>
-        </mat-form-field>
-    </div>
-
-    <mat-nav-list>
-        <ng-container *ngFor="let item of pinedItems">
-            <mat-list-item *ngIf="item.visible" (click)="handleItemClick(item)">
+<div class="select-none">
+    <div class="search-text" *ngIf="searchQuery">{{searchQuery}}</div>
+    <mat-selection-list #matSelectionList [multiple]="false" class="p-0">
+        <ng-container *ngFor="let item of items">
+            <mat-list-option *ngIf="item.visible || item.selected"
+                             [value]="item"
+                             [selected]="item.selected"
+                             (click)="handleItemClick(item)">
                 <div class="flex items-center gap-1">
                     <mat-icon *ngIf="item.icon" class="mr-1">{{ item.icon }}</mat-icon>
-                    <span>{{ item.title }}</span>
+                    <span>{{item.title}}</span>
                 </div>
-            </mat-list-item>
+            </mat-list-option>
         </ng-container>
-        <ng-container *ngFor="let item of normalItems">
-            <mat-list-item *ngIf="item.visible" (click)="handleItemClick(item)">
-                <div class="flex items-center gap-1">
-                    <mat-icon *ngIf="item.icon">{{ item.icon }}</mat-icon>
-                    <span>{{ item.title }}</span>
-                </div>
-            </mat-list-item>
-        </ng-container>
-    </mat-nav-list>
+    </mat-selection-list>
 </div>

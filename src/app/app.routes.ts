@@ -7,6 +7,7 @@ export interface ExtendedRoute extends Route {
     icon?: string;
     visible?: boolean;
     hideInNav?: boolean;
+    selected?: boolean;
 }
 
 export const routes: ExtendedRoute[] = [
@@ -21,8 +22,7 @@ export const routes: ExtendedRoute[] = [
         component: HomeComponent,
         title: 'Home',
         icon: 'home',
-        pined: true,
-        hideInNav: true
+        pined: true
     },
     {
         path: 'url-analyzer',
