@@ -1,7 +1,8 @@
 @use '@angular/material' as mat;
 
-@mixin css-colors($theme) {
+@mixin css-colors($theme, $primary-hue: 500) {
     $primary-palette: map-get($theme, primary);
+    --color-primary: #{mat.get-contrast-color-from-palette($primary-palette, $primary-hue)};
     --color-primary-100: #{mat.get-contrast-color-from-palette($primary-palette, 100)};
     --color-primary-200: #{mat.get-contrast-color-from-palette($primary-palette, 200)};
     --color-primary-300: #{mat.get-contrast-color-from-palette($primary-palette, 300)};
@@ -11,6 +12,7 @@
     --color-primary-700: #{mat.get-contrast-color-from-palette($primary-palette, 700)};
     --color-primary-800: #{mat.get-contrast-color-from-palette($primary-palette, 800)};
     --color-primary-900: #{mat.get-contrast-color-from-palette($primary-palette, 900)};
+    --background-primary: #{mat.get-color-from-palette($primary-palette, $primary-hue)};
     --background-primary-100: #{mat.get-color-from-palette($primary-palette, 100)};
     --background-primary-200: #{mat.get-color-from-palette($primary-palette, 200)};
     --background-primary-300: #{mat.get-color-from-palette($primary-palette, 300)};

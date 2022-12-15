@@ -1,20 +1,20 @@
 @use '@angular/material' as mat;
 @use 'helper';
 
-$primary-palette: mat.define-palette(mat.$pink-palette);
-$accent-palette: mat.define-palette(mat.$blue-gray-palette);
-$warn-palette: mat.define-palette(mat.$deep-orange-palette);
+$primary-hue: 600;
+$primary-palette: mat.define-palette(mat.$indigo-palette, $primary-hue, 100, 900);
+$accent-palette: mat.define-palette(mat.$blue-gray-palette, 100, A100, A400);
 
 $theme: mat.define-dark-theme((
     color: (
         primary: $primary-palette,
-        accent: $accent-palette,
-        warn: $warn-palette,
-    )
+        accent: $accent-palette
+    ),
+    density: 0
 ));
 
 :root .dark-theme {
-    @include helper.css-colors($theme);
+    @include helper.css-colors($theme, $primary-hue);
     --color-control: #fff;
     --background-control: #4a4a4a;
 }
