@@ -57,13 +57,13 @@ export class JsonFormatterComponent implements OnInit {
             this.handleSubmit();
         }
         if (this.form.value.viewAsTree) {
-            this.handleViewAsTreeChanged(this.form.value.viewAsTree);
+            this.viewAsTreeChanged(this.form.value.viewAsTree);
         }
     }
 
     handleReset() {
         this.formService.reset(this.form, formDefaults);
-        this.handleViewAsTreeChanged(formDefaults.viewAsTree);
+        this.viewAsTreeChanged(formDefaults.viewAsTree);
         this.result = undefined;
         this.treeDataSource.data = [];
     }
@@ -71,34 +71,29 @@ export class JsonFormatterComponent implements OnInit {
     handleSubmit() {
         if (this.formService.validate(this.form)) {
             try {
-                if (this.form.value.viewAsTree) {
-                    const tree = this.treeParser.parse(this.form.value.source!);
-                    this.treeDataSource.data = tree.nodes!;
-                    this.result = undefined;
-                } else {
-                    this.treeDataSource.data = [];
+                const tree = this.treeParser.parse(this.form.value.source!);
+                this.treeDataSource.data = tree.nodes!;
 
-                    let parsedValue = JSON.parse(this.form.value.source!);
-                    if (typeof parsedValue !== 'object') {
-                        parsedValue = JSON.parse(parsedValue);
-                    }
-
-                    let res;
-                    if (this.form.value.minify || this.form.value.stringify) {
-                        res = JSON.stringify(parsedValue);
-                    } else {
-                        res = JSON.stringify(parsedValue, null, '  ');
-                    }
-
-                    if (this.form.value.stringify) {
-                        res = JSON.stringify(res);
-                    }
-
-                    this.result = {
-                        formattedValue: res,
-                        error: undefined
-                    };
+                let parsedValue = JSON.parse(this.form.value.source!);
+                if (typeof parsedValue !== 'object') {
+                    parsedValue = JSON.parse(parsedValue);
                 }
+
+                let res;
+                if (this.form.value.minify || this.form.value.stringify) {
+                    res = JSON.stringify(parsedValue);
+                } else {
+                    res = JSON.stringify(parsedValue, null, '  ');
+                }
+
+                if (this.form.value.stringify) {
+                    res = JSON.stringify(res);
+                }
+
+                this.result = {
+                    formattedValue: res,
+                    error: undefined
+                };
             } catch (err) {
                 this.result = {
                     formattedValue: '',
@@ -112,7 +107,7 @@ export class JsonFormatterComponent implements OnInit {
         }
     }
 
-    private handleViewAsTreeChanged(isChecked: boolean) {
+    private viewAsTreeChanged(isChecked: boolean) {
         if (isChecked) {
             this.form.get('minify')?.disable();
             this.form.get('stringify')?.disable();
@@ -120,9 +115,19 @@ export class JsonFormatterComponent implements OnInit {
             this.form.get('minify')?.enable();
             this.form.get('stringify')?.enable();
         }
+
+        if (this.result) {
+            this.handleSubmit();
+        }
     }
 
     public handleViewAsTreeChange(event: MatCheckboxChange) {
-        this.handleViewAsTreeChanged(event.checked);
+        this.viewAsTreeChanged(event.checked);
+    }
+
+    public handleCheckboxChange() {
+        if (this.result) {
+            this.handleSubmit();
+        }
     }
 }
