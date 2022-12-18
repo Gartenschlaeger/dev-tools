@@ -3,8 +3,12 @@ import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { SharedDialogsService } from '../../../components/shared-dialogs/services/shared-dialogs.service';
 import { ColorPicketFormModel } from '../entities/color-picker-form-model';
-import { ColorHSL, ColorRGB, hslToRgb, rbgToHsl } from '../services/colorconverter';
-import { ExportColorsData, ExportColorsSheetComponent } from './export-colors-sheet/export-colors-sheet.component';
+import { ColorConverterService, ColorHSL, ColorRGB } from '../services/color-converter.service';
+import {
+    ExportColorDataItem,
+    ExportColorsData,
+    ExportColorsSheetComponent
+} from './export-colors-sheet/export-colors-sheet.component';
 
 const KEY_LOCAL_STORAGE_FORM = 'color-picker.form.value';
 const KEY_LOCAL_STORAGE_PALETTE_VALUES = 'color-picker.palette.values';
@@ -28,6 +32,7 @@ export class ColorPickerComponent implements OnInit {
 
     constructor(private _formBuilder: UntypedFormBuilder,
                 private _sharedDialogs: SharedDialogsService,
+                private _colorConverterService: ColorConverterService,
                 private _bottomSheet: MatBottomSheet) {
     }
 
@@ -79,7 +84,7 @@ export class ColorPickerComponent implements OnInit {
     }
 
     defineForm(): UntypedFormGroup {
-        const hsl = rbgToHsl(InitColor);
+        const hsl = this._colorConverterService.rbgToHsl(InitColor);
         let model: ColorPicketFormModel = {
             valueRN: InitColor.r,
             valueRR: InitColor.r,
@@ -120,7 +125,7 @@ export class ColorPickerComponent implements OnInit {
 
     syncRgbToHsl() {
         const model: ColorPicketFormModel = this.form.value;
-        const hsl = rbgToHsl(this.toRGB(model));
+        const hsl = this._colorConverterService.rbgToHsl(this.toRGB(model));
 
         this.form.get('valueHN')?.setValue(hsl.h, { onlySelf: true, emitEvent: false, emitModelToViewChange: true });
         this.form.get('valueSN')?.setValue(hsl.s, { onlySelf: true, emitEvent: false, emitModelToViewChange: true });
@@ -133,7 +138,7 @@ export class ColorPickerComponent implements OnInit {
 
     syncHslToRgb() {
         const model: ColorPicketFormModel = this.form.value;
-        const rgb = hslToRgb(this.toHSL(model));
+        const rgb = this._colorConverterService.hslToRgb(this.toHSL(model));
 
         this.form.get('valueRN')?.setValue(rgb.r, { onlySelf: true, emitEvent: false, emitModelToViewChange: true });
         this.form.get('valueGN')?.setValue(rgb.g, { onlySelf: true, emitEvent: false, emitModelToViewChange: true });
@@ -177,12 +182,8 @@ export class ColorPickerComponent implements OnInit {
     }
 
     updateHexValue() {
-        const model: ColorPicketFormModel = this.form.value;
-        const hexR = model.valueRN.toString(16).padStart(2, '0');
-        const hexG = model.valueGN.toString(16).padStart(2, '0');
-        const hexB = model.valueBN.toString(16).padStart(2, '0');
-
-        this.hexValue = `${hexR}${hexG}${hexB}`;
+        const color = this.toRGB(this.form.value);
+        this.hexValue = this._colorConverterService.rgbToHex(color);
     }
 
     toRGB(model: ColorPicketFormModel): ColorRGB {
@@ -309,7 +310,6 @@ export class ColorPickerComponent implements OnInit {
     }
 
     public handleCreatePalette() {
-
         const hsl = this.toHSL(this.form.value);
 
         const newPalette: ColorRGB[] = [];
@@ -327,28 +327,27 @@ export class ColorPickerComponent implements OnInit {
                 l: currentL
             };
 
-            const rgb = hslToRgb(newColorHSL);
-            newPalette.push(rgb);
+            newPalette.push(this._colorConverterService.hslToRgb(newColorHSL));
         }
 
         // TODO: optimize
         for (let i = 0; i < newPalette.length; i++) {
-            this.palette.splice(this.selectedPaletteColorIndex + i + 1,
-                0,
-                newPalette[i]);
+            this.palette.splice(this.selectedPaletteColorIndex + i + 1, 0, newPalette[i]);
         }
     }
 
     public handleExportPalette() {
-        let colors: ColorRGB[] = [];
-        for (let i = 0; i < this.palette.length; i++) {
-            if (this.palette[i]) {
-                colors.push(this.palette[i]!);
-            }
-        }
+        const palette: ExportColorDataItem[] = this.palette.map(c => {
+            const color = c!;
+            return {
+                rgb: color,
+                hsl: this._colorConverterService.rbgToHsl(color),
+                hex: this._colorConverterService.rgbToHex(color)
+            };
+        });
 
         const sheetData: ExportColorsData = {
-            palette: colors
+            palette: palette
         };
 
         this._bottomSheet.open(ExportColorsSheetComponent, {

@@ -1,1 +1,12 @@
-<app-highlighted-code *ngIf="json" [language]="'json'" [code]="json" [autoSelect]="false"></app-highlighted-code>
+<form [formGroup]="form">
+    <div class="flex flex-col gap-1">
+        <mat-form-field>
+            <mat-label>Format</mat-label>
+            <input matInput formControlName="exportFormat" (keyup)="handleFormat()">
+            <button mat-icon-button matSuffix (click)="handleHelp()" matTooltip="Placeholders">
+                <mat-icon>help_outline</mat-icon>
+            </button>
+        </mat-form-field>
+        <app-code *ngIf="output" [autoSelect]="false">{{output}}</app-code>
+    </div>
+</form>
