@@ -1,14 +1,15 @@
 .color-slot {
-    width: 3.5rem;
-    height: 2.5rem;
+    width: 3rem;
+    height: 2rem;
     cursor: pointer;
-    opacity: 0.3;
     border-radius: 0.3em;
+    transition: width 0.1s, height 0.1s, transform 0.1s;
 }
 
 .color-slot.active,
 .color-slot:hover {
-    opacity: 1;
+    width: 3rem;
+    height: 3rem;
 }
 
 .color-input-box {
