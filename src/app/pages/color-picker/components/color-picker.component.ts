@@ -229,8 +229,12 @@ export class ColorPickerComponent implements OnInit {
     }
 
     handleAddPaletteColor() {
-        this.palette.push(this.toRGB(this.form.value));
-        this.selectedPaletteColorIndex = this.palette.length - 1;
+        const newColor = this.toRGB(this.form.value);
+        const newIndex = this.selectedPaletteColorIndex + 1;
+
+        this.palette.splice(newIndex, 0, newColor);
+        this.selectedPaletteColorIndex = newIndex;
+        console.log(this.palette);
 
         this.savePalette();
     }
