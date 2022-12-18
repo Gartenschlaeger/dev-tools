@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
+import { StringBuilder } from '../../../../modules/shared/utilities/string-builder';
 import { ColorRGB } from '../../services/colorconverter';
 
 export interface ExportColorsData {
@@ -15,6 +16,18 @@ export class ExportColorsSheetComponent {
     json?: string;
 
     constructor(@Inject(MAT_BOTTOM_SHEET_DATA) data: ExportColorsData) {
-        this.json = JSON.stringify(data.palette, undefined, '  ');
+        let builder = new StringBuilder();
+        builder.appendLine('[');
+        for (let i = 0; i < data.palette.length; i++) {
+            builder.append('  ');
+            builder.append(JSON.stringify(data.palette[i]));
+            if (i + 1 < data.palette.length) {
+                builder.append(',');
+            }
+            builder.appendLine();
+        }
+        builder.appendLine(']');
+
+        this.json = builder.build();
     }
 }
