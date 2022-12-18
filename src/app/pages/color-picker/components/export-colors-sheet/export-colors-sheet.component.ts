@@ -47,6 +47,8 @@ export class ExportColorsSheetComponent {
 
             let line = formatString;
             line = line.replace(/\$i/, String(i));
+            line = line.replace(/\$n2/, String(i + 1).padStart(2, '0'));
+            line = line.replace(/\$n3/, String(i + 1).padStart(3, '0'));
             line = line.replace(/\$n/, String(i + 1));
             line = line.replace(/\$hex/, String(color.hex));
             line = line.replace(/\$r/, String(color.rgb.r));
