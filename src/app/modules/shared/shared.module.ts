@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -72,7 +73,8 @@ export interface SharedModuleConfiguration {
         MatDatepickerModule,
         MatNativeDateModule,
         MatTreeModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatBottomSheetModule
     ],
     exports: [
         FormsModule,
@@ -103,6 +105,7 @@ export interface SharedModuleConfiguration {
         MatMenuModule,
         MatTreeModule,
         MatSnackBarModule,
+        MatBottomSheetModule,
         MatErrorsComponent
     ]
 })

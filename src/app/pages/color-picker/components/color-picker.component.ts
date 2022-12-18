@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { SharedDialogsService } from '../../../components/shared-dialogs/services/shared-dialogs.service';
 import { ColorPicketFormModel } from '../entities/color-picker-form-model';
 import { ColorHSL, ColorRGB, hslToRgb, rbgToHsl } from '../services/colorconverter';
+import { ExportColorsData, ExportColorsSheetComponent } from './export-colors-sheet/export-colors-sheet.component';
 
 const KEY_LOCAL_STORAGE_FORM = 'color-picker.form.value';
 const KEY_LOCAL_STORAGE_PALETTE_VALUES = 'color-picker.palette.values';
 const KEY_LOCAL_STORAGE_PALETTE_SELECT = 'color-picker.palette.select';
 
-const InitColor: ColorRGB = { r: 135, g: 206, b: 235 };
+const InitColor: ColorRGB = { r: 128, g: 128, b: 128 };
 
 @Component({
     selector: 'app-color-converter',
@@ -24,8 +26,9 @@ export class ColorPickerComponent implements OnInit {
     rgbValueDecimal: string = '';
     hslValue: string = '';
 
-    constructor(private formBuilder: UntypedFormBuilder,
-                private sharedDialogs: SharedDialogsService) {
+    constructor(private _formBuilder: UntypedFormBuilder,
+                private _sharedDialogs: SharedDialogsService,
+                private _bottomSheet: MatBottomSheet) {
     }
 
     ngOnInit() {
@@ -98,7 +101,7 @@ export class ColorPickerComponent implements OnInit {
             model = JSON.parse(fromLocalStorageValue);
         }
 
-        return this.formBuilder.group({
+        return this._formBuilder.group({
             valueRN: [model.valueRN],
             valueRR: [model.valueRR],
             valueGN: [model.valueGN],
@@ -234,7 +237,6 @@ export class ColorPickerComponent implements OnInit {
 
         this.palette.splice(newIndex, 0, newColor);
         this.selectedPaletteColorIndex = newIndex;
-        console.log(this.palette);
 
         this.savePalette();
     }
@@ -255,7 +257,7 @@ export class ColorPickerComponent implements OnInit {
 
     handlePickHex() {
         const hexPattern = /^#?([0-9a-fA-F]{1,2})([0-9a-fA-F]{1,2})([0-9a-fA-F]{1,2})$/;
-        this.sharedDialogs.openInputDialog({
+        this._sharedDialogs.openInputDialog({
             title: 'Pick hexadecimal value',
             format: hexPattern,
             value: this.hexValue
@@ -281,7 +283,7 @@ export class ColorPickerComponent implements OnInit {
 
     handlePickRgb() {
         const rgbPattern = /^(\d{1,3})\s(\d{1,3})\s(\d{1,3})$/;
-        this.sharedDialogs.openInputDialog({
+        this._sharedDialogs.openInputDialog({
             title: 'Pick RGB value',
             format: rgbPattern,
             value: this.rgbValue
@@ -297,6 +299,60 @@ export class ColorPickerComponent implements OnInit {
                     });
                 }
             }
+        });
+    }
+
+    public handleClearPalette() {
+        this.palette = [{ r: 128, g: 128, b: 128 }];
+        this.selectedPaletteColorIndex = 0;
+        this.handlePaletteColorClick(this.selectedPaletteColorIndex);
+    }
+
+    public handleCreatePalette() {
+
+        const hsl = this.toHSL(this.form.value);
+
+        const newPalette: ColorRGB[] = [];
+
+        let currentL = hsl.l;
+
+        const colorsToGenerate = 10;
+        const left = 100 - currentL;
+        const step = left / colorsToGenerate;
+        for (let i = 0; i < colorsToGenerate; i++) {
+            currentL += step;
+            const newColorHSL: ColorHSL = {
+                h: hsl.h,
+                s: hsl.s,
+                l: currentL
+            };
+
+            const rgb = hslToRgb(newColorHSL);
+            newPalette.push(rgb);
+        }
+
+        // TODO: optimize
+        for (let i = 0; i < newPalette.length; i++) {
+            this.palette.splice(this.selectedPaletteColorIndex + i + 1,
+                0,
+                newPalette[i]);
+        }
+    }
+
+    public handleExportPalette() {
+        let colors: ColorRGB[] = [];
+        for (let i = 0; i < this.palette.length; i++) {
+            if (this.palette[i]) {
+                colors.push(this.palette[i]!);
+            }
+        }
+
+        const sheetData: ExportColorsData = {
+            palette: colors
+        };
+
+        this._bottomSheet.open(ExportColorsSheetComponent, {
+            data: sheetData
         });
     }
 }

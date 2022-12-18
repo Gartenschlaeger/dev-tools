@@ -84,14 +84,31 @@
                     <button
                         mat-mini-fab
                         color="accent"
-                        (click)="handleAddPaletteColor()"
+                        (click)="handleAddPaletteColor()" matTooltip="Add new color"
                     >
                         <mat-icon>add</mat-icon>
                     </button>
                     <button mat-mini-fab color="accent" type="button" (click)="handleRemoveColor()"
-                            [disabled]="palette.length < 2">
+                            [disabled]="palette.length < 2" matTooltip="Remove selected color">
                         <mat-icon>delete</mat-icon>
                     </button>
+                    <button mat-mini-fab color="accent" [matMenuTriggerFor]="moreColorToolsMenu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #moreColorToolsMenu="matMenu">
+                        <button mat-menu-item (click)="handleClearPalette()">
+                            <mat-icon>clear</mat-icon>
+                            <span>Clear</span>
+                        </button>
+                        <button mat-menu-item (click)="handleCreatePalette()">
+                            <mat-icon>gradient</mat-icon>
+                            <span>Create palette</span>
+                        </button>
+                        <button mat-menu-item (click)="handleExportPalette()">
+                            <mat-icon>text_snippet</mat-icon>
+                            <span>Export</span>
+                        </button>
+                    </mat-menu>
                 </div>
                 <div class="flex flex-wrap items-center gap-1">
                     <ng-container *ngFor="let c of palette; let i = index">
