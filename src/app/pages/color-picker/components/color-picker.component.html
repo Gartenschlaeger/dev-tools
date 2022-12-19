@@ -112,12 +112,14 @@
                 </div>
                 <div class="flex flex-wrap items-center gap-1">
                     <ng-container *ngFor="let c of palette; let i = index">
-                        <div
-                            class="color-slot"
-                            [ngClass]="{ 'active': selectedPaletteColorIndex === i }"
-                            [ngStyle]="{ 'background-color': c ? 'rgb(' + c.r + ',' + c.g + ',' + c.b + ')' : null }"
-                            (click)="handlePaletteColorClick(i)"
-                        ></div>
+                        <div class="color-slot">
+                            <div
+                                class="color-slot-color"
+                                [ngClass]="{ 'active': selectedPaletteColorIndex === i }"
+                                [ngStyle]="{ 'background-color': c ? 'rgb(' + c.r + ',' + c.g + ',' + c.b + ')' : null }"
+                                (click)="handlePaletteColorClick(i)"
+                            ></div>
+                        </div>
                     </ng-container>
                 </div>
             </div>

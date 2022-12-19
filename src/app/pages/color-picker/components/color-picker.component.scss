@@ -1,16 +1,25 @@
 .color-slot {
-    width: 3rem;
-    height: 2rem;
-    cursor: pointer;
-    border-radius: 0.3em;
-    transition: width 0.1s, height 0.1s, transform 0.1s;
-}
-
-.color-slot.active,
-.color-slot:hover {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 3rem;
     height: 3rem;
+    cursor: pointer;
+    transition: width 0.5s, height 0.5s, transform 0.5s;
+
+    .color-slot-color {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 0.3em;
+    }
+
+    .color-slot-color.active,
+    .color-slot-color:hover {
+        width: 3rem;
+        height: 3rem;
+    }
 }
+
 
 .color-input-box {
     width: 6rem !important;

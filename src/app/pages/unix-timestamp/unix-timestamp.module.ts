@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { SharedModule } from '../../modules/shared/shared.module';
 import {
+    CurrentTimestampDialogComponent
+} from './components/current-timestamp-dialog/current-timestamp-dialog.component';
+import {
     UnixTimestampCalculatorDialogComponent
 } from './components/unix-timestamp-calculator-dialog/unix-timestamp-calculator-dialog.component';
 import { UnixTimestampComponent } from './components/unix-timestamp.component';
-import { CurrentTimestampDialogComponent } from './components/current-timestamp-dialog/current-timestamp-dialog.component';
 
 const routes: Route[] = [
     {
