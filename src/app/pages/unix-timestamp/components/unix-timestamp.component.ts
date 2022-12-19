@@ -22,30 +22,31 @@ interface UnixTimestampConverterResultsModel {
     styleUrls: ['./unix-timestamp.component.scss']
 })
 export class UnixTimestampComponent implements OnInit {
-    formTimestamp = new FormGroup({
-        timestamp: new FormControl<number | null>(null, {
-            validators: [Validators.required]
-        })
-    });
-
-    formDate = new FormGroup({
-        year: new FormControl<number | null>(null, {
-            validators: [Validators.required]
+    form = new FormGroup({
+        timestamp: new FormGroup({
+            timestamp: new FormControl<number | null>(null, {
+                validators: [Validators.required]
+            })
         }),
-        month: new FormControl<number | null>(null, {
-            validators: [Validators.required]
-        }),
-        day: new FormControl<number | null>(null, {
-            validators: [Validators.required]
-        }),
-        hour: new FormControl<number | null>(null, {
-            validators: [Validators.required]
-        }),
-        minute: new FormControl<number | null>(null, {
-            validators: [Validators.required]
-        }),
-        second: new FormControl<number | null>(null, {
-            validators: [Validators.required]
+        date: new FormGroup({
+            year: new FormControl<number | null>(null, {
+                validators: [Validators.required]
+            }),
+            month: new FormControl<number | null>(null, {
+                validators: [Validators.required]
+            }),
+            day: new FormControl<number | null>(null, {
+                validators: [Validators.required]
+            }),
+            hour: new FormControl<number | null>(null, {
+                validators: [Validators.required]
+            }),
+            minute: new FormControl<number | null>(null, {
+                validators: [Validators.required]
+            }),
+            second: new FormControl<number | null>(null, {
+                validators: [Validators.required]
+            })
         })
     });
 
@@ -58,10 +59,11 @@ export class UnixTimestampComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.formTimestamp.valueChanges.subscribe(() => {
-            if (this.formTimestamp.status === 'VALID') {
-                this.handleSubmitTimestamp();
-            }
+        this.form.get('timestamp')?.valueChanges.subscribe(() => {
+            this.timestampChanges();
+        });
+        this.form.get('date')?.valueChanges.subscribe(() => {
+            this.dateChanges();
         });
     }
 
@@ -72,67 +74,57 @@ export class UnixTimestampComponent implements OnInit {
         };
     }
 
-    public handleSubmitTimestamp() {
-        if (this._formService.validate(this.formTimestamp)) {
-            const timestamp = this.formTimestamp.value.timestamp!;
+    public timestampChanges() {
+        if (this.form.get('timestamp')?.valid) {
+            const timestamp = this.form.get('timestamp')!.value;
 
             const date = new Date();
-            date.setTime(timestamp * 1000);
+            date.setTime(timestamp.timestamp! * 1000);
+
+            this.form.patchValue({
+                date: {
+                    year: date.getFullYear(),
+                    month: date.getMonth() + 1,
+                    day: date.getDate(),
+                    hour: date.getUTCHours(),
+                    minute: date.getUTCMinutes(),
+                    second: date.getUTCSeconds()
+                }
+            }, {
+                emitEvent: false
+            });
 
             this.calculateResults(date);
-
-            this.formDate.patchValue({
-                year: date.getFullYear(),
-                month: date.getMonth() + 1,
-                day: date.getDate(),
-                hour: date.getUTCHours(),
-                minute: date.getUTCMinutes(),
-                second: date.getUTCSeconds()
-            });
         }
     }
 
-    public handleSubmitDate() {
-        if (this._formService.validate(this.formDate)) {
-            const year = this.formDate.value.year!;
-            const month = this.formDate.value.month! - 1;
-            const day = this.formDate.value.day!;
-            const hour = this.formDate.value.hour!;
-            const minute = this.formDate.value.minute!;
-            const second = this.formDate.value.second!;
+    private dateChanges() {
+        if (this.form.get('date')?.valid) {
+            const group = this.form.get('date')!;
+            const year = group.get('year')!.value!;
+            const month = group.get('month')!.value! - 1;
+            const day = group.get('day')!.value!;
+            const hour = group.get('hour')!.value!;
+            const minute = group.get('minute')!.value!;
+            const second = group.get('second')!.value!;
 
             const utc = Date.UTC(year, month, day, hour, minute, second);
             const date = new Date();
             date.setTime(utc);
 
-            this.formTimestamp.patchValue({
+            this.form.get('timestamp')?.patchValue({
                 timestamp: DateUtilities.convertToUnixTimestamp(date)
+            }, {
+                emitEvent: false
             });
 
             this.calculateResults(date);
         }
     }
 
-    public handleReset() {
-        this._formService.reset(this.formTimestamp, {
-            timestamp: null
-        });
-
-        this._formService.reset(this.formDate, {
-            year: null,
-            month: null,
-            day: null,
-            hour: null,
-            minute: null,
-            second: null
-        });
-
-        this.result = undefined;
-    }
-
     public handleTimestampCalculator() {
         const dialogData: UnitTimestampCalculatorDialogData = {
-            timestamp: this.formTimestamp.value.timestamp || 0
+            timestamp: this.form.value.timestamp?.timestamp || 0
         };
 
         this._matDialog.open(UnixTimestampCalculatorDialogComponent, {
@@ -140,33 +132,43 @@ export class UnixTimestampComponent implements OnInit {
             data: dialogData
         }).afterClosed().subscribe(result => {
             if (result !== undefined) {
-                this.formTimestamp.patchValue({
+                this.form.get('timestamp')!.patchValue({
                     timestamp: result
                 });
 
-                this.handleSubmitTimestamp();
+                this.timestampChanges();
             }
         });
     }
 
-    public handleCurrentTimestamp() {
+    public handleGrabCurrentTimestamp() {
         this._matDialog.open(CurrentTimestampDialogComponent, {
             autoFocus: false
         }).afterClosed().subscribe(result => {
             if (result) {
-                this.formTimestamp.patchValue({
+                this.form.get('timestamp')!.patchValue({
                     timestamp: result
                 });
-                this.handleSubmitTimestamp();
+                this.timestampChanges();
             }
         });
     }
 
-    public handleCopy() {
-        const timestamp = this.formTimestamp.value.timestamp;
+    public handleCopyTimestamp() {
+        const timestamp = this.form.value.timestamp?.timestamp;
         if (typeof timestamp === 'number') {
             this._clipboard.copy(String(timestamp));
             this._notifications.show('Copied to clipboard');
         }
+    }
+
+    public handleReset() {
+        this._formService.reset(this.form, {
+            timestamp: {
+                timestamp: null
+            }
+        });
+
+        this.result = undefined;
     }
 }
