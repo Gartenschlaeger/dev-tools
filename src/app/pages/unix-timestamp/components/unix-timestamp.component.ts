@@ -1,7 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Clipboard } from '@angular/cdk/clipboard';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { interval, Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 import { FormService } from '../../../modules/shared/services/form-service.service';
+import { NotificationsService } from '../../../modules/shared/services/notifications.service';
+import { DateUtilities } from '../utilities/DateUtilities';
+import { CurrentTimestampDialogComponent } from './current-timestamp-dialog/current-timestamp-dialog.component';
+import {
+    UnitTimestampCalculatorDialogData,
+    UnixTimestampCalculatorDialogComponent
+} from './unix-timestamp-calculator-dialog/unix-timestamp-calculator-dialog.component';
 
 interface UnixTimestampConverterResultsModel {
     utcDate: string;
@@ -13,11 +21,7 @@ interface UnixTimestampConverterResultsModel {
     templateUrl: './unix-timestamp.component.html',
     styleUrls: ['./unix-timestamp.component.scss']
 })
-export class UnixTimestampComponent implements OnInit, OnDestroy {
-
-    currentTimestamp: number = 0;
-    timerSubscription!: Subscription;
-
+export class UnixTimestampComponent implements OnInit {
     formTimestamp = new FormGroup({
         timestamp: new FormControl<number | null>(null, {
             validators: [Validators.required]
@@ -47,62 +51,29 @@ export class UnixTimestampComponent implements OnInit, OnDestroy {
 
     result?: UnixTimestampConverterResultsModel;
 
-    constructor(private formService: FormService) {
+    constructor(private _formService: FormService,
+                private _matDialog: MatDialog,
+                private _clipboard: Clipboard,
+                private _notifications: NotificationsService) {
     }
 
-    public ngOnInit(): void {
-        this.currentTimestamp = this.getUnixTimestamp();
-        this.timerSubscription = interval(1000)
-            .subscribe(() => {
-                this.currentTimestamp = this.getUnixTimestamp();
-            });
-    }
-
-    public ngOnDestroy(): void {
-        this.timerSubscription.unsubscribe();
-    }
-
-    private getUnixTimestamp(): number {
-        const date = new Date();
-        return this.convertToUnixTimestamp(date);
-    }
-
-    private convertToUnixTimestamp(date: Date): number {
-        const milliseconds = date.getTime();
-        return Math.floor(milliseconds / 1000.0);
+    public ngOnInit() {
+        this.formTimestamp.valueChanges.subscribe(() => {
+            if (this.formTimestamp.status === 'VALID') {
+                this.handleSubmitTimestamp();
+            }
+        });
     }
 
     private calculateResults(date: Date) {
         this.result = {
-            utcDate: this.formatDate(date, true),
-            localDate: this.formatDate(date)
+            utcDate: DateUtilities.formatDate(date, true),
+            localDate: DateUtilities.formatDate(date)
         };
     }
 
-    private formatDate(date: Date, toUtc?: boolean) {
-        return date.toLocaleString('en-UK', {
-            year: 'numeric',
-            month: 'short',
-            day: '2-digit',
-            weekday: 'short',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            timeZoneName: 'longOffset',
-            timeZone: toUtc ? 'UTC' : undefined
-        });
-    }
-
-    public handleSetCurrentTimestamp() {
-        this.formTimestamp.patchValue({
-            timestamp: this.getUnixTimestamp()
-        });
-
-        this.handleSubmitTimestamp();
-    }
-
     public handleSubmitTimestamp() {
-        if (this.formService.validate(this.formTimestamp)) {
+        if (this._formService.validate(this.formTimestamp)) {
             const timestamp = this.formTimestamp.value.timestamp!;
 
             const date = new Date();
@@ -122,7 +93,7 @@ export class UnixTimestampComponent implements OnInit, OnDestroy {
     }
 
     public handleSubmitDate() {
-        if (this.formService.validate(this.formDate)) {
+        if (this._formService.validate(this.formDate)) {
             const year = this.formDate.value.year!;
             const month = this.formDate.value.month! - 1;
             const day = this.formDate.value.day!;
@@ -135,7 +106,7 @@ export class UnixTimestampComponent implements OnInit, OnDestroy {
             date.setTime(utc);
 
             this.formTimestamp.patchValue({
-                timestamp: this.convertToUnixTimestamp(date)
+                timestamp: DateUtilities.convertToUnixTimestamp(date)
             });
 
             this.calculateResults(date);
@@ -143,11 +114,11 @@ export class UnixTimestampComponent implements OnInit, OnDestroy {
     }
 
     public handleReset() {
-        this.formService.reset(this.formTimestamp, {
+        this._formService.reset(this.formTimestamp, {
             timestamp: null
         });
 
-        this.formService.reset(this.formDate, {
+        this._formService.reset(this.formDate, {
             year: null,
             month: null,
             day: null,
@@ -159,4 +130,43 @@ export class UnixTimestampComponent implements OnInit, OnDestroy {
         this.result = undefined;
     }
 
+    public handleTimestampCalculator() {
+        const dialogData: UnitTimestampCalculatorDialogData = {
+            timestamp: this.formTimestamp.value.timestamp || 0
+        };
+
+        this._matDialog.open(UnixTimestampCalculatorDialogComponent, {
+            autoFocus: false,
+            data: dialogData
+        }).afterClosed().subscribe(result => {
+            if (result !== undefined) {
+                this.formTimestamp.patchValue({
+                    timestamp: result
+                });
+
+                this.handleSubmitTimestamp();
+            }
+        });
+    }
+
+    public handleCurrentTimestamp() {
+        this._matDialog.open(CurrentTimestampDialogComponent, {
+            autoFocus: false
+        }).afterClosed().subscribe(result => {
+            if (result) {
+                this.formTimestamp.patchValue({
+                    timestamp: result
+                });
+                this.handleSubmitTimestamp();
+            }
+        });
+    }
+
+    public handleCopy() {
+        const timestamp = this.formTimestamp.value.timestamp;
+        if (typeof timestamp === 'number') {
+            this._clipboard.copy(String(timestamp));
+            this._notifications.show('Copied to clipboard');
+        }
+    }
 }

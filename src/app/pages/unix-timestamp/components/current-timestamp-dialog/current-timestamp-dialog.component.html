@@ -1,0 +1,15 @@
+<h2 matDialogTitle>Current timestamp</h2>
+
+<mat-dialog-content class="min-dialog-width">
+    <app-code>{{currentTimestamp}}</app-code>
+</mat-dialog-content>
+
+<mat-dialog-actions class="action-buttons">
+    <button type="button" mat-raised-button color="accent" [matDialogClose]="undefined">
+        Cancel
+    </button>
+    <button type="button" mat-raised-button color="primary" [matDialogClose]="currentTimestamp">
+        Apply
+    </button>
+</mat-dialog-actions>
+

@@ -1,0 +1,99 @@
+<form [formGroup]="form">
+    <h2 mat-dialog-title>UNIX timestamp calculator</h2>
+
+    <mat-dialog-content class="flex flex-col gap-5">
+        <div class="flex gap-5">
+            <div class="flex-1">
+                <div class="control-group">
+                    <mat-label>Second(s)</mat-label>
+                    <mat-form-field class="fixed-width">
+                        <mat-label>Amount</mat-label>
+                        <input type="number" matInput formControlName="seconds">
+                    </mat-form-field>
+                    <button type="button" mat-mini-fab color="accent" (click)="patchValue('seconds',-1)">
+                        <mat-icon>remove</mat-icon>
+                    </button>
+                    <button type="button" mat-mini-fab color="accent" (click)="patchValue('seconds',1)">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+                <div class="control-group">
+                    <mat-label>Minute(s)</mat-label>
+                    <mat-form-field>
+                        <mat-label>Amount</mat-label>
+                        <input type="number" matInput formControlName="minutes">
+                    </mat-form-field>
+                    <button type="button" mat-mini-fab color="accent" (click)="patchValue('minutes',-1)">
+                        <mat-icon>remove</mat-icon>
+                    </button>
+                    <button type="button" mat-mini-fab color="accent" (click)="patchValue('minutes',1)">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+                <div class="control-group">
+                    <mat-label>Hour(s)</mat-label>
+                    <mat-form-field>
+                        <mat-label>Amount</mat-label>
+                        <input type="number" matInput formControlName="hours">
+                    </mat-form-field>
+                    <button type="button" mat-mini-fab color="accent" (click)="patchValue('hours',-1)">
+                        <mat-icon>remove</mat-icon>
+                    </button>
+                    <button type="button" mat-mini-fab color="accent" (click)="patchValue('hours',1)">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="flex-1">
+                <div class="control-group">
+                    <mat-label>Day(s)</mat-label>
+                    <mat-form-field>
+                        <mat-label>Amount</mat-label>
+                        <input type="number" matInput formControlName="days">
+                    </mat-form-field>
+                    <button type="button" mat-mini-fab color="accent" (click)="patchValue('days',-1)">
+                        <mat-icon>remove</mat-icon>
+                    </button>
+                    <button type="button" mat-mini-fab color="accent" (click)="patchValue('days',1)">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+                <div class="control-group">
+                    <mat-label>Month(s)</mat-label>
+                    <mat-form-field>
+                        <mat-label>Amount</mat-label>
+                        <input type="number" matInput formControlName="months">
+                    </mat-form-field>
+                    <button type="button" mat-mini-fab color="accent" (click)="patchValue('months',-1)">
+                        <mat-icon>remove</mat-icon>
+                    </button>
+                    <button type="button" mat-mini-fab color="accent" (click)="patchValue('months',1)">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+                <div class="control-group">
+                    <mat-label>Year(s)</mat-label>
+                    <mat-form-field>
+                        <mat-label>Amount</mat-label>
+                        <input type="number" matInput formControlName="years">
+                    </mat-form-field>
+                    <button type="button" mat-mini-fab color="accent" (click)="patchValue('years',-1)">
+                        <mat-icon>remove</mat-icon>
+                    </button>
+                    <button type="button" mat-mini-fab color="accent" (click)="patchValue('years',1)">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div>
+            <app-code>{{timestamp}}</app-code>
+            <app-code>{{dateFormatted}}</app-code>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions class="action-buttons">
+        <button type="button" mat-raised-button color="accent" [matDialogClose]="undefined">Cancel</button>
+        <button type="button" mat-raised-button color="primary" (click)="handleSubmit()">Apply</button>
+    </mat-dialog-actions>
+</form>

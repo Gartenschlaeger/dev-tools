@@ -12,3 +12,19 @@
     font-size: 0.8em;
     font-style: italic;
 }
+
+.control-group {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5em;
+    align-items: center;
+}
+
+.control-group > button,
+.control-group > mat-label {
+    margin-bottom: 14px;
+}
+
+.control-group > mat-label {
+    text-align: right;
+}

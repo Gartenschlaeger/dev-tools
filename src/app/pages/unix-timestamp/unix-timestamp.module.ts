@@ -2,7 +2,11 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { SharedModule } from '../../modules/shared/shared.module';
+import {
+    UnixTimestampCalculatorDialogComponent
+} from './components/unix-timestamp-calculator-dialog/unix-timestamp-calculator-dialog.component';
 import { UnixTimestampComponent } from './components/unix-timestamp.component';
+import { CurrentTimestampDialogComponent } from './components/current-timestamp-dialog/current-timestamp-dialog.component';
 
 const routes: Route[] = [
     {
@@ -12,7 +16,7 @@ const routes: Route[] = [
 ];
 
 @NgModule({
-    declarations: [UnixTimestampComponent],
+    declarations: [UnixTimestampComponent, UnixTimestampCalculatorDialogComponent, CurrentTimestampDialogComponent],
     imports: [CommonModule, RouterModule.forChild(routes), SharedModule]
 })
 export class UnixTimestampModule {

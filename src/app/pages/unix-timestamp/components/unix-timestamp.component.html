@@ -7,32 +7,33 @@
                 </mat-card-header>
 
                 <mat-card-content>
-                    <div class="flex gap-5 items-center mb-5 justify-end">
-                        <div>Current UNIX timestamp</div>
-                        <div class="flex gap-1 items-center">
-                            <app-code>{{currentTimestamp}}</app-code>
-                            <button type="button" mat-icon-button matTooltip="Apply"
-                                    (click)="handleSetCurrentTimestamp()">
-                                <mat-icon>check</mat-icon>
+                    <div class="control-group">
+                        <mat-form-field>
+                            <mat-label>Unix timestamp</mat-label>
+                            <input matInput type="number" formControlName="timestamp">
+                            <mat-error>
+                                <app-mat-errors [control]="formTimestamp.get('timestamp')"></app-mat-errors>
+                            </mat-error>
+                            <button type="button" mat-icon-button matSuffix matTooltip="Copy"
+                                    (click)="handleCopy()" [disabled]="formTimestamp.status !== 'VALID'">
+                                <mat-icon>content_copy</mat-icon>
                             </button>
-                        </div>
+                        </mat-form-field>
+                        <button type="button" mat-mini-fab color="accent" matTooltip="Current timestamp"
+                                (click)="handleCurrentTimestamp()">
+                            <mat-icon>schedule</mat-icon>
+                        </button>
+                        <button type="button" mat-mini-fab color="accent" matTooltip="Modify timestamp"
+                                (click)="handleTimestampCalculator()">
+                            <mat-icon>calculate</mat-icon>
+                        </button>
                     </div>
 
-                    <mat-form-field>
-                        <mat-label>Unix timestamp</mat-label>
-                        <input matInput type="number" formControlName="timestamp">
-                        <mat-error>
-                            <app-mat-errors [control]="formTimestamp.get('timestamp')"></app-mat-errors>
-                        </mat-error>
-                    </mat-form-field>
+                    <div *ngIf="result">
+                        <app-code>{{result.utcDate}}</app-code>
+                        <app-code>{{result.localDate}}</app-code>
+                    </div>
                 </mat-card-content>
-
-                <mat-card-actions class="action-buttons">
-                    <button type="button" mat-raised-button color="accent"
-                            (click)="handleReset()">Reset
-                    </button>
-                    <button type="submit" mat-raised-button color="primary">Convert</button>
-                </mat-card-actions>
             </mat-card>
         </form>
     </div>
@@ -101,11 +102,3 @@
         </form>
     </div>
 </div>
-
-
-<mat-card *ngIf="result">
-    <mat-card-content>
-        <app-code>{{result.utcDate}}</app-code>
-        <app-code>{{result.localDate}}</app-code>
-    </mat-card-content>
-</mat-card>
