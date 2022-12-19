@@ -1,0 +1,49 @@
+<form [formGroup]="form">
+    <mat-card>
+        <mat-card-content>
+            <div class="flex flex-wrap">
+                <div class="mr-15">
+                    <h2>Owner</h2>
+                    <div class="flex gap-5" [formGroupName]="'owner'">
+                        <mat-checkbox formControlName="hasRead">Read</mat-checkbox>
+                        <mat-checkbox formControlName="hasWrite">Write</mat-checkbox>
+                        <mat-checkbox formControlName="hasExecute">Execute</mat-checkbox>
+                    </div>
+                </div>
+                <div class="mr-15" [formGroupName]="'group'">
+                    <h2>Group</h2>
+                    <div class="flex gap-5">
+                        <mat-checkbox formControlName="hasRead">Read</mat-checkbox>
+                        <mat-checkbox formControlName="hasWrite">Write</mat-checkbox>
+                        <mat-checkbox formControlName="hasExecute">Execute</mat-checkbox>
+                    </div>
+                </div>
+                <div class="mr-15" [formGroupName]="'other'">
+                    <h2>Other</h2>
+                    <div class="flex gap-5">
+                        <mat-checkbox formControlName="hasRead">Read</mat-checkbox>
+                        <mat-checkbox formControlName="hasWrite">Write</mat-checkbox>
+                        <mat-checkbox formControlName="hasExecute">Execute</mat-checkbox>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+
+        <mat-card-actions class="action-buttons">
+            <button type="reset" mat-raised-button color="accent" (click)="handleReset()">Reset</button>
+        </mat-card-actions>
+    </mat-card>
+</form>
+
+<mat-card>
+    <mat-card-content>
+        <div class="flex flex-wrap gap-5">
+            <div class="flex-1">
+                <app-code>{{chmod}}</app-code>
+            </div>
+            <div class="flex-1">
+                <app-code>{{fileSystem}}</app-code>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

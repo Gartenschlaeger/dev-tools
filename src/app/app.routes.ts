@@ -172,6 +172,13 @@ export const routes: ExtendedRoute[] = [
         icon: 'schedule'
     },
     {
+        path: 'chmod-calculator',
+        loadChildren: () => import('./pages/chmod-calculator/chmod-calculator.module')
+            .then(m => m.ChmodCalculatorModule),
+        title: 'Chmod Calculator',
+        icon: 'lock_open'
+    },
+    {
         path: '**',
         component: NotFoundComponent,
         title: 'Page not found',
