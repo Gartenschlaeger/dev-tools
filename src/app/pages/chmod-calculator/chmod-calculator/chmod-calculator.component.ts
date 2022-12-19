@@ -101,6 +101,6 @@ export class ChmodCalculatorComponent implements OnInit {
     }
 
     public handleReset() {
-        // TODO: implement
+        this._formService.reset(this.form, formDefaults);
     }
 }
