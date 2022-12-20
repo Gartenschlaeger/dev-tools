@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
+import { LoggingService } from './logging.service';
 
-export type SelectedThemeName = 'light' | 'dark';
+export type SelectedThemeName = 'system' | 'light' | 'dark';
 
 const LOCAL_STORAGE_KEY = 'selectedTheme';
 const DEFAULT_THEME: SelectedThemeName = 'light';
@@ -11,16 +12,26 @@ const DEFAULT_THEME: SelectedThemeName = 'light';
 export class ThemeSwitchService {
     private selectedTheme: SelectedThemeName;
 
-    constructor() {
+    constructor(private _logger: LoggingService) {
         this.selectedTheme = this.restoreSelectedTheme();
         this.themeChanged();
     }
 
     private themeChanged() {
-        if (this.selectedTheme === 'dark') {
-            document.body.classList.add('dark-theme');
-        } else {
-            document.body.classList.remove('dark-theme');
+        let selectedTheme = this.selectedTheme;
+        if (selectedTheme === 'system') {
+            selectedTheme = this.getUserPreferredTheme();
+        }
+
+        this._logger.info(`Change theme to ${selectedTheme}`);
+
+        switch (selectedTheme) {
+            case 'dark':
+                document.body.classList.add('dark-theme');
+                break;
+            case 'light':
+                document.body.classList.remove('dark-theme');
+                break;
         }
     }
 
@@ -32,28 +43,29 @@ export class ThemeSwitchService {
                     return 'light';
                 case 'dark':
                     return 'dark';
+
+                case 'system':
+                    return 'system';
             }
         }
 
         return undefined;
     }
 
-    private getUserPreferredTheme(): SelectedThemeName | undefined {
+    private getUserPreferredTheme(): SelectedThemeName {
         if (window.matchMedia) {
             const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
             if (prefersDarkScheme.matches) {
                 return 'dark';
             }
-
-            return 'light';
         }
 
-        return undefined;
+        return DEFAULT_THEME;
     }
 
     restoreSelectedTheme() {
         const fromLocalStorage = this.getThemeFromLocalStorage();
-        if (fromLocalStorage) {
+        if (fromLocalStorage && fromLocalStorage !== 'system') {
             return fromLocalStorage;
         }
 

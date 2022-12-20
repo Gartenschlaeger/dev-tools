@@ -14,6 +14,10 @@
     </button>
 
     <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="handleSetTheme('system')">
+            <mat-icon>settings_suggest</mat-icon>
+            <span>System</span>
+        </button>
         <button mat-menu-item (click)="handleSetTheme('light')">
             <mat-icon>light_mode</mat-icon>
             <span>Light mode</span>
