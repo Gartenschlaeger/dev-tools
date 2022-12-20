@@ -9,7 +9,14 @@ export class DateUtilitiesService {
         return this.convertToUnixTimestamp(date);
     }
 
-    formatDate(date: Date, toUtc?: boolean) {
+    getUtcDateByTimestamp(timestamp: number): Date {
+        const date = new Date();
+        date.setTime(timestamp * 1000);
+
+        return date;
+    }
+
+    formatDate(date: Date, toUtc?: boolean): string {
         return date.toLocaleString('en-UK', {
             year: 'numeric',
             month: 'short',
@@ -23,11 +30,32 @@ export class DateUtilitiesService {
         });
     }
 
-    formatTimestamp(timestamp: number, toUtc?: boolean) {
+    formatTimestamp(timestamp: number, toUtc?: boolean): string {
         const date = new Date();
         date.setTime(timestamp * 1000);
 
         return this.formatDate(date, toUtc);
+    }
+
+    addSeconds(date: Date, amount: number): Date {
+        const newDate = new Date(date);
+        newDate.setSeconds(date.getSeconds() + amount);
+
+        return newDate;
+    }
+
+    addMinutes(date: Date, amount: number): Date {
+        const newDate = new Date(date);
+        newDate.setMinutes(date.getMinutes() + amount);
+
+        return newDate;
+    }
+
+    addHours(date: Date, amount: number): Date {
+        const newDate = new Date(date);
+        newDate.setHours(date.getHours() + amount);
+
+        return newDate;
     }
 
     addDays(date: Date, amount: number): Date {

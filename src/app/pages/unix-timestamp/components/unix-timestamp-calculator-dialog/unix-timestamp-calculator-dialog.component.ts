@@ -3,12 +3,6 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DateUtilitiesService } from '../../../../modules/shared/services/DateUtilitiesService';
 
-const SEC_PER_MIN = 60;
-const SEC_PER_HOUR = SEC_PER_MIN * 60;
-const SEC_PER_DAY = SEC_PER_HOUR * 24;
-const SEC_PER_MONTH = SEC_PER_DAY * 30;
-const SEC_PER_YEAR = SEC_PER_MONTH * 12;
-
 export interface UnitTimestampCalculatorDialogData {
     timestamp: number;
 }
@@ -19,8 +13,11 @@ export interface UnitTimestampCalculatorDialogData {
     styleUrls: ['./unix-timestamp-calculator-dialog.component.scss']
 })
 export class UnixTimestampCalculatorDialogComponent {
-    timestamp: number;
-    dateFormatted: string;
+    initialDate: Date;
+
+    currentDate?: Date;
+    timestamp?: number;
+    dateFormatted?: string;
 
     form = new FormGroup({
         seconds: new FormControl<number>(0),
@@ -35,25 +32,32 @@ export class UnixTimestampCalculatorDialogComponent {
                 private _dialogRef: MatDialogRef<UnixTimestampCalculatorDialogComponent>,
                 private _dateUtilities: DateUtilitiesService) {
 
-        this.timestamp = _dialogData.timestamp + this.calculateNewTimestamp();
-        this.dateFormatted = _dateUtilities.formatTimestamp(this.timestamp, true);
+        this.initialDate = _dateUtilities.getUtcDateByTimestamp(_dialogData.timestamp);
 
+        this.recalculate();
         this.form.valueChanges.subscribe(() => {
-            this.timestamp = _dialogData.timestamp + this.calculateNewTimestamp();
-            this.dateFormatted = _dateUtilities.formatTimestamp(this.timestamp, true);
+            this.recalculate();
         });
     }
 
-    private calculateNewTimestamp() {
-        let result = 0;
-        result += this.form.value.seconds || 0;
-        result += (this.form.value.minutes || 0) * SEC_PER_MIN;
-        result += (this.form.value.hours || 0) * SEC_PER_HOUR;
-        result += (this.form.value.days || 0) * SEC_PER_DAY;
-        result += (this.form.value.months || 0) * SEC_PER_MONTH;
-        result += (this.form.value.years || 0) * SEC_PER_YEAR;
+    private recalculate() {
+        const seconds = this.form.value.seconds!;
+        const minutes = this.form.value.minutes!;
+        const hours = this.form.value.hours!;
+        const days = this.form.value.days!;
+        const months = this.form.value.months!;
+        const years = this.form.value.years!;
 
-        return result;
+        this.currentDate = this.initialDate;
+        this.currentDate = this._dateUtilities.addSeconds(this.currentDate, seconds);
+        this.currentDate = this._dateUtilities.addMinutes(this.currentDate, minutes);
+        this.currentDate = this._dateUtilities.addHours(this.currentDate, hours);
+        this.currentDate = this._dateUtilities.addDays(this.currentDate, days);
+        this.currentDate = this._dateUtilities.addMonths(this.currentDate, months);
+        this.currentDate = this._dateUtilities.addYears(this.currentDate, years);
+
+        this.timestamp = this._dateUtilities.convertToUnixTimestamp(this.currentDate);
+        this.dateFormatted = this._dateUtilities.formatTimestamp(this.timestamp, true);
     }
 
     patchValue(formControlName: string, amount: number) {
