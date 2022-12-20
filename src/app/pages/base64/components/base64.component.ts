@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { LoggingService } from 'src/app/modules/shared/services/logging.service';
 import { FormService } from '../../../modules/shared/services/form-service.service';
+import { LoggingService } from '../../../modules/shared/services/logging.service';
 import { Base64Model } from '../entities/base64-model';
 
 const FormDefaults = new Base64Model();

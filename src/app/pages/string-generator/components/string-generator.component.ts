@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { LoggingService } from 'src/app/modules/shared/services/logging.service';
 import { FormService } from '../../../modules/shared/services/form-service.service';
+import { LoggingService } from '../../../modules/shared/services/logging.service';
 import { Randomizer } from '../../../modules/shared/utilities/randomizer';
 import { StringGeneratorFormModel } from '../entities/string-generator-form.model';
 import { StringGeneratorResultModel } from '../entities/string-generator-result.model';
