@@ -7,7 +7,7 @@ import { SelectedThemeName, ThemeSwitchService } from '../../modules/shared/serv
     styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent {
-    @Output() toggleToolbar = new EventEmitter();
+    @Output() toggleSidenav = new EventEmitter();
 
     constructor(private _theme: ThemeSwitchService) {
     }
