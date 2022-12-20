@@ -10,6 +10,8 @@ import { TextInputDialogComponent } from './components/shared-dialogs/dialogs/te
 import { SharedModule } from './modules/shared/shared.module';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 @NgModule({
     declarations: [
@@ -17,7 +19,9 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
         NavigationComponent,
         HomeComponent,
         NotFoundComponent,
-        TextInputDialogComponent
+        TextInputDialogComponent,
+        FooterComponent,
+        ToolbarComponent
     ],
     imports: [
         BrowserModule,

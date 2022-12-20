@@ -16,7 +16,6 @@ export class NavigationComponent implements OnInit {
 
     @ViewChild('matSelectionList') matSelectionList!: MatSelectionList;
 
-    @Output() itemClicked = new EventEmitter<ExtendedRoute>();
     @Output() toggleSidenav = new EventEmitter();
 
     constructor(private _router: Router) {
@@ -90,17 +89,25 @@ export class NavigationComponent implements OnInit {
         }
     }
 
+    public async handleNavigationItemClick(route: ExtendedRoute) {
+        if (route.path) {
+            await this._router.navigateByUrl(route.path);
+        }
+
+        this.toggleSidenav.emit();
+    }
+
     @HostListener('document:keydown.meta.k')
     async openSidenavShortcut() {
         // global shortcut cmd+k to toggle the sidenav
         await this.toggleSidenav.emit();
     }
 
-    private handleEnterKey() {
+    private async handleEnterKey() {
         // navigate to selected item on enter
         const selectedItems = this.matSelectionList.selectedOptions.selected;
         if (selectedItems.length) {
-            this.itemClicked.emit(selectedItems[0].value);
+            await this.handleNavigationItemClick(selectedItems[0].value);
         } else {
             const visibleItem = this.items.find(i => i.visible);
             if (visibleItem) {
@@ -136,14 +143,14 @@ export class NavigationComponent implements OnInit {
     }
 
     @HostListener('document:keyup', ['$event'])
-    handleKeyupEvent(event: KeyboardEvent) {
+    async handleKeyupEvent(event: KeyboardEvent) {
         if (!this.isOpened) {
             return;
         }
 
         switch (event.key) {
             case 'Enter':
-                this.handleEnterKey();
+                await this.handleEnterKey();
                 break;
             case 'Escape':
                 this.handleEscapeKey();
@@ -151,10 +158,6 @@ export class NavigationComponent implements OnInit {
             default:
                 this.handleAutoSearch(event);
         }
-    }
-
-    handleItemClick(item: ExtendedRoute) {
-        this.itemClicked.emit(item);
     }
 
     handleOpenedChanged(isOpened: boolean) {

@@ -5,7 +5,7 @@
             <mat-list-option *ngIf="item.visible || item.selected"
                              [value]="item"
                              [selected]="item.selected"
-                             (click)="handleItemClick(item)">
+                             (click)="handleNavigationItemClick(item)">
                 <div class="flex items-center gap-1">
                     <mat-icon *ngIf="item.icon" class="mr-1">{{ item.icon }}</mat-icon>
                     <span>{{item.title}}</span>
