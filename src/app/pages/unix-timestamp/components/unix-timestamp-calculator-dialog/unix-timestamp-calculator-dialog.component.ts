@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { DateUtilities } from '../../utilities/DateUtilities';
+import { DateUtilitiesService } from '../../../../modules/shared/services/DateUtilitiesService';
 
 const SEC_PER_MIN = 60;
 const SEC_PER_HOUR = SEC_PER_MIN * 60;
@@ -32,14 +32,15 @@ export class UnixTimestampCalculatorDialogComponent {
     });
 
     constructor(@Inject(MAT_DIALOG_DATA) private _dialogData: UnitTimestampCalculatorDialogData,
-                private _dialogRef: MatDialogRef<UnixTimestampCalculatorDialogComponent>) {
+                private _dialogRef: MatDialogRef<UnixTimestampCalculatorDialogComponent>,
+                private _dateUtilities: DateUtilitiesService) {
 
         this.timestamp = _dialogData.timestamp + this.calculateNewTimestamp();
-        this.dateFormatted = DateUtilities.formatTimestamp(this.timestamp, true);
+        this.dateFormatted = _dateUtilities.formatTimestamp(this.timestamp, true);
 
         this.form.valueChanges.subscribe(() => {
             this.timestamp = _dialogData.timestamp + this.calculateNewTimestamp();
-            this.dateFormatted = DateUtilities.formatTimestamp(this.timestamp, true);
+            this.dateFormatted = _dateUtilities.formatTimestamp(this.timestamp, true);
         });
     }
 

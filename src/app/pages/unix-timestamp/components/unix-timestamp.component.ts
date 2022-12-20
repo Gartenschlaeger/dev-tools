@@ -2,9 +2,9 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { DateUtilitiesService } from '../../../modules/shared/services/DateUtilitiesService';
 import { FormService } from '../../../modules/shared/services/form-service.service';
 import { NotificationsService } from '../../../modules/shared/services/notifications.service';
-import { DateUtilities } from '../utilities/DateUtilities';
 import { CurrentTimestampDialogComponent } from './current-timestamp-dialog/current-timestamp-dialog.component';
 import {
     UnitTimestampCalculatorDialogData,
@@ -55,7 +55,8 @@ export class UnixTimestampComponent implements OnInit {
     constructor(private _formService: FormService,
                 private _matDialog: MatDialog,
                 private _clipboard: Clipboard,
-                private _notifications: NotificationsService) {
+                private _notifications: NotificationsService,
+                private _dateUtilities: DateUtilitiesService) {
     }
 
     public ngOnInit() {
@@ -69,8 +70,8 @@ export class UnixTimestampComponent implements OnInit {
 
     private calculateResults(date: Date) {
         this.result = {
-            utcDate: DateUtilities.formatDate(date, true),
-            localDate: DateUtilities.formatDate(date)
+            utcDate: this._dateUtilities.formatDate(date, true),
+            localDate: this._dateUtilities.formatDate(date)
         };
     }
 
@@ -113,7 +114,7 @@ export class UnixTimestampComponent implements OnInit {
             date.setTime(utc);
 
             this.form.get('timestamp')?.patchValue({
-                timestamp: DateUtilities.convertToUnixTimestamp(date)
+                timestamp: this._dateUtilities.convertToUnixTimestamp(date)
             }, {
                 emitEvent: false
             });
