@@ -1,10 +1,12 @@
 # DevTools
 
-Angular app with a collection of development tools.
+An Angular app with a collection of developer tools.
 
-See https://dev.kaisnet.de
+The page is deployed to https://dev.kaisnet.de
 
 # Development
+
+This app uses yarn as package manager.
 
 ## Update dependencies
 
