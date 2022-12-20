@@ -6,11 +6,7 @@
     <mat-sidenav-content class="flex flex-col">
         <app-toolbar (toggleToolbar)="sidenav.toggle()"></app-toolbar>
         <app-page-header></app-page-header>
-
-        <div class="app-page-container">
-            <router-outlet></router-outlet>
-        </div>
-
+        <app-page-container></app-page-container>
         <app-footer></app-footer>
     </mat-sidenav-content>
 </mat-sidenav-container>

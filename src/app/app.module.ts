@@ -12,6 +12,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { PageContainerComponent } from './components/page-container/page-container.component';
 
 @NgModule({
     declarations: [
@@ -21,7 +22,8 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
         NotFoundComponent,
         TextInputDialogComponent,
         FooterComponent,
-        ToolbarComponent
+        ToolbarComponent,
+        PageContainerComponent
     ],
     imports: [
         BrowserModule,
