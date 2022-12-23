@@ -1,1 +1,18 @@
-<p>jwt-analyzer works!</p>
+<form [formGroup]="form" (submit)="handleSubmit()">
+    <mat-card>
+        <mat-card-content>
+            <mat-form-field>
+                <mat-label>JWT token</mat-label>
+                <textarea matInput formControlName="jwt" [rows]="5"></textarea>
+                <mat-error>
+                    <app-mat-errors [control]="form.get('jwt')"></app-mat-errors>
+                </mat-error>
+            </mat-form-field>
+        </mat-card-content>
+
+        <mat-card-actions class="action-buttons">
+            <button type="button" mat-raised-button color="accent" (click)="handleReset()">Reset</button>
+            <button type="submit" mat-raised-button color="primary">Analyze</button>
+        </mat-card-actions>
+    </mat-card>
+</form>
