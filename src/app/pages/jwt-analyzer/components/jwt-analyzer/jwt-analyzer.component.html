@@ -16,3 +16,17 @@
         </mat-card-actions>
     </mat-card>
 </form>
+
+<mat-card *ngIf="errorMessage">
+    <app-alert>{{errorMessage}}</app-alert>
+</mat-card>
+
+<mat-card *ngIf="result">
+    <mat-card-content>
+        <h2>Header</h2>
+        <app-highlighted-code [language]="'json'" [code]="result.header" [autoSelect]="false"></app-highlighted-code>
+
+        <h2>Payload</h2>
+        <app-highlighted-code [language]="'json'" [code]="result.payload" [autoSelect]="false"></app-highlighted-code>
+    </mat-card-content>
+</mat-card>
