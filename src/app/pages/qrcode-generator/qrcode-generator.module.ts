@@ -16,5 +16,5 @@ const routes: Route[] = [
     declarations: [QrCodeGeneratorComponent],
     imports: [CommonModule, RouterModule.forChild(routes), SharedModule, QRCodeModule]
 })
-export class QRCodeGeneratorModule {
+export default class QRCodeGeneratorModule {
 }

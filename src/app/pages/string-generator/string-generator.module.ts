@@ -15,5 +15,5 @@ const routes: Route[] = [
     declarations: [StringGeneratorComponent],
     imports: [CommonModule, RouterModule.forChild(routes), SharedModule]
 })
-export class StringGeneratorModule {
+export default class StringGeneratorModule {
 }

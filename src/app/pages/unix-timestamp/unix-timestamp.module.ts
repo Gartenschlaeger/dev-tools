@@ -21,5 +21,5 @@ const routes: Route[] = [
     declarations: [UnixTimestampComponent, UnixTimestampCalculatorDialogComponent, CurrentTimestampDialogComponent],
     imports: [CommonModule, RouterModule.forChild(routes), SharedModule]
 })
-export class UnixTimestampModule {
+export default class UnixTimestampModule {
 }

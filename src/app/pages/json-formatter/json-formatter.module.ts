@@ -17,5 +17,5 @@ const routes: Route[] = [
     imports: [CommonModule, RouterModule.forChild(routes), SharedModule],
     providers: [JsonTreeParserService]
 })
-export class JsonFormatterModule {
+export default class JsonFormatterModule {
 }
