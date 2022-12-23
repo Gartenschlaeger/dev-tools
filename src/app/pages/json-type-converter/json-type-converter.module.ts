@@ -15,5 +15,5 @@ const routes: Route[] = [
     declarations: [JsonTypeConverterComponent],
     imports: [CommonModule, RouterModule.forChild(routes), SharedModule]
 })
-export class JsonTypeConverterModule {
+export default class JsonTypeConverterModule {
 }

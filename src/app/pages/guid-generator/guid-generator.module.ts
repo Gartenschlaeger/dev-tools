@@ -15,5 +15,5 @@ const routes: Route[] = [
     declarations: [GuidGeneratorComponent],
     imports: [CommonModule, RouterModule.forChild(routes), SharedModule]
 })
-export class GuidGeneratorModule {
+export default class GuidGeneratorModule {
 }

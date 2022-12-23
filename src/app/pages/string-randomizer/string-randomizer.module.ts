@@ -15,5 +15,5 @@ const routes: Route[] = [
     declarations: [StringRandomizerComponent],
     imports: [CommonModule, RouterModule.forChild(routes), SharedModule]
 })
-export class StringRandomizerModule {
+export default class StringRandomizerModule {
 }

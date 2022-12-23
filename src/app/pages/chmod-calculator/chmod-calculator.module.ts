@@ -15,5 +15,5 @@ const routes: Route[] = [
     declarations: [ChmodCalculatorComponent],
     imports: [CommonModule, RouterModule.forChild(routes), SharedModule]
 })
-export class ChmodCalculatorModule {
+export default class ChmodCalculatorModule {
 }

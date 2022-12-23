@@ -15,5 +15,5 @@ const routes: Route[] = [
     declarations: [DateCalculatorComponent],
     imports: [CommonModule, RouterModule.forChild(routes), SharedModule]
 })
-export class DateCalculatorModule {
+export default class DateCalculatorModule {
 }
