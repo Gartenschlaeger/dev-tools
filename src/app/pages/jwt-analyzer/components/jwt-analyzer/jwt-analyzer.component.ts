@@ -67,6 +67,7 @@ export class JwtAnalyzerComponent {
     handleReset() {
         this._formService.reset(this.form);
         this.result = undefined;
+        this.errorMessage = undefined;
     }
 
 }
