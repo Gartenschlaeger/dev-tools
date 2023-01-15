@@ -28,3 +28,7 @@
 .control-group > mat-label {
     text-align: right;
 }
+
+.mat-mdc-selection-list.no-checkbox .mat-mdc-list-item .mdc-list-item__end {
+    display: none !important;
+}
