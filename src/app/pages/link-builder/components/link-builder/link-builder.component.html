@@ -27,7 +27,7 @@
                 <form class="mb-2" [formGroup]="formGroupQueryString" (submit)="handleAddQueryString()">
                     <h1>Query strings</h1>
 
-                    <div class="flex gap-2">
+                    <div class="flex gap-2 control-group">
                         <mat-form-field class="flex-1">
                             <mat-label>Key</mat-label>
                             <input matInput formControlName="key" #queryStringKeyInput />
@@ -53,7 +53,7 @@
                      class="mt-1 space-y-2">
                     <mat-divider class="my-3"></mat-divider>
 
-                    <div class="flex items-center gap-2"
+                    <div class="control-group"
                          *ngFor="let _ of queryStrings.controls; index as i">
                         <ng-container [formGroupName]="i">
                             <mat-form-field class="flex-1">
