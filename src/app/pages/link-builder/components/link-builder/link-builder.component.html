@@ -1,0 +1,91 @@
+<form [formGroup]="formGroupMain" (submit)="handleSubmit()">
+    <mat-card>
+        <mat-card-content>
+            <div class="flex gap-2">
+                <div style="width: 200px">
+                    <mat-form-field class="w-full" appearance="fill">
+                        <mat-label>Mode</mat-label>
+                        <mat-select formControlName="protocol">
+                            <mat-option value="http">http</mat-option>
+                            <mat-option value="https">https</mat-option>
+                        </mat-select>
+                        <mat-error>
+                            <app-mat-errors [control]="formGroupMain.get('protocol')"></app-mat-errors>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <mat-form-field>
+                    <mat-label>Domain</mat-label>
+                    <input type="text" matInput formControlName="domain">
+                    <mat-error>
+                        <app-mat-errors [control]="formGroupMain.get('domain')"></app-mat-errors>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div>
+                <form class="mb-2" [formGroup]="formGroupQueryString" (submit)="handleAddQueryString()">
+                    <h1>Query strings</h1>
+
+                    <div class="flex gap-2">
+                        <mat-form-field class="flex-1">
+                            <mat-label>Key</mat-label>
+                            <input matInput formControlName="key" #queryStringKeyInput />
+                            <mat-error>
+                                <app-mat-errors [control]="formGroupQueryString.get('key')"></app-mat-errors>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="flex-1">
+                            <mat-label>Value</mat-label>
+                            <input matInput formControlName="value" />
+                            <mat-error>
+                                <app-mat-errors [control]="formGroupQueryString.get('value')"></app-mat-errors>
+                            </mat-error>
+                        </mat-form-field>
+
+                        <button mat-icon-button type="submit">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+                </form>
+
+                <div formArrayName="queryStrings" *ngIf="queryStrings.length"
+                     class="mt-1 space-y-2">
+                    <mat-divider class="my-3"></mat-divider>
+
+                    <div class="flex items-center gap-2"
+                         *ngFor="let _ of queryStrings.controls; index as i">
+                        <ng-container [formGroupName]="i">
+                            <mat-form-field class="flex-1">
+                                <mat-label>Key</mat-label>
+                                <input matInput formControlName="key" />
+                            </mat-form-field>
+                            <mat-form-field class="flex-1">
+                                <mat-label>Value</mat-label>
+                                <input matInput formControlName="value" />
+                            </mat-form-field>
+
+                            <button type="button" mat-icon-button color="warn"
+                                    (click)="handleRemoveQueryString(i)">
+                                <mat-icon>remove</mat-icon>
+                            </button>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+
+        <mat-card-actions class="action-buttons">
+            <button type="button" mat-raised-button color="accent" (click)="handleReset()">Reset</button>
+        </mat-card-actions>
+    </mat-card>
+</form>
+
+<mat-card *ngIf="result">
+    <mat-card-header>
+        <mat-card-title>URL</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <app-code>{{ result }}</app-code>
+    </mat-card-content>
+</mat-card>
