@@ -75,4 +75,7 @@
     <url>
         <loc>https://dev.kaisnet.de/jwt-analyzer</loc>
     </url>
+    <url>
+        <loc>https://dev.kaisnet.de/link-builder</loc>
+    </url>
 </urlset>
