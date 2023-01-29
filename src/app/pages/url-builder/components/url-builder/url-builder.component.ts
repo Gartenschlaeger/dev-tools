@@ -11,6 +11,7 @@ interface LinkBuilderModel {
     protocol: 'http' | 'https';
     domain: string;
     queryStrings: LinkBuilderQueryString[];
+    fragment: string;
 }
 
 const LinkBuilderQueryStringFormDefaults: LinkBuilderQueryString = {
@@ -21,15 +22,16 @@ const LinkBuilderQueryStringFormDefaults: LinkBuilderQueryString = {
 const LinkBuilderFormDefaults: LinkBuilderModel = {
     protocol: 'https',
     domain: '',
-    queryStrings: []
+    queryStrings: [],
+    fragment: ''
 };
 
 @Component({
     selector: 'app-link-builder',
-    templateUrl: './link-builder.component.html',
-    styleUrls: ['./link-builder.component.scss']
+    templateUrl: './url-builder.component.html',
+    styleUrls: ['./url-builder.component.scss']
 })
-export class LinkBuilderComponent {
+export class UrlBuilderComponent {
 
     formGroupMain: UntypedFormGroup;
     formGroupQueryString: UntypedFormGroup;
@@ -57,7 +59,10 @@ export class LinkBuilderComponent {
             domain: this.fb.control(LinkBuilderFormDefaults.domain, {
                 validators: [Validators.required]
             }),
-            queryStrings: this.fb.array([])
+            queryStrings: this.fb.array([]),
+            fragment: this.fb.control(LinkBuilderFormDefaults.fragment, {
+                validators: []
+            })
         });
     }
 
@@ -110,6 +115,8 @@ export class LinkBuilderComponent {
                     urlBuilder.searchParams.append(queryString.key, queryString.value);
                 }
             }
+
+            urlBuilder.hash = model.fragment;
 
             this.result = urlBuilder.toString();
         }

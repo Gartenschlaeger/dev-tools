@@ -4,7 +4,7 @@
             <div class="flex gap-2">
                 <div style="width: 200px">
                     <mat-form-field class="w-full" appearance="fill">
-                        <mat-label>Mode</mat-label>
+                        <mat-label>Protocol</mat-label>
                         <mat-select formControlName="protocol">
                             <mat-option value="http">http</mat-option>
                             <mat-option value="https">https</mat-option>
@@ -48,7 +48,6 @@
                         </button>
                     </div>
                 </form>
-
                 <div formArrayName="queryStrings" *ngIf="queryStrings.length"
                      class="mt-1 space-y-2">
                     <mat-divider class="my-3"></mat-divider>
@@ -73,6 +72,14 @@
                     </div>
                 </div>
             </div>
+
+            <mat-form-field>
+                <mat-label>Fragment</mat-label>
+                <input type="text" matInput formControlName="fragment">
+                <mat-error>
+                    <app-mat-errors [control]="formGroupMain.get('fragment')"></app-mat-errors>
+                </mat-error>
+            </mat-form-field>
         </mat-card-content>
 
         <mat-card-actions class="action-buttons">

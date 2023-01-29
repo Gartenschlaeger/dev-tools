@@ -25,9 +25,9 @@ export const routes: ExtendedRoute[] = [
         pined: true
     },
     {
-        path: 'link-builder',
-        loadChildren: () => import('./pages/link-builder/link-builder.module'),
-        title: 'Link Builder',
+        path: 'url-builder',
+        loadChildren: () => import('./pages/url-builder/url-builder.module'),
+        title: 'URL Builder',
         icon: 'link'
     },
     {
