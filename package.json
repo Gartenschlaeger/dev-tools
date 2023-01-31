@@ -26,9 +26,9 @@
         "highlight.js": "^11.7.0",
         "json-to-ts": "^1.7.0",
         "jsonpath": "^1.1.1",
-        "ngx-highlightjs": "^7.0.1",
+        "ngx-highlightjs": "^8.0.0",
         "rxjs": "~7.8.0",
-        "tslib": "^2.4.1",
+        "tslib": "^2.5.0",
         "uuid": "^9.0.0",
         "zone.js": "~0.12.0"
     },
