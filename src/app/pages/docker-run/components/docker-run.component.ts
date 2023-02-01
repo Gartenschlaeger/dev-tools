@@ -234,7 +234,9 @@ export class DockerRunComponent implements OnInit {
             builder.append(model.useShortParams ? '-e' : '--env', ' "', v.key, '=', escapedValue, '"', multilineStr);
         });
 
-        builder.append(model.imageName, ':', model.imageTag ? model.imageTag : 'latest');
+        builder.append(model.imageName);
+        builder.append(':');
+        builder.append(model.imageTag ? model.imageTag : 'latest');
 
         return builder.build();
     }
