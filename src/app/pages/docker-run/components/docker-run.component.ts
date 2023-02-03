@@ -3,6 +3,7 @@ import { UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGr
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormService } from '../../../modules/shared/services/form-service.service';
 import { LoggingService } from '../../../modules/shared/services/logging.service';
+import { ShareService } from '../../../modules/shared/services/share.service';
 import { StringBuilder } from '../../../modules/shared/utilities/string-builder';
 import { requiredIfValidator } from '../../../modules/shared/validators/required-if.validator';
 import { DockerRunEnvironmentVariable } from '../entities/docker-run-environment.variable';
@@ -36,8 +37,10 @@ export class DockerRunComponent implements OnInit {
         private router: Router,
         private logger: LoggingService,
         private fb: UntypedFormBuilder,
+        private shareService: ShareService,
         public formService: FormService
     ) {
+        this.shareService.enable();
     }
 
     ngOnInit(): void {

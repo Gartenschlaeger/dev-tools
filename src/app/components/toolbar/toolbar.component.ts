@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ShareService } from '../../modules/shared/services/share.service';
 import { SelectedThemeName, ThemeSwitchService } from '../../modules/shared/services/theme-switch.service';
 
 @Component({
@@ -6,13 +7,29 @@ import { SelectedThemeName, ThemeSwitchService } from '../../modules/shared/serv
     templateUrl: './toolbar.component.html',
     styleUrls: ['./toolbar.component.scss']
 })
-export class ToolbarComponent {
+export class ToolbarComponent implements OnInit {
+
     @Output() toggleSidenav = new EventEmitter();
 
-    constructor(private _theme: ThemeSwitchService) {
+    constructor(
+        private themeService: ThemeSwitchService,
+        public shareService: ShareService) {
+    }
+
+    public ngOnInit() {
+        this.shareService.enabled$.subscribe(v => console.log);
     }
 
     public handleSetTheme(theme: SelectedThemeName) {
-        this._theme.change(theme);
+        this.themeService.change(theme);
     }
+
+    public handleShare() {
+        alert('todo: handleShare()');
+    }
+
+    public handleLogin() {
+        alert('todo: handleLogin()');
+    }
+
 }

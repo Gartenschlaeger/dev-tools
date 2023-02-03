@@ -1,7 +1,8 @@
 import { Component, EventEmitter, HostListener, OnInit, Output, ViewChild } from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { ExtendedRoute, routes } from '../../app.routes';
+import { ShareService } from '../../modules/shared/services/share.service';
 
 @Component({
     selector: 'app-navigation',
@@ -18,7 +19,9 @@ export class NavigationComponent implements OnInit {
 
     @Output() toggleSidenav = new EventEmitter();
 
-    constructor(private _router: Router) {
+    constructor(
+        private router: Router,
+        private shareService: ShareService) {
     }
 
     ngOnInit() {
@@ -38,8 +41,10 @@ export class NavigationComponent implements OnInit {
             this.activeRouteChanged(activeRoute);
         }
 
-        this._router.events.subscribe(event => {
-            if (event instanceof NavigationEnd) {
+        this.router.events.subscribe(event => {
+            if (event instanceof NavigationStart) {
+                this.shareService.disable();
+            } else if (event instanceof NavigationEnd) {
                 const activeRoute = this.getActiveRoute();
                 if (activeRoute) {
                     this.activeRouteChanged(activeRoute);
@@ -58,7 +63,7 @@ export class NavigationComponent implements OnInit {
     }
 
     private getActiveRoute() {
-        const currentUrl = this._router.url.substring(1);
+        const currentUrl = this.router.url.substring(1);
         return this.items.find(item => {
             return item.path === currentUrl;
         });
@@ -91,7 +96,7 @@ export class NavigationComponent implements OnInit {
 
     public async handleNavigationItemClick(route: ExtendedRoute) {
         if (route.path) {
-            await this._router.navigateByUrl(route.path);
+            await this.router.navigateByUrl(route.path);
         }
 
         this.toggleSidenav.emit();
