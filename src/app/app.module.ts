@@ -9,7 +9,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { PageContainerComponent } from './components/page-container/page-container.component';
 import { ConfirmDialogComponent } from './components/shared-dialogs/confirm-dialog/confirm-dialog.component';
-import { TextInputDialogComponent } from './components/shared-dialogs/dialogs/text-input-dialog.component';
+import { TextInputDialogComponent } from './components/shared-dialogs/text-input-dialog/text-input-dialog.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SharedModule } from './modules/shared/shared.module';
 import { HomeComponent } from './pages/home/home.component';

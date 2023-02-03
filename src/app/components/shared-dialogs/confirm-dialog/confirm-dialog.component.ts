@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TextInputDialogOptions } from '../dialogs/TextInputDialogOptions';
+import { TextInputDialogOptions } from '../text-input-dialog/text-input-dialog-options';
 
 @Component({
     selector: 'app-confirm-dialog',

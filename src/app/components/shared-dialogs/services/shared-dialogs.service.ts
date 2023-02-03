@@ -3,8 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { defaultIfEmpty, map, Observable } from 'rxjs';
 import { ConfirmDialogOptions } from '../confirm-dialog/confirm-dialog-options';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-import { TextInputDialogComponent } from '../dialogs/text-input-dialog.component';
-import { TextInputDialogOptions } from '../dialogs/TextInputDialogOptions';
+import { TextInputDialogOptions } from '../text-input-dialog/text-input-dialog-options';
+import { TextInputDialogComponent } from '../text-input-dialog/text-input-dialog.component';
 
 @Injectable({
     providedIn: 'root'
