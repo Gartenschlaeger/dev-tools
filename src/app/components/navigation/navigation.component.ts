@@ -10,6 +10,7 @@ import { ShareService } from '../../modules/shared/services/share.service';
     styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent implements OnInit {
+
     items: ExtendedRoute[] = [];
     isOpened: boolean = false;
     searchQuery: string = '';
@@ -172,4 +173,5 @@ export class NavigationComponent implements OnInit {
             this.matSelectionList.focus();
         }
     }
+
 }
