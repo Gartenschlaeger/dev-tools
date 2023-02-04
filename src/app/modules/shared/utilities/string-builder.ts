@@ -2,24 +2,23 @@ export class StringBuilder {
 
     content = '';
 
-    private appendInternal(...args: any[]): StringBuilder {
-        if (args && args.length) {
-            for (let i = 0; i < args.length; i++) {
-                this.content += args[i];
+    append(...texts: string[]): StringBuilder {
+        if (texts && texts.length) {
+            for (let text of texts) {
+                this.content += text;
             }
         }
 
         return this;
     }
 
-    append(...args: any[]): StringBuilder {
-        this.appendInternal(args);
-        return this;
-    }
+    appendLine(line?: string): StringBuilder {
+        if (line) {
+            this.content += line;
+        }
 
-    appendLine(...args: any[]): StringBuilder {
-        this.appendInternal(args);
-        this.appendInternal('\n');
+        this.content += '\n';
+
         return this;
     }
 
