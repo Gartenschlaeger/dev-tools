@@ -9,7 +9,8 @@
 
     <span class="flex-auto"></span>
 
-    <button mat-icon-button *ngIf="shareService.enabled$ | async" (click)="handleShare()">
+    <button mat-icon-button *ngIf="shareButtonVisible" [disabled]="!shareButtonEnabled"
+            (click)="handleShare()">
         <mat-icon>share</mat-icon>
     </button>
 

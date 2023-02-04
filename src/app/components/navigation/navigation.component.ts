@@ -44,7 +44,7 @@ export class NavigationComponent implements OnInit {
 
         this.router.events.subscribe(event => {
             if (event instanceof NavigationStart) {
-                this.shareService.disable();
+                this.shareService.reset();
             } else if (event instanceof NavigationEnd) {
                 const activeRoute = this.getActiveRoute();
                 if (activeRoute) {

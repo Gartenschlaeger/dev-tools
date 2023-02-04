@@ -6,21 +6,45 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ShareService {
 
-    enableSubject = new BehaviorSubject<boolean>(false);
-    enabled$ = this.enableSubject.asObservable();
+    private enableSubject = new BehaviorSubject<boolean>(false);
+    private activateSubject = new BehaviorSubject<boolean>(false);
+    private dataCallback?: () => string = undefined;
 
-    /**
-     * enables the share button
-     */
-    enable() {
-        this.enableSubject.next(true);
+    public activated$ = this.activateSubject.asObservable();
+
+    public enabled$ = this.enableSubject.asObservable();
+
+    setEnable(enabled: boolean) {
+        this.enableSubject.next(enabled);
     }
 
     /**
-     * disables the share button
+     * Resets the share button to its defaults.
      */
-    disable() {
+    reset() {
+        this.activateSubject.next(false);
         this.enableSubject.next(false);
+        this.dataCallback = undefined;
+    }
+
+    /**
+     * Registers for share button usage.
+     * @param dataCallback Callback to generate the data to be shared.
+     */
+    registerForShare(dataCallback: () => string) {
+        this.activateSubject.next(true);
+        this.enableSubject.next(false);
+        this.dataCallback = dataCallback;
+    }
+
+    /**
+     * Starts the share process.
+     * Normally only called by a click on the share button.
+     */
+    startShare() {
+        if (this.dataCallback) {
+
+        }
     }
 
 }

@@ -260,16 +260,6 @@
         </mat-card-content>
 
         <mat-card-actions class="action-buttons">
-            <button
-                mat-raised-button
-                color="accent"
-                type="button"
-                class="btn-secondary"
-                [disabled]="!generatedScript"
-                (click)="handleShare()"
-            >
-                Share
-            </button>
             <button mat-raised-button color="accent" type="button" class="btn-secondary" (click)="handleReset()">
                 Reset
             </button>
@@ -289,16 +279,6 @@
             </div>
 
             <app-highlighted-code [language]="'bash'" [code]="generatedScript"></app-highlighted-code>
-        </mat-card-content>
-    </mat-card>
-
-    <mat-card *ngIf="shareLink">
-        <mat-card-header>
-            <mat-card-title>Share URL</mat-card-title>
-        </mat-card-header>
-
-        <mat-card-content>
-            <app-code>{{ shareLink }}</app-code>
         </mat-card-content>
     </mat-card>
 </form>

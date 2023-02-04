@@ -30,7 +30,6 @@ export class DockerRunComponent implements OnInit {
     formAddVolumeMapping!: UntypedFormGroup;
     volumeMappings!: UntypedFormArray;
     generatedScript: string = '';
-    shareLink?: string;
 
     constructor(
         private route: ActivatedRoute,
@@ -40,7 +39,6 @@ export class DockerRunComponent implements OnInit {
         private shareService: ShareService,
         public formService: FormService
     ) {
-        this.shareService.enable();
     }
 
     ngOnInit(): void {
@@ -66,6 +64,10 @@ export class DockerRunComponent implements OnInit {
             if (params.s) {
                 this.handleShareQuery(params.s);
             }
+        });
+
+        this.shareService.registerForShare(() => {
+            return JSON.stringify(this.form.value);
         });
     }
 
@@ -214,9 +216,9 @@ export class DockerRunComponent implements OnInit {
             builder.append(
                 model.useShortParams ? '-p' : '--publish',
                 ' ',
-                pm.hostPort,
+                pm.hostPort.toString(),
                 ':',
-                pm.containerPort,
+                pm.containerPort.toString(),
                 multilineStr
             );
         });
@@ -255,25 +257,21 @@ export class DockerRunComponent implements OnInit {
         this.formService.reset(this.formAddVolumeMapping);
 
         this.generatedScript = '';
-        this.shareLink = '';
 
         await this.router.navigate(['.'], { relativeTo: this.route, queryParams: {} });
+
+        this.shareService.setEnable(false);
     }
 
     handleSubmit() {
         this.logger.debug(this.form, this.form.valid, this.form.errors);
 
-        if (this.formService.validate(this.form)) {
+        const isValid = this.formService.validate(this.form);
+        if (isValid) {
             this.generatedScript = this.generateScript();
         }
-    }
 
-    handleShare() {
-        this.logger.debug('handleShare');
-
-        const json = JSON.stringify(this.form.value);
-        const base64 = btoa(json);
-        this.shareLink = `${window.location.origin}/docker-run/?s=${base64}`;
+        this.shareService.setEnable(isValid);
     }
 
     handleAddEnvironment() {
