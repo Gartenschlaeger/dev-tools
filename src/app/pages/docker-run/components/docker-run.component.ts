@@ -211,9 +211,9 @@ export class DockerRunComponent implements OnInit {
             builder.append(
                 model.useShortParams ? '-p' : '--publish',
                 ' ',
-                pm.hostPort,
+                pm.hostPort.toString(),
                 ':',
-                pm.containerPort,
+                pm.containerPort.toString(),
                 multilineStr
             );
         });
