@@ -30,15 +30,21 @@ export class URLEncoderComponent implements OnInit {
     }
 
     defineForm(): UntypedFormGroup {
-        const result = this.fb.group({
+        const form = this.fb.group({
             sourceValue: [FormDefaults.sourceValue, [Validators.required]]
         });
 
+        form.valueChanges.subscribe(() => {
+            if (this.form.valid) {
+                this.handleSubmit();
+            }
+        });
+
         if (this.isEncodeMode) {
-            result.addControl('encodeAsQueryString', new UntypedFormControl(false));
+            form.addControl('encodeAsQueryString', new UntypedFormControl(false));
         }
 
-        return result;
+        return form;
     }
 
     handleSubmit() {
