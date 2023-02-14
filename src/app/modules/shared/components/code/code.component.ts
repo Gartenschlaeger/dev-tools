@@ -9,7 +9,7 @@ import { NotificationsService } from '../../services/notifications.service';
 })
 export class CodeComponent {
 
-    @Input() autoSelect = true;
+    @Input() autoSelect = false;
     @ViewChild('preElement') preElement!: ElementRef<HTMLPreElement>;
 
     constructor(private clipboard: Clipboard,
