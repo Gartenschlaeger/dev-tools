@@ -42,3 +42,6 @@ jobs:
 
             - name: Deploy to S3
               run: aws s3 sync --delete "dist/dev-tools" "s3://dev.kaisnet.de"
+
+            - name: Invalidate CloudFront
+              run: aws cloudfront create-invalidation --distribution-id ET1EAQJGTQU9Z --paths /*
