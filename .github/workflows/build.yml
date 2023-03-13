@@ -41,7 +41,9 @@ jobs:
                   aws-region: eu-central-1
 
             - name: Deploy to S3
-              run: aws s3 sync --delete "dist/dev-tools" "s3://dev.kaisnet.de"
+              env:
+                  S3_BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
+              run: aws s3 sync --delete "dist/dev-tools" "s3://${S3_BUCKET_NAME}"
 
             - name: Invalidate CloudFront
               env:
