@@ -44,4 +44,6 @@ jobs:
               run: aws s3 sync --delete "dist/dev-tools" "s3://dev.kaisnet.de"
 
             - name: Invalidate CloudFront
-              run: aws cloudfront create-invalidation --distribution-id ET1EAQJGTQU9Z --paths /*
+              env:
+                  CF_DISTRIBUTION_ID: ${{ secrets.CF_DISTRIBUTION_ID }}
+              run: aws cloudfront create-invalidation --distribution-id $CF_DISTRIBUTION_ID --paths /*
