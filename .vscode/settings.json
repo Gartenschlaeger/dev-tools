@@ -1,0 +1,11 @@
+{
+  "editor.formatOnSave": true,
+  "editor.rulers": [120],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "files.exclude": {
+    "**/dist": false
+  },
+  "[go]": {
+    "editor.defaultFormatter": "golang.go"
+  }
+}
