@@ -169,6 +169,12 @@ export const routes: ExtendedRoute[] = [
         icon: 'key'
     },
     {
+        path: 'cidr-calculator',
+        loadChildren: () => import('./pages/cidr-calculator/cidr-calculator.module'),
+        title: 'CIDR Calculator',
+        icon: 'settings_ethernet'
+    },
+    {
         path: '**',
         component: NotFoundComponent,
         title: 'Page not found',

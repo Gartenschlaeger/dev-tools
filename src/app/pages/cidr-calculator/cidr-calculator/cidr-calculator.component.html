@@ -1,0 +1,72 @@
+<form [formGroup]="form">
+    <mat-card>
+        <mat-card-content>
+            <div class="flex gap-4 items-center justify-center">
+                <div class="input-box">
+                    <mat-form-field class="flex-1">
+                        <mat-label>Octed 1</mat-label>
+                        <input matInput formControlName="ipOcted1" type="number" placeholder="192" min="0" max="255" />
+                    </mat-form-field>
+                </div>
+                <span class="separator">.</span>
+                <div class="input-box">
+                    <mat-form-field class="flex-1">
+                        <mat-label>Octed 2</mat-label>
+                        <input matInput formControlName="ipOcted2" type="number" placeholder="168" min="0" max="255" />
+                    </mat-form-field>
+                </div>
+                <span class="separator">.</span>
+                <div class="input-box">
+                    <mat-form-field class="flex-1">
+                        <mat-label>Octed 3</mat-label>
+                        <input matInput formControlName="ipOcted3" type="number" placeholder="0" min="0" max="255" />
+                    </mat-form-field>
+                </div>
+                <span class="separator">.</span>
+                <div class="input-box">
+                    <mat-form-field class="flex-1">
+                        <mat-label>Octed 4</mat-label>
+                        <input matInput formControlName="ipOcted4" type="number" placeholder="0" min="0" max="255" />
+                    </mat-form-field>
+                </div>
+                <span class="separator">/</span>
+                <div class="input-box">
+                    <mat-form-field class="flex-1">
+                        <mat-label>Fixed bits</mat-label>
+                        <input matInput formControlName="fixedBits" type="number" placeholder="24" min="0" max="32" />
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-actions class="action-buttons">
+            <button mat-raised-button color="accent" (click)="handleReset()">Reset</button>
+        </mat-card-actions>
+    </mat-card>
+</form>
+
+<mat-card *ngIf="results">
+    <mat-card-content>
+        <div class="flex flex-col gap-5">
+            <div class="flex gap-5">
+                <div class="flex-1">
+                    <mat-label>Broadcast address</mat-label>
+                    <app-code>{{ results.broadcast }}</app-code>
+                </div>
+                <div class="flex-1">
+                    <mat-label>IP addresses</mat-label>
+                    <app-code>{{ results.amount }}</app-code>
+                </div>
+            </div>
+            <div class="flex gap-5">
+                <div class="flex-1">
+                    <mat-label>First usable IP</mat-label>
+                    <app-code>{{ results.firstIp }}</app-code>
+                </div>
+                <div class="flex-1">
+                    <mat-label>Last usable IP</mat-label>
+                    <app-code>{{ results.lastIp }}</app-code>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
