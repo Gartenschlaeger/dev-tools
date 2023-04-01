@@ -1,6 +1,11 @@
 <mat-sidenav-container (backdropClick)="sidenav.close()" class="h-full">
-    <mat-sidenav #sidenav autoFocus="true" disableClose class="app-sidenav"
-                 (openedChange)="handleSidenavOpenedChanged($event)">
+    <mat-sidenav
+        #sidenav
+        autoFocus="true"
+        disableClose
+        class="app-sidenav"
+        (openedChange)="handleSidenavOpenedChanged($event)"
+    >
         <app-navigation #app_navigation (toggleSidenav)="sidenav.toggle()"></app-navigation>
     </mat-sidenav>
     <mat-sidenav-content class="flex flex-col">
