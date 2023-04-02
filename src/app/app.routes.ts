@@ -175,6 +175,12 @@ export const routes: ExtendedRoute[] = [
         icon: 'settings_ethernet'
     },
     {
+        path: 'dns-resolver',
+        loadChildren: () => import('./pages/dns-resolver/dns-resolver.module'),
+        title: 'DNS Resolver',
+        icon: 'dns'
+    },
+    {
         path: '**',
         component: NotFoundComponent,
         title: 'Page not found',

@@ -1,0 +1,28 @@
+<form [formGroup]="form">
+    <mat-card>
+        <mat-card-content>
+            <div class="flex gap-2">
+                <mat-form-field class="flex-1">
+                    <mat-label>Domain</mat-label>
+                    <input matInput formControlName="domainName" />
+                    <mat-error>
+                        <app-mat-errors [control]="form.get('domainName')"></app-mat-errors>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="flex-1" appearance="fill">
+                    <mat-label>Record type</mat-label>
+                    <mat-select formControlName="recordType">
+                        <mat-option *ngFor="let rt of recordTypes" [value]="rt">{{ rt.toUpperCase() }}</mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <app-mat-errors [control]="form.get('recordType')"></app-mat-errors>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+        <mat-card-actions class="action-buttons">
+            <button mat-raised-button color="accent" (click)="handleReset()">Reset</button>
+            <button mat-raised-button color="primary" (click)="handleResolve()">Resolve</button>
+        </mat-card-actions>
+    </mat-card>
+</form>
