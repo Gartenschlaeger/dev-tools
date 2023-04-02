@@ -4,7 +4,7 @@
             <div class="flex gap-2">
                 <mat-form-field class="flex-1">
                     <mat-label>Domain</mat-label>
-                    <input matInput formControlName="domainName" />
+                    <input matInput formControlName="domainName" type="text" />
                     <mat-error>
                         <app-mat-errors [control]="form.get('domainName')"></app-mat-errors>
                     </mat-error>
@@ -21,8 +21,12 @@
             </div>
         </mat-card-content>
         <mat-card-actions class="action-buttons">
-            <button mat-raised-button color="accent" [disabled]="isLoading" (click)="handleReset()">Reset</button>
-            <button mat-raised-button color="primary" [disabled]="isLoading" (click)="handleSubmit()">Resolve</button>
+            <button mat-raised-button color="accent" [disabled]="isLoading" type="button" (click)="handleReset()">
+                Reset
+            </button>
+            <button mat-raised-button color="primary" [disabled]="isLoading" type="submit" (click)="handleSubmit()">
+                Resolve
+            </button>
         </mat-card-actions>
     </mat-card>
 </form>
