@@ -9,17 +9,17 @@ interface DnsResolverFormData {
     recordType: string;
 }
 
-interface DnsRecordResult {
-    name: string;
-    ttl: number;
-    type: string;
-    data: string;
-}
-
 const DnsResolverFormDefaults: DnsResolverFormData = {
     domainName: '',
     recordType: 'a'
 };
+
+interface DnsRecordResult {
+    name: string;
+    type: string;
+    ttl: number;
+    data: string;
+}
 
 @Component({
     selector: 'app-dns-resolver',
@@ -28,7 +28,7 @@ const DnsResolverFormDefaults: DnsResolverFormData = {
 })
 export class DnsResolverComponent implements OnInit {
     form!: UntypedFormGroup;
-    recordTypes = ['a', 'aaaa', 'mx', 'ns', 'txt', 'cname', 'any'];
+    recordTypes = ['a', 'aaaa', 'mx', 'ns', 'txt', 'cname', 'srv', 'soa', 'any'];
 
     isLoading = false;
     hasErrors = false;
