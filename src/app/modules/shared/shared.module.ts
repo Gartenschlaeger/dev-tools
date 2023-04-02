@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
@@ -13,12 +14,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -35,7 +38,7 @@ import { MaterialDefaults } from './material/material-defaults';
 import { CustomTitleStrategyService } from './routing/custom-title-strategy.service';
 import { DateUtilitiesService } from './services/DateUtilitiesService';
 import { FormService } from './services/form-service.service';
-import { LoggingService, LogLevel } from './services/logging.service';
+import { LogLevel, LoggingService } from './services/logging.service';
 import { NotificationsService } from './services/notifications.service';
 
 export interface SharedModuleConfiguration {
@@ -43,18 +46,13 @@ export interface SharedModuleConfiguration {
 }
 
 @NgModule({
-    declarations: [
-        AlertComponent,
-        CodeComponent,
-        HighlightedCodeComponent,
-        PageHeaderComponent,
-        MatErrorsComponent
-    ],
+    declarations: [AlertComponent, CodeComponent, HighlightedCodeComponent, PageHeaderComponent, MatErrorsComponent],
     imports: [
         CommonModule,
         RouterModule,
         FormsModule,
         ReactiveFormsModule,
+        HttpClientModule,
         HighlightModule,
         MatCardModule,
         MatIconModule,
@@ -75,7 +73,9 @@ export interface SharedModuleConfiguration {
         MatNativeDateModule,
         MatTreeModule,
         MatSnackBarModule,
-        MatBottomSheetModule
+        MatBottomSheetModule,
+        MatTableModule,
+        MatProgressSpinnerModule
     ],
     exports: [
         FormsModule,
@@ -107,7 +107,9 @@ export interface SharedModuleConfiguration {
         MatTreeModule,
         MatSnackBarModule,
         MatBottomSheetModule,
-        MatErrorsComponent
+        MatErrorsComponent,
+        MatTableModule,
+        MatProgressSpinnerModule
     ]
 })
 export class SharedModule {

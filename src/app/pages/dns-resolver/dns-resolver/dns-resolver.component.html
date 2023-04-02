@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form [formGroup]="form" (submit)="handleSubmit()">
     <mat-card>
         <mat-card-content>
             <div class="flex gap-2">
@@ -21,8 +21,49 @@
             </div>
         </mat-card-content>
         <mat-card-actions class="action-buttons">
-            <button mat-raised-button color="accent" (click)="handleReset()">Reset</button>
-            <button mat-raised-button color="primary" (click)="handleResolve()">Resolve</button>
+            <button mat-raised-button color="accent" [disabled]="isLoading" (click)="handleReset()">Reset</button>
+            <button mat-raised-button color="primary" [disabled]="isLoading" (click)="handleSubmit()">Resolve</button>
         </mat-card-actions>
     </mat-card>
 </form>
+
+<mat-card *ngIf="isLoading || results">
+    <div *ngIf="isLoading">
+        <mat-spinner *ngIf="true"></mat-spinner>
+    </div>
+
+    <mat-card *ngIf="hasErrors">
+        <app-alert>Something went wrong</app-alert>
+    </mat-card>
+
+    <app-alert *ngIf="!hasErrors && results && results.length === 0">No records found</app-alert>
+
+    <mat-card-content *ngIf="results && results.length">
+        <table mat-table [dataSource]="results">
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Name</th>
+                <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef>Type</th>
+                <td mat-cell *matCellDef="let element">{{ element.type }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="ttl">
+                <th mat-header-cell *matHeaderCellDef>TTL</th>
+                <td mat-cell *matCellDef="let element">{{ element.ttl }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="data">
+                <th mat-header-cell *matHeaderCellDef>Data</th>
+                <td mat-cell *matCellDef="let element">
+                    <app-code>{{ element.data }}</app-code>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+    </mat-card-content>
+</mat-card>
