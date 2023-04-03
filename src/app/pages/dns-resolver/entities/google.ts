@@ -64,7 +64,13 @@ export const GoogleDnsRecordTypes: GoodleDNSRecordTypeMapping = {
     60: 'CDNSKEY',
     61: 'OPENPGPKEY',
     62: 'CSYNC',
-    63: 'ZONEMD'
+    63: 'ZONEMD',
+    249: 'TKEY',
+    250: 'TSIG',
+    256: 'URI',
+    257: 'CAA',
+    32768: 'TA',
+    32769: 'DLV'
 };
 
 export interface GoogleDnsResolveResponse {
