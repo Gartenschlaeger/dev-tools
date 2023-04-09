@@ -5,14 +5,13 @@ import * as CryptoJS from 'crypto-js';
 import { FormService } from '../../../modules/shared/services/form-service.service';
 import { StringHashGeneratorFormModel } from '../entities/string-hash-generator-form.model';
 
-export type StringHashAlgorithm = 'md5' | 'md5hmac' | 'sha1'
+export type StringHashAlgorithm = 'md5' | 'md5hmac' | 'sha1';
 
 @Component({
     selector: 'app-string-hash-generator',
     templateUrl: './string-hash-generator.component.html'
 })
 export class StringHashGeneratorComponent implements OnInit {
-
     form!: UntypedFormGroup;
     algorithm: StringHashAlgorithm | null = null;
     hashedString: string | null = null;
@@ -23,14 +22,14 @@ export class StringHashGeneratorComponent implements OnInit {
         private route: ActivatedRoute,
         private fb: UntypedFormBuilder,
         private formService: FormService
-    ) {
-    }
+    ) {}
 
     ngOnInit() {
         const path = this.route.snapshot.parent?.url[0].path;
+
         this.setupForm(path);
 
-        this.router.events.subscribe(event => {
+        this.router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
                 const path = this.route.snapshot.parent?.url[0].path;
                 this.setupForm(path);
@@ -66,18 +65,15 @@ export class StringHashGeneratorComponent implements OnInit {
             form.addControl('key', new UntypedFormControl('', [Validators.required]));
         }
 
+        form.valueChanges.subscribe(() => this.handleValueChanged());
+
         return form;
     }
 
-    handleReset() {
-        this.hashedString = null;
-        this.error = null;
-        this.formService.reset(this.form);
-    }
-
-    handleSubmit() {
-        if (this.formService.validate(this.form)) {
+    handleValueChanged() {
+        if (this.form.valid) {
             const model: StringHashGeneratorFormModel = this.form.value;
+
             if (model.inputText) {
                 try {
                     switch (this.algorithm) {
@@ -100,4 +96,13 @@ export class StringHashGeneratorComponent implements OnInit {
         }
     }
 
+    handleReset() {
+        this.hashedString = null;
+        this.error = null;
+        this.formService.reset(this.form);
+    }
+
+    handleSubmit() {
+        this.handleValueChanged();
+    }
 }
