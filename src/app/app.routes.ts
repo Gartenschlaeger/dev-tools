@@ -184,13 +184,13 @@ export const routes: ExtendedRoute[] = [
         path: 'hex-dec-converter',
         loadChildren: () => import('./pages/hex-dec-converter/hex-dec-converter.module'),
         title: 'Hex to decimal converter',
-        icon: 'shuffle'
+        icon: 'swap_horiz'
     },
     {
         path: 'dec-hex-converter',
         loadChildren: () => import('./pages/dec-hex-converter/dec-hex-converter.module'),
         title: 'Decimal to hex converter',
-        icon: 'shuffle'
+        icon: 'swap_horiz'
     },
     {
         path: '**',
