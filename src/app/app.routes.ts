@@ -181,6 +181,18 @@ export const routes: ExtendedRoute[] = [
         icon: 'dns'
     },
     {
+        path: 'hex-dec-converter',
+        loadChildren: () => import('./pages/hex-dec-converter/hex-dec-converter.module'),
+        title: 'Hex to decimal converter',
+        icon: 'shuffle'
+    },
+    {
+        path: 'dec-hex-converter',
+        loadChildren: () => import('./pages/dec-hex-converter/dec-hex-converter.module'),
+        title: 'Decimal to hex converter',
+        icon: 'shuffle'
+    },
+    {
         path: '**',
         component: NotFoundComponent,
         title: 'Page not found',
