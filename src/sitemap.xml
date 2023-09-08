@@ -84,4 +84,10 @@
     <url>
         <loc>https://dev.kaisnet.de/dns-resolver</loc>
     </url>
+    <url>
+        <loc>https://dev.kaisnet.de/hex-dec-converter</loc>
+    </url>
+    <url>
+        <loc>https://dev.kaisnet.de/dec-hex-converter</loc>
+    </url>
 </urlset>
