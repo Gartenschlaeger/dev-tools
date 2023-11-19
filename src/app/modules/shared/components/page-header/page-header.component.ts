@@ -9,7 +9,7 @@ export class PageHeaderComponent {
     titleText?: string;
 
     constructor(private router: Router) {
-        router.events.subscribe(event => {
+        router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
                 const newTitle = router.titleStrategy?.buildTitle(router.routerState.snapshot);
                 if (newTitle) {
