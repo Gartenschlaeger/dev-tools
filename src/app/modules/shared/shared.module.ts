@@ -126,6 +126,10 @@ export class SharedModule {
                     multi: false
                 },
                 {
+                    provide: TitleStrategy,
+                    useClass: CustomTitleStrategyService
+                },
+                {
                     provide: HIGHLIGHT_OPTIONS,
                     useValue: {
                         coreLibraryLoader: () => import('highlight.js/lib/core'),

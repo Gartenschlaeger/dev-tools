@@ -1,25 +1,16 @@
-import { Component } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Component, signal } from '@angular/core';
+import { CustomTitleService } from '../../services/custom-title.service';
 
 @Component({
     selector: 'app-page-header',
     templateUrl: './page-header.component.html'
 })
 export class PageHeaderComponent {
-    titleText?: string;
+    title = signal('');
 
-    constructor(private router: Router) {
-        router.events.subscribe(event => {
-            if (event instanceof NavigationEnd) {
-                const newTitle = router.titleStrategy?.buildTitle(router.routerState.snapshot);
-                if (newTitle) {
-                    this.titleText = newTitle;
-                }
-
-                if (newTitle === 'Home') {
-                    this.titleText = '';
-                }
-            }
+    constructor(customTitleService: CustomTitleService) {
+        customTitleService.pageTitle().subscribe((newTitle) => {
+            this.title.set(newTitle);
         });
     }
 }

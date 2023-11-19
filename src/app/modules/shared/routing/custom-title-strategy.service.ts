@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { RouterStateSnapshot, TitleStrategy } from '@angular/router';
+import { CustomTitleService } from '../services/custom-title.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CustomTitleStrategyService extends TitleStrategy {
-
-    constructor(private title: Title) {
+    constructor(private customTitleService: CustomTitleService) {
         super();
     }
 
     public updateTitle(snapshot: RouterStateSnapshot): void {
         const title = this.buildTitle(snapshot);
         if (title) {
-            this.title.setTitle(`Devtools - ${title}`);
+            this.customTitleService.setBrowserTitle(`Devtools - ${title}`);
+            this.customTitleService.setPageTitle(title);
         } else {
-            this.title.setTitle('DevTools');
+            this.customTitleService.setBrowserTitle('DevTools');
+            this.customTitleService.setPageTitle('');
         }
     }
-
 }

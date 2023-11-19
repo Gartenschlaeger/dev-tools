@@ -2,7 +2,7 @@
     "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
     "version": 1,
     "cli": {
-        "packageManager": "yarn",
+        "packageManager": "pnpm",
         "analytics": false
     },
     "newProjectRoot": "projects",
@@ -105,10 +105,10 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                            "browserTarget": "dev-tools:build:production"
+                          "buildTarget": "dev-tools:build:production"
                         },
                         "development": {
-                            "browserTarget": "dev-tools:build:development"
+                          "buildTarget": "dev-tools:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -116,7 +116,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "dev-tools:build"
+                      "buildTarget": "dev-tools:build"
                     }
                 },
                 "test": {
