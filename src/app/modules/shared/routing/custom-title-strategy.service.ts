@@ -6,7 +6,6 @@ import { RouterStateSnapshot, TitleStrategy } from '@angular/router';
     providedIn: 'root'
 })
 export class CustomTitleStrategyService extends TitleStrategy {
-
     constructor(private title: Title) {
         super();
     }
@@ -19,5 +18,4 @@ export class CustomTitleStrategyService extends TitleStrategy {
             this.title.setTitle('DevTools');
         }
     }
-
 }

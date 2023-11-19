@@ -11,14 +11,7 @@ export class PageHeaderComponent {
     constructor(private router: Router) {
         router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
-                const newTitle = router.titleStrategy?.buildTitle(router.routerState.snapshot);
-                if (newTitle) {
-                    this.titleText = newTitle;
-                }
-
-                if (newTitle === 'Home') {
-                    this.titleText = '';
-                }
+                // TODO: set correct title
             }
         });
     }
