@@ -7,8 +7,6 @@ table.line-by-line {
 td.line-number {
     width: 0;
     white-space: nowrap;
-    font-size: 0.8em;
-    padding: 0 5px;
 }
 
 td.line-changes {
@@ -25,11 +23,18 @@ td.spacer {
 td {
     vertical-align: top;
     background-color: var(--background-control);
+    padding: 3px;
 }
 
 td.empty {
-    background-image: repeating-linear-gradient(-45deg,
-        transparent, transparent 5px, #bbb 6px, #bbb 7px, transparent 8px);
+    background-image: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 5px,
+        #bbb 6px,
+        #bbb 7px,
+        transparent 8px
+    );
 }
 
 .dark-theme {
