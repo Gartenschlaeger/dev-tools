@@ -38,11 +38,13 @@
 <mat-card>
     <mat-card-content>
         <div class="flex flex-wrap gap-5">
-            <div class="flex-1">
-                <app-code>{{chmod}}</app-code>
-            </div>
-            <div class="flex-1">
-                <app-code>{{fileSystem}}</app-code>
+            <div class="flex-1 flex items-center gap-2">
+                <div class="flex-auto">
+                    <app-code>{{ chmod }}</app-code>
+                </div>
+                <button class="flex-none" mat-mini-fab color="accent" type="button" (click)="handlePickValue()">
+                    <mat-icon>colorize</mat-icon>
+                </button>
             </div>
         </div>
     </mat-card-content>

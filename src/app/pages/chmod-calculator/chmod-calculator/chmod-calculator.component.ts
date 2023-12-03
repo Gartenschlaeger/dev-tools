@@ -1,20 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { SharedDialogsService } from 'src/app/components/shared-dialogs/services/shared-dialogs.service';
 import { FormService } from '../../../modules/shared/services/form-service.service';
 
 const formDefaults = {
     owner: {
         hasRead: true,
         hasWrite: true,
-        hasExecute: true
+        hasExecute: false
     },
     group: {
-        hasRead: true,
+        hasRead: false,
         hasWrite: false,
         hasExecute: false
     },
     other: {
-        hasRead: true,
+        hasRead: false,
         hasWrite: false,
         hasExecute: false
     }
@@ -45,10 +46,8 @@ export class ChmodCalculatorComponent implements OnInit {
     });
 
     chmod?: string;
-    fileSystem?: string;
 
-    constructor(private _formService: FormService) {
-    }
+    constructor(private _formService: FormService, private _sharedDialogs: SharedDialogsService) {}
 
     public ngOnInit() {
         this.handleValueChanges();
@@ -72,15 +71,6 @@ export class ChmodCalculatorComponent implements OnInit {
         return String(result);
     }
 
-    private addFileSystemSegment(hasExecute: boolean, hasWrite: boolean, hasRead: boolean): string {
-        let result = '';
-        result += hasRead ? 'r' : '-';
-        result += hasWrite ? 'w' : '-';
-        result += hasExecute ? 'x' : '-';
-
-        return String(result);
-    }
-
     private handleValueChanges() {
         const owner = this.form.value.owner!;
         const group = this.form.value.group!;
@@ -91,16 +81,43 @@ export class ChmodCalculatorComponent implements OnInit {
         chmod += this.addChmodSegment(group.hasExecute!, group.hasWrite!, group.hasRead!);
         chmod += this.addChmodSegment(other.hasExecute!, other.hasWrite!, other.hasRead!);
 
-        let fileSystemPattern = '';
-        fileSystemPattern += this.addFileSystemSegment(owner.hasExecute!, owner.hasWrite!, owner.hasRead!);
-        fileSystemPattern += this.addFileSystemSegment(group.hasExecute!, group.hasWrite!, group.hasRead!);
-        fileSystemPattern += this.addFileSystemSegment(other.hasExecute!, other.hasWrite!, other.hasRead!);
-
         this.chmod = chmod;
-        this.fileSystem = fileSystemPattern;
     }
 
     public handleReset() {
         this._formService.reset(this.form, formDefaults);
+    }
+
+    public handlePickValue() {
+        this._sharedDialogs
+            .openInputDialog({
+                title: 'Pick value',
+                value: this.chmod,
+                format: /^[0-7]{3}$/
+            })
+            .subscribe((value) => {
+                if (!value) {
+                    return;
+                }
+
+                const newChmod = (value || '').split('').map(Number);
+                this.form.setValue({
+                    owner: {
+                        hasRead: (newChmod[0] & 4) !== 0,
+                        hasWrite: (newChmod[0] & 2) !== 0,
+                        hasExecute: (newChmod[0] & 1) !== 0
+                    },
+                    group: {
+                        hasRead: (newChmod[1] & 4) !== 0,
+                        hasWrite: (newChmod[1] & 2) !== 0,
+                        hasExecute: (newChmod[1] & 1) !== 0
+                    },
+                    other: {
+                        hasRead: (newChmod[2] & 4) !== 0,
+                        hasWrite: (newChmod[2] & 2) !== 0,
+                        hasExecute: (newChmod[2] & 1) !== 0
+                    }
+                });
+            });
     }
 }
