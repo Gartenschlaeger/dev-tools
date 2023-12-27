@@ -1,12 +1,13 @@
 {
-  "editor.formatOnSave": true,
-  "editor.rulers": [120],
-  "editor.codeActionsOnSave": {
-    "source.organizeImports": true
-  },
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "files.exclude": {
-    "**/dist": true,
-    "node_modules": true
-  }
+    "editor.formatOnSave": true,
+    "editor.rulers": [120],
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit"
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "files.exclude": {
+        ".angular": true,
+        "dist": true,
+        "node_modules": true
+    }
 }
