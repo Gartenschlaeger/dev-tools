@@ -29,10 +29,10 @@ jobs:
 
             - name: Generate buildnumber
               run: |
-                  date -u '+%Y-%m-%d %H:%M:%S' > dist/dev-tools/buildinfo.txt
-                  echo $GITHUB_REF_NAME >> dist/dev-tools/buildinfo.txt
-                  echo $GITHUB_SHA >> dist/dev-tools/buildinfo.txt
-                  echo $GITHUB_RUN_NUMBER >> dist/dev-tools/buildinfo.txt
+                  date -u '+%Y-%m-%d %H:%M:%S' > dist/dev-tools/browser/buildinfo.txt
+                  echo $GITHUB_REF_NAME >> dist/dev-tools/browser/buildinfo.txt
+                  echo $GITHUB_SHA >> dist/dev-tools/browser/buildinfo.txt
+                  echo $GITHUB_RUN_NUMBER >> dist/dev-tools/browser/buildinfo.txt
 
             - name: Configure AWS credentials
               uses: aws-actions/configure-aws-credentials@v2
