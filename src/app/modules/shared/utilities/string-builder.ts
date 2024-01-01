@@ -1,5 +1,4 @@
 export class StringBuilder {
-
     content = '';
 
     append(...texts: string[]): StringBuilder {
@@ -25,5 +24,4 @@ export class StringBuilder {
     build(): string {
         return this.content;
     }
-
 }

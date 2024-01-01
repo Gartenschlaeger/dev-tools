@@ -193,6 +193,18 @@ export const routes: ExtendedRoute[] = [
         icon: 'swap_horiz'
     },
     {
+        path: 'html-encoder',
+        loadChildren: () => import('./pages/html-encoder/html-encoder.module'),
+        title: 'HTML Encoder',
+        icon: 'html5'
+    },
+    {
+        path: 'html-decoder',
+        loadChildren: () => import('./pages/html-decoder/html-decoder.module'),
+        title: 'HTML Decoder',
+        icon: 'html5'
+    },
+    {
         path: '**',
         component: NotFoundComponent,
         title: 'Page not found',
