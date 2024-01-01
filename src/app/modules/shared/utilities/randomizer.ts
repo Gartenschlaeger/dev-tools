@@ -1,5 +1,4 @@
 export class Randomizer {
-
     public static shuffleString(text: string) {
         var a = text.split(''),
             n = a.length;
@@ -16,8 +15,8 @@ export class Randomizer {
 
     public static shuffleArray(arr: string[]) {
         for (let i = arr.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1))
-            ;[arr[i], arr[j]] = [arr[j], arr[i]];
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
         }
         return arr;
     }
