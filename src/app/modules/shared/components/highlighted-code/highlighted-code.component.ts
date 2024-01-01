@@ -8,18 +8,14 @@ import { NotificationsService } from '../../services/notifications.service';
     styleUrls: ['./highlighted-code.component.scss']
 })
 export class HighlightedCodeComponent implements OnInit {
-
     @Input() code?: string;
     @Input() autoSelect: boolean = true;
     @Input() language: 'json' | 'bash' | 'typescript' = 'json';
     @ViewChild('preElement') preElement!: ElementRef<HTMLPreElement>;
 
-    constructor(private _clipboard: Clipboard,
-                private _notificationsService: NotificationsService) {
-    }
+    constructor(private _clipboard: Clipboard, private _notificationsService: NotificationsService) {}
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     public handleCopy() {
         const text = this.preElement.nativeElement.textContent;

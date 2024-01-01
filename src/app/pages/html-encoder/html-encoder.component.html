@@ -1,0 +1,21 @@
+<form [formGroup]="form">
+    <mat-card>
+        <mat-card-content>
+            <mat-form-field class="w-full">
+                <mat-label>Text</mat-label>
+                <textarea matInput formControlName="text" rows="3"></textarea>
+                <mat-error>
+                    <app-mat-errors [control]="form.get('text')!"></app-mat-errors>
+                </mat-error>
+            </mat-form-field>
+        </mat-card-content>
+    </mat-card>
+</form>
+
+@if (result()) {
+<mat-card>
+    <mat-card-content>
+        <app-code>{{ result() }}</app-code>
+    </mat-card-content>
+</mat-card>
+}
