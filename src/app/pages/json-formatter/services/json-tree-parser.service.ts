@@ -8,15 +8,12 @@ export class TreeNode {
     value?: any;
     isArrayValue?: boolean;
 
-    constructor(public name: string) {
-    }
+    constructor(public name: string) {}
 }
 
 @Injectable()
 export class JsonTreeParserService {
-
-    constructor(private _logger: LoggingService) {
-    }
+    constructor(private _logger: LoggingService) {}
 
     public parse(json: string): TreeNode {
         const root = new TreeNode('root');
@@ -88,5 +85,4 @@ export class JsonTreeParserService {
             }
         }
     }
-
 }
