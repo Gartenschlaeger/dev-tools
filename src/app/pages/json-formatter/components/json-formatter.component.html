@@ -10,11 +10,17 @@
             </mat-form-field>
 
             <div class="flex gap-7">
-                <mat-checkbox formControlName="minify" (change)="handleCheckboxChange()">Minify</mat-checkbox>
-                <mat-checkbox formControlName="stringify" (change)="handleCheckboxChange()">Convert to string
-                </mat-checkbox>
-                <mat-checkbox formControlName="viewAsTree" (change)="handleViewAsTreeChange($event)">View as tree
-                </mat-checkbox>
+                <mat-radio-group formControlName="viewMode" class="flex gap-6">
+                    <mat-radio-button (change)="handleViewModeChange($event)" [value]="'json'">JSON</mat-radio-button>
+                    <div>
+                        <mat-checkbox formControlName="minify" (change)="handleMinifyChanges()">Minify</mat-checkbox>
+                        <mat-checkbox formControlName="stringify" (change)="handleStringifyChanges()"
+                            >Convert to string
+                        </mat-checkbox>
+                    </div>
+                    <mat-radio-button (change)="handleViewModeChange($event)" [value]="'tree'">Tree </mat-radio-button>
+                    <mat-radio-button (change)="handleViewModeChange($event)" [value]="'list'">List</mat-radio-button>
+                </mat-radio-group>
             </div>
         </mat-card-content>
 
@@ -26,11 +32,13 @@
 </form>
 
 <ng-container *ngIf="result">
-    <mat-card *ngIf=" result.error">
-        <app-alert>{{result.error}}</app-alert>
+    <!-- error -->
+    <mat-card *ngIf="result.error">
+        <app-alert>{{ result.error }}</app-alert>
     </mat-card>
 
-    <mat-card *ngIf="!result.error && !form.get('viewAsTree')?.value">
+    <!-- json -->
+    <mat-card *ngIf="!result.error && result.viewMode == 'json'">
         <mat-card-content>
             <app-highlighted-code
                 [autoSelect]="false"
@@ -40,51 +48,62 @@
         </mat-card-content>
     </mat-card>
 
-    <mat-card
-        *ngIf="!result.error && treeDataSource.data && treeDataSource.data.length && form.get('viewAsTree')?.value">
+    <!-- tree -->
+    <mat-card *ngIf="!result.error && result.viewMode == 'tree' && treeDataSource.data && treeDataSource.data.length">
         <mat-card-content>
             <mat-tree class="json-tree" [dataSource]="treeDataSource" [treeControl]="treeControl">
                 <mat-tree-node class="json-tree-node" *matTreeNodeDef="let node" matTreeNodeToggle>
                     <div class="json-tree-node-header">
                         <button mat-icon-button disabled></button>
                         <span class="node-name">
-                        <span *ngIf="node.isArrayValue">[</span>
-                        <span>{{node.name || '""'}}</span>
-                        <span *ngIf="node.isArrayValue">]</span>
-                    </span>
-                        <span class="node-type">{{node.type}}
-                            <span *ngIf="node.type === 'array'">[{{node.nodes?.length || 0}}]</span>
-                    </span>
+                            <span *ngIf="node.isArrayValue">[</span>
+                            <span>{{ node.name || '""' }}</span>
+                            <span *ngIf="node.isArrayValue">]</span>
+                        </span>
+                        <span class="node-type"
+                            >{{ node.type }}
+                            <span *ngIf="node.type === 'array'">[{{ node.nodes?.length || 0 }}]</span>
+                        </span>
                         <span *ngIf="node.value === null || node.value !== undefined">=</span>
-                        <span class="node-value" *ngIf="node.type !== 'string'">{{node.value}}</span>
-                        <span class="node-value" *ngIf="node.type === 'string'">"{{node.value}}"</span>
+                        <span class="node-value" *ngIf="node.type !== 'string'">{{ node.value }}</span>
+                        <span class="node-value" *ngIf="node.type === 'string'">"{{ node.value }}"</span>
                     </div>
                 </mat-tree-node>
-                <mat-nested-tree-node class="json-tree-node json-nested-tree-node"
-                                      *matTreeNodeDef="let node; when: hasChildren">
+                <mat-nested-tree-node
+                    class="json-tree-node json-nested-tree-node"
+                    *matTreeNodeDef="let node; when: hasChildren"
+                >
                     <div class="json-tree-node-header">
                         <button mat-icon-button matTreeNodeToggle>
                             <mat-icon class="mat-icon-rtl-mirror">
-                                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                                {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
                             </mat-icon>
                         </button>
                         <span class="node-name">
-                        <span *ngIf="node.isArrayValue">[</span>
-                        <span>{{node.name || '""'}}</span>
-                        <span *ngIf="node.isArrayValue">]</span>
-                    </span>
-                        <span class="node-type">{{node.type}}
-                            <span *ngIf="node.type === 'array'">[{{node.nodes?.length || 0}}]</span>
-                    </span>
+                            <span *ngIf="node.isArrayValue">[</span>
+                            <span>{{ node.name || '""' }}</span>
+                            <span *ngIf="node.isArrayValue">]</span>
+                        </span>
+                        <span class="node-type"
+                            >{{ node.type }}
+                            <span *ngIf="node.type === 'array'">[{{ node.nodes?.length || 0 }}]</span>
+                        </span>
                         <span *ngIf="node.value === null || node.value !== undefined">=</span>
-                        <span class="node-value" *ngIf="node.type !== 'string'">{{node.value}}</span>
-                        <span class="node-value" *ngIf="node.type === 'string'">"{{node.value}}"</span>
+                        <span class="node-value" *ngIf="node.type !== 'string'">{{ node.value }}</span>
+                        <span class="node-value" *ngIf="node.type === 'string'">"{{ node.value }}"</span>
                     </div>
                     <div class="json-tree-node-children" [class.hidden]="!treeControl.isExpanded(node)">
                         <ng-container matTreeNodeOutlet></ng-container>
                     </div>
                 </mat-nested-tree-node>
             </mat-tree>
+        </mat-card-content>
+    </mat-card>
+
+    <!-- list -->
+    <mat-card *ngIf="!result.error && result.viewMode == 'list'">
+        <mat-card-content>
+            <app-code [autoSelect]="false">{{ result.formattedValue }}</app-code>
         </mat-card-content>
     </mat-card>
 </ng-container>
