@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import { LoggingService } from 'src/app/modules/shared/services/logging.service';
 
 @Injectable()
 export class JsonFlatListParserService {
-    constructor(private logger: LoggingService) {}
-
     private convertToJsonPathValue(json: any, parentKey: string = ''): string[] {
         let result: string[] = [];
 
@@ -12,7 +9,11 @@ export class JsonFlatListParserService {
             if (json.hasOwnProperty(key)) {
                 let fullPath = parentKey ? `${parentKey}.${key}` : key;
 
-                if (typeof json[key] === 'object' && json[key] !== null) {
+                if (Array.isArray(json[key])) {
+                    json[key].forEach((element: any, index: number) => {
+                        result.push(`${fullPath}[${index}] = ${JSON.stringify(element)}`);
+                    });
+                } else if (typeof json[key] === 'object' && json[key] !== null) {
                     result = result.concat(this.convertToJsonPathValue(json[key], fullPath));
                 } else {
                     result.push(`${fullPath} = ${JSON.stringify(json[key])}`);
@@ -23,9 +24,14 @@ export class JsonFlatListParserService {
         return result;
     }
 
-    public format(json: string): string {
+    public format(json: string, sort: boolean = false): string {
         const obj = JSON.parse(json);
-        const result = this.convertToJsonPathValue(obj).sort();
+
+        const result = this.convertToJsonPathValue(obj);
+        if (sort) {
+            result.sort();
+        }
+
         return result.join('\n');
     }
 }
