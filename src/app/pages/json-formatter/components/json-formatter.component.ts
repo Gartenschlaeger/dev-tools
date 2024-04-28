@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
+import { LoggingService } from 'src/app/modules/shared/services/logging.service';
 import { FormService } from '../../../modules/shared/services/form-service.service';
+import { JsonFlatListParserService } from '../services/json-flat-list-formatter.service';
 import { JsonTreeParserService, TreeNode } from '../services/json-tree-parser.service';
 
 const formDefaults = {
@@ -41,7 +43,12 @@ export class JsonFormatterComponent implements OnInit {
     treeDataSource = new MatTreeNestedDataSource<TreeNode>();
     treeControl = new NestedTreeControl<TreeNode>(this.getChildNodes);
 
-    constructor(private formService: FormService, private treeParser: JsonTreeParserService) {}
+    constructor(
+        private logger: LoggingService,
+        private formService: FormService,
+        private treeParser: JsonTreeParserService,
+        private flatListFormatter: JsonFlatListParserService
+    ) {}
 
     ngOnInit() {
         this.viewModeChanged();
@@ -66,32 +73,53 @@ export class JsonFormatterComponent implements OnInit {
     }
 
     handleSubmit() {
+        this.logger.debug('Form submitted, viewMode:', this.form.value.viewMode);
         if (this.formService.validate(this.form)) {
             try {
-                const tree = this.treeParser.parse(this.form.value.source!);
-                this.treeDataSource.data = tree.nodes!;
+                switch (this.form.value.viewMode) {
+                    case 'json':
+                        let parsedValue = JSON.parse(this.form.value.source!);
+                        if (typeof parsedValue !== 'object') {
+                            parsedValue = JSON.parse(parsedValue);
+                        }
 
-                let parsedValue = JSON.parse(this.form.value.source!);
-                if (typeof parsedValue !== 'object') {
-                    parsedValue = JSON.parse(parsedValue);
+                        let res;
+                        if (this.form.value.minify || this.form.value.stringify) {
+                            res = JSON.stringify(parsedValue);
+                        } else {
+                            res = JSON.stringify(parsedValue, null, '  ');
+                        }
+
+                        if (this.form.value.stringify) {
+                            res = JSON.stringify(res);
+                        }
+
+                        this.result = {
+                            formattedValue: res,
+                            error: undefined,
+                            viewMode: this.form.value.viewMode!
+                        };
+                        break;
+
+                    case 'tree':
+                        const tree = this.treeParser.parse(this.form.value.source!);
+                        this.treeDataSource.data = tree.nodes!;
+
+                        this.result = {
+                            formattedValue: '',
+                            error: undefined,
+                            viewMode: this.form.value.viewMode!
+                        };
+                        break;
+
+                    case 'list':
+                        this.result = {
+                            viewMode: this.form.value.viewMode!,
+                            formattedValue: this.flatListFormatter.format(this.form.value.source!),
+                            error: undefined
+                        };
+                        break;
                 }
-
-                let res;
-                if (this.form.value.minify || this.form.value.stringify) {
-                    res = JSON.stringify(parsedValue);
-                } else {
-                    res = JSON.stringify(parsedValue, null, '  ');
-                }
-
-                if (this.form.value.stringify) {
-                    res = JSON.stringify(res);
-                }
-
-                this.result = {
-                    formattedValue: res,
-                    error: undefined,
-                    viewMode: this.form.value.viewMode!
-                };
             } catch (err) {
                 this.result = {
                     formattedValue: '',

@@ -99,4 +99,11 @@
             </mat-tree>
         </mat-card-content>
     </mat-card>
+
+    <!-- list -->
+    <mat-card *ngIf="!result.error && result.viewMode == 'list'">
+        <mat-card-content>
+            <app-code [autoSelect]="false">{{ result.formattedValue }}</app-code>
+        </mat-card-content>
+    </mat-card>
 </ng-container>
