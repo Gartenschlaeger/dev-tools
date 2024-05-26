@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
@@ -45,38 +45,7 @@ export interface SharedModuleConfiguration {
     minLogLevel: LogLevel;
 }
 
-@NgModule({
-    declarations: [AlertComponent, CodeComponent, HighlightedCodeComponent, PageHeaderComponent, MatErrorsComponent],
-    imports: [
-        CommonModule,
-        RouterModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        HighlightModule,
-        MatCardModule,
-        MatIconModule,
-        MatSliderModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatButtonModule,
-        MatTooltipModule,
-        MatSidenavModule,
-        MatFormFieldModule,
-        MatCheckboxModule,
-        MatRadioModule,
-        MatInputModule,
-        MatSelectModule,
-        MatListModule,
-        MatTabsModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatTreeModule,
-        MatSnackBarModule,
-        MatBottomSheetModule,
-        MatTableModule,
-        MatProgressSpinnerModule
-    ],
+@NgModule({ declarations: [AlertComponent, CodeComponent, HighlightedCodeComponent, PageHeaderComponent, MatErrorsComponent],
     exports: [
         FormsModule,
         ReactiveFormsModule,
@@ -110,8 +79,33 @@ export interface SharedModuleConfiguration {
         MatErrorsComponent,
         MatTableModule,
         MatProgressSpinnerModule
-    ]
-})
+    ], imports: [CommonModule,
+        RouterModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HighlightModule,
+        MatCardModule,
+        MatIconModule,
+        MatSliderModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatButtonModule,
+        MatTooltipModule,
+        MatSidenavModule,
+        MatFormFieldModule,
+        MatCheckboxModule,
+        MatRadioModule,
+        MatInputModule,
+        MatSelectModule,
+        MatListModule,
+        MatTabsModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatTreeModule,
+        MatSnackBarModule,
+        MatBottomSheetModule,
+        MatTableModule,
+        MatProgressSpinnerModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class SharedModule {
     static forRoot(config: SharedModuleConfiguration): ModuleWithProviders<SharedModule> {
         return {
