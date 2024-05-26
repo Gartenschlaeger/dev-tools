@@ -40,6 +40,10 @@ export class JsonTreeParserService {
     private addObjectPropertiesToNode(obj: any, parentNode: TreeNode) {
         //this._logger.debug('addObjectPropertiesToNode', obj, parentNode);
 
+        if (typeof obj === 'string') {
+            obj = JSON.parse(obj);
+        }
+
         for (let key in obj) {
             if (obj.hasOwnProperty(key)) {
                 const value = obj[key];

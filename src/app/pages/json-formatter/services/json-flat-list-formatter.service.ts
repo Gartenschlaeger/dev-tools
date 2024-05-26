@@ -31,7 +31,10 @@ export class JsonFlatListParserService {
     }
 
     public format(json: string, sort: boolean = false): string {
-        const obj = JSON.parse(json);
+        let obj = JSON.parse(json);
+        if (typeof obj === 'string') {
+            obj = JSON.parse(obj);
+        }
 
         const result = this.convertToJsonPathValue(obj);
         if (sort) {
