@@ -2,16 +2,18 @@
 @use 'helper';
 
 $primary-hue: 600;
-$primary-palette: mat.define-palette(mat.$indigo-palette, $primary-hue, 100, 900);
-$accent-palette: mat.define-palette(mat.$blue-gray-palette, 100, A100, A400);
+$primary-palette: mat.m2-define-palette(mat.$m2-indigo-palette, $primary-hue, 100, 900);
+$accent-palette: mat.m2-define-palette(mat.$m2-blue-gray-palette, 100, A100, A400);
 
-$theme: mat.define-dark-theme((
-    color: (
-        primary: $primary-palette,
-        accent: $accent-palette
-    ),
-    density: 0
-));
+$theme: mat.m2-define-dark-theme(
+    (
+        color: (
+            primary: $primary-palette,
+            accent: $accent-palette
+        ),
+        density: 0
+    )
+);
 
 :root .dark-theme {
     @include helper.css-colors($theme, $primary-hue);
