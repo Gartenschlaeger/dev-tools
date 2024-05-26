@@ -45,7 +45,8 @@ export interface SharedModuleConfiguration {
     minLogLevel: LogLevel;
 }
 
-@NgModule({ declarations: [AlertComponent, CodeComponent, HighlightedCodeComponent, PageHeaderComponent, MatErrorsComponent],
+@NgModule({
+    declarations: [AlertComponent, CodeComponent, HighlightedCodeComponent, PageHeaderComponent, MatErrorsComponent],
     exports: [
         FormsModule,
         ReactiveFormsModule,
@@ -79,7 +80,9 @@ export interface SharedModuleConfiguration {
         MatErrorsComponent,
         MatTableModule,
         MatProgressSpinnerModule
-    ], imports: [CommonModule,
+    ],
+    imports: [
+        CommonModule,
         RouterModule,
         FormsModule,
         ReactiveFormsModule,
@@ -105,7 +108,10 @@ export interface SharedModuleConfiguration {
         MatSnackBarModule,
         MatBottomSheetModule,
         MatTableModule,
-        MatProgressSpinnerModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        MatProgressSpinnerModule
+    ],
+    providers: [provideHttpClient(withInterceptorsFromDi())]
+})
 export class SharedModule {
     static forRoot(config: SharedModuleConfiguration): ModuleWithProviders<SharedModule> {
         return {
