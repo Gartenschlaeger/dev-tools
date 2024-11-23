@@ -19,7 +19,8 @@ const InitColor: ColorRGB = { r: 128, g: 128, b: 128 };
 @Component({
     selector: 'app-color-converter',
     templateUrl: './color-picker.component.html',
-    styleUrls: ['./color-picker.component.scss']
+    styleUrls: ['./color-picker.component.scss'],
+    standalone: false
 })
 export class ColorPickerComponent implements OnInit {
     form!: UntypedFormGroup;
@@ -30,11 +31,12 @@ export class ColorPickerComponent implements OnInit {
     rgbValueDecimal: string = '';
     hslValue: string = '';
 
-    constructor(private _formBuilder: UntypedFormBuilder,
-                private _sharedDialogs: SharedDialogsService,
-                private _colorConverterService: ColorConverterService,
-                private _bottomSheet: MatBottomSheet) {
-    }
+    constructor(
+        private _formBuilder: UntypedFormBuilder,
+        private _sharedDialogs: SharedDialogsService,
+        private _colorConverterService: ColorConverterService,
+        private _bottomSheet: MatBottomSheet
+    ) {}
 
     ngOnInit() {
         this.form = this.defineForm();
@@ -258,49 +260,53 @@ export class ColorPickerComponent implements OnInit {
 
     handlePickHex() {
         const hexPattern = /^#?([0-9a-fA-F]{1,2})([0-9a-fA-F]{1,2})([0-9a-fA-F]{1,2})$/;
-        this._sharedDialogs.openInputDialog({
-            title: 'Pick hexadecimal value',
-            format: hexPattern,
-            value: this.hexValue
-        }).subscribe(result => {
-            if (result) {
-                const match = hexPattern.exec(result);
-                if (match) {
-                    const values = [];
-                    for (let i = 1; i <= 3; i++) {
-                        const v = parseInt(match[i].length == 1 ? match[i] + match[i] : match[i], 16);
-                        values.push(v);
-                    }
+        this._sharedDialogs
+            .openInputDialog({
+                title: 'Pick hexadecimal value',
+                format: hexPattern,
+                value: this.hexValue
+            })
+            .subscribe((result) => {
+                if (result) {
+                    const match = hexPattern.exec(result);
+                    if (match) {
+                        const values = [];
+                        for (let i = 1; i <= 3; i++) {
+                            const v = parseInt(match[i].length == 1 ? match[i] + match[i] : match[i], 16);
+                            values.push(v);
+                        }
 
-                    this.form.patchValue({
-                        valueRN: values[0],
-                        valueGN: values[1],
-                        valueBN: values[2]
-                    });
+                        this.form.patchValue({
+                            valueRN: values[0],
+                            valueGN: values[1],
+                            valueBN: values[2]
+                        });
+                    }
                 }
-            }
-        });
+            });
     }
 
     handlePickRgb() {
         const rgbPattern = /^(\d{1,3})\s(\d{1,3})\s(\d{1,3})$/;
-        this._sharedDialogs.openInputDialog({
-            title: 'Pick RGB value',
-            format: rgbPattern,
-            value: this.rgbValue
-        }).subscribe(result => {
-            if (result) {
-                const match = rgbPattern.exec(result);
-                if (match) {
-                    const values = match.slice(1).map(v => parseInt(v));
-                    this.form.patchValue({
-                        valueRN: Math.round(Math.min(255, values[0])),
-                        valueGN: Math.round(Math.min(255, values[1])),
-                        valueBN: Math.round(Math.min(255, values[2]))
-                    });
+        this._sharedDialogs
+            .openInputDialog({
+                title: 'Pick RGB value',
+                format: rgbPattern,
+                value: this.rgbValue
+            })
+            .subscribe((result) => {
+                if (result) {
+                    const match = rgbPattern.exec(result);
+                    if (match) {
+                        const values = match.slice(1).map((v) => parseInt(v));
+                        this.form.patchValue({
+                            valueRN: Math.round(Math.min(255, values[0])),
+                            valueGN: Math.round(Math.min(255, values[1])),
+                            valueBN: Math.round(Math.min(255, values[2]))
+                        });
+                    }
                 }
-            }
-        });
+            });
     }
 
     public handleClearPalette() {
@@ -337,7 +343,7 @@ export class ColorPickerComponent implements OnInit {
     }
 
     public handleExportPalette() {
-        const palette: ExportColorDataItem[] = this.palette.map(c => {
+        const palette: ExportColorDataItem[] = this.palette.map((c) => {
             const color = c!;
             return {
                 rgb: color,

@@ -14,7 +14,8 @@ export const FormDefaultValues = new DockerRunModel();
 
 @Component({
     selector: 'app-docker-run',
-    templateUrl: './docker-run.component.html'
+    templateUrl: './docker-run.component.html',
+    standalone: false
 })
 export class DockerRunComponent implements OnInit {
     @ViewChild('inputContainerPort') inputContainerPort!: ElementRef<HTMLInputElement>;
@@ -37,8 +38,7 @@ export class DockerRunComponent implements OnInit {
         private logger: LoggingService,
         private fb: UntypedFormBuilder,
         public formService: FormService
-    ) {
-    }
+    ) {}
 
     ngOnInit(): void {
         this.form = this.defineFormGroupScript();

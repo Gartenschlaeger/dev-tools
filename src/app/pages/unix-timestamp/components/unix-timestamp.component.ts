@@ -19,7 +19,8 @@ interface UnixTimestampConverterResultsModel {
 @Component({
     selector: 'app-unix-timestamp',
     templateUrl: './unix-timestamp.component.html',
-    styleUrls: ['./unix-timestamp.component.scss']
+    styleUrls: ['./unix-timestamp.component.scss'],
+    standalone: false
 })
 export class UnixTimestampComponent implements OnInit {
     form = new FormGroup({
@@ -52,12 +53,13 @@ export class UnixTimestampComponent implements OnInit {
 
     result?: UnixTimestampConverterResultsModel;
 
-    constructor(private _formService: FormService,
-                private _matDialog: MatDialog,
-                private _clipboard: Clipboard,
-                private _notifications: NotificationsService,
-                private _dateUtilities: DateUtilitiesService) {
-    }
+    constructor(
+        private _formService: FormService,
+        private _matDialog: MatDialog,
+        private _clipboard: Clipboard,
+        private _notifications: NotificationsService,
+        private _dateUtilities: DateUtilitiesService
+    ) {}
 
     public ngOnInit() {
         this.form.get('timestamp')?.valueChanges.subscribe(() => {
@@ -82,18 +84,21 @@ export class UnixTimestampComponent implements OnInit {
             const date = new Date();
             date.setTime(timestamp.timestamp! * 1000);
 
-            this.form.patchValue({
-                date: {
-                    year: date.getFullYear(),
-                    month: date.getMonth() + 1,
-                    day: date.getDate(),
-                    hour: date.getUTCHours(),
-                    minute: date.getUTCMinutes(),
-                    second: date.getUTCSeconds()
+            this.form.patchValue(
+                {
+                    date: {
+                        year: date.getFullYear(),
+                        month: date.getMonth() + 1,
+                        day: date.getDate(),
+                        hour: date.getUTCHours(),
+                        minute: date.getUTCMinutes(),
+                        second: date.getUTCSeconds()
+                    }
+                },
+                {
+                    emitEvent: false
                 }
-            }, {
-                emitEvent: false
-            });
+            );
 
             this.calculateResults(date);
         }
@@ -113,11 +118,14 @@ export class UnixTimestampComponent implements OnInit {
             const date = new Date();
             date.setTime(utc);
 
-            this.form.get('timestamp')?.patchValue({
-                timestamp: this._dateUtilities.convertToUnixTimestamp(date)
-            }, {
-                emitEvent: false
-            });
+            this.form.get('timestamp')?.patchValue(
+                {
+                    timestamp: this._dateUtilities.convertToUnixTimestamp(date)
+                },
+                {
+                    emitEvent: false
+                }
+            );
 
             this.calculateResults(date);
         }
@@ -128,31 +136,37 @@ export class UnixTimestampComponent implements OnInit {
             timestamp: this.form.value.timestamp?.timestamp || 0
         };
 
-        this._matDialog.open(UnixTimestampCalculatorDialogComponent, {
-            autoFocus: false,
-            data: dialogData
-        }).afterClosed().subscribe(result => {
-            if (result !== undefined) {
-                this.form.get('timestamp')!.patchValue({
-                    timestamp: result
-                });
+        this._matDialog
+            .open(UnixTimestampCalculatorDialogComponent, {
+                autoFocus: false,
+                data: dialogData
+            })
+            .afterClosed()
+            .subscribe((result) => {
+                if (result !== undefined) {
+                    this.form.get('timestamp')!.patchValue({
+                        timestamp: result
+                    });
 
-                this.timestampChanges();
-            }
-        });
+                    this.timestampChanges();
+                }
+            });
     }
 
     public handleGrabCurrentTimestamp() {
-        this._matDialog.open(CurrentTimestampDialogComponent, {
-            autoFocus: false
-        }).afterClosed().subscribe(result => {
-            if (result) {
-                this.form.get('timestamp')!.patchValue({
-                    timestamp: result
-                });
-                this.timestampChanges();
-            }
-        });
+        this._matDialog
+            .open(CurrentTimestampDialogComponent, {
+                autoFocus: false
+            })
+            .afterClosed()
+            .subscribe((result) => {
+                if (result) {
+                    this.form.get('timestamp')!.patchValue({
+                        timestamp: result
+                    });
+                    this.timestampChanges();
+                }
+            });
     }
 
     public handleCopyTimestamp() {

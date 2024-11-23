@@ -7,14 +7,14 @@ const FormDefaultValues = new GuidGeneratorModel();
 
 @Component({
     selector: 'app-guid-generator',
-    templateUrl: './guid-generator.component.html'
+    templateUrl: './guid-generator.component.html',
+    standalone: false
 })
 export class GuidGeneratorComponent implements OnInit {
     form!: UntypedFormGroup;
     guid?: string;
 
-    constructor(private fb: UntypedFormBuilder) {
-    }
+    constructor(private fb: UntypedFormBuilder) {}
 
     ngOnInit() {
         this.form = this.fb.group({

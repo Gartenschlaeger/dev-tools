@@ -9,7 +9,8 @@ export type StringHashAlgorithm = 'md5' | 'md5hmac' | 'sha1';
 
 @Component({
     selector: 'app-string-hash-generator',
-    templateUrl: './string-hash-generator.component.html'
+    templateUrl: './string-hash-generator.component.html',
+    standalone: false
 })
 export class StringHashGeneratorComponent implements OnInit {
     form!: UntypedFormGroup;

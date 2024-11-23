@@ -29,10 +29,10 @@ const LinkBuilderFormDefaults: LinkBuilderModel = {
 @Component({
     selector: 'app-link-builder',
     templateUrl: './url-builder.component.html',
-    styleUrls: ['./url-builder.component.scss']
+    styleUrls: ['./url-builder.component.scss'],
+    standalone: false
 })
 export class UrlBuilderComponent {
-
     formGroupMain: UntypedFormGroup;
     formGroupQueryString: UntypedFormGroup;
     queryStrings: UntypedFormArray;
@@ -40,7 +40,10 @@ export class UrlBuilderComponent {
 
     @ViewChild('queryStringKeyInput') queryStringKeyInput!: ElementRef<HTMLInputElement>;
 
-    constructor(private formService: FormService, private fb: UntypedFormBuilder) {
+    constructor(
+        private formService: FormService,
+        private fb: UntypedFormBuilder
+    ) {
         this.formGroupMain = this.defineMainFormGroup();
         this.formGroupMain.valueChanges.subscribe(() => {
             this.handleSubmit();
@@ -128,5 +131,4 @@ export class UrlBuilderComponent {
         this.queryStrings.clear();
         this.result = undefined;
     }
-
 }

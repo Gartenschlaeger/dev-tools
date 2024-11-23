@@ -7,13 +7,17 @@ const FormDefaults = new DecHexConverterModel();
 
 @Component({
     selector: 'app-dec-hex-converter',
-    templateUrl: './dec-hex-converter.component.html'
+    templateUrl: './dec-hex-converter.component.html',
+    standalone: false
 })
 export class DecHexConverterComponent {
     form!: UntypedFormGroup;
     result?: string;
 
-    constructor(private fb: UntypedFormBuilder, private formService: FormService) {}
+    constructor(
+        private fb: UntypedFormBuilder,
+        private formService: FormService
+    ) {}
 
     ngOnInit() {
         this.form = this.defineForm();

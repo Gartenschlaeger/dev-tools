@@ -6,7 +6,8 @@ import { ExtendedRoute, routes } from '../../app.routes';
 @Component({
     selector: 'app-navigation',
     templateUrl: './navigation.component.html',
-    styleUrls: ['./navigation.component.scss']
+    styleUrls: ['./navigation.component.scss'],
+    standalone: false
 })
 export class NavigationComponent implements OnInit {
     items: ExtendedRoute[] = [];
@@ -18,8 +19,7 @@ export class NavigationComponent implements OnInit {
 
     @Output() toggleSidenav = new EventEmitter();
 
-    constructor(private _router: Router) {
-    }
+    constructor(private _router: Router) {}
 
     ngOnInit() {
         routes.forEach((route) => {
@@ -38,7 +38,7 @@ export class NavigationComponent implements OnInit {
             this.activeRouteChanged(activeRoute);
         }
 
-        this._router.events.subscribe(event => {
+        this._router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
                 const activeRoute = this.getActiveRoute();
                 if (activeRoute) {
@@ -53,13 +53,13 @@ export class NavigationComponent implements OnInit {
     }
 
     private setSelectedItem(item: ExtendedRoute) {
-        this.items.map(item => item.selected = false);
+        this.items.map((item) => (item.selected = false));
         item.selected = true;
     }
 
     private getActiveRoute() {
         const currentUrl = this._router.url.substring(1);
-        return this.items.find(item => {
+        return this.items.find((item) => {
             return item.path === currentUrl;
         });
     }
@@ -109,7 +109,7 @@ export class NavigationComponent implements OnInit {
         if (selectedItems.length) {
             await this.handleNavigationItemClick(selectedItems[0].value);
         } else {
-            const visibleItem = this.items.find(i => i.visible);
+            const visibleItem = this.items.find((i) => i.visible);
             if (visibleItem) {
                 this.matSelectionList.focus();
             }

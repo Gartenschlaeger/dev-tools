@@ -5,13 +5,17 @@ import { NotificationsService } from '../../services/notifications.service';
 @Component({
     selector: 'app-code',
     templateUrl: './code.component.html',
-    styleUrls: ['./code.component.scss']
+    styleUrls: ['./code.component.scss'],
+    standalone: false
 })
 export class CodeComponent {
     @Input() autoSelect = false;
     @ViewChild('preElement') preElement!: ElementRef<HTMLPreElement>;
 
-    constructor(private clipboard: Clipboard, private notifications: NotificationsService) {}
+    constructor(
+        private clipboard: Clipboard,
+        private notifications: NotificationsService
+    ) {}
 
     handleCopy() {
         const text = this.preElement.nativeElement.textContent;

@@ -9,16 +9,17 @@ interface InputTextDialogModel {
 
 @Component({
     selector: 'app-text-input-dialog',
-    templateUrl: './text-input-dialog.component.html'
+    templateUrl: './text-input-dialog.component.html',
+    standalone: false
 })
 export class TextInputDialogComponent {
-
     public form: FormGroup;
 
-    constructor(private fb: FormBuilder,
-                private dialogRef: MatDialogRef<TextInputDialogComponent>,
-                @Inject(MAT_DIALOG_DATA) public options: TextInputDialogOptions) {
-
+    constructor(
+        private fb: FormBuilder,
+        private dialogRef: MatDialogRef<TextInputDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) public options: TextInputDialogOptions
+    ) {
         this.form = this.defineFormGroup();
     }
 
@@ -38,5 +39,4 @@ export class TextInputDialogComponent {
             this.dialogRef.close(model.value);
         }
     }
-
 }

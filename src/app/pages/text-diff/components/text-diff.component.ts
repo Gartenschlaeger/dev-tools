@@ -11,7 +11,8 @@ const FormDefaults = new TextDiffFormModel();
 @Component({
     selector: 'app-text-diff',
     templateUrl: './text-diff.component.html',
-    styleUrls: ['./text-diff.component.scss']
+    styleUrls: ['./text-diff.component.scss'],
+    standalone: false
 })
 export class TextDiffComponent {
     form!: UntypedFormGroup;
@@ -24,9 +25,11 @@ export class TextDiffComponent {
     filteredTableRows?: DiffTableRowResult[];
     filteredTableRowsLineByLine?: DiffTableRowResult[];
 
-    constructor(private fb: UntypedFormBuilder,
-                private formService: FormService,
-                private textDiffService: TextDiffService) {
+    constructor(
+        private fb: UntypedFormBuilder,
+        private formService: FormService,
+        private textDiffService: TextDiffService
+    ) {
         this.form = this.defineForm();
     }
 

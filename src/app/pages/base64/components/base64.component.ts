@@ -9,7 +9,8 @@ const FormDefaults = new Base64Model();
 
 @Component({
     selector: 'app-base64-encoder',
-    templateUrl: './base64.component.html'
+    templateUrl: './base64.component.html',
+    standalone: false
 })
 export class Base64Component implements OnInit {
     pageTitle!: string;

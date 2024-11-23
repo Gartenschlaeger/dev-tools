@@ -15,5 +15,4 @@ const routes: Route[] = [
     declarations: [BitCalculatorComponent],
     imports: [CommonModule, RouterModule.forChild(routes), SharedModule]
 })
-export default class BitCalculatorModule {
-}
+export default class BitCalculatorModule {}

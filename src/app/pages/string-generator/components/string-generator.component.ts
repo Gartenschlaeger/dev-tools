@@ -16,7 +16,8 @@ const FormDefaults = new StringGeneratorFormModel();
 
 @Component({
     selector: 'app-string-generator',
-    templateUrl: './string-generator.component.html'
+    templateUrl: './string-generator.component.html',
+    standalone: false
 })
 export class StringGeneratorComponent implements OnInit {
     form!: UntypedFormGroup;
@@ -31,8 +32,7 @@ export class StringGeneratorComponent implements OnInit {
         private fb: UntypedFormBuilder,
         private formService: FormService,
         private logger: LoggingService
-    ) {
-    }
+    ) {}
 
     ngOnInit() {
         this.form = this.defineForm();

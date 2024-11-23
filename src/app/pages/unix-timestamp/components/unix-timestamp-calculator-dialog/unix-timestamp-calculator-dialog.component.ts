@@ -10,7 +10,8 @@ export interface UnitTimestampCalculatorDialogData {
 @Component({
     selector: 'app-unix-timestamp-calculator-dialog',
     templateUrl: './unix-timestamp-calculator-dialog.component.html',
-    styleUrls: ['./unix-timestamp-calculator-dialog.component.scss']
+    styleUrls: ['./unix-timestamp-calculator-dialog.component.scss'],
+    standalone: false
 })
 export class UnixTimestampCalculatorDialogComponent {
     initialDate: Date;
@@ -28,10 +29,11 @@ export class UnixTimestampCalculatorDialogComponent {
         years: new FormControl<number>(0)
     });
 
-    constructor(@Inject(MAT_DIALOG_DATA) private _dialogData: UnitTimestampCalculatorDialogData,
-                private _dialogRef: MatDialogRef<UnixTimestampCalculatorDialogComponent>,
-                private _dateUtilities: DateUtilitiesService) {
-
+    constructor(
+        @Inject(MAT_DIALOG_DATA) private _dialogData: UnitTimestampCalculatorDialogData,
+        private _dialogRef: MatDialogRef<UnixTimestampCalculatorDialogComponent>,
+        private _dateUtilities: DateUtilitiesService
+    ) {
         this.initialDate = _dateUtilities.getUtcDateByTimestamp(_dialogData.timestamp);
 
         this.recalculate();

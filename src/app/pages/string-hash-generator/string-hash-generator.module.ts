@@ -15,5 +15,4 @@ const routes: Route[] = [
     declarations: [StringHashGeneratorComponent],
     imports: [CommonModule, RouterModule.forChild(routes), SharedModule]
 })
-export default class StringHashGeneratorModule {
-}
+export default class StringHashGeneratorModule {}

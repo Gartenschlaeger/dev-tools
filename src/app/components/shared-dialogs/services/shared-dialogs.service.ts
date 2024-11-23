@@ -8,14 +8,9 @@ import { TextInputDialogOptions } from '../dialogs/TextInputDialogOptions';
     providedIn: 'root'
 })
 export class SharedDialogsService {
-
-    constructor(private matDialog: MatDialog) {
-    }
+    constructor(private matDialog: MatDialog) {}
 
     public openInputDialog(options: TextInputDialogOptions): Observable<string | null | undefined> {
-        return this.matDialog
-            .open(TextInputDialogComponent, { data: options, minWidth: '520px' })
-            .afterClosed();
+        return this.matDialog.open(TextInputDialogComponent, { data: options, minWidth: '520px' }).afterClosed();
     }
-
 }

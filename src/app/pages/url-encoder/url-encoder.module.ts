@@ -15,5 +15,4 @@ const routes: Route[] = [
     declarations: [URLEncoderComponent],
     imports: [CommonModule, RouterModule.forChild(routes), SharedModule]
 })
-export default class UrlEncoderModule {
-}
+export default class UrlEncoderModule {}

@@ -9,14 +9,17 @@ const FormDefaults = new StringRandomizerFormModel();
 
 @Component({
     selector: 'app-string-randomizer',
-    templateUrl: './string-randomizer.component.html'
+    templateUrl: './string-randomizer.component.html',
+    standalone: false
 })
 export class StringRandomizerComponent implements OnInit {
     form!: UntypedFormGroup;
     result?: StringRandomizerResultModel;
 
-    constructor(private fb: UntypedFormBuilder, private formService: FormService) {
-    }
+    constructor(
+        private fb: UntypedFormBuilder,
+        private formService: FormService
+    ) {}
 
     ngOnInit() {
         this.form = this.defineForm();

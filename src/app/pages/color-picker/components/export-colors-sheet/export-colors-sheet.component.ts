@@ -4,9 +4,7 @@ import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { StringBuilder } from '../../../../modules/shared/utilities/string-builder';
 import { ColorHSL, ColorRGB } from '../../services/color-converter.service';
-import {
-    ColorPickerPlaceholderDialogComponent
-} from '../color-picker-placeholder-dialog/color-picker-placeholder-dialog.component';
+import { ColorPickerPlaceholderDialogComponent } from '../color-picker-placeholder-dialog/color-picker-placeholder-dialog.component';
 
 export interface ExportColorsData {
     palette: ExportColorDataItem[];
@@ -23,7 +21,8 @@ const defaultFormat = '$r $g $b';
 @Component({
     selector: 'app-export-colors-sheet',
     templateUrl: './export-colors-sheet.component.html',
-    styleUrls: ['./export-colors-sheet.component.scss']
+    styleUrls: ['./export-colors-sheet.component.scss'],
+    standalone: false
 })
 export class ExportColorsSheetComponent {
     output?: string;
@@ -32,8 +31,10 @@ export class ExportColorsSheetComponent {
         exportFormat: new FormControl<string>(defaultFormat)
     });
 
-    constructor(@Inject(MAT_BOTTOM_SHEET_DATA) data: ExportColorsData,
-                private _matDialog: MatDialog) {
+    constructor(
+        @Inject(MAT_BOTTOM_SHEET_DATA) data: ExportColorsData,
+        private _matDialog: MatDialog
+    ) {
         this.data = data;
         this.buildOutput();
     }

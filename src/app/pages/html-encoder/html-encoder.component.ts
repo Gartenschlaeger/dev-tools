@@ -3,7 +3,8 @@ import { FormBuilder } from '@angular/forms';
 
 @Component({
     selector: 'app-html-encoder',
-    templateUrl: './html-encoder.component.html'
+    templateUrl: './html-encoder.component.html',
+    standalone: false
 })
 export class HtmlEncoderComponent implements OnInit {
     fb = inject(FormBuilder);

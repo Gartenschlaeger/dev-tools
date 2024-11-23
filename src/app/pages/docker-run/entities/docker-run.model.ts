@@ -2,7 +2,7 @@ import { DockerRunEnvironmentVariable } from './docker-run-environment.variable'
 import { DockerRunPortMapping } from './docker-run-port.mapping';
 import { DockerRunVolumeMapping } from './docker-run-volume.mapping';
 
-export type DockerRunNetworkMode = 'none' | 'bridge' | 'host' | 'custom'
+export type DockerRunNetworkMode = 'none' | 'bridge' | 'host' | 'custom';
 
 export class DockerRunModel {
     imageName: string = '';

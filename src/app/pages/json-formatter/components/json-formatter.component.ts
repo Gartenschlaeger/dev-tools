@@ -24,7 +24,8 @@ interface JsonFormatterResultModel {
 @Component({
     selector: 'app-json-formatter',
     templateUrl: './json-formatter.component.html',
-    styleUrls: ['./json-formatter.component.scss']
+    styleUrls: ['./json-formatter.component.scss'],
+    standalone: false
 })
 export class JsonFormatterComponent implements OnInit {
     form = new FormGroup({

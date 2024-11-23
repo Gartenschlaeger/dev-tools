@@ -1,1 +1,1 @@
-export type SideDiff = 'both' | 'left' | 'right'
+export type SideDiff = 'both' | 'left' | 'right';

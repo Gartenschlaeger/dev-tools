@@ -9,10 +9,10 @@ const FormDefaults = new UrlEncoderFormModel();
 
 @Component({
     selector: 'app-url-encoder',
-    templateUrl: './url-encoder.component.html'
+    templateUrl: './url-encoder.component.html',
+    standalone: false
 })
 export class URLEncoderComponent implements OnInit {
-
     form!: UntypedFormGroup;
     isEncodeMode!: boolean;
     result?: UrlEncoderResultModel;
@@ -78,5 +78,4 @@ export class URLEncoderComponent implements OnInit {
         this.result = undefined;
         this.formService.reset(this.form, FormDefaults);
     }
-
 }

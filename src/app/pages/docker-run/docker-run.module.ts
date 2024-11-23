@@ -15,5 +15,4 @@ const routes: Route[] = [
     declarations: [DockerRunComponent],
     imports: [CommonModule, RouterModule.forChild(routes), SharedModule]
 })
-export default class DockerRunModule {
-}
+export default class DockerRunModule {}

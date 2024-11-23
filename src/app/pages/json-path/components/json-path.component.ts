@@ -9,14 +9,17 @@ const FormDefaults = new JsonPathFormModule();
 
 @Component({
     selector: 'app-json-path',
-    templateUrl: './json-path.component.html'
+    templateUrl: './json-path.component.html',
+    standalone: false
 })
 export class JsonPathComponent implements OnInit {
     form!: UntypedFormGroup;
     result: JsonPathResult | null = null;
 
-    constructor(private fb: UntypedFormBuilder, private formService: FormService) {
-    }
+    constructor(
+        private fb: UntypedFormBuilder,
+        private formService: FormService
+    ) {}
 
     ngOnInit() {
         this.form = this.defineForm();
