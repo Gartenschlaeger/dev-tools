@@ -1,7 +1,8 @@
+@use 'sass:map';
 @use '@angular/material' as mat;
 
 @mixin css-colors($theme, $primary-hue: 500) {
-    $primary-palette: map-get($theme, primary);
+    $primary-palette: map.get($theme, primary);
     --color-primary: #{mat.m2-get-contrast-color-from-palette($primary-palette, $primary-hue)};
     --color-primary-100: #{mat.m2-get-contrast-color-from-palette($primary-palette, 100)};
     --color-primary-200: #{mat.m2-get-contrast-color-from-palette($primary-palette, 200)};
@@ -23,7 +24,7 @@
     --background-primary-800: #{mat.m2-get-color-from-palette($primary-palette, 800)};
     --background-primary-900: #{mat.m2-get-color-from-palette($primary-palette, 900)};
 
-    $accent-palette: map-get($theme, accent);
+    $accent-palette: map.get($theme, accent);
     --color-accent-100: #{mat.m2-get-contrast-color-from-palette($accent-palette, 100)};
     --color-accent-200: #{mat.m2-get-contrast-color-from-palette($accent-palette, 200)};
     --color-accent-300: #{mat.m2-get-contrast-color-from-palette($accent-palette, 300)};
@@ -43,7 +44,7 @@
     --background-accent-800: #{mat.m2-get-color-from-palette($accent-palette, 800)};
     --background-accent-900: #{mat.m2-get-color-from-palette($accent-palette, 900)};
 
-    $warn-palette: map-get($theme, warn);
+    $warn-palette: map.get($theme, warn);
     --color-warn-100: #{mat.m2-get-contrast-color-from-palette($warn-palette, 100)};
     --color-warn-200: #{mat.m2-get-contrast-color-from-palette($warn-palette, 200)};
     --color-warn-300: #{mat.m2-get-contrast-color-from-palette($warn-palette, 300)};
