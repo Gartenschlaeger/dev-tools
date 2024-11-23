@@ -8,7 +8,8 @@ const UrlAnalyzerFormDefaults = new UrlAnalyzerModel();
 
 @Component({
     selector: 'app-url-analyzer-page',
-    templateUrl: './url-analyzer.component.html'
+    templateUrl: './url-analyzer.component.html',
+    standalone: false
 })
 export class UrlAnalyzerComponent implements OnInit {
     form!: UntypedFormGroup;
@@ -16,8 +17,7 @@ export class UrlAnalyzerComponent implements OnInit {
     hasError = false;
     showQueryDetails = false;
 
-    constructor(public formService: FormService) {
-    }
+    constructor(public formService: FormService) {}
 
     ngOnInit(): void {
         this.form = this.defineFormGroup();
@@ -40,7 +40,7 @@ export class UrlAnalyzerComponent implements OnInit {
                 if (!urlToParse.toLowerCase().startsWith('http')) {
                     urlToParse = 'https://' + urlToParse;
                 }
-                
+
                 const url = new URL(urlToParse);
 
                 this.result = new UrlAnalyzerResult();

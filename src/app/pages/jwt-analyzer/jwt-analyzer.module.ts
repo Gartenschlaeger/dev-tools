@@ -15,6 +15,4 @@ const routes: Route[] = [
     declarations: [JwtAnalyzerComponent],
     imports: [CommonModule, RouterModule.forChild(routes), SharedModule]
 })
-
-export default class JwtAnalyzerModule {
-}
+export default class JwtAnalyzerModule {}

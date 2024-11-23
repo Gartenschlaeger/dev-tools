@@ -1,1 +1,1 @@
-export type DiffTableFormat = 'SideBySide' | 'LineByLine'
+export type DiffTableFormat = 'SideBySide' | 'LineByLine';

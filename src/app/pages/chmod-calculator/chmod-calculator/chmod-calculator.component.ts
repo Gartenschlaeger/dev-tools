@@ -24,7 +24,8 @@ const formDefaults = {
 @Component({
     selector: 'app-chmod-calculator',
     templateUrl: './chmod-calculator.component.html',
-    styleUrls: ['./chmod-calculator.component.scss']
+    styleUrls: ['./chmod-calculator.component.scss'],
+    standalone: false
 })
 export class ChmodCalculatorComponent implements OnInit {
     form = new FormGroup({
@@ -47,7 +48,10 @@ export class ChmodCalculatorComponent implements OnInit {
 
     chmod?: string;
 
-    constructor(private _formService: FormService, private _sharedDialogs: SharedDialogsService) {}
+    constructor(
+        private _formService: FormService,
+        private _sharedDialogs: SharedDialogsService
+    ) {}
 
     public ngOnInit() {
         this.handleValueChanges();

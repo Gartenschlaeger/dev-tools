@@ -24,7 +24,8 @@ interface DnsRecordResult {
 @Component({
     selector: 'app-dns-resolver',
     templateUrl: './dns-resolver.component.html',
-    styleUrls: ['./dns-resolver.component.scss']
+    styleUrls: ['./dns-resolver.component.scss'],
+    standalone: false
 })
 export class DnsResolverComponent implements OnInit {
     form!: UntypedFormGroup;

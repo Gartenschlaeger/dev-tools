@@ -5,7 +5,8 @@ import { NotificationsService } from '../../services/notifications.service';
 @Component({
     selector: 'app-highlighted-code',
     templateUrl: './highlighted-code.component.html',
-    styleUrls: ['./highlighted-code.component.scss']
+    styleUrls: ['./highlighted-code.component.scss'],
+    standalone: false
 })
 export class HighlightedCodeComponent {
     @Input() code?: string;
@@ -13,7 +14,10 @@ export class HighlightedCodeComponent {
     @Input() language: 'json' | 'bash' | 'typescript' = 'json';
     @ViewChild('preElement') preElement!: ElementRef<HTMLPreElement>;
 
-    constructor(private _clipboard: Clipboard, private _notificationsService: NotificationsService) {}
+    constructor(
+        private _clipboard: Clipboard,
+        private _notificationsService: NotificationsService
+    ) {}
 
     public handleCopy() {
         const text = this.preElement.nativeElement.textContent;

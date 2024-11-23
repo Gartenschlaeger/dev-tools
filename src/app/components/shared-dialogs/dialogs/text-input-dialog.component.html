@@ -1,11 +1,11 @@
 <form [formGroup]="form">
-    <h2 matDialogTitle>{{options.title}}</h2>
+    <h2 matDialogTitle>{{ options.title }}</h2>
 
     <mat-dialog-content>
-        <p *ngIf="options.message">{{options.message}}</p>
+        <p *ngIf="options.message">{{ options.message }}</p>
         <mat-form-field>
-            <mat-label>{{options.label || 'Value'}}</mat-label>
-            <input matInput formControlName="value" [required]="true">
+            <mat-label>{{ options.label || 'Value' }}</mat-label>
+            <input matInput formControlName="value" [required]="true" />
             <mat-error>
                 <app-mat-errors [control]="form.get('value')!"></app-mat-errors>
             </mat-error>

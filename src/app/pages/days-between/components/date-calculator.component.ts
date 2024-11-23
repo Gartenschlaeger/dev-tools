@@ -12,10 +12,10 @@ interface FormRangeResult {
 
 @Component({
     selector: 'app-days-between',
-    templateUrl: './date-calculator.component.html'
+    templateUrl: './date-calculator.component.html',
+    standalone: false
 })
 export class DateCalculatorComponent {
-
     formDateRange = new FormGroup({
         fromDate: new FormControl<Date | undefined>(undefined, {
             validators: [Validators.required]
@@ -38,10 +38,11 @@ export class DateCalculatorComponent {
         })
     });
 
-    constructor(private _route: ActivatedRoute,
-                private _formService: FormService,
-                private _dateUtilities: DateUtilitiesService) {
-    }
+    constructor(
+        private _route: ActivatedRoute,
+        private _formService: FormService,
+        private _dateUtilities: DateUtilitiesService
+    ) {}
 
     handleDateRangeSubmit() {
         if (this._formService.validate(this.formDateRange)) {
@@ -91,15 +92,21 @@ export class DateCalculatorComponent {
 
     public handleDateAdd() {
         if (this._formService.validate(this.formDateCalculatorModify)) {
-            this.modifyDate(this.formDateCalculatorModify.value.modifyType!,
-                true, this.formDateCalculatorModify.value.modifyAmount!);
+            this.modifyDate(
+                this.formDateCalculatorModify.value.modifyType!,
+                true,
+                this.formDateCalculatorModify.value.modifyAmount!
+            );
         }
     }
 
     public handleDateRemove() {
         if (this._formService.validate(this.formDateCalculatorModify)) {
-            this.modifyDate(this.formDateCalculatorModify.value.modifyType!,
-                false, this.formDateCalculatorModify.value.modifyAmount!);
+            this.modifyDate(
+                this.formDateCalculatorModify.value.modifyType!,
+                false,
+                this.formDateCalculatorModify.value.modifyAmount!
+            );
         }
     }
 }

@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'formatLine'
+    name: 'formatLine',
+    standalone: false
 })
 export class FormatLinePipe implements PipeTransform {
     transform(line?: string, diffs?: string[]): string {
@@ -9,10 +10,6 @@ export class FormatLinePipe implements PipeTransform {
             return ' ';
         }
 
-        return line
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;');
+        return line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
 }

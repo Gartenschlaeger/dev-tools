@@ -5,21 +5,20 @@ import { DateUtilitiesService } from '../../../../modules/shared/services/DateUt
 @Component({
     selector: 'app-current-timestamp-dialog',
     templateUrl: './current-timestamp-dialog.component.html',
-    styleUrls: ['./current-timestamp-dialog.component.scss']
+    styleUrls: ['./current-timestamp-dialog.component.scss'],
+    standalone: false
 })
 export class CurrentTimestampDialogComponent implements OnInit, OnDestroy {
     currentTimestamp: number = 0;
     timerSubscription!: Subscription;
 
-    constructor(private _dateUtilities: DateUtilitiesService) {
-    }
+    constructor(private _dateUtilities: DateUtilitiesService) {}
 
     public ngOnInit() {
         this.currentTimestamp = this._dateUtilities.getUnixTimestamp();
-        this.timerSubscription = interval(1000)
-            .subscribe(() => {
-                this.currentTimestamp = this._dateUtilities.getUnixTimestamp();
-            });
+        this.timerSubscription = interval(1000).subscribe(() => {
+            this.currentTimestamp = this._dateUtilities.getUnixTimestamp();
+        });
     }
 
     public ngOnDestroy(): void {

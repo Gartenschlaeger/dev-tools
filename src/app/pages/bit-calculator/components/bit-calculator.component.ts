@@ -6,14 +6,17 @@ import { BitCalculatorResults } from '../entities/bit-calculator-results';
 
 @Component({
     selector: 'app-bit-calculator',
-    templateUrl: './bit-calculator.component.html'
+    templateUrl: './bit-calculator.component.html',
+    standalone: false
 })
 export class BitCalculatorComponent implements OnInit {
     form!: UntypedFormGroup;
     results: BitCalculatorResults | null = null;
 
-    constructor(private fb: UntypedFormBuilder, private formService: FormService) {
-    }
+    constructor(
+        private fb: UntypedFormBuilder,
+        private formService: FormService
+    ) {}
 
     ngOnInit() {
         this.defineForm();

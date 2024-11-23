@@ -16,5 +16,4 @@ const routes: Route[] = [
     declarations: [TextDiffComponent, FormatLinePipe],
     imports: [CommonModule, RouterModule.forChild(routes), SharedModule]
 })
-export default class TextDiffModule {
-}
+export default class TextDiffModule {}

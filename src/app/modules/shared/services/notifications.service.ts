@@ -5,14 +5,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     providedIn: 'root'
 })
 export class NotificationsService {
-    constructor(private snackBar: MatSnackBar) {
-    }
+    constructor(private snackBar: MatSnackBar) {}
 
     public show(message: string, duration?: number) {
-        this.snackBar.open('Copied to clipboard',
-            undefined, {
-                duration: duration || 2000,
-                horizontalPosition: 'right'
-            });
+        this.snackBar.open('Copied to clipboard', undefined, {
+            duration: duration || 2000,
+            horizontalPosition: 'right'
+        });
     }
 }

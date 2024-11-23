@@ -5,7 +5,8 @@ const MAX_DECODE_COUNTER = 100;
 
 @Component({
     selector: 'app-html-decoder',
-    templateUrl: './html-decoder.component.html'
+    templateUrl: './html-decoder.component.html',
+    standalone: false
 })
 export class HtmlDecoderComponent {
     fb = inject(FormBuilder);

@@ -15,5 +15,4 @@ const routes: Route[] = [
     declarations: [JsonPathComponent],
     imports: [CommonModule, RouterModule.forChild(routes), SharedModule]
 })
-export default class JsonPathModule {
-}
+export default class JsonPathModule {}

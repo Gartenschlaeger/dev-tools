@@ -11,10 +11,10 @@ interface JwtAnalyzerResult {
 @Component({
     selector: 'app-jwt-analyzer',
     templateUrl: './jwt-analyzer.component.html',
-    styleUrls: ['./jwt-analyzer.component.scss']
+    styleUrls: ['./jwt-analyzer.component.scss'],
+    standalone: false
 })
 export class JwtAnalyzerComponent {
-
     result?: JwtAnalyzerResult;
     errorMessage?: string;
 
@@ -24,8 +24,7 @@ export class JwtAnalyzerComponent {
         })
     });
 
-    constructor(private _formService: FormService) {
-    }
+    constructor(private _formService: FormService) {}
 
     decodeBase64(base64EncodedString: string): string {
         return atob(base64EncodedString);
@@ -69,5 +68,4 @@ export class JwtAnalyzerComponent {
         this.result = undefined;
         this.errorMessage = undefined;
     }
-
 }

@@ -15,5 +15,4 @@ const routes: Route[] = [
     declarations: [UrlAnalyzerComponent],
     imports: [CommonModule, RouterModule.forChild(routes), SharedModule]
 })
-export default class UrlAnalyzerModule {
-}
+export default class UrlAnalyzerModule {}

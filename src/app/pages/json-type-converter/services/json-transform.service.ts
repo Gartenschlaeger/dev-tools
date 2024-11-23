@@ -6,7 +6,6 @@ import { StringBuilder } from '../../../modules/shared/utilities/string-builder'
     providedIn: 'root'
 })
 export class JsonTransformService {
-
     private parseJsonToObject(json: string): object {
         let obj = JSON.parse(json);
         while (typeof obj !== 'object') {
@@ -36,5 +35,4 @@ export class JsonTransformService {
 
         return builder.build();
     }
-
 }

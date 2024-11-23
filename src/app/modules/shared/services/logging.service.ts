@@ -12,8 +12,7 @@ export enum LogLevel {
     providedIn: 'root'
 })
 export class LoggingService {
-    constructor(private minLogLevel: LogLevel) {
-    }
+    constructor(private minLogLevel: LogLevel) {}
 
     trace(message?: any, ...optionalParams: any[]) {
         this.logInternal(LogLevel.trace, message, optionalParams);

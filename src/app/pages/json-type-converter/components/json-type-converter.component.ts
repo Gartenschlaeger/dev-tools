@@ -11,10 +11,10 @@ interface ResultModel {
 @Component({
     selector: 'app-json-type-converter',
     templateUrl: './json-type-converter.component.html',
-    styleUrls: ['./json-type-converter.component.scss']
+    styleUrls: ['./json-type-converter.component.scss'],
+    standalone: false
 })
 export class JsonTypeConverterComponent {
-
     result?: ResultModel;
 
     form = new FormGroup({
@@ -23,9 +23,10 @@ export class JsonTypeConverterComponent {
         })
     });
 
-    constructor(private _formService: FormService,
-                private _jsonTransformService: JsonTransformService) {
-    }
+    constructor(
+        private _formService: FormService,
+        private _jsonTransformService: JsonTransformService
+    ) {}
 
     handleSubmit() {
         if (this._formService.validate(this.form)) {
@@ -55,5 +56,4 @@ export class JsonTypeConverterComponent {
         this._formService.reset(this.form);
         this.result = undefined;
     }
-
 }

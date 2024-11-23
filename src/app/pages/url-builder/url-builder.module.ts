@@ -4,7 +4,6 @@ import { Route, RouterModule } from '@angular/router';
 import { SharedModule } from '../../modules/shared/shared.module';
 import { UrlBuilderComponent } from './components/url-builder/url-builder.component';
 
-
 const routes: Route[] = [
     {
         path: '',
@@ -16,5 +15,4 @@ const routes: Route[] = [
     declarations: [UrlBuilderComponent],
     imports: [CommonModule, RouterModule.forChild(routes), SharedModule]
 })
-export default class UrlBuilderModule {
-}
+export default class UrlBuilderModule {}

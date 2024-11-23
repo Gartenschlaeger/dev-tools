@@ -7,14 +7,17 @@ const FormDefaults = new QrCodeGeneratorFormModel();
 
 @Component({
     selector: 'app-qr-code-generator',
-    templateUrl: './qrcode-generator.component.html'
+    templateUrl: './qrcode-generator.component.html',
+    standalone: false
 })
 export class QrCodeGeneratorComponent implements OnInit {
     form!: UntypedFormGroup;
     result?: QrCodeGeneratorFormModel;
 
-    constructor(private fb: UntypedFormBuilder, private formService: FormService) {
-    }
+    constructor(
+        private fb: UntypedFormBuilder,
+        private formService: FormService
+    ) {}
 
     ngOnInit() {
         this.form = this.defineForm();

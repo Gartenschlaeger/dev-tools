@@ -29,13 +29,17 @@ interface CidrCalculatorResults {
 @Component({
     selector: 'app-cidr-calculator',
     templateUrl: './cidr-calculator.component.html',
-    styleUrls: ['./cidr-calculator.component.scss']
+    styleUrls: ['./cidr-calculator.component.scss'],
+    standalone: false
 })
 export class CidrCalculatorComponent implements OnInit {
     form!: UntypedFormGroup;
     results?: CidrCalculatorResults;
 
-    constructor(private fb: UntypedFormBuilder, private formService: FormService) {}
+    constructor(
+        private fb: UntypedFormBuilder,
+        private formService: FormService
+    ) {}
 
     ngOnInit() {
         this.form = this.fb.group({

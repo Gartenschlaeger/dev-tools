@@ -18,12 +18,15 @@
 </form>
 
 <mat-card *ngIf="result && result.errorMessage">
-    <app-alert>{{result.errorMessage}}</app-alert>
+    <app-alert>{{ result.errorMessage }}</app-alert>
 </mat-card>
 
 <mat-card *ngIf="result && result.result">
     <mat-card-content>
-        <app-highlighted-code [autoSelect]="false" [language]="'typescript'"
-                              [code]="result.result"></app-highlighted-code>
+        <app-highlighted-code
+            [autoSelect]="false"
+            [language]="'typescript'"
+            [code]="result.result"
+        ></app-highlighted-code>
     </mat-card-content>
 </mat-card>

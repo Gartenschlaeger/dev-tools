@@ -15,5 +15,4 @@ const routes: Route[] = [
     declarations: [Base64Component],
     imports: [CommonModule, RouterModule.forChild(routes), SharedModule]
 })
-export default class Base64Module {
-}
+export default class Base64Module {}
