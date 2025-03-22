@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { NavigationBehaviorOptions, Router } from '@angular/router';
 import { FormService } from '../../../modules/shared/services/form-service.service';
 import { UrlAnalyzerModel } from '../entities/url-analyzer.model';
 import { UrlAnalyzerResult } from '../entities/url-analyzer.result';
@@ -16,8 +17,12 @@ export class UrlAnalyzerComponent implements OnInit {
     result: UrlAnalyzerResult | null = null;
     hasError = false;
     showQueryDetails = false;
+    editInUrlBuilderIsDisabled = signal(true);
 
-    constructor(public formService: FormService) {}
+    constructor(
+        public formService: FormService,
+        private router: Router
+    ) {}
 
     ngOnInit(): void {
         this.form = this.defineFormGroup();
@@ -62,9 +67,11 @@ export class UrlAnalyzerComponent implements OnInit {
                     });
                 }
 
+                this.editInUrlBuilderIsDisabled.set(false);
                 this.hasError = false;
             } catch (err) {
                 this.result = null;
+                this.editInUrlBuilderIsDisabled.set(true);
                 this.hasError = true;
             }
         }
@@ -76,6 +83,17 @@ export class UrlAnalyzerComponent implements OnInit {
 
     handleReset() {
         this.formService.reset(this.form, UrlAnalyzerFormDefaults);
+        this.editInUrlBuilderIsDisabled.set(true);
         this.result = null;
+    }
+
+    async handleEditInUrlBuilder() {
+        if (this.result) {
+            const options: NavigationBehaviorOptions = {
+                state: { url: this.form.value.url }
+            };
+
+            await this.router.navigateByUrl('/url-builder', options);
+        }
     }
 }
