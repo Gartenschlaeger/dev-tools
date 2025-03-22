@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { FormService } from '../../../../modules/shared/services/form-service.service';
 
 interface LinkBuilderQueryString {
@@ -42,7 +43,8 @@ export class UrlBuilderComponent {
 
     constructor(
         private formService: FormService,
-        private fb: UntypedFormBuilder
+        private fb: UntypedFormBuilder,
+        private router: Router
     ) {
         this.formGroupMain = this.defineMainFormGroup();
         this.formGroupMain.valueChanges.subscribe(() => {
@@ -52,6 +54,43 @@ export class UrlBuilderComponent {
         this.queryStrings = this.formGroupMain.get('queryStrings') as UntypedFormArray;
 
         this.formGroupQueryString = this.defineQueryStringFormGroup();
+
+        const currentNavigation = this.router.getCurrentNavigation();
+        if (currentNavigation && currentNavigation.extras.state) {
+            const url = currentNavigation.extras.state['url'] as string;
+            if (url) {
+                this.patchFormWithUrl(url);
+            }
+        }
+    }
+
+    private patchFormWithUrl(url: string) {
+        try {
+            console.log('patching form with url', url);
+
+            if (!url.toLowerCase().startsWith('http')) {
+                url = 'https://' + url;
+            }
+
+            const urlObj = new URL(url);
+
+            let model: LinkBuilderModel = {
+                protocol: urlObj.protocol.startsWith('https') ? 'https' : 'http',
+                domain: urlObj.hostname,
+                queryStrings: [],
+                fragment: urlObj.hash
+            };
+
+            this.formGroupMain.patchValue(model);
+
+            const urlQueries = new URLSearchParams(urlObj.search);
+            urlQueries.forEach((value, key) => {
+                const group = this.createQueryStringFormGroup(key, value);
+                this.queryStrings.push(group);
+            });
+        } catch (err) {
+            console.error('Error parsing URL', err);
+        }
     }
 
     private defineMainFormGroup() {

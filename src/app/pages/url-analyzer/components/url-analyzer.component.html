@@ -11,6 +11,15 @@
         </mat-card-content>
 
         <mat-card-actions class="action-buttons">
+            <button
+                mat-raised-button
+                color="accent"
+                type="button"
+                [disabled]="editInUrlBuilderIsDisabled()"
+                (click)="handleEditInUrlBuilder()"
+            >
+                Edit in URL Builder
+            </button>
             <button mat-raised-button color="accent" type="button" (click)="handleReset()">Reset</button>
             <button mat-raised-button color="primary" type="submit">Analyze</button>
         </mat-card-actions>
