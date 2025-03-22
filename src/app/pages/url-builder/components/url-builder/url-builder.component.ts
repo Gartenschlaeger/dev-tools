@@ -68,14 +68,14 @@ export class UrlBuilderComponent {
         try {
             console.log('patching form with url', url);
 
-            if (!url.startsWith('http')) {
+            if (!url.toLowerCase().startsWith('http')) {
                 url = 'https://' + url;
             }
 
             const urlObj = new URL(url);
 
             let model: LinkBuilderModel = {
-                protocol: urlObj.protocol.replace(':', '') as 'http' | 'https',
+                protocol: urlObj.protocol.startsWith('https') ? 'https' : 'http',
                 domain: urlObj.hostname,
                 queryStrings: [],
                 fragment: urlObj.hash

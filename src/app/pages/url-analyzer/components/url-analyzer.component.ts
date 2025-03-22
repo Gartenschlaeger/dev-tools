@@ -70,6 +70,7 @@ export class UrlAnalyzerComponent implements OnInit {
                 this.editInUrlBuilderIsDisabled.set(false);
                 this.hasError = false;
             } catch (err) {
+                console.error(err);
                 this.result = null;
                 this.editInUrlBuilderIsDisabled.set(true);
                 this.hasError = true;
