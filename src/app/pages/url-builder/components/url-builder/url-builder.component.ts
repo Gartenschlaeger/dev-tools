@@ -76,7 +76,7 @@ export class UrlBuilderComponent {
 
             let model: LinkBuilderModel = {
                 protocol: urlObj.protocol.startsWith('https') ? 'https' : 'http',
-                domain: urlObj.hostname,
+                domain: urlObj.hostname + urlObj.pathname,
                 queryStrings: [],
                 fragment: urlObj.hash
             };
