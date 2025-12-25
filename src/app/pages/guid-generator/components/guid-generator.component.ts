@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4, v7 as uuidv7 } from 'uuid';
 import { GuidGeneratorModel } from '../entities/guid-generator.model';
 
 const FormDefaultValues = new GuidGeneratorModel();
@@ -12,37 +12,56 @@ const FormDefaultValues = new GuidGeneratorModel();
 })
 export class GuidGeneratorComponent implements OnInit {
     form!: UntypedFormGroup;
-    guid?: string;
+    guids?: string[];
 
     constructor(private fb: UntypedFormBuilder) {}
 
     ngOnInit() {
         this.form = this.fb.group({
             addDashes: [FormDefaultValues.addDashes],
-            addCurlyBraces: [FormDefaultValues.addCurlyBraces]
+            addCurlyBraces: [FormDefaultValues.addCurlyBraces],
+            version: [FormDefaultValues.version],
+            count: [FormDefaultValues.count]
         });
 
-        this.form.valueChanges.subscribe(() => {
-            this.generateGuid();
-        });
-
-        this.generateGuid();
+        this.generateGuids();
     }
 
-    generateGuid() {
-        const model: GuidGeneratorModel = this.form.value;
+    generateGuid(model: GuidGeneratorModel): string {
+        let guid;
 
-        this.guid = uuidv4();
+        switch (model.version) {
+            case 'v4':
+                guid = uuidv4();
+                break;
+            case 'v7':
+                guid = uuidv7();
+                break;
+        }
 
         if (!model.addDashes) {
-            this.guid = this.guid.replace(/-/g, '');
+            guid = guid.replace(/-/g, '');
         }
         if (model.addCurlyBraces) {
-            this.guid = `{${this.guid}}`;
+            guid = `{${guid}}`;
         }
+
+        return guid;
+    }
+
+    generateGuids() {
+        let guids: string[] = [];
+
+        const model: GuidGeneratorModel = this.form.value;
+
+        for (let i = 0; i < model.count; i++) {
+            guids.push(this.generateGuid(model));
+        }
+
+        this.guids = guids;
     }
 
     handleGenerate() {
-        this.generateGuid();
+        this.generateGuids();
     }
 }
