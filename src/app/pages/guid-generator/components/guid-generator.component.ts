@@ -4,6 +4,7 @@ import { v4 as uuidv4, v7 as uuidv7 } from 'uuid';
 import { GuidGeneratorModel } from '../entities/guid-generator.model';
 
 const FormDefaultValues = new GuidGeneratorModel();
+const LocalStorageKey = 'guid-generator.form';
 
 @Component({
     selector: 'app-guid-generator',
@@ -24,7 +25,25 @@ export class GuidGeneratorComponent implements OnInit {
             count: [FormDefaultValues.count]
         });
 
+        this.form.valueChanges.subscribe(() => {
+            this.saveFormValues();
+        });
+
+        this.loadFormValues();
         this.generateGuids();
+    }
+
+    saveFormValues() {
+        const formValues = this.form.value;
+        localStorage.setItem(LocalStorageKey, JSON.stringify(formValues));
+    }
+
+    loadFormValues() {
+        const savedValues = localStorage.getItem(LocalStorageKey);
+        if (savedValues) {
+            const formValues = JSON.parse(savedValues);
+            this.form.patchValue(formValues);
+        }
     }
 
     generateGuid(model: GuidGeneratorModel): string {
