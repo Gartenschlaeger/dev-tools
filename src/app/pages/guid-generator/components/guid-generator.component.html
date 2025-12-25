@@ -1,9 +1,22 @@
 <form [formGroup]="form">
     <mat-card>
         <mat-card-content>
-            <div class="flex flex-col">
-                <mat-checkbox formControlName="addDashes">Dashes</mat-checkbox>
-                <mat-checkbox formControlName="addCurlyBraces">Curly braces</mat-checkbox>
+            <div class="flex flex-col gap-2">
+                <div class="flex flex-col">
+                    <mat-checkbox formControlName="addDashes">Dashes</mat-checkbox>
+                    <mat-checkbox formControlName="addCurlyBraces">Curly braces</mat-checkbox>
+                </div>
+                <mat-form-field>
+                    <mat-label>Version</mat-label>
+                    <mat-select formControlName="version" placeholder="Version">
+                        <mat-option value="v4">UUID v4</mat-option>
+                        <mat-option value="v7">UUID v7</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Count</mat-label>
+                    <input matInput type="number" formControlName="count" />
+                </mat-form-field>
             </div>
         </mat-card-content>
 
@@ -15,8 +28,8 @@
     </mat-card>
 </form>
 
-<mat-card *ngIf="guid">
+<mat-card *ngIf="guids">
     <mat-card-content>
-        <app-code>{{ guid }}</app-code>
+        <app-code *ngFor="let guid of guids">{{ guid }}</app-code>
     </mat-card-content>
 </mat-card>
